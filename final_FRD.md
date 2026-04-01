@@ -86,6 +86,8 @@ User must activate the account using a coupon code.
 
 ---
 
+
+
 # 5. Account Activation (Coupon System)
 
 There is no payment gateway in Version 1.
