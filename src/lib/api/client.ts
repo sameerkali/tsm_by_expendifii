@@ -2,9 +2,13 @@ import axios from 'axios';
 import { ApiError } from '@/types/api';
 
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true, // Sends cookies with requests
+  baseURL: process.env.NEXT_PUBLIC_API_URL + '/api',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
+
 
 apiClient.interceptors.response.use(
   (response) => response.data,
