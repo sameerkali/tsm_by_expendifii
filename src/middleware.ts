@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyJWT } from '@/lib/auth/jwt';
 
-const PUBLIC_PATHS = ['/login', '/activate'];
+const PUBLIC_PATHS = ['/login', '/activate', '/register'];
+
 const COOKIE_NAME = process.env.COOKIE_NAME || 'tms_session';
 
 export async function middleware(request: NextRequest) {
