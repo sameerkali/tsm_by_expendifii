@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   DARK MODE STRATEGY — Tailwind v4
+   Use @custom-variant to override the default media-query dark mode with
+   class-based dark mode (.dark on <html>). This enables JS toggling.
+───────────────────────────────────────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES
+   Colors are set here so they respond to both the .dark class AND body styles.
+───────────────────────────────────────────────────────────────────────────── */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f1f5f9;
 }
 
 @theme inline {
@@ -12,19 +28,15 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.2s ease;
 }
 
-/* Custom Scrollbar */
+/* ─────────────────────────────────────────────────────────────────────────────
+   CUSTOM SCROLLBAR
+───────────────────────────────────────────────────────────────────────────── */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -47,31 +59,48 @@ body {
   background: #94a3b8;
 }
 
-/* Selection */
+/* ─────────────────────────────────────────────────────────────────────────────
+   TEXT SELECTION
+───────────────────────────────────────────────────────────────────────────── */
 ::selection {
   background-color: rgba(16, 185, 129, 0.2);
   color: #10b981;
 }
 
-/* ── Print Styles ── */
+/* ─────────────────────────────────────────────────────────────────────────────
+   SMOOTH THEME TRANSITIONS
+   Applies a brief fade when toggling dark/light so it doesn't feel jarring.
+───────────────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Never animate transforms or opacity via this global rule */
+*:where([class*="animate-"]),
+*:where([class*="transition-"]) {
+  transition-property: initial;
+  transition-duration: initial;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PRINT STYLES
+───────────────────────────────────────────────────────────────────────────── */
 @media print {
-  /* Hide everything by default */
   body > * {
     display: none !important;
   }
 
-  /* Show only the print document layer */
   .print-document {
     display: block !important;
   }
 
-  /* Page setup for A4 */
   @page {
     size: A4 portrait;
     margin: 15mm;
   }
 
-  /* Page breaks between GR documents */
   .page-break-after {
     page-break-after: always;
   }
@@ -79,11 +108,12 @@ body {
     page-break-after: avoid;
   }
 
-  /* Base typography for print */
   body {
     font-family: Arial, Helvetica, sans-serif !important;
     color: #111 !important;
     background: #fff !important;
     font-size: 11pt;
+    /* Disable theme transitions for print */
+    transition: none !important;
   }
 }

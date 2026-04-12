@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
   LayoutDashboard, Users as UsersIcon, Files, Printer, Settings, 
-  LogOut, Menu, X, Bell, Search, User as UserIcon, ChevronRight
+  LogOut, Menu, X, Bell, Search, User as UserIcon, ChevronRight, Palette
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { label: 'GR', icon: Files, href: '/gr' },
   { label: 'Printing', icon: Printer, href: '/printing' },
   { label: 'Settings', icon: Settings, href: '/settings' },
+  { label: 'Design System', icon: Palette, href: '/design-system' },
 ];
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
