@@ -14,7 +14,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // 2. Get token from cookies
+  // 2. Get token from cookies - BYPASSED FOR UI TESTING
+  /*
   const token = request.cookies.get(COOKIE_NAME)?.value;
 
   if (!token) {
@@ -31,8 +32,13 @@ export async function middleware(request: NextRequest) {
     response.cookies.delete(COOKIE_NAME);
     return response;
   }
+  */
 
-  // 4. Handle INACTIVE status
+  return NextResponse.next();
+
+
+  // 4. Handle INACTIVE status - BYPASSED
+  /*
   if (payload.status === 'INACTIVE' && pathname !== '/activate') {
     return NextResponse.redirect(new URL('/activate', request.url));
   }
@@ -47,6 +53,10 @@ export async function middleware(request: NextRequest) {
       headers: requestHeaders,
     },
   });
+  */
+
+  return NextResponse.next();
+
 }
 
 // See "Matching Paths" below to learn more

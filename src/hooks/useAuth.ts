@@ -10,52 +10,48 @@ export function useAuth() {
   const queryClient = useQueryClient();
 
   const loginMutation = useMutation({
-    mutationFn: (data: LoginInput) => authApi.login(data),
-    onSuccess: (response) => {
-      queryClient.setQueryData(COMPANY_KEYS.profile(), response);
-      toast.success('Login successful');
-      
-      if (response.data?.accountStatus === 'INACTIVE') {
-        router.push('/activate');
-      } else {
-        router.push('/dashboard');
-      }
+    mutationFn: async (data: LoginInput) => {
+      // Bypassing real API for UI testing
+      console.log('Mock Login:', data);
+      return { data: { accountStatus: 'ACTIVE' } };
     },
-    onError: (error: any) => {
-      toast.error(error.message || 'Login failed');
+    onSuccess: () => {
+      toast.success('Login bypassed for UI testing');
+      router.push('/dashboard');
     },
   });
 
   const registerMutation = useMutation({
-    mutationFn: (data: RegisterInput) => authApi.register(data),
-    onSuccess: () => {
-      toast.success('Account created successfully');
-      router.push('/activate');
+    mutationFn: async (data: RegisterInput) => {
+      console.log('Mock Register:', data);
+      return { data: {} };
     },
-    onError: (error: any) => {
-      toast.error(error.message || 'Registration failed');
+    onSuccess: () => {
+      toast.success('Registration bypassed');
+      router.push('/activate');
     },
   });
 
   const activateMutation = useMutation({
-    mutationFn: (data: ActivateInput) => authApi.activate(data),
-    onSuccess: () => {
-      toast.success('Account activated successfully');
-      router.push('/login');
+    mutationFn: async (data: ActivateInput) => {
+      console.log('Mock Activate:', data);
+      return { data: {} };
     },
-    onError: (error: any) => {
-      toast.error(error.message || 'Activation failed');
+    onSuccess: () => {
+      toast.success('Activation bypassed');
+      router.push('/login');
     },
   });
 
   const logoutMutation = useMutation({
-    mutationFn: () => authApi.logout(),
+    mutationFn: async () => {
+      console.log('Mock Logout');
+    },
     onSuccess: () => {
-      queryClient.clear();
-      toast.success('Logged out successfully');
       router.push('/login');
     },
   });
+
 
   return {
     login: loginMutation.mutate,
