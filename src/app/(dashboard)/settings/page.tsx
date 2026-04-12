@@ -5,6 +5,7 @@ import { Building2, Phone, MapPin, Upload, Download, Trash2, LogOut, AlertTriang
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils/cn';
 import { usePreferences, type Theme, type FontSize, FONT_SIZE_MAP } from '@/providers/PreferencesProvider';
+import { Button, inputClass, Modal } from '@/components/ui';
 
 // Mock company data — wire to API later
 const COMPANY = {
@@ -223,14 +224,13 @@ export default function SettingsPage() {
             </Field>
           </div>
 
-          <button
+          <Button
             onClick={handleSave}
-            disabled={isSaving}
-            className="h-12 px-8 bg-slate-900 dark:bg-emerald-600 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-all active:scale-95 disabled:opacity-50 flex items-center gap-2"
+            loading={isSaving}
+            className="w-[180px]"
           >
-            {isSaving ? <Loader2 size={16} className="animate-spin" /> : null}
             {isSaving ? 'Saving...' : 'Save Changes'}
-          </button>
+          </Button>
         </div>
       </section>
 
@@ -247,18 +247,18 @@ export default function SettingsPage() {
                 <p className="text-sm font-black text-slate-900 dark:text-white">GR Records</p>
                 <p className="text-xs text-slate-400 mt-0.5">All goods receipts in Excel</p>
               </div>
-              <button className="flex items-center gap-2 h-10 px-4 bg-slate-900 dark:bg-slate-700 text-white rounded-xl text-xs font-bold hover:opacity-90 transition-all">
+              <Button variant="primary" className="h-10 px-4 text-xs font-bold rounded-xl h-10 px-4 bg-slate-900 dark:bg-slate-700">
                 <Download size={14} />Export
-              </button>
+              </Button>
             </div>
             <div className="p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex items-center justify-between">
               <div>
                 <p className="text-sm font-black text-slate-900 dark:text-white">Customer Records</p>
                 <p className="text-xs text-slate-400 mt-0.5">Full customer database in Excel</p>
               </div>
-              <button className="flex items-center gap-2 h-10 px-4 bg-slate-900 dark:bg-slate-700 text-white rounded-xl text-xs font-bold hover:opacity-90 transition-all">
+              <Button variant="primary" className="h-10 px-4 text-xs font-bold rounded-xl h-10 px-4 bg-slate-900 dark:bg-slate-700">
                 <Download size={14} />Export
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -275,12 +275,13 @@ export default function SettingsPage() {
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Sign out of your account</p>
               <p className="text-xs text-slate-400 mt-0.5">This will end your current session. Max 2 concurrent sessions allowed.</p>
             </div>
-            <button
+            <Button
+              variant="secondary"
               onClick={() => logout()}
-              className="h-10 px-6 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center gap-2"
+              className="h-10 px-6 rounded-xl font-bold text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-2"
             >
               <LogOut size={16} />Sign Out
-            </button>
+            </Button>
           </div>
         </div>
       </section>
@@ -300,12 +301,13 @@ export default function SettingsPage() {
                 <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Request Account Deletion</p>
                 <p className="text-xs text-slate-400 mt-0.5">Submit a deletion request. The Expendifii admin will review and approve. All data will be permanently erased.</p>
               </div>
-              <button
+              <Button
+                variant="outline"
                 onClick={() => setShowDeleteConfirm(true)}
-                className="h-10 px-6 border border-red-200 dark:border-red-700 text-red-600 dark:text-red-400 rounded-xl font-bold text-sm hover:bg-red-50 dark:hover:bg-red-900/20 transition-all flex items-center gap-2 shrink-0 ml-4"
+                className="h-10 px-6 border border-red-200 dark:border-red-700 text-red-600 dark:text-red-400 rounded-xl font-bold text-sm hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 shrink-0 ml-4"
               >
                 <Trash2 size={16} />Request Deletion
-              </button>
+              </Button>
             </div>
           ) : (
             <div className="p-6 bg-red-50 dark:bg-red-900/20 rounded-2xl border border-red-200 dark:border-red-700/50 space-y-4">
@@ -313,12 +315,12 @@ export default function SettingsPage() {
                 Are you absolutely sure? This will permanently delete all GR records, customer data, and your company account.
               </p>
               <div className="flex items-center gap-3">
-                <button className="h-10 px-6 bg-red-600 text-white rounded-xl font-bold text-sm hover:bg-red-700 transition-all">
+                <Button variant="danger" className="h-10 px-6 font-bold text-sm">
                   Yes, Submit Deletion Request
-                </button>
-                <button onClick={() => setShowDeleteConfirm(false)} className="h-10 px-4 text-sm font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
+                </Button>
+                <Button variant="ghost" onClick={() => setShowDeleteConfirm(false)} className="h-10 px-4 text-sm font-bold">
                   Cancel
-                </button>
+                </Button>
               </div>
             </div>
           )}
@@ -341,5 +343,3 @@ function Field({ label, children, required, locked, hint }: { label: string; chi
     </div>
   );
 }
-
-const inputClass = "w-full h-12 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all";

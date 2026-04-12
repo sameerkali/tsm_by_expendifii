@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
+import { Modal, Button } from '@/components/ui';
 
 const NAV_ITEMS = [
   { label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
@@ -50,41 +51,32 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-emerald-500/30 overflow-hidden">
 
       {/* ── Logout Confirmation Modal ── */}
-      {showLogoutConfirm && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
-            onClick={() => setShowLogoutConfirm(false)}
-          />
-          <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-sm bg-white dark:bg-slate-900 rounded-3xl shadow-2xl p-8 space-y-5 border border-slate-100 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-start gap-4">
-              <div className="h-11 w-11 bg-red-100 dark:bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 shrink-0">
-                <AlertTriangle size={20} />
-              </div>
-              <div>
-                <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white">Sign out?</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  You'll be logged out of your current session. Any unsaved changes may be lost.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 pt-1">
-              <button
-                onClick={() => setShowLogoutConfirm(false)}
-                className="flex-1 h-12 rounded-2xl border border-slate-200 dark:border-slate-700 font-bold text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => { setShowLogoutConfirm(false); logout(); }}
-                className="flex-1 h-12 rounded-2xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-all active:scale-95 shadow-lg shadow-red-500/20 flex items-center justify-center gap-2"
-              >
-                <LogOut size={16} />Sign Out
-              </button>
-            </div>
+      <Modal
+        isOpen={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        title="Sign out?"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setShowLogoutConfirm(false)} className="flex-1">
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={() => { setShowLogoutConfirm(false); logout(); }} className="flex-1 flex items-center justify-center gap-2">
+              <LogOut size={16} />Sign Out
+            </Button>
+          </>
+        }
+      >
+        <div className="flex items-start gap-4">
+          <div className="h-11 w-11 bg-red-100 dark:bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 shrink-0">
+            <AlertTriangle size={20} />
           </div>
-        </>
-      )}
+          <div>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              You'll be logged out of your current session. Any unsaved changes may be lost.
+            </p>
+          </div>
+        </div>
+      </Modal>
 
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
