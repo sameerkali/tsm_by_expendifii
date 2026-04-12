@@ -18,6 +18,19 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TMS by Expendifii",
   description: "Advanced Transport Management System",
+  icons: {
+    icon: '/logo.png',
+  },
+  openGraph: {
+    title: "TMS by Expendifii",
+    description: "Advanced Transport Management System",
+    images: [{
+      url: '/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'TMS Dashboard Preview',
+    }],
+  },
 };
 
 export default function RootLayout({

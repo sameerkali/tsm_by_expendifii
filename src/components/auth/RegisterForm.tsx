@@ -132,7 +132,7 @@ export function RegisterForm() {
       <div className="text-center text-sm text-slate-500">
         Already have an account?{' '}
         <Link 
-          href="/login" 
+          href="/" 
           className="font-bold text-slate-900 dark:text-emerald-400 hover:underline underline-offset-4"
         >
           Sign in here

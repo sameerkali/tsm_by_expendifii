@@ -39,7 +39,7 @@ export function useAuth() {
     },
     onSuccess: () => {
       toast.success('Activation bypassed');
-      router.push('/login');
+      router.push('/');
     },
   });
 
@@ -48,7 +48,7 @@ export function useAuth() {
       console.log('Mock Logout');
     },
     onSuccess: () => {
-      router.push('/login');
+      router.push('/');
     },
   });
 

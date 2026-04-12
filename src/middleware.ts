@@ -2,43 +2,51 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyJWT } from '@/lib/auth/jwt';
 
-const PUBLIC_PATHS = ['/login', '/activate', '/register'];
-
+const PUBLIC_PATHS = ['/activate', '/register']; // / is handled manually below
 const COOKIE_NAME = process.env.COOKIE_NAME || 'tms_session';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 1. Allow public paths without auth
+  // 1. Check existing token
+  // BYPASSED FOR UI TESTING
+  /*
+  const token = request.cookies.get(COOKIE_NAME)?.value;
+  
+  // If hitting root (login)
+  if (pathname === '/') {
+    if (token) {
+      // Validate token, if valid push to dashboard
+      const payload = await verifyJWT(token);
+      if (payload) {
+         return NextResponse.redirect(new URL('/dashboard', request.url));
+      }
+    }
+    // No token or invalid, let them see the login page
+    return NextResponse.next();
+  }
+
+  // 2. Allow public paths without auth
   if (PUBLIC_PATHS.some((path) => pathname.startsWith(path))) {
     return NextResponse.next();
   }
 
-  // 2. Get token from cookies - BYPASSED FOR UI TESTING
-  /*
-  const token = request.cookies.get(COOKIE_NAME)?.value;
-
   if (!token) {
-    const loginUrl = new URL('/login', request.url);
+    const loginUrl = new URL('/', request.url);
     return NextResponse.redirect(loginUrl);
   }
 
-  // 3. Verify JWT
+  // 3. Verify JWT for protected routes
   const payload = await verifyJWT(token);
 
   if (!payload) {
     // Invalid token, clear cookie and redirect to login
-    const response = NextResponse.redirect(new URL('/login', request.url));
+    const response = NextResponse.redirect(new URL('/', request.url));
     response.cookies.delete(COOKIE_NAME);
     return response;
   }
-  */
 
-  return NextResponse.next();
-
-
-  // 4. Handle INACTIVE status - BYPASSED
-  /*
+  // 4. Handle INACTIVE status
   if (payload.status === 'INACTIVE' && pathname !== '/activate') {
     return NextResponse.redirect(new URL('/activate', request.url));
   }
@@ -56,7 +64,6 @@ export async function middleware(request: NextRequest) {
   */
 
   return NextResponse.next();
-
 }
 
 // See "Matching Paths" below to learn more
