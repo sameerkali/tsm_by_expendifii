@@ -24,25 +24,10 @@ export const authApi = {
 
   /**
    * Activates account using coupon code.
-   * Reads the activation token from sessionStorage and sends as Authorization: Bearer.
-   * Token is cleared from sessionStorage after this call regardless of outcome.
    */
   activate: async (data: ActivateInput): Promise<ApiResponse<{ accountStatus: string; startDate: string; endDate: string; durationDays: number }>> => {
-    const token = typeof window !== 'undefined'
-      ? sessionStorage.getItem('_activation_token')
-      : null;
-
-    // LOG: What token do we have going into activate?
-    console.group('[AUTH] Activate Request');
-    console.log('Token in sessionStorage (_activation_token):', token);
-    console.log('Token length:', token?.length ?? 0);
-    console.log('Will send Authorization header:', !!token);
-    console.log('Coupon code being sent:', data.couponCode);
-    console.groupEnd();
-
-    const response = await apiClient.post('/auth/activate', data, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
+    // Relying on httpOnly cookie being forwarded by the proxy.
+    const response = await apiClient.post('/auth/activate', data);
 
     // LOG: Activate response
     console.group('[AUTH] Activate Response');

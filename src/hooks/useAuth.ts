@@ -23,7 +23,7 @@ export function useAuth() {
 
   const loginMutation = useMutation({
     mutationFn: (data: LoginInput) => authApi.login(data),
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       const accountStatus = res.data?.accountStatus;
 
       // Refetch profile so useSession picks up the authenticated user
@@ -33,6 +33,16 @@ export function useAuth() {
         toast.info('Account is inactive. Enter your coupon code to activate.');
         router.push('/activate');
       } else {
+        // Fetch profile explicitly and cache in localStorage as requested
+        try {
+          const profile = await authApi.getProfile();
+          if (profile.data && typeof window !== 'undefined') {
+            localStorage.setItem('profile', JSON.stringify(profile.data));
+          }
+        } catch (e) {
+          console.error('[useAuth] Failed to fetch profile after login', e);
+        }
+        
         toast.success('Welcome back!');
         router.push('/dashboard');
       }
@@ -53,20 +63,7 @@ export function useAuth() {
       console.log('(res as any).token (top-level?):', (res as any)?.token);
       console.groupEnd();
 
-      // Store the token for the cross-origin activate call.
-      // Check both res.data.token and res.token (top-level) since backend shape is unclear.
-      const token = (res?.data as any)?.token ?? (res as any)?.token ?? null;
-
-      console.log('[useAuth] Token extracted from register response:', token ? `${token.substring(0, 20)}...` : 'NULL — token not found in response');
-
-      if (token && typeof window !== 'undefined') {
-        sessionStorage.setItem('_activation_token', token);
-        console.log('[useAuth] Token saved to sessionStorage ✅');
-        console.log('[useAuth] sessionStorage verify:', sessionStorage.getItem('_activation_token')?.substring(0, 20) + '...');
-      } else {
-        console.warn('[useAuth] ⚠️ No token found in register response — activate will fail auth');
-        console.warn('[useAuth] Check [AUTH] Register Response log above to find the correct token field');
-      }
+      console.groupEnd();
 
       toast.success(res.message || 'Account created! Activate with your coupon code.');
       router.push('/activate');
@@ -79,21 +76,27 @@ export function useAuth() {
 
   const activateMutation = useMutation({
     mutationFn: (data: ActivateInput) => authApi.activate(data),
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       console.group('[useAuth] Activate onSuccess');
       console.log('Response:', JSON.stringify(res, null, 2));
       console.groupEnd();
 
-      // Token served its purpose — remove it immediately.
-      if (typeof window !== 'undefined') {
-        sessionStorage.removeItem('_activation_token');
-        console.log('[useAuth] Activation token cleared from sessionStorage ✅');
-      }
       const durationDays = res.data?.durationDays;
       const msg = durationDays
         ? `Account activated! Valid for ${durationDays} days.`
         : 'Account activated successfully!';
       toast.success(msg);
+      
+      // Fetch profile explicitly and cache in localStorage as requested
+      try {
+        const profile = await authApi.getProfile();
+        if (profile.data && typeof window !== 'undefined') {
+          localStorage.setItem('profile', JSON.stringify(profile.data));
+        }
+      } catch (e) {
+        console.error('[useAuth] Failed to fetch profile after activation', e);
+      }
+
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
       router.push('/dashboard');
     },
@@ -102,11 +105,6 @@ export function useAuth() {
       console.error('Error:', error);
       console.groupEnd();
 
-      // Always clear the temp token, even on failure (wrong coupon, expired, etc.)
-      if (typeof window !== 'undefined') {
-        sessionStorage.removeItem('_activation_token');
-        console.log('[useAuth] Activation token cleared from sessionStorage after error');
-      }
       toast.error(extractMessage(error, 'Invalid or expired coupon code. Please try again.'));
     },
   });
