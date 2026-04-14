@@ -13,6 +13,25 @@ export interface AuthResponse {
   accountStatus: AccountStatus;
 }
 
+/** Shape of the /auth/profile response data field */
+export interface ProfileUser extends User {
+  phone?: string;
+  isActive: boolean;
+  accountStatus: AccountStatus;
+  createdAt: string;
+}
+
+export interface Coupon {
+  code: string;
+  endDate: string;
+  durationDays: number;
+}
+
+export interface ProfileData {
+  user: ProfileUser;
+  coupon: Coupon | null;
+}
+
 export interface SessionPayload {
   companyId: string;
   userId: string;

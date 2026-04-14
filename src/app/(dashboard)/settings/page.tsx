@@ -1,21 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Building2, Phone, MapPin, Upload, Download, Trash2, LogOut, AlertTriangle, Loader2, Lock, Sun, Moon, Monitor, Type } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  Building2, Phone, Upload, Download, Trash2, LogOut,
+  AlertTriangle, Loader2, Lock, Sun, Moon, Monitor, Type, Mail, User,
+} from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useSession } from '@/hooks/useSession';
 import { cn } from '@/lib/utils/cn';
 import { usePreferences, type Theme, type FontSize, FONT_SIZE_MAP } from '@/providers/PreferencesProvider';
 import { Button, inputClass, Modal } from '@/components/ui';
-
-// Mock company data — wire to API later
-const COMPANY = {
-  name: 'Expendifii Transport Ltd.',
-  email: 'admin@expendifii.com',
-  gstin: '27AAIEX1234B1ZX',
-  phone: '+91 98765 43210',
-  address: '404, Terminal Tower, Andheri East, Mumbai, MH 400069',
-  logoUrl: '',
-};
 
 const THEME_OPTIONS: { value: Theme; label: string; icon: React.ReactNode; desc: string }[] = [
   { value: 'light', label: 'Light', icon: <Sun size={20} />, desc: 'Always use light mode' },
@@ -31,19 +25,36 @@ const FONT_OPTIONS: { value: FontSize; label: string; size: string }[] = [
 ];
 
 export default function SettingsPage() {
-  const { logout } = useAuth();
+  const { logout, updateProfile, isUpdatingProfile, isLoggingOut } = useAuth();
+  const { user, isLoading: isLoadingProfile } = useSession();
   const { theme, setTheme, fontSize, setFontSize } = usePreferences();
-  const [form, setForm] = useState({ name: COMPANY.name, phone: COMPANY.phone, address: COMPANY.address });
-  const [isSaving, setIsSaving] = useState(false);
+
+  const [form, setForm] = useState({ name: '', phone: '', companyName: '' });
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const set = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
-  };
+  // Populate form once profile loads
+  useEffect(() => {
+    if (user) {
+      setForm({
+        name: user.name ?? '',
+        phone: user.phone ?? '',
+        companyName: user.companyName ?? '',
+      });
+    }
+  }, [user]);
+
+  const set =
+    (field: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
   const handleSave = () => {
-    setIsSaving(true);
-    setTimeout(() => setIsSaving(false), 800);
+    updateProfile({
+      name: form.name.trim() || undefined,
+      phone: form.phone.trim() || undefined,
+      companyName: form.companyName.trim() || undefined,
+    });
   };
 
   return (
@@ -74,45 +85,40 @@ export default function SettingsPage() {
                   key={opt.value}
                   onClick={() => setTheme(opt.value)}
                   className={cn(
-                    "relative flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all hover:scale-[1.02] active:scale-[0.98]",
+                    'relative flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all hover:scale-[1.02] active:scale-[0.98]',
                     theme === opt.value
-                      ? "border-emerald-500 bg-emerald-500/5 dark:bg-emerald-500/10"
-                      : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-white dark:bg-slate-800/30"
+                      ? 'border-emerald-500 bg-emerald-500/5 dark:bg-emerald-500/10'
+                      : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-white dark:bg-slate-800/30',
                   )}
                 >
-                  {/* Theme Preview */}
-                  <div className={cn(
-                    "h-16 w-full rounded-xl overflow-hidden border flex items-center justify-center relative",
-                    opt.value === 'dark' ? "bg-slate-900 border-slate-700" :
-                    opt.value === 'light' ? "bg-white border-slate-200" :
-                    "bg-gradient-to-r from-white to-slate-900 border-slate-300"
-                  )}>
-                    <div className={cn("text-2xl", opt.value === 'dark' ? "text-white" : opt.value === 'light' ? "text-slate-900" : "")}>
+                  <div
+                    className={cn(
+                      'h-16 w-full rounded-xl overflow-hidden border flex items-center justify-center relative',
+                      opt.value === 'dark'
+                        ? 'bg-slate-900 border-slate-700'
+                        : opt.value === 'light'
+                          ? 'bg-white border-slate-200'
+                          : 'bg-gradient-to-r from-white to-slate-900 border-slate-300',
+                    )}
+                  >
+                    <div className={cn('text-2xl', opt.value === 'dark' ? 'text-white' : opt.value === 'light' ? 'text-slate-900' : '')}>
                       {opt.icon}
                     </div>
-                    {/* Mini sidebar strip */}
-                    <div className={cn(
-                      "absolute left-0 top-0 bottom-0 w-4",
-                      opt.value === 'dark' ? "bg-slate-800" : opt.value === 'light' ? "bg-slate-100" : "bg-slate-700"
-                    )} />
-                    <div className={cn(
-                      "absolute top-2 left-6 h-1 w-8 rounded-full",
-                      opt.value === 'dark' ? "bg-slate-700" : "bg-slate-200"
-                    )} />
-                    <div className={cn(
-                      "absolute top-5 left-6 h-1 w-6 rounded-full",
-                      opt.value === 'dark' ? "bg-emerald-500/40" : "bg-emerald-500/30"
-                    )} />
+                    <div className={cn('absolute left-0 top-0 bottom-0 w-4', opt.value === 'dark' ? 'bg-slate-800' : opt.value === 'light' ? 'bg-slate-100' : 'bg-slate-700')} />
+                    <div className={cn('absolute top-2 left-6 h-1 w-8 rounded-full', opt.value === 'dark' ? 'bg-slate-700' : 'bg-slate-200')} />
+                    <div className={cn('absolute top-5 left-6 h-1 w-6 rounded-full', opt.value === 'dark' ? 'bg-emerald-500/40' : 'bg-emerald-500/30')} />
                   </div>
                   <div className="text-center">
-                    <p className={cn("text-sm font-black tracking-tight", theme === opt.value ? "text-emerald-600 dark:text-emerald-400" : "text-slate-700 dark:text-slate-300")}>
+                    <p className={cn('text-sm font-black tracking-tight', theme === opt.value ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300')}>
                       {opt.label}
                     </p>
                     <p className="text-[10px] text-slate-400 mt-0.5">{opt.desc}</p>
                   </div>
                   {theme === opt.value && (
                     <div className="absolute top-3 right-3 h-5 w-5 bg-emerald-500 rounded-full flex items-center justify-center">
-                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                        <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </div>
                   )}
                 </button>
@@ -132,25 +138,29 @@ export default function SettingsPage() {
                   key={opt.value}
                   onClick={() => setFontSize(opt.value)}
                   className={cn(
-                    "relative flex flex-col items-center gap-2 py-5 px-3 rounded-2xl border-2 transition-all hover:scale-[1.02] active:scale-[0.98]",
+                    'relative flex flex-col items-center gap-2 py-5 px-3 rounded-2xl border-2 transition-all hover:scale-[1.02] active:scale-[0.98]',
                     fontSize === opt.value
-                      ? "border-emerald-500 bg-emerald-500/5 dark:bg-emerald-500/10"
-                      : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-white dark:bg-slate-800/30"
+                      ? 'border-emerald-500 bg-emerald-500/5 dark:bg-emerald-500/10'
+                      : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-white dark:bg-slate-800/30',
                   )}
                 >
-                  <span className={cn(
-                    "font-black text-slate-900 dark:text-white leading-none",
-                    opt.value === 'sm' ? "text-sm" :
-                    opt.value === 'md' ? "text-base" :
-                    opt.value === 'lg' ? "text-lg" : "text-xl"
-                  )}>Aa</span>
-                  <p className={cn("text-[10px] font-black uppercase tracking-widest", fontSize === opt.value ? "text-emerald-500" : "text-slate-400")}>
+                  <span
+                    className={cn(
+                      'font-black text-slate-900 dark:text-white leading-none',
+                      opt.value === 'sm' ? 'text-sm' : opt.value === 'md' ? 'text-base' : opt.value === 'lg' ? 'text-lg' : 'text-xl',
+                    )}
+                  >
+                    Aa
+                  </span>
+                  <p className={cn('text-[10px] font-black uppercase tracking-widest', fontSize === opt.value ? 'text-emerald-500' : 'text-slate-400')}>
                     {opt.label}
                   </p>
                   <p className="text-[9px] text-slate-400 font-mono">{opt.size}</p>
                   {fontSize === opt.value && (
                     <div className="absolute top-2 right-2 h-4 w-4 bg-emerald-500 rounded-full flex items-center justify-center">
-                      <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L2.8 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                      <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+                        <path d="M1 3L2.8 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </div>
                   )}
                 </button>
@@ -175,61 +185,93 @@ export default function SettingsPage() {
       <section className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] overflow-hidden">
         <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800/60">
           <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">Company Profile</h2>
-          <p className="text-xs text-slate-400 mt-1 font-medium">Update your company information. GSTIN and Email are locked.</p>
+          <p className="text-xs text-slate-400 mt-1 font-medium">Update your name, phone, and company. Email is locked.</p>
         </div>
 
         <div className="p-8 space-y-6">
-          {/* Logo Upload */}
+          {/* Logo placeholder */}
           <div className="flex items-center gap-6">
             <div className="h-20 w-20 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 text-slate-400 shrink-0">
-              {COMPANY.logoUrl ? (
-                <img src={COMPANY.logoUrl} alt="logo" className="h-full w-full object-contain rounded-2xl" />
-              ) : (
-                <Building2 size={32} />
-              )}
+              <Building2 size={32} />
             </div>
             <div className="space-y-2">
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Company Logo</p>
               <button className="flex items-center gap-2 h-9 px-4 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all">
-                <Upload size={14} />Upload Logo
+                <Upload size={14} />
+                Upload Logo
               </button>
               <p className="text-[10px] text-slate-400">PNG or JPG. Max 2MB. Appears on printed GR documents.</p>
             </div>
           </div>
 
-          {/* Form Fields */}
-          <div className="space-y-4">
-            <Field label="Company Name" required>
-              <input value={form.name} onChange={set('name')} placeholder="Your company name" className={inputClass} />
-            </Field>
-            <div className="grid grid-cols-2 gap-4">
-              <Field label="GSTIN" locked hint="Cannot be changed">
-                <input value={COMPANY.gstin} readOnly className={inputClass + " opacity-50 cursor-not-allowed"} />
-              </Field>
-              <Field label="Email Address" locked hint="Cannot be changed">
-                <input value={COMPANY.email} readOnly className={inputClass + " opacity-50 cursor-not-allowed"} />
-              </Field>
+          {/* Loading skeleton */}
+          {isLoadingProfile ? (
+            <div className="space-y-4 animate-pulse">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-12 bg-slate-100 dark:bg-slate-800 rounded-xl" />
+              ))}
             </div>
-            <Field label="Phone Number">
-              <div className="relative">
-                <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input type="tel" value={form.phone} onChange={set('phone')} placeholder="+91 XXXXX XXXXX" className={inputClass + " pl-10"} />
+          ) : (
+            <div className="space-y-4">
+              <Field label="Full Name" required>
+                <div className="relative">
+                  <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    value={form.name}
+                    onChange={set('name')}
+                    placeholder="Your full name"
+                    className={inputClass + ' pl-10'}
+                  />
+                </div>
+              </Field>
+
+              <Field label="Email Address" locked hint="Cannot be changed">
+                <div className="relative">
+                  <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    value={user?.email ?? ''}
+                    readOnly
+                    className={inputClass + ' pl-10 opacity-50 cursor-not-allowed'}
+                  />
+                </div>
+              </Field>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Field label="Phone Number">
+                  <div className="relative">
+                    <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="tel"
+                      value={form.phone}
+                      onChange={set('phone')}
+                      placeholder="+91 XXXXX XXXXX"
+                      className={inputClass + ' pl-10'}
+                    />
+                  </div>
+                </Field>
+
+                <Field label="Company Name">
+                  <div className="relative">
+                    <Building2 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      value={form.companyName}
+                      onChange={set('companyName')}
+                      placeholder="Your company name"
+                      className={inputClass + ' pl-10'}
+                    />
+                  </div>
+                </Field>
               </div>
-            </Field>
-            <Field label="Company Address">
-              <div className="relative">
-                <MapPin size={16} className="absolute left-4 top-4 text-slate-400" />
-                <textarea value={form.address} onChange={set('address')} placeholder="Full company address..." rows={3} className={inputClass + " pl-10 py-3 h-auto resize-none"} />
-              </div>
-            </Field>
-          </div>
+            </div>
+          )}
 
           <Button
             onClick={handleSave}
-            loading={isSaving}
+            loading={isUpdatingProfile}
+            disabled={isLoadingProfile || isUpdatingProfile}
             className="w-[180px]"
           >
-            {isSaving ? 'Saving...' : 'Save Changes'}
+            {isUpdatingProfile ? 'Saving...' : 'Save Changes'}
           </Button>
         </div>
       </section>
@@ -247,7 +289,7 @@ export default function SettingsPage() {
                 <p className="text-sm font-black text-slate-900 dark:text-white">GR Records</p>
                 <p className="text-xs text-slate-400 mt-0.5">All goods receipts in Excel</p>
               </div>
-              <Button variant="primary" className="h-10 px-4 text-xs font-bold rounded-xl h-10 px-4 bg-slate-900 dark:bg-slate-700">
+              <Button variant="primary" className="h-10 px-4 text-xs font-bold rounded-xl bg-slate-900 dark:bg-slate-700">
                 <Download size={14} />Export
               </Button>
             </div>
@@ -256,7 +298,7 @@ export default function SettingsPage() {
                 <p className="text-sm font-black text-slate-900 dark:text-white">Customer Records</p>
                 <p className="text-xs text-slate-400 mt-0.5">Full customer database in Excel</p>
               </div>
-              <Button variant="primary" className="h-10 px-4 text-xs font-bold rounded-xl h-10 px-4 bg-slate-900 dark:bg-slate-700">
+              <Button variant="primary" className="h-10 px-4 text-xs font-bold rounded-xl bg-slate-900 dark:bg-slate-700">
                 <Download size={14} />Export
               </Button>
             </div>
@@ -264,7 +306,7 @@ export default function SettingsPage() {
         </div>
       </section>
 
-      {/* ─── SECTION: Logout ─── */}
+      {/* ─── SECTION: Session ─── */}
       <section className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] overflow-hidden">
         <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800/60">
           <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">Session</h2>
@@ -273,14 +315,16 @@ export default function SettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Sign out of your account</p>
-              <p className="text-xs text-slate-400 mt-0.5">This will end your current session. Max 2 concurrent sessions allowed.</p>
+              <p className="text-xs text-slate-400 mt-0.5">This will end your current session.</p>
             </div>
             <Button
               variant="secondary"
               onClick={() => logout()}
+              disabled={isLoggingOut}
               className="h-10 px-6 rounded-xl font-bold text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-2"
             >
-              <LogOut size={16} />Sign Out
+              {isLoggingOut ? <Loader2 size={16} className="animate-spin" /> : <LogOut size={16} />}
+              Sign Out
             </Button>
           </div>
         </div>
@@ -299,7 +343,9 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Request Account Deletion</p>
-                <p className="text-xs text-slate-400 mt-0.5">Submit a deletion request. The Expendifii admin will review and approve. All data will be permanently erased.</p>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Submit a deletion request. The Expendifii admin will review and approve. All data will be permanently erased.
+                </p>
               </div>
               <Button
                 variant="outline"
@@ -330,7 +376,19 @@ export default function SettingsPage() {
   );
 }
 
-function Field({ label, children, required, locked, hint }: { label: string; children: React.ReactNode; required?: boolean; locked?: boolean; hint?: string }) {
+function Field({
+  label,
+  children,
+  required,
+  locked,
+  hint,
+}: {
+  label: string;
+  children: React.ReactNode;
+  required?: boolean;
+  locked?: boolean;
+  hint?: string;
+}) {
   return (
     <div className="space-y-1.5">
       <label className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
