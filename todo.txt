@@ -1,0 +1,6 @@
+addons :
+add show pass in login signup 
+add forgot password 
+
+admin can change the user password 
+after creating the user admin cannot see it immidiately 
