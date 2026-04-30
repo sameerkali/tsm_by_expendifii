@@ -23,10 +23,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Since we are now communicating directly with the backend (railway) from the browser,
-  // cookies are set on the railway domain and Next.js middleware cannot see them.
-  // We disable the middleware token check and rely on client-side protection.
-  
+  // All other routes require a token — redirect to login if missing
+  if (!token) {
+    const loginUrl = new URL('/', request.url);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Token present: let the request through.
+  // JWT validity + account status are enforced by the backend on every API call.
+  // The axios 401 interceptor in client.ts handles expired tokens globally.
   return NextResponse.next();
 }
 
