@@ -2,9 +2,8 @@ import axios from 'axios';
 import { ApiError } from '@/types/api';
 
 const apiClient = axios.create({
-  // Route all requests through the Next.js proxy (/api/proxy/* → Railway).
-  // This makes every request same-origin so httpOnly cookies work correctly.
-  baseURL: '/api/proxy',
+  // Direct connection to the backend
+  baseURL: 'https://tsmbackend-production-f675.up.railway.app/api',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -14,7 +13,7 @@ const apiClient = axios.create({
 
 // Auth endpoints that intentionally return 4xx — must NEVER trigger a redirect.
 // A 401 here means wrong password; a 409 means duplicate email, etc.
-const AUTH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/activate'];
+const AUTH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/activate', '/auth/profile'];
 
 apiClient.interceptors.response.use(
   (response) => response.data,

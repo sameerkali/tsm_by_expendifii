@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, type LoginInput } from '@/lib/validations/auth.schema';
 import { useAuth } from '@/hooks/useAuth';
-import { Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 
 export function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const { login, isLoggingIn } = useAuth();
   const {
     register,
@@ -55,10 +57,17 @@ export function LoginForm() {
             </div>
             <input
               {...register('password')}
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Password"
-              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-500 transition-colors"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
             {errors.password && (
               <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>
             )}

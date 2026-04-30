@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
+import { useSession } from '@/hooks/useSession';
 import { Modal, Button } from '@/components/ui';
 
 const NAV_ITEMS = [
@@ -27,6 +28,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const pathname = usePathname();
   const { logout } = useAuth();
+  const { isAuthenticated, isLoading } = useSession();
+
+  // Protect dashboard routes
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
+  }, [isLoading, isAuthenticated]);
 
   // Close mobile sidebar on route change
   useEffect(() => {
@@ -46,6 +55,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }, []);
 
   const showLabel = isMobileOpen || isDesktopExpanded;
+
+  if (isLoading || !isAuthenticated) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <Loader2 size={32} className="animate-spin text-emerald-500" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-emerald-500/30 overflow-hidden">

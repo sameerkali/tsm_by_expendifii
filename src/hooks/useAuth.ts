@@ -124,12 +124,18 @@ export function useAuth() {
   const logoutMutation = useMutation({
     mutationFn: () => authApi.logout(),
     onSuccess: () => {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('profile');
+      }
       queryClient.clear();
       router.push('/');
     },
     onError: () => {
       // Even if the logout API fails, clear local state and send user to login.
       // Never leave the user stuck on a "logging out" screen.
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('profile');
+      }
       queryClient.clear();
       router.push('/');
     },

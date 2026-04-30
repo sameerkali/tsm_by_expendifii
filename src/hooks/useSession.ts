@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import authApi from '@/lib/api/auth.api';
 import { COMPANY_KEYS } from '@/config/query-keys';
-import { ProfileUser, Coupon } from '@/types/session';
+import { User, Coupon } from '@/types/session';
 
 export function useSession() {
   const { data, isLoading, error, refetch } = useQuery({
@@ -11,10 +11,13 @@ export function useSession() {
     retry: false,
   });
 
-  // The profile API returns: { success, data: { user: {...}, coupon: {...} } }
+  // The profile API returns: { success: true, data: { ...userFields } }
   const profileData = data?.data;
-  const user: ProfileUser | undefined = profileData?.user;
-  const coupon: Coupon | null = profileData?.coupon ?? null;
+  const user: User | undefined = profileData as User | undefined;
+  
+  // Find the active coupon if it exists
+  const activeCoupons = user?.coupons?.filter(c => c.isActive && !c.isExpired) || [];
+  const coupon: Coupon | null = activeCoupons.length > 0 ? activeCoupons[0] : null;
 
   const isAuthenticated = !!user;
   const isActive = user?.accountStatus === 'ACTIVE';
