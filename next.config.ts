@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async rewrites() {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://tsmbackend-production-f675.up.railway.app';
     return [
       {
         // All /api/proxy/* requests are forwarded to the Railway backend.
