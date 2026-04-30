@@ -53,7 +53,6 @@ export default function SettingsPage() {
     updateProfile({
       name: form.name.trim() || undefined,
       phone: form.phone.trim() || undefined,
-      companyName: form.companyName.trim() || undefined,
     });
   };
 

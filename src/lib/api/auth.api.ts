@@ -72,7 +72,7 @@ export const authApi = {
   /**
    * Updates user profile fields.
    */
-  updateProfile: async (data: Partial<Pick<RegisterInput, 'name' | 'phone' | 'companyName'>>): Promise<ApiResponse<User>> => {
+  updateProfile: async (data: Partial<Pick<User, 'name' | 'phone'>>): Promise<ApiResponse<User>> => {
     console.log('[AUTH] UpdateProfile called with:', data);
     return apiClient.put('/auth/profile', data) as any;
   },

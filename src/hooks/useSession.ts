@@ -16,8 +16,8 @@ export function useSession() {
   const user: User | undefined = profileData as User | undefined;
   
   // Find the active coupon if it exists
-  const activeCoupons = user?.coupons?.filter(c => c.isActive && !c.isExpired) || [];
-  const coupon: Coupon | null = activeCoupons.length > 0 ? activeCoupons[0] : null;
+  const coupon: Coupon | null =
+  user?.coupons?.find(c => c.isActive && !c.isExpired) ?? null;
 
   const isAuthenticated = !!user;
   const isActive = user?.accountStatus === 'ACTIVE';
