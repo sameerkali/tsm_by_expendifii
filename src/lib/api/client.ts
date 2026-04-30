@@ -25,7 +25,8 @@ apiClient.interceptors.response.use(
     // Auth endpoints must surface their errors back to the form.
     if (error.response?.status === 401 && !isAuthEndpoint) {
       if (typeof window !== 'undefined') {
-        window.location.href = '/';
+        console.warn('API returned 401 Unauthorized for', requestUrl);
+        // window.location.href = '/'; // Disabled to prevent hard refresh while debugging
       }
     }
 

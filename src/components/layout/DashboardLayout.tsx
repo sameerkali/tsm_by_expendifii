@@ -6,7 +6,8 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Users as UsersIcon, Files, Printer, Settings,
   LogOut, Menu, X, Bell, Search, User as UserIcon, ChevronRight,
-  Palette, AlertTriangle
+  Palette, AlertTriangle,
+  Loader2
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
@@ -33,7 +34,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   // Protect dashboard routes
   useEffect(() => {
     if (!isLoading && !isAuthenticated && typeof window !== 'undefined') {
-      window.location.href = '/';
+      console.warn('User is not authenticated. Redirect disabled for debugging.');
+      // window.location.href = '/';
     }
   }, [isLoading, isAuthenticated]);
 
