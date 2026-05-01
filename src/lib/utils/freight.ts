@@ -1,24 +1,14 @@
 import { PricingType } from '@/types/gr';
 
 export function calculateFreight(
-  pricingType: PricingType,
+  pricingType: PricingType | string,
   rate: number,
   weight?: number,
-  boxCount?: number
+  boxCount?: number,
 ): number {
-  if (pricingType === PricingType.PRICE_BY_WEIGHT) {
-    if (weight === undefined || weight === null) {
-      throw new Error('Weight is required for Price by Weight');
-    }
-    return rate * weight;
+  if (pricingType === PricingType.BOX) {
+    return rate * (boxCount ?? 0);
   }
-
-  if (pricingType === PricingType.PRICE_BY_BOX) {
-    if (boxCount === undefined || boxCount === null) {
-      throw new Error('Box count is required for Price by Box');
-    }
-    return rate * boxCount;
-  }
-
-  return 0;
+  // KG, KM, QUINTEL, TON — all multiply rate by the weight/quantity value
+  return rate * (weight ?? 0);
 }

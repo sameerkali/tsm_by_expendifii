@@ -2,11 +2,14 @@ import { z } from 'zod';
 import { GRStatus, PricingType, PaymentStatus } from '@/types/gr';
 
 export const CreateGRSchema = z.object({
+  customerId: z.string().optional(),
   bookingDate: z.string().min(1, 'Booking date is required'),
-  consignorName: z.string().min(1, 'Consignor name is required'),
-  consigneeName: z.string().min(1, 'Consignee name is required'),
-  fromLocation: z.string().min(1, 'From location is required'),
-  toLocation: z.string().min(1, 'To location is required'),
+  fromCity: z.string().min(1, 'From city is required'),
+  toCity: z.string().min(1, 'To city is required'),
+  consignor: z.string().min(1, 'Consignor is required'),
+  consignee: z.string().min(1, 'Consignee is required'),
+  productDescription: z.string().optional(),
+  hsnCode: z.string().optional(),
   vehicleNumber: z.string().min(1, 'Vehicle number is required'),
   driverName: z.string().optional(),
   driverMobile: z.string().optional(),
@@ -14,18 +17,20 @@ export const CreateGRSchema = z.object({
   rate: z.number().min(0, 'Rate must be positive'),
   weight: z.number().optional(),
   boxCount: z.number().optional(),
-  status: z.nativeEnum(GRStatus).default(GRStatus.PENDING),
-  paymentStatus: z.nativeEnum(PaymentStatus).default(PaymentStatus.UNPAID),
+  freightAmount: z.number().min(0, 'Freight amount must be positive'),
+  status: z.nativeEnum(GRStatus).default(GRStatus.BOOKED),
+  paymentStatus: z.nativeEnum(PaymentStatus).default(PaymentStatus.PENDING),
+  remarks: z.string().optional(),
 }).refine((data) => {
-  if (data.pricingType === PricingType.PRICE_BY_WEIGHT) {
+  if (data.pricingType === PricingType.KG) {
     return data.weight !== undefined && data.weight > 0;
   }
   return true;
 }, {
-  message: 'Weight is required when pricing by weight',
+  message: 'Weight is required when pricing by KG',
   path: ['weight'],
 }).refine((data) => {
-  if (data.pricingType === PricingType.PRICE_BY_BOX) {
+  if (data.pricingType === PricingType.BOX) {
     return data.boxCount !== undefined && data.boxCount > 0;
   }
   return true;
@@ -37,7 +42,5 @@ export const CreateGRSchema = z.object({
 export const UpdateGRSchema = CreateGRSchema.partial();
 
 export const BulkEditGRSchema = z.object({
-  vehicleNumber: z.string().optional(),
-  driverName: z.string().optional(),
   status: z.nativeEnum(GRStatus).optional(),
 });

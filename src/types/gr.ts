@@ -1,49 +1,78 @@
 export enum GRStatus {
-  PENDING = 'PENDING',
-  DISPATCHED = 'DISPATCHED',
+  BOOKED = 'BOOKED',
+  IN_TRANSIT = 'IN_TRANSIT',
   DELIVERED = 'DELIVERED',
-  CANCELLED = 'CANCELLED',
 }
 
 export enum PricingType {
-  PRICE_BY_WEIGHT = 'PRICE_BY_WEIGHT',
-  PRICE_BY_BOX = 'PRICE_BY_BOX',
+  KM = 'KM',
+  BOX = 'BOX',
+  KG = 'KG',
+  QUINTEL = 'QUINTEL',
+  TON = 'TON',
 }
 
 export enum PaymentStatus {
-  UNPAID = 'UNPAID',
+  PENDING = 'PENDING',
   PAID = 'PAID',
-  PARTIAL = 'PARTIAL',
 }
 
 export interface GR {
+  id: string;
+  userId: string;
   grNumber: string;
   bookingDate: string;
-  consignorName: string;
-  consigneeName: string;
-  fromLocation: string;
-  toLocation: string;
+  fromCity: string;
+  toCity: string;
+  consignor: string;
+  consignee: string;
+  productDescription?: string;
+  hsnCode?: string;
+  weight?: number;
+  boxCount?: number;
+  pricingType: PricingType | string;
+  rate: number;
+  freightAmount: number;
   vehicleNumber: string;
   driverName?: string;
   driverMobile?: string;
-  pricingType: PricingType;
-  rate: number;
-  weight?: number;
-  boxCount?: number;
-  freightAmount: number;
-  status: GRStatus;
-  paymentStatus: PaymentStatus;
-  companyId: string;
+  paymentStatus: PaymentStatus | string;
+  status: GRStatus | string;
+  remarks?: string;
+  isDeleted: boolean;
+  deletedAt: string | null;
   createdAt: string;
   updatedAt: string;
+  customer?: {
+    name: string;
+    phone: string;
+  };
 }
 
-export type CreateGRInput = Omit<GR, 'grNumber' | 'companyId' | 'createdAt' | 'updatedAt'>;
+export interface CreateGRInput {
+  customerId?: string;
+  bookingDate: string;
+  fromCity: string;
+  toCity: string;
+  consignor: string;
+  consignee: string;
+  productDescription?: string;
+  hsnCode?: string;
+  weight?: number;
+  boxCount?: number;
+  pricingType: PricingType | string;
+  rate: number;
+  freightAmount: number;
+  vehicleNumber: string;
+  driverName?: string;
+  driverMobile?: string;
+  paymentStatus: PaymentStatus | string;
+  status: GRStatus | string;
+  remarks?: string;
+}
 
 export type UpdateGRInput = Partial<CreateGRInput>;
 
 export interface BulkEditGRInput {
-  vehicleNumber?: string;
-  driverName?: string;
-  status?: GRStatus;
+  status: GRStatus;
 }
