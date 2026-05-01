@@ -47,7 +47,7 @@ export interface CreateCustomerInput {
   address?: string;
   city?: string;
   state?: string;
-  pincode?: string;
+  pincode?: number;
   pricingType?: PricingType;
   defaultRate?: number;
 }

@@ -8,6 +8,7 @@ export interface ApiError {
   success: false;
   message: string;
   errors?: Record<string, string[]>;
+  details?: Array<{ field: string; message: string }>;
 }
 
 export interface PaginatedResponse<T> {

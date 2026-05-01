@@ -42,6 +42,7 @@ apiClient.interceptors.response.use(
         error.message ??
         'Something went wrong',
       errors: responseData.errors,
+      details: responseData.details,
     };
 
     return Promise.reject(apiError);

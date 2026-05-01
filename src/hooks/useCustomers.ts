@@ -7,10 +7,36 @@ import { CUSTOMER_KEYS } from '@/config/query-keys';
 import type { CreateCustomerInput, UpdateCustomerInput } from '@/types/customer';
 import type { ApiError } from '@/types/api';
 
-function extractMessage(error: unknown, fallback: string): string {
-  if (error && typeof error === 'object' && 'message' in error) {
-    const msg = (error as ApiError).message;
-    if (typeof msg === 'string' && msg.trim().length > 0) return msg;
+const FIELD_MAP: Record<string, string> = {
+  defaultRate: 'Rate',
+  name: 'Name',
+  phone: 'Phone Number',
+  address: 'Address',
+  city: 'City',
+  state: 'State',
+  pincode: 'Pincode',
+  pricingType: 'Pricing Type',
+};
+
+export function extractMessage(error: unknown, fallback: string): string {
+  if (error && typeof error === 'object') {
+    const err = error as ApiError;
+    if (Array.isArray(err.details) && err.details.length > 0) {
+      return err.details.map(d => {
+        const fieldName = FIELD_MAP[d.field] || d.field;
+        let msg = d.message;
+        
+        // Clean up common Zod messages
+        if (msg.includes('Too small')) msg = 'must be greater than 0';
+        if (msg.toLowerCase().includes('required')) msg = 'is required';
+        if (msg.includes('Invalid format')) msg = 'has an invalid format';
+        
+        return `${fieldName} ${msg}`;
+      }).join(' • ');
+    }
+    if (typeof err.message === 'string' && err.message.trim().length > 0) {
+      return err.message;
+    }
   }
   return fallback;
 }

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, Loader2, ChevronDown, CheckCircle2, UserPlus, AlertCircle, Search } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useCreateGR, useUpdateGR } from '@/hooks/useGR';
-import { useCustomers, useCreateCustomer } from '@/hooks/useCustomers';
+import { useCustomers, useCreateCustomer, extractMessage } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
 import type { GR, CreateGRInput } from '@/types/gr';
 import type { Customer } from '@/types/customer';
@@ -25,6 +25,10 @@ interface FormState {
   toCity: string;
   consignor: string;
   consignorPhone: string;
+  consignorAddress: string;
+  consignorCity: string;
+  consignorState: string;
+  consignorPincode: string;
   consignee: string;
   productDescription: string;
   hsnCode: string;
@@ -51,6 +55,10 @@ const EMPTY_FORM: FormState = {
   toCity: '',
   consignor: '',
   consignorPhone: '',
+  consignorAddress: '',
+  consignorCity: '',
+  consignorState: '',
+  consignorPincode: '',
   consignee: '',
   productDescription: '',
   hsnCode: '',
@@ -82,22 +90,28 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   const [customerId, setCustomerId] = useState<string | null>(null);
   const [customerSaveState, setCustomerSaveState] = useState<SaveCustomerState>('idle');
   const [customerSaveError, setCustomerSaveError] = useState<string | null>(null);
-  const [customerSearch, setCustomerSearch] = useState('');
+  const [showMoreDetails, setShowMoreDetails] = useState(false);
+  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const debouncedSearch = useDebounce(customerSearch, 400);
+  // Search uses the consignor field directly
+  const debouncedSearch = useDebounce(form.consignor, 400);
 
   const createGR = useCreateGR();
   const updateGR = useUpdateGR();
   const createCustomer = useCreateCustomer();
 
-  // Fetch customers whenever panel is open, debounced search as filter
+  // Fetch customers based on consignor input
   const { data: customerListRes, isLoading: isLoadingCustomers } = useCustomers(
     { search: debouncedSearch || undefined },
-    // only enabled while panel is open
   );
   const customers = isOpen ? (customerListRes?.data ?? []) : [];
+
+  // Determine if the exact typed name matches an existing customer
+  const exactMatchExists = customers.some(
+    c => c.name.toLowerCase() === form.consignor.trim().toLowerCase()
+  );
 
   // Reset on open/close
   useEffect(() => {
@@ -109,6 +123,10 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
           toCity: editData.toCity ?? '',
           consignor: editData.consignor ?? '',
           consignorPhone: editData.customer?.phone ?? '',
+          consignorAddress: editData.customer?.address ?? '',
+          consignorCity: editData.customer?.city ?? '',
+          consignorState: editData.customer?.state ?? '',
+          consignorPincode: editData.customer?.pincode ?? '',
           consignee: editData.consignee ?? '',
           productDescription: editData.productDescription ?? '',
           hsnCode: editData.hsnCode ?? '',
@@ -124,12 +142,12 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
           status: editData.status ?? GRStatus.BOOKED,
           remarks: editData.remarks ?? '',
         });
+        setCustomerId(editData.customer?.id ?? null);
       } else {
         setForm(EMPTY_FORM);
         setCustomerId(null);
         setCustomerSaveState('idle');
         setCustomerSaveError(null);
-        setCustomerSearch('');
       }
     }
   }, [isOpen, editData]);
@@ -155,22 +173,33 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   }, []);
 
   const set = (field: keyof FormState) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       setForm(prev => ({ ...prev, [field]: e.target.value }));
+      
+      // If user types in consignor name, clear customerId and open dropdown
+      if (field === 'consignor') {
+        if (customerId) setCustomerId(null);
+        if (customerSaveState === 'saved') setCustomerSaveState('idle');
+        setIsDropdownOpen(true);
+      }
+    };
 
-  // Select existing customer from dropdown — auto-fill all available fields
+  // Select existing customer from dropdown
   const handleSelectCustomer = (c: Customer) => {
     setCustomerId(c.id);
     setCustomerSaveState('idle');
     setForm(prev => ({
       ...prev,
       consignor: c.name,
-      consignorPhone: c.phone,
+      consignorPhone: c.phone || '',
+      consignorAddress: c.address || '',
+      consignorCity: c.city || '',
+      consignorState: c.state || '',
+      consignorPincode: c.pincode || '',
       fromCity: prev.fromCity || c.city || '',
       pricingType: c.pricingType ?? prev.pricingType,
       rate: c.defaultRate != null ? String(c.defaultRate) : prev.rate,
     }));
-    setCustomerSearch('');
     setIsDropdownOpen(false);
   };
 
@@ -178,22 +207,36 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     setCustomerId(null);
     setCustomerSaveState('idle');
     setCustomerSaveError(null);
-    setForm(prev => ({ ...prev, consignor: '', consignorPhone: '', pricingType: PricingType.KG, rate: '', fromCity: '' }));
+    setForm(prev => ({ ...prev, consignor: '', consignorPhone: '', consignorAddress: '', consignorCity: '', consignorState: '', consignorPincode: '', pricingType: PricingType.KG, rate: '', fromCity: '' }));
   };
 
   // Save consignor as new customer
   const handleSaveAsCustomer = () => {
     if (!form.consignor.trim()) return toast.error('Enter a consignor name first.');
     if (!form.consignorPhone.trim()) return toast.error('Enter a consignor phone number first.');
+    
     setCustomerSaveState('saving');
     setCustomerSaveError(null);
+    
     createCustomer.mutate(
-      { name: form.consignor.trim(), phone: form.consignorPhone.trim() },
+      { 
+        name: form.consignor.trim(), 
+        phone: form.consignorPhone.trim(),
+        address: form.consignorAddress.trim() || "",
+        city: form.fromCity.trim() || form.consignorCity.trim() || "",
+        state: form.consignorState.trim() || "",
+        pincode: form.consignorPincode.trim() ? Number(form.consignorPincode.trim()) : 0,
+        pricingType: form.pricingType as PricingType,
+        defaultRate: parseFloat(form.rate) || 0
+      },
       {
-        onSuccess: (res) => { setCustomerId(res.data.id); setCustomerSaveState('saved'); },
+        onSuccess: (res) => { 
+          setCustomerId(res.data.id); 
+          setCustomerSaveState('saved'); 
+        },
         onError: (err: any) => {
           setCustomerSaveState('error');
-          setCustomerSaveError(err?.message || 'Failed to save customer.');
+          setCustomerSaveError(extractMessage(err, 'Failed to save customer.'));
         },
       }
     );
@@ -231,6 +274,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   };
 
   const isSaving = createGR.isPending || updateGR.isPending;
+  const showSaveCustomerButton = !isEditing && !customerId && form.consignor.trim().length > 0 && !exactMatchExists && customerSaveState !== 'saved';
 
   return (
     <>
@@ -263,13 +307,13 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
             {/* ── LEFT COLUMN ── */}
             <div className="space-y-8">
 
-              {/* SECTION: Customer — always first */}
+              {/* SECTION: Customer */}
               <section className="space-y-4">
-                <SectionHeader>1. Link Customer (Optional)</SectionHeader>
+                <SectionHeader>1. Consignor Details</SectionHeader>
 
                 {/* Customer linked badge */}
                 {customerId && (
-                  <div className="flex items-center gap-3 px-4 py-3 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-2xl">
+                  <div className="flex items-center gap-3 px-4 py-3 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-2xl mb-4">
                     <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Customer Linked</p>
@@ -283,65 +327,55 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   </div>
                 )}
 
-                {/* Dropdown search */}
-                {!isEditing && !customerId && customerSaveState !== 'saved' && (
-                  <div ref={dropdownRef} className="relative">
-                    <Field label="Search Existing Customers">
-                      <div className="relative">
-                        <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                        <input
-                          placeholder="Type name to search customers..."
-                          value={customerSearch}
-                          onChange={e => { setCustomerSearch(e.target.value); setIsDropdownOpen(true); }}
-                          onFocus={() => setIsDropdownOpen(true)}
-                          className={inputClass + ' pl-11'}
-                        />
+                {/* Consignor combobox */}
+                <div ref={dropdownRef} className="relative">
+                  <Field label="Consignor (Sender)" required hint="Type to search existing">
+                    <div className="relative">
+                      <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                      <input
+                        placeholder="Company or person sending goods"
+                        value={form.consignor}
+                        onChange={set('consignor')}
+                        onFocus={() => setIsDropdownOpen(true)}
+                        readOnly={customerSaveState === 'saved'}
+                        className={cn(inputClass, 'pl-11', customerSaveState === 'saved' && 'opacity-60 cursor-not-allowed')}
+                        required
+                        autoComplete="off"
+                      />
+                    </div>
+                  </Field>
+                  
+                  {isDropdownOpen && !customerId && !isEditing && (
+                    <div className="absolute z-20 w-full mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+                      <div className="max-h-52 overflow-y-auto">
+                        {isLoadingCustomers ? (
+                          <div className="flex items-center justify-center p-4 text-slate-400 gap-2">
+                            <Loader2 size={15} className="animate-spin" /> Searching...
+                          </div>
+                        ) : customers.length === 0 ? (
+                          <div className="px-4 py-4 text-sm text-slate-500 flex flex-col items-center justify-center gap-2">
+                            <p>No matches found.</p>
+                            {form.consignor.trim().length > 0 && (
+                              <p className="text-xs">You can save this as a new customer.</p>
+                            )}
+                          </div>
+                        ) : customers.map(c => (
+                          <button
+                            type="button"
+                            key={c.id}
+                            onClick={() => handleSelectCustomer(c)}
+                            className="w-full text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-b border-slate-50 dark:border-slate-800 last:border-0"
+                          >
+                            <p className="text-sm font-bold text-slate-900 dark:text-white">{c.name}</p>
+                            <p className="text-xs text-slate-500 mt-0.5">{c.phone}{c.city ? ` · ${c.city}` : ''}</p>
+                          </button>
+                        ))}
                       </div>
-                    </Field>
-                    {isDropdownOpen && (
-                      <div className="absolute z-20 w-full mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden">
-                        <div className="max-h-52 overflow-y-auto">
-                          {isLoadingCustomers ? (
-                            <div className="flex items-center justify-center p-4 text-slate-400 gap-2">
-                              <Loader2 size={15} className="animate-spin" /> Loading customers...
-                            </div>
-                          ) : customers.length === 0 ? (
-                            <p className="px-4 py-4 text-sm text-slate-400">No customers found.</p>
-                          ) : customers.map(c => (
-                            <button
-                              type="button"
-                              key={c.id}
-                              onClick={() => handleSelectCustomer(c)}
-                              className="w-full text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border-b border-slate-50 dark:border-slate-800 last:border-0"
-                            >
-                              <p className="text-sm font-bold text-slate-900 dark:text-white">{c.name}</p>
-                              <p className="text-xs text-slate-500 mt-0.5">{c.phone}{c.city ? ` · ${c.city}` : ''}</p>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Consignor name */}
-                <Field label="Consignor (Sender)" required>
-                  <input
-                    placeholder="Company or person sending goods"
-                    value={form.consignor}
-                    onChange={set('consignor')}
-                    readOnly={customerSaveState === 'saved'}
-                    className={cn(inputClass, customerSaveState === 'saved' && 'opacity-60 cursor-not-allowed')}
-                    required
-                  />
-                  {customerSaveState === 'saved' && (
-                    <p className="text-[10px] text-amber-500 font-bold mt-1 flex items-center gap-1">
-                      <AlertCircle size={10} /> Customer already saved — name change won't reflect.
-                    </p>
+                    </div>
                   )}
-                </Field>
+                </div>
 
-                <Field label="Consignor Phone" hint="Required to save as customer">
+                <Field label="Consignor Phone" required={showSaveCustomerButton} hint="Needed for saving">
                   <input
                     type="tel"
                     placeholder="9XXXXXXXXX"
@@ -352,9 +386,45 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   />
                 </Field>
 
-                {/* Save as Customer button */}
-                {!isEditing && !customerId && (
-                  <div className="flex items-center gap-3">
+                {/* Additional New Customer Fields - Hidden behind a toggle for better UX */}
+                {showSaveCustomerButton && (
+                  <div className="pt-2">
+                    {!showMoreDetails ? (
+                      <button
+                        type="button"
+                        onClick={() => setShowMoreDetails(true)}
+                        className="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors"
+                      >
+                        + Add Full Address (Optional)
+                      </button>
+                    ) : (
+                      <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="text-xs font-bold text-slate-500">Additional Details</p>
+                          <button type="button" onClick={() => setShowMoreDetails(false)} className="text-xs text-slate-400 hover:text-slate-600">Hide</button>
+                        </div>
+                        <Field label="Address">
+                          <input placeholder="Street address" value={form.consignorAddress} onChange={set('consignorAddress')} className={inputClass} />
+                        </Field>
+                        <div className="grid grid-cols-2 gap-4">
+                          <Field label="City">
+                            <input placeholder="City" value={form.consignorCity} onChange={set('consignorCity')} className={inputClass} />
+                          </Field>
+                          <Field label="State">
+                            <input placeholder="State" value={form.consignorState} onChange={set('consignorState')} className={inputClass} />
+                          </Field>
+                          <Field label="Pincode">
+                            <input type="number" placeholder="Pincode" value={form.consignorPincode} onChange={set('consignorPincode')} className={inputClass} />
+                          </Field>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Smart Save as Customer button */}
+                {(showSaveCustomerButton || customerSaveState === 'saved' || customerSaveState === 'saving') && (
+                  <div className="flex items-center gap-3 pt-2">
                     {customerSaveState === 'saved' ? (
                       <div className="flex items-center gap-2 text-sm font-bold text-emerald-600">
                         <CheckCircle2 size={15} /> Saved as customer
@@ -364,7 +434,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                         type="button"
                         disabled={customerSaveState === 'saving'}
                         onClick={handleSaveAsCustomer}
-                        className="flex items-center gap-2 h-9 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 dark:text-slate-300 rounded-xl font-bold text-xs transition-all"
+                        className="flex items-center gap-2 h-10 px-5 bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-500 text-white rounded-xl font-bold text-xs transition-all"
                       >
                         {customerSaveState === 'saving'
                           ? <><Loader2 size={13} className="animate-spin" /> Saving...</>
@@ -380,15 +450,17 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 )}
 
                 {/* Consignee */}
-                <Field label="Consignee (Receiver)" required>
-                  <input
-                    placeholder="Company or person receiving goods"
-                    value={form.consignee}
-                    onChange={set('consignee')}
-                    className={inputClass}
-                    required
-                  />
-                </Field>
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <Field label="Consignee (Receiver)" required>
+                    <input
+                      placeholder="Company or person receiving goods"
+                      value={form.consignee}
+                      onChange={set('consignee')}
+                      className={inputClass}
+                      required
+                    />
+                  </Field>
+                </div>
               </section>
 
               {/* SECTION: Shipment Info */}

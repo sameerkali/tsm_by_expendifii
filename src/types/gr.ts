@@ -44,8 +44,13 @@ export interface GR {
   createdAt: string;
   updatedAt: string;
   customer?: {
+    id: string;
     name: string;
     phone: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    pincode?: string;
   };
 }
 
