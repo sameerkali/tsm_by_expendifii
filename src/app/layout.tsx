@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import QueryProvider from "@/providers/QueryProvider";
 import { PreferencesProvider } from "@/providers/PreferencesProvider";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -79,6 +80,7 @@ export default function RootLayout({
         <PreferencesProvider>
           <QueryProvider>
             {children}
+            <Analytics />
             <Toaster position="top-right" richColors closeButton />
           </QueryProvider>
         </PreferencesProvider>
