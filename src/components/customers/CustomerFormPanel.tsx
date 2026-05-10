@@ -21,7 +21,7 @@ interface FormState {
   address: string;
   city: string;
   state: string;
-  pincode: string;
+  pincode: number;
   pricingType: string;
   defaultRate: string;
 }
@@ -34,7 +34,7 @@ const EMPTY_FORM: FormState = {
   address: '',
   city: '',
   state: '',
-  pincode: '',
+  pincode: 0,
   pricingType: '',
   defaultRate: '',
 };
@@ -48,7 +48,7 @@ function customerToForm(c: Customer): FormState {
     address: c.address ?? '',
     city: c.city ?? '',
     state: c.state ?? '',
-    pincode: c.pincode ?? '',
+    pincode: c.pincode ? Number(c.pincode) : 0,
     pricingType: c.pricingType ?? '',
     defaultRate: c.defaultRate != null ? String(c.defaultRate) : '',
   };
@@ -64,7 +64,7 @@ function formToPayload(form: FormState) {
   if (form.address.trim()) payload.address = form.address.trim();
   if (form.city.trim()) payload.city = form.city.trim();
   if (form.state.trim()) payload.state = form.state.trim();
-  if (form.pincode.trim()) payload.pincode = form.pincode.trim();
+  if (form.pincode !== 0) payload.pincode = form.pincode;
   if (form.pricingType) payload.pricingType = form.pricingType as PricingType;
   if (form.defaultRate.trim()) payload.defaultRate = parseFloat(form.defaultRate);
   return payload;
@@ -89,7 +89,11 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
   const set =
     (field: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+      let value: string | number = e.target.value;
+      if (field === 'pincode') {
+        value = value ? Number(value) : 0;
+      }
+      setForm((prev) => ({ ...prev, [field]: value }));
       if (fieldErrors[field]) {
         setFieldErrors((prev) => {
           const next = { ...prev };
@@ -184,6 +188,8 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
               value={form.name}
               onChange={set('name')}
               className={cn(inputClass, fieldErrors.name && errorInputClass)}
+              minLength={3}
+              maxLength={50}
               required
             />
           </Field>
@@ -196,6 +202,8 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
                 value={form.phone}
                 onChange={set('phone')}
                 className={cn(inputClass, fieldErrors.phone && errorInputClass)}
+                maxLength={10}
+                minLength={10}
                 required
               />
             </Field>
@@ -206,6 +214,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
                 value={form.email}
                 onChange={set('email')}
                 className={cn(inputClass, fieldErrors.email && errorInputClass)}
+                maxLength={30}
               />
             </Field>
           </div>
@@ -216,6 +225,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
               value={form.gstin}
               onChange={set('gstin')}
               className={cn(inputClass, fieldErrors.gstin && errorInputClass)}
+              maxLength={15}
             />
           </Field>
 
@@ -226,6 +236,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
               value={form.address}
               onChange={set('address')}
               rows={2}
+              maxLength={75}
               className={cn(inputClass, 'resize-none h-auto py-3', fieldErrors.address && errorInputClass)}
             />
           </Field>
@@ -236,6 +247,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
                 placeholder="e.g. Delhi"
                 value={form.city}
                 onChange={set('city')}
+                maxLength={25}
                 className={cn(inputClass, fieldErrors.city && errorInputClass)}
               />
             </Field>
@@ -264,6 +276,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
                 placeholder="110001"
                 value={form.pincode}
                 onChange={set('pincode')}
+                maxLength={6}
                 className={cn(inputClass, fieldErrors.pincode && errorInputClass)}
               />
             </Field>

@@ -36,6 +36,15 @@ export const customerApi = {
   delete: async (id: string): Promise<CustomerDeleteResponse> => {
     return apiClient.delete(`/customers/${id}`) as any;
   },
+
+  downloadGrPdf: async (customerId: string, from: string, to?: string): Promise<Blob> => {
+    const query = new URLSearchParams();
+    query.set('from', from);
+    if (to) query.set('to', to);
+    return apiClient.get(`/gr/customer/${customerId}/download?${query.toString()}`, {
+      responseType: 'blob',
+    }) as any;
+  },
 };
 
 export default customerApi;

@@ -25,12 +25,12 @@ export function extractMessage(error: unknown, fallback: string): string {
       return err.details.map(d => {
         const fieldName = FIELD_MAP[d.field] || d.field;
         let msg = d.message;
-        
+
         // Clean up common Zod messages
         if (msg.includes('Too small')) msg = 'must be greater than 0';
         if (msg.toLowerCase().includes('required')) msg = 'is required';
         if (msg.includes('Invalid format')) msg = 'has an invalid format';
-        
+
         return `${fieldName} ${msg}`;
       }).join(' • ');
     }
@@ -104,6 +104,24 @@ export function useDeleteCustomer() {
     },
     onError: (error: unknown) => {
       toast.error(extractMessage(error, 'Failed to delete customer.'));
+    },
+  });
+}
+
+/** Download GR PDF for a customer by date range. */
+export function useDownloadCustomerGrPdf() {
+  return useMutation({
+    mutationFn: ({ customerId, from, to }: { customerId: string; from: string; to?: string }) =>
+      customerApi.downloadGrPdf(customerId, from, to),
+    onSuccess: (blob) => {
+      // Create blob link to download
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      // Revoke the object URL after a delay to ensure it opened
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+    },
+    onError: (error: unknown) => {
+      toast.error(extractMessage(error, 'Failed to download GR PDF.'));
     },
   });
 }
