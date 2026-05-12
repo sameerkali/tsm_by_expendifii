@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterInput } from '@/lib/validations/auth.schema';
 import { useAuth } from '@/hooks/useAuth';
-import { User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff, MapPin, Hash, Briefcase } from 'lucide-react';
+import { User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff, MapPin, Hash, Briefcase, Landmark } from 'lucide-react';
 import Link from 'next/link';
 
 export function RegisterForm() {
@@ -257,6 +257,56 @@ export function RegisterForm() {
                   <p className="text-xs text-red-500 mt-1">{errors.company.address.pincode.message}</p>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 border-b pb-2">Bank Details</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="relative group">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+                <Landmark size={18} />
+              </div>
+              <input
+                {...register('company.bankDetails.bankName')}
+                placeholder="Bank Name"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+              />
+            </div>
+
+            <div className="relative group">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+                <User size={18} />
+              </div>
+              <input
+                {...register('company.bankDetails.accountHolder')}
+                placeholder="Account Holder"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+              />
+            </div>
+
+            <div className="relative group">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+                <Hash size={18} />
+              </div>
+              <input
+                {...register('company.bankDetails.accountNumber')}
+                placeholder="Account Number"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+              />
+            </div>
+
+            <div className="relative group">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+                <Hash size={18} />
+              </div>
+              <input
+                {...register('company.bankDetails.ifscCode')}
+                placeholder="IFSC Code"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all uppercase text-slate-900 dark:text-white placeholder:text-slate-400"
+              />
             </div>
           </div>
         </div>

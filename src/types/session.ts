@@ -8,6 +8,13 @@ export interface CompanyAddress {
   pincode: string;
 }
 
+export interface CompanyBankDetails {
+  bankName?: string;
+  accountHolder?: string;
+  accountNumber?: string;
+  ifscCode?: string;
+}
+
 export interface Company {
   companyName: string;
   gstin: string;
@@ -18,6 +25,7 @@ export interface Company {
   logoUrl?: string;
   grCounter: number;
   address: CompanyAddress;
+  bankDetails?: CompanyBankDetails;
 }
 
 export interface Coupon {

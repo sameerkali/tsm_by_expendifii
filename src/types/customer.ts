@@ -1,4 +1,4 @@
-export type PricingType = 'KM' | 'BOX' | 'KG' | 'QUINTEL' | 'TON';
+export type PricingType = 'KM' | 'BOX' | 'KG' | 'QUINTAL' | 'TON';
 
 export interface Customer {
   id: string;

@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Building2, Phone, Upload, Download, Trash2, LogOut,
-  AlertTriangle, Loader2, Lock, Sun, Moon, Monitor, Type, Mail, User, Tag, Calendar, Clock, CreditCard
+  AlertTriangle, Loader2, Lock, Sun, Moon, Monitor, Type, Mail, User, Tag, Calendar, Clock, CreditCard,
+  Hash, Briefcase, MapPin, Landmark
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useSession } from '@/hooks/useSession';
@@ -29,7 +30,26 @@ export default function SettingsPage() {
   const { user, isLoading: isLoadingProfile } = useSession();
   const { theme, setTheme, fontSize, setFontSize } = usePreferences();
 
-  const [form, setForm] = useState({ name: '', phone: '', companyName: '' });
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    companyName: '',
+    gstin: '',
+    pan: '',
+    companyPhone: '',
+    companyEmail: '',
+    contactPerson: '',
+    logoUrl: '',
+    addressFullAddress: '',
+    addressCity: '',
+    addressDistrict: '',
+    addressState: '',
+    addressPincode: '',
+    bankName: '',
+    accountHolder: '',
+    accountNumber: '',
+    ifscCode: '',
+  });
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Populate form once profile loads
@@ -39,6 +59,21 @@ export default function SettingsPage() {
         name: user.name ?? '',
         phone: user.phone ?? '',
         companyName: user.company?.companyName ?? '',
+        gstin: user.company?.gstin ?? '',
+        pan: user.company?.pan ?? '',
+        companyPhone: user.company?.phone ?? '',
+        companyEmail: user.company?.email ?? '',
+        contactPerson: user.company?.contactPerson ?? '',
+        logoUrl: user.company?.logoUrl ?? '',
+        addressFullAddress: user.company?.address?.fullAddress ?? '',
+        addressCity: user.company?.address?.city ?? '',
+        addressDistrict: user.company?.address?.district ?? '',
+        addressState: user.company?.address?.state ?? '',
+        addressPincode: user.company?.address?.pincode ?? '',
+        bankName: user.company?.bankDetails?.bankName ?? '',
+        accountHolder: user.company?.bankDetails?.accountHolder ?? '',
+        accountNumber: user.company?.bankDetails?.accountNumber ?? '',
+        ifscCode: user.company?.bankDetails?.ifscCode ?? '',
       });
     }
   }, [user]);
@@ -53,6 +88,28 @@ export default function SettingsPage() {
     updateProfile({
       name: form.name.trim() || undefined,
       phone: form.phone.trim() || undefined,
+      company: {
+        companyName: form.companyName.trim() || undefined,
+        gstin: form.gstin.trim() || undefined,
+        pan: form.pan.trim() || undefined,
+        phone: form.companyPhone.trim() || undefined,
+        email: form.companyEmail.trim() || undefined,
+        contactPerson: form.contactPerson.trim() || undefined,
+        logoUrl: form.logoUrl.trim() || undefined,
+        address: {
+          fullAddress: form.addressFullAddress.trim() || undefined,
+          city: form.addressCity.trim() || undefined,
+          district: form.addressDistrict.trim() || undefined,
+          state: form.addressState.trim() || undefined,
+          pincode: form.addressPincode.trim() || undefined,
+        },
+        bankDetails: {
+          bankName: form.bankName.trim() || undefined,
+          accountHolder: form.accountHolder.trim() || undefined,
+          accountNumber: form.accountNumber.trim() || undefined,
+          ifscCode: form.ifscCode.trim() || undefined,
+        },
+      },
     });
   };
 
@@ -268,6 +325,102 @@ export default function SettingsPage() {
                     />
                   </div>
                 </Field>
+
+                <Field label="GSTIN">
+                  <div className="relative">
+                    <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input value={form.gstin} onChange={set('gstin')} placeholder="Company GSTIN" className={inputClass + ' pl-10 uppercase'} />
+                  </div>
+                </Field>
+
+                <Field label="PAN">
+                  <div className="relative">
+                    <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input value={form.pan} onChange={set('pan')} placeholder="Company PAN" className={inputClass + ' pl-10 uppercase'} />
+                  </div>
+                </Field>
+
+                <Field label="Company Phone">
+                  <div className="relative">
+                    <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input type="tel" value={form.companyPhone} onChange={set('companyPhone')} placeholder="Company phone" className={inputClass + ' pl-10'} />
+                  </div>
+                </Field>
+
+                <Field label="Company Email">
+                  <div className="relative">
+                    <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input type="email" value={form.companyEmail} onChange={set('companyEmail')} placeholder="Company email" className={inputClass + ' pl-10'} />
+                  </div>
+                </Field>
+
+                <Field label="Contact Person">
+                  <div className="relative">
+                    <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input value={form.contactPerson} onChange={set('contactPerson')} placeholder="Primary contact" className={inputClass + ' pl-10'} />
+                  </div>
+                </Field>
+
+                <Field label="Logo URL">
+                  <div className="relative">
+                    <Upload size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input value={form.logoUrl} onChange={set('logoUrl')} placeholder="https://..." className={inputClass + ' pl-10'} />
+                  </div>
+                </Field>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
+                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Company Address</h3>
+                <Field label="Full Address">
+                  <div className="relative">
+                    <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input value={form.addressFullAddress} onChange={set('addressFullAddress')} placeholder="Registered address" className={inputClass + ' pl-10'} />
+                  </div>
+                </Field>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <Field label="City">
+                    <input value={form.addressCity} onChange={set('addressCity')} placeholder="City" className={inputClass} />
+                  </Field>
+                  <Field label="District">
+                    <input value={form.addressDistrict} onChange={set('addressDistrict')} placeholder="District" className={inputClass} />
+                  </Field>
+                  <Field label="State">
+                    <input value={form.addressState} onChange={set('addressState')} placeholder="State" className={inputClass} />
+                  </Field>
+                  <Field label="Pincode">
+                    <input value={form.addressPincode} onChange={set('addressPincode')} placeholder="Pincode" className={inputClass} />
+                  </Field>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
+                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Bank Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Field label="Bank Name">
+                    <div className="relative">
+                      <Landmark size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input value={form.bankName} onChange={set('bankName')} placeholder="Bank name" className={inputClass + ' pl-10'} />
+                    </div>
+                  </Field>
+                  <Field label="Account Holder">
+                    <div className="relative">
+                      <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input value={form.accountHolder} onChange={set('accountHolder')} placeholder="Account holder" className={inputClass + ' pl-10'} />
+                    </div>
+                  </Field>
+                  <Field label="Account Number">
+                    <div className="relative">
+                      <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input value={form.accountNumber} onChange={set('accountNumber')} placeholder="Account number" className={inputClass + ' pl-10'} />
+                    </div>
+                  </Field>
+                  <Field label="IFSC Code">
+                    <div className="relative">
+                      <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input value={form.ifscCode} onChange={set('ifscCode')} placeholder="IFSC code" className={inputClass + ' pl-10 uppercase'} />
+                    </div>
+                  </Field>
+                </div>
               </div>
             </div>
           )}

@@ -8,13 +8,27 @@ export enum PricingType {
   KM = 'KM',
   BOX = 'BOX',
   KG = 'KG',
-  QUINTEL = 'QUINTEL',
+  QUINTAL = 'QUINTAL',
   TON = 'TON',
 }
 
 export enum PaymentStatus {
   PENDING = 'PENDING',
   PAID = 'PAID',
+}
+
+export enum BillingType {
+  TO_BE_PAID = 'To be Paid',
+  PAID = 'Paid',
+  TO_PAID = 'To paid',
+}
+
+export interface GRInsurance {
+  company?: string;
+  policyNo?: string;
+  date?: string;
+  amount?: number;
+  risk?: string;
 }
 
 export interface GR {
@@ -25,19 +39,25 @@ export interface GR {
   fromCity: string;
   toCity: string;
   consignor: string;
+  consignorGST?: string;
   consignee: string;
+  consigneeGST?: string;
   productDescription?: string;
-  hsnCode?: string;
   weight?: number;
   boxCount?: number;
+  billingType: BillingType | string;
   pricingType: PricingType | string;
-  rate: number;
+  rate?: number;
   freightAmount: number;
-  vehicleNumber: string;
+  vehicleNumber?: string;
   driverName?: string;
+  driverDocumentId?: string;
   driverMobile?: string;
   paymentStatus: PaymentStatus | string;
   status: GRStatus | string;
+  invoiceNumber?: string | null;
+  ewayBillNumber?: string | null;
+  insurance?: GRInsurance | null;
   remarks?: string;
   isDeleted: boolean;
   deletedAt: string | null;
@@ -59,20 +79,26 @@ export interface CreateGRInput {
   bookingDate: string;
   fromCity: string;
   toCity: string;
-  consignor: string;
-  consignee: string;
+  consignor?: string;
+  consignorGST?: string;
+  consignee?: string;
+  consigneeGST?: string;
   productDescription?: string;
-  hsnCode?: string;
   weight?: number;
   boxCount?: number;
+  billingType?: BillingType | string;
   pricingType: PricingType | string;
-  rate: number;
+  rate?: number;
   freightAmount: number;
-  vehicleNumber: string;
+  vehicleNumber?: string;
   driverName?: string;
+  driverDocumentId?: string;
   driverMobile?: string;
   paymentStatus: PaymentStatus | string;
   status: GRStatus | string;
+  invoiceNumber?: string | null;
+  ewayBillNumber?: string | null;
+  insurance?: GRInsurance | null;
   remarks?: string;
 }
 

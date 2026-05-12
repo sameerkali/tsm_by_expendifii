@@ -23,7 +23,13 @@ export const RegisterSchema = z.object({
       district: z.string().min(1, 'District is required'),
       state: z.string().min(1, 'State is required'),
       pincode: z.string().min(1, 'Pincode is required'),
-    })
+    }),
+    bankDetails: z.object({
+      bankName: z.string().optional(),
+      accountHolder: z.string().optional(),
+      accountNumber: z.string().optional(),
+      ifscCode: z.string().optional(),
+    }).optional(),
   })
 });
 
@@ -34,4 +40,3 @@ export const ActivateSchema = z.object({
 export type LoginInput = z.infer<typeof LoginSchema>;
 export type RegisterInput = z.infer<typeof RegisterSchema>;
 export type ActivateInput = z.infer<typeof ActivateSchema>;
-
