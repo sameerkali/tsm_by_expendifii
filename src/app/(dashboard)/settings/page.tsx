@@ -80,11 +80,28 @@ export default function SettingsPage() {
 
   const set =
     (field: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setForm((prev) => ({ ...prev, [field]: e.target.value }));
-    };
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm((prev) => ({ ...prev, [field]: e.target.value }));
+      };
 
   const handleSave = () => {
+    const address = {
+      fullAddress: form.addressFullAddress.trim() || undefined,
+      city: form.addressCity.trim() || undefined,
+      district: form.addressDistrict.trim() || undefined,
+      state: form.addressState.trim() || undefined,
+      pincode: form.addressPincode.trim() || undefined,
+    };
+    const bankDetails = {
+      bankName: form.bankName.trim() || undefined,
+      accountHolder: form.accountHolder.trim() || undefined,
+      accountNumber: form.accountNumber.trim() || undefined,
+      ifscCode: form.ifscCode.trim() || undefined,
+    };
+
+    const hasAddress = Object.values(address).some(Boolean);
+    const hasBankDetails = Object.values(bankDetails).some(Boolean);
+
     updateProfile({
       name: form.name.trim() || undefined,
       phone: form.phone.trim() || undefined,
@@ -96,19 +113,8 @@ export default function SettingsPage() {
         email: form.companyEmail.trim() || undefined,
         contactPerson: form.contactPerson.trim() || undefined,
         logoUrl: form.logoUrl.trim() || undefined,
-        address: {
-          fullAddress: form.addressFullAddress.trim() || undefined,
-          city: form.addressCity.trim() || undefined,
-          district: form.addressDistrict.trim() || undefined,
-          state: form.addressState.trim() || undefined,
-          pincode: form.addressPincode.trim() || undefined,
-        },
-        bankDetails: {
-          bankName: form.bankName.trim() || undefined,
-          accountHolder: form.accountHolder.trim() || undefined,
-          accountNumber: form.accountNumber.trim() || undefined,
-          ifscCode: form.ifscCode.trim() || undefined,
-        },
+        ...(hasAddress ? { address } : {}),
+        ...(hasBankDetails ? { bankDetails } : {}),
       },
     });
   };
@@ -453,12 +459,12 @@ export default function SettingsPage() {
               {user.coupons.map((coupon) => {
                 const isCurrentlyActive = coupon.isActive && !coupon.isExpired;
                 const daysLeft = getDaysLeft(coupon.expiresAt);
-                
+
                 return (
                   <div key={coupon._id} className={cn(
                     "p-6 rounded-2xl border transition-all",
-                    isCurrentlyActive 
-                      ? "bg-emerald-50 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-800/50" 
+                    isCurrentlyActive
+                      ? "bg-emerald-50 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-800/50"
                       : "bg-slate-50 dark:bg-slate-800/30 border-slate-200 dark:border-slate-800"
                   )}>
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -492,7 +498,7 @@ export default function SettingsPage() {
                             {new Date(coupon.expiresAt).toLocaleDateString()}
                           </p>
                         </div>
-                        
+
                         {isCurrentlyActive && (
                           <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded-xl border border-emerald-100 dark:border-emerald-900/30 shadow-sm text-center">
                             <div className="flex items-center gap-1 text-emerald-500 mb-0.5 justify-center">

@@ -18,9 +18,9 @@ export enum PaymentStatus {
 }
 
 export enum BillingType {
-  TO_BE_PAID = 'To be Paid',
+  TO_BE_BILLED = 'To be Billed',
   PAID = 'Paid',
-  TO_PAID = 'To paid',
+  TO_PAID = 'To Paid',
 }
 
 export interface GRInsurance {
