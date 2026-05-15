@@ -11,6 +11,7 @@ import { useSession } from '@/hooks/useSession';
 import { cn } from '@/lib/utils/cn';
 import { usePreferences, type Theme, type FontSize, FONT_SIZE_MAP } from '@/providers/PreferencesProvider';
 import { Button, inputClass, Modal } from '@/components/ui';
+import { cloudinaryApi } from '@/lib/api/cloudinary.api';
 
 const THEME_OPTIONS: { value: Theme; label: string; icon: React.ReactNode; desc: string }[] = [
   { value: 'light', label: 'Light', icon: <Sun size={20} />, desc: 'Always use light mode' },
@@ -51,6 +52,8 @@ export default function SettingsPage() {
     ifscCode: '',
   });
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+  const [logoUploadError, setLogoUploadError] = useState('');
 
   // Populate form once profile loads
   useEffect(() => {
@@ -117,6 +120,24 @@ export default function SettingsPage() {
         ...(hasBankDetails ? { bankDetails } : {}),
       },
     });
+  };
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+
+    setLogoUploadError('');
+    setIsUploadingLogo(true);
+
+    try {
+      const logoUrl = await cloudinaryApi.uploadCompanyLogo(file);
+      setForm((prev) => ({ ...prev, logoUrl }));
+    } catch (error) {
+      setLogoUploadError(error instanceof Error ? error.message : 'Logo upload failed.');
+    } finally {
+      setIsUploadingLogo(false);
+    }
   };
 
   const getDaysLeft = (expiresAt: string) => {
@@ -259,18 +280,33 @@ export default function SettingsPage() {
         </div>
 
         <div className="p-8 space-y-6">
-          {/* Logo placeholder */}
+          {/* Logo upload */}
           <div className="flex items-center gap-6">
-            <div className="h-20 w-20 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 text-slate-400 shrink-0">
-              <Building2 size={32} />
+            <div className="h-20 w-20 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 text-slate-400 shrink-0 overflow-hidden">
+              {form.logoUrl ? (
+                <img src={form.logoUrl} alt="Company logo" className="h-full w-full object-contain p-2" />
+              ) : (
+                <Building2 size={32} />
+              )}
             </div>
             <div className="space-y-2">
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Company Logo</p>
-              <button className="flex items-center gap-2 h-9 px-4 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all">
-                <Upload size={14} />
-                Upload Logo
-              </button>
+              <label className={cn(
+                'flex w-fit items-center gap-2 h-9 px-4 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all',
+                isUploadingLogo ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
+              )}>
+                {isUploadingLogo ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+                {isUploadingLogo ? 'Uploading...' : 'Upload Logo'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg"
+                  className="sr-only"
+                  disabled={isUploadingLogo}
+                  onChange={handleLogoUpload}
+                />
+              </label>
               <p className="text-[10px] text-slate-400">PNG or JPG. Max 2MB. Appears on printed GR documents.</p>
+              {logoUploadError && <p className="text-[10px] font-bold text-red-500">{logoUploadError}</p>}
             </div>
           </div>
 

@@ -99,3 +99,23 @@ export function useDeleteGR() {
     },
   });
 }
+
+/** Open a single GR PDF in a new tab. */
+export function useDownloadGRPdf() {
+  return useMutation({
+    mutationFn: (id: string) => grApi.downloadPdf(id),
+    onSuccess: (blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const opened = window.open(url, '_blank');
+
+      if (!opened) {
+        toast.error('Popup blocked. Please allow popups to open the GR PDF.');
+      }
+
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+    },
+    onError: (error: unknown) => {
+      toast.error(extractMessage(error, 'Failed to open GR PDF.'));
+    },
+  });
+}
