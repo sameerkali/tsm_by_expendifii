@@ -53,6 +53,12 @@ export const grApi = {
   delete: async (id: string): Promise<{ success: boolean; message: string }> => {
     return apiClient.delete(`/gr/${id}`) as any;
   },
+
+  downloadPdf: async (id: string): Promise<Blob> => {
+    return apiClient.get(`/gr/${id}/pdf`, {
+      responseType: 'blob',
+    }) as any;
+  },
 };
 
 export default grApi;
