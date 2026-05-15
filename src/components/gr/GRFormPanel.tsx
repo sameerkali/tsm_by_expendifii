@@ -7,7 +7,7 @@ import { useCreateGR, useUpdateGR } from '@/hooks/useGR';
 import { useCustomers, useCreateCustomer, extractMessage } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
 import type { GR, CreateGRInput } from '@/types/gr';
-import type { Customer, PricingType as CustomerPricingType } from '@/types/customer';
+import type { CreateCustomerInput, Customer, PricingType as CustomerPricingType } from '@/types/customer';
 import { GRStatus, PricingType, PaymentStatus, BillingType } from '@/types/gr';
 import { toast } from 'sonner';
 
@@ -100,6 +100,23 @@ const STATUS_CONFIG = {
   [GRStatus.IN_TRANSIT]: { label: 'In Transit', cls: 'bg-amber-100 text-amber-700 border-amber-300' },
   [GRStatus.DELIVERED]: { label: 'Delivered', cls: 'bg-emerald-100 text-emerald-700 border-emerald-300' },
 };
+
+function buildCustomerPayloadFromGR(form: FormState): CreateCustomerInput {
+  const payload: CreateCustomerInput = {
+    name: form.consignor.trim(),
+    phone: form.consignorPhone.trim(),
+  };
+
+  if (form.consignorGST.trim()) payload.gstin = form.consignorGST.trim().toUpperCase();
+  if (form.consignorAddress.trim()) payload.address = form.consignorAddress.trim();
+  if (form.consignorCity.trim()) payload.city = form.consignorCity.trim();
+  if (form.consignorState.trim()) payload.state = form.consignorState.trim();
+  if (form.consignorPincode.trim()) payload.pincode = Number(form.consignorPincode.trim());
+  if (form.pricingType) payload.pricingType = form.pricingType as CustomerPricingType;
+  if (form.rate.trim()) payload.defaultRate = parseFloat(form.rate);
+
+  return payload;
+}
 
 // ─── Phone input handler (strips non-digits, caps at 10) ─────────────────────
 
@@ -328,19 +345,10 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
         return;
       }
       try {
-        const res = await createCustomer.mutateAsync({
-          name: form.consignor.trim(),
-          phone: form.consignorPhone.trim(),
-          address: form.consignorAddress.trim() || "",
-          city: form.fromCity.trim() || form.consignorCity.trim() || "",
-          state: form.consignorState.trim() || "",
-          pincode: form.consignorPincode.trim() ? Number(form.consignorPincode.trim()) : 0,
-          pricingType: form.pricingType as CustomerPricingType,
-          defaultRate: parseFloat(form.rate) || 0
-        });
+        const res = await createCustomer.mutateAsync(buildCustomerPayloadFromGR(form));
         finalCustomerId = res.data.id;
         setCustomerId(res.data.id); // Save it locally in case GR creation fails and they retry
-      } catch (err: any) {
+      } catch {
         // Error toast is already handled by useCreateCustomer hook
         return;
       }
@@ -728,7 +736,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     <div className="relative">
                       <select value={form.billingType} onChange={set('billingType')} className={inputClass + ' appearance-none pr-10'}>
                         <option value={BillingType.TO_PAID}>To Paid</option>
-                        <option value={BillingType.TO_BE_PAID}>To Be Paid</option>
+                        <option value={BillingType.TO_BE_BILLED}>To be Billed</option>
                         <option value={BillingType.PAID}>Paid</option>
                       </select>
                       <ChevronDown size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
