@@ -4,24 +4,16 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  LayoutDashboard, Users as UsersIcon, Files, Printer, Settings,
-  LogOut, Menu, X, Bell, Search, User as UserIcon, ChevronRight,
-  Palette, AlertTriangle,
   Loader2
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
 import { useSession } from '@/hooks/useSession';
-import { Modal, Button } from '@/components/ui';
+import { Sidebar } from './Sidebar';
+import { LogoutModal } from './LogoutModal';
+import { Topbar } from './TopBar';
 
-const NAV_ITEMS = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
-  { label: 'Customers', icon: UsersIcon, href: '/customers' },
-  { label: 'GR', icon: Files, href: '/gr' },
-  { label: 'Printing', icon: Printer, href: '/printing' },
-  { label: 'Settings', icon: Settings, href: '/settings' },
-  { label: 'Design System', icon: Palette, href: '/design-system' },
-];
+
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(true);
@@ -69,29 +61,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-emerald-500/30 overflow-hidden">
 
-      {/* ── Logout Confirmation Modal ── */}
-      <Modal
-        isOpen={showLogoutConfirm}
-        onClose={() => setShowLogoutConfirm(false)}
-        title="Sign Out"
-        footer={
-          <div className="flex w-full gap-3">
-            <Button variant="danger" onClick={() => { setShowLogoutConfirm(false); logout(); }} className="flex-1 bg-red-500 hover:bg-red-600 shadow-none border border-red-600/20 text-white">
-              Yes, log me out
-            </Button>
-            <Button variant="secondary" onClick={() => setShowLogoutConfirm(false)} className="flex-1">
-              Cancel
-            </Button>
-          </div>
-        }
-      >
-        <div className="py-2 text-center">
-         
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Leaving so soon?</h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-okay peace out. Log back in when you want your dashboard to acknowledge your existence again.          </p>
-        </div>
-      </Modal>
+      <LogoutModal 
+        isOpen={showLogoutConfirm} 
+        onClose={() => setShowLogoutConfirm(false)} 
+        onConfirm={() => { setShowLogoutConfirm(false); logout(); }} 
+      />
 
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
@@ -102,187 +76,24 @@ okay peace out. Log back in when you want your dashboard to acknowledge your exi
       )}
 
       {/* ── Sidebar ── */}
-      <aside className={cn(
-        // Light mode: white sidebar with slate borders
-        // Dark mode: slate-900 sidebar
-        "fixed inset-y-0 left-0 z-50 flex flex-col",
-        "bg-white dark:bg-slate-900",
-        "border-r border-slate-200 dark:border-slate-800",
-        "transition-all duration-300 ease-in-out",
-        "lg:relative",
-        // Mobile
-        isMobileOpen ? "translate-x-0 w-72" : "-translate-x-full w-72",
-        // Desktop
-        isDesktopExpanded ? "lg:translate-x-0 lg:w-72" : "lg:translate-x-0 lg:w-20",
-      )}>
-
-        {/* Logo */}
-        <div className="h-20 flex items-center px-5 border-b border-slate-100 dark:border-slate-800 overflow-hidden shrink-0">
-         
-          {showLabel && (
-            <div className="">
-
-            
-            <span className="ml-3 text-xl font-black tracking-tighter text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
-              TSM<span className="text-emerald-500">_</span>
-            </span>
-            <span className='ml-3 text-[10px] font-bold tracking-tight text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap'>By Expendifii</span>
-            </div>
-          )}
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto custom-scrollbar">
-          {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                title={!showLabel ? item.label : undefined}
-                className={cn(
-                  "flex items-center h-11 px-3 rounded-xl transition-all group relative",
-                  showLabel ? "gap-3" : "justify-center",
-                  isActive
-                    ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/25"
-                    : [
-                      // Light mode inactive
-                      "text-slate-500 hover:text-slate-900 hover:bg-slate-100",
-                      // Dark mode inactive
-                      "dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800",
-                    ]
-                )}
-              >
-                <item.icon size={19} className="shrink-0" />
-                {showLabel && (
-                  <span className="font-semibold text-sm tracking-tight animate-in fade-in duration-150">
-                    {item.label}
-                  </span>
-                )}
-                {isActive && showLabel && (
-                  <ChevronRight size={14} className="ml-auto opacity-70" />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* User card + Sign Out */}
-        <div className="p-3 border-t border-slate-100 dark:border-slate-800 space-y-1 shrink-0">
-          {showLabel && (
-            <div className="">
-            
-
-              {(() => {
-                if (!coupon) return (
-                  <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-lg">
-                    <p className="text-[10px] font-bold text-slate-400 text-center">No active plan</p>
-                  </div>
-                );
-
-                const today = new Date();
-                const expDate = new Date(coupon.expiresAt);
-                const daysLeft = Math.max(0, Math.ceil((expDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
-                const totalDays = coupon.durationDays;
-                const pct = totalDays > 0 ? (daysLeft / totalDays) * 100 : 0;
-
-                // Color logic: >50% = green, ≤50% = yellow, ≤20% = red
-                const color = pct <= 20
-                  ? { text: 'text-red-500', bg: 'bg-red-500', bar: 'bg-red-100 dark:bg-red-900/30', border: 'border-red-200 dark:border-red-800/50' }
-                  : pct <= 50
-                    ? { text: 'text-amber-500', bg: 'bg-amber-500', bar: 'bg-amber-100 dark:bg-amber-900/30', border: 'border-amber-200 dark:border-amber-800/50' }
-                    : { text: 'text-emerald-500', bg: 'bg-emerald-500', bar: 'bg-emerald-100 dark:bg-emerald-900/30', border: 'border-emerald-200 dark:border-emerald-800/50' };
-
-                return (
-                  <div className={cn('px-2.5 py-2 rounded-xl border', color.bar, color.border)}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Plan</span>
-                      <span className={cn('text-xs font-black', color.text)}>{daysLeft}d left</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                      <div className={cn('h-full rounded-full transition-all', color.bg)} style={{ width: `${Math.min(pct, 100)}%` }} />
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-          )}
-
-          {/* Sign Out Button — shows confirmation modal */}
-          <button
-            onClick={() => setShowLogoutConfirm(true)}
-            title="Sign Out"
-            className={cn(
-              "flex items-center h-11 px-3 w-full rounded-xl transition-all",
-              "text-slate-500 dark:text-slate-400",
-              "hover:text-red-600 dark:hover:text-red-400",
-              "hover:bg-red-50 dark:hover:bg-red-500/10",
-              "active:scale-95",
-              !showLabel && "justify-center"
-            )}
-          >
-            <LogOut size={18} />
-            {showLabel && (
-              <span className="ml-3 font-semibold text-sm">Sign Out</span>
-            )}
-          </button>
-        </div>
-
-        {/* Collapsed label decoration */}
-        {!isDesktopExpanded && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 pointer-events-none select-none hidden lg:block">
-            <span className="text-2xl font-black text-slate-200 dark:text-slate-800 tracking-[0.5em] italic whitespace-nowrap">
-              TMS
-            </span>
-          </div>
-        )}
-      </aside>
+      <Sidebar 
+        isMobileOpen={isMobileOpen}
+        isDesktopExpanded={isDesktopExpanded}
+        coupon={coupon}
+        onLogoutClick={() => setShowLogoutConfirm(true)}
+      />
 
       {/* ── Main Content ── */}
       <div className="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
-
+        
         {/* Topbar */}
-        <header className="h-16 flex items-center justify-between px-5 md:px-8 border-b border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 backdrop-blur-[1px] sticky top-0 z-30 shrink-0">
-          <div className="flex items-center gap-3">
-            {/* Mobile burger */}
-            <button
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 text-slate-600 dark:text-slate-400 transition-colors lg:hidden"
-              aria-label="Toggle sidebar"
-            >
-              {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-            {/* Desktop collapse */}
-            <button
-              onClick={() => setIsDesktopExpanded(!isDesktopExpanded)}
-              className="h-10 w-10 hidden lg:flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 text-slate-600 dark:text-slate-400 transition-colors"
-              aria-label="Collapse sidebar"
-            >
-              {isDesktopExpanded ? <X size={18} /> : <Menu size={18} />}
-            </button>
-
-          </div>
-
-          <Link
-            href="/settings"
-            className="flex items-center gap-4 group transition-all hover:opacity-80"
-          >
-            <div className="flex flex-col items-end mr-1">
-              <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tighter italic leading-none">
-                {user?.name?.toUpperCase() || '...'}
-              </h2>
-            </div>
-            <div className="h-12 w-12 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center text-white shadow-lg border-2 border-slate-200 dark:border-emerald-400/20 transition-transform group-hover:scale-105 active:scale-95 overflow-hidden shrink-0">
-              {user?.company?.logoUrl ? (
-                <img src={user.company.logoUrl} alt={user.name} className="h-full w-full object-cover" />
-              ) : (
-                <span className="text-sm font-black">
-                  {user?.name?.split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2) || '?'}
-                </span>
-              )}
-            </div>
-          </Link>
-        </header>
+        <Topbar 
+          isMobileOpen={isMobileOpen}
+          setIsMobileOpen={setIsMobileOpen}
+          isDesktopExpanded={isDesktopExpanded}
+          setIsDesktopExpanded={setIsDesktopExpanded}
+          user={user}
+        />
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-5 md:p-8 custom-scrollbar relative">
