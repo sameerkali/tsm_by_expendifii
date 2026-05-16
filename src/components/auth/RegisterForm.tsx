@@ -386,6 +386,7 @@ export function RegisterForm() {
           <button
             type="submit"
             disabled={isRegistering}
+            suppressHydrationWarning
             className="w-full group relative overflow-hidden bg-slate-900 dark:bg-emerald-600 text-white py-4 font-bold transition-all hover:bg-slate-800 dark:hover:bg-emerald-500 disabled:opacity-50"
           >
             <div className="relative z-10 flex items-center justify-center gap-2">
