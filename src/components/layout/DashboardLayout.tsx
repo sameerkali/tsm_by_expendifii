@@ -29,7 +29,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const pathname = usePathname();
   const { logout } = useAuth();
-  const { isAuthenticated, isLoading } = useSession();
+  const { isAuthenticated, isLoading, user, coupon } = useSession();
 
   // Protect dashboard routes
   useEffect(() => {
@@ -174,18 +174,41 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         {/* User card + Sign Out */}
         <div className="p-3 border-t border-slate-100 dark:border-slate-800 space-y-1 shrink-0">
           {showLabel && (
-            <div className="px-3 py-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl flex items-center gap-3 mb-1 border border-slate-100 dark:border-slate-700/50">
-              <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center text-white font-bold text-xs shadow-md shrink-0">
-                SF
-              </div>
-              <div className="min-w-0">
-                <p className="text-sm font-bold tracking-tight text-slate-900 dark:text-white leading-none truncate">
-                  Sameer Faridi
-                </p>
-                <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-500 mt-0.5">
-                  Admin
-                </p>
-              </div>
+            <div className="">
+            
+
+              {(() => {
+                if (!coupon) return (
+                  <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-lg">
+                    <p className="text-[10px] font-bold text-slate-400 text-center">No active plan</p>
+                  </div>
+                );
+
+                const today = new Date();
+                const expDate = new Date(coupon.expiresAt);
+                const daysLeft = Math.max(0, Math.ceil((expDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+                const totalDays = coupon.durationDays;
+                const pct = totalDays > 0 ? (daysLeft / totalDays) * 100 : 0;
+
+                // Color logic: >50% = green, ≤50% = yellow, ≤20% = red
+                const color = pct <= 20
+                  ? { text: 'text-red-500', bg: 'bg-red-500', bar: 'bg-red-100 dark:bg-red-900/30', border: 'border-red-200 dark:border-red-800/50' }
+                  : pct <= 50
+                    ? { text: 'text-amber-500', bg: 'bg-amber-500', bar: 'bg-amber-100 dark:bg-amber-900/30', border: 'border-amber-200 dark:border-amber-800/50' }
+                    : { text: 'text-emerald-500', bg: 'bg-emerald-500', bar: 'bg-emerald-100 dark:bg-emerald-900/30', border: 'border-emerald-200 dark:border-emerald-800/50' };
+
+                return (
+                  <div className={cn('px-2.5 py-2 rounded-xl border', color.bar, color.border)}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Plan</span>
+                      <span className={cn('text-xs font-black', color.text)}>{daysLeft}d left</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                      <div className={cn('h-full rounded-full transition-all', color.bg)} style={{ width: `${Math.min(pct, 100)}%` }} />
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
 
@@ -252,7 +275,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           >
             <div className="flex flex-col items-end mr-1">
               <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tighter italic leading-none">
-                SAMEER FARIDI
+                {user?.name?.toUpperCase() || '...'}
               </h2>
             </div>
             <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center text-white shadow-lg border border-slate-200 dark:border-emerald-400/20 transition-transform group-hover:scale-105 active:scale-95">
