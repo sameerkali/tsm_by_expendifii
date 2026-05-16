@@ -100,7 +100,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40 lg:hidden"
           onClick={() => setIsMobileOpen(false)}
         />
       )}
@@ -246,7 +246,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
 
         {/* Topbar */}
-        <header className="h-16 flex items-center justify-between px-5 md:px-8 border-b border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl sticky top-0 z-30 shrink-0">
+        <header className="h-16 flex items-center justify-between px-5 md:px-8 border-b border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 backdrop-blur-[1px] sticky top-0 z-30 shrink-0">
           <div className="flex items-center gap-3">
             {/* Mobile burger */}
             <button

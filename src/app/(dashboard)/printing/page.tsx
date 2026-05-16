@@ -42,7 +42,7 @@ function PrintModal({
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-md z-40 transition-opacity" onClick={onClose} />
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40 transition-opacity" onClick={onClose} />
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] bg-white dark:bg-slate-950 z-50 rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden border border-slate-100 dark:border-slate-800">
         
         {/* Header Art / Top Section */}

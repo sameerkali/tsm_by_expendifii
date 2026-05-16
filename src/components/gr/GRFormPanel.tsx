@@ -463,7 +463,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
   return (
     <>
-      {isOpen && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40" onClick={onClose} />}
+      {isOpen && <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40" onClick={onClose} />}
 
       <div className={cn(
         'fixed top-0 right-0 h-full bg-white dark:bg-slate-950 z-50 shadow-2xl flex flex-col transition-transform duration-500 ease-in-out',
