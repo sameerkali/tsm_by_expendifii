@@ -49,11 +49,11 @@ export function RegisterForm() {
     <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tighter text-slate-900 dark:text-white">
-          Join the network
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400">
-          Create your company account to get started
-        </p>
+  Less paper. More trucks. Zero leaks.
+</h1>
+<p className="text-slate-500 dark:text-slate-400">
+  Sign up and run your transport business 90% faster
+</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
