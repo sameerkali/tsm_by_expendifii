@@ -35,7 +35,7 @@ export function ConfirmDialog({
     <div className="fixed inset-0 z-[60] flex items-center justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200"
+        className="absolute inset-0 bg-black/40 backdrop-blur-[1px] animate-in fade-in duration-200"
         onClick={isLoading ? undefined : onClose}
       />
 

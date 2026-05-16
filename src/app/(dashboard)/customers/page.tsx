@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-  Plus, Search, Filter, User as UserIcon, Phone, Mail, ChevronLeft, ChevronRight, Loader2
+  Plus, Search, User as UserIcon, Phone, Mail, ChevronLeft, ChevronRight, Loader2
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { CustomerFormPanel } from '@/components/customers/CustomerFormPanel';
@@ -47,52 +47,36 @@ export default function CustomersPage() {
 
       <div className="space-y-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-1">
-            <p className="text-xs font-black tracking-[0.3em] text-emerald-500 uppercase italic">CRM INTEGRITY</p>
-            <div className="flex items-center gap-4">
-              <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Customer Registry</h1>
-              <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-black tracking-widest text-slate-500 uppercase mt-2">
-                {pagination?.total || 0} ACCOUNTS
-              </span>
+        <div className="space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-1">
+              <p className="text-xs font-black tracking-[0.3em] text-emerald-500 uppercase italic">CRM INTEGRITY</p>
+              <div className="flex items-center gap-4">
+                <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Customer Registry</h1>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-black tracking-widest text-slate-500 uppercase mt-2">
+                  {pagination?.total || 0} ACCOUNTS
+                </span>
+              </div>
             </div>
+            <button
+              onClick={openNew}
+              className="flex items-center gap-2.5 px-7 h-12 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-black text-sm tracking-tight transition-all active:scale-95 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/40"
+            >
+              <Plus size={20} strokeWidth={2.5} />Add Customer
+            </button>
           </div>
-          <button onClick={openNew} className="flex items-center gap-2 px-6 h-12 bg-slate-900 dark:bg-emerald-600 text-white rounded-xl font-bold tracking-tight hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-emerald-500/20">
-            <Plus size={18} />Add Customer
-          </button>
-        </div>
 
-        {/* Stats - Reduced as per API data availability */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-3xl">
-            <h3 className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tracking-tighter italic">
-              {pagination?.total || 0}
-            </h3>
-            <p className="text-xs font-bold text-emerald-700/60 dark:text-emerald-400/60 uppercase tracking-widest mt-1">Total Customers</p>
-          </div>
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl">
-             <h3 className="text-2xl font-black text-white tracking-tighter italic">
-                Active
-             </h3>
-             <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Status</p>
-          </div>
-        </div>
-
-        {/* Search + Filter */}
-        <div className="flex items-center justify-between gap-4">
-          <div className="relative flex-1 max-w-lg">
+          {/* Search */}
+          <div className="relative max-w-lg">
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input 
-              type="text" 
-              placeholder="Search by name, email, or mobile..." 
+            <input
+              type="text"
+              placeholder="Search by name, email, or mobile..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-emerald-500 transition-all font-medium" 
+              className="w-full h-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-emerald-500 transition-all font-medium"
             />
           </div>
-          {/* <button className="h-12 px-6 border border-slate-100 dark:border-slate-800 rounded-2xl flex items-center gap-2 text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
-            <Filter size={16} />Segment
-          </button> */}
         </div>
 
         {/* Table */}

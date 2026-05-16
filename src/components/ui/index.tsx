@@ -261,7 +261,7 @@ export function Modal({ isOpen, onClose, title, children, footer }: { isOpen: bo
   if (!isOpen) return null;
   return (
     <>
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]" onClick={onClose} />
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-[100]" onClick={onClose} />
       <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between px-8 py-6 border-b border-slate-100 dark:border-slate-800">
           <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">{title}</h2>

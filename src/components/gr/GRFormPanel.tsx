@@ -10,6 +10,16 @@ import type { GR, CreateGRInput } from '@/types/gr';
 import type { CreateCustomerInput, Customer, PricingType as CustomerPricingType } from '@/types/customer';
 import { GRStatus, PricingType, PaymentStatus, BillingType } from '@/types/gr';
 import { toast } from 'sonner';
+import { sanitizeValue } from '@/lib/validation/sanitize';
+import { validateValue } from '@/lib/validation/validate';
+import type { FieldSchema } from '@/lib/validation/fieldSchema';
+import {
+  grConsignorSchema, grConsigneeSchema, grCitySchema, grDescriptionSchema,
+  grRemarksSchema, grWeightSchema, grQuantitySchema, grRateSchema,
+  vehicleNumberSchema, customerPhoneSchema, gstinSchema, customerAddressSchema,
+  customerCitySchema, pincodeSchema, driverNameSchema,
+  grInvoiceNumberSchema, grInsuranceAmountSchema,
+} from '@/lib/validation/schemas';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -93,6 +103,30 @@ const EMPTY_FORM: FormState = {
   insuranceAmount: '',
   insuranceRisk: '',
   remarks: '',
+};
+
+// Schema map for GR form fields
+const GR_FIELD_SCHEMAS: Partial<Record<keyof FormState, FieldSchema>> = {
+  consignor: grConsignorSchema,
+  consignorPhone: customerPhoneSchema,
+  consignorGST: gstinSchema,
+  consignorAddress: customerAddressSchema,
+  consignorCity: customerCitySchema,
+  consignorPincode: pincodeSchema,
+  consignee: grConsigneeSchema,
+  consigneeGST: gstinSchema,
+  fromCity: grCitySchema,
+  toCity: grCitySchema,
+  productDescription: grDescriptionSchema,
+  weight: grWeightSchema,
+  boxCount: grQuantitySchema,
+  rate: grRateSchema,
+  vehicleNumber: vehicleNumberSchema,
+  driverName: driverNameSchema,
+  driverMobile: customerPhoneSchema,
+  remarks: grRemarksSchema,
+  invoiceNumber: grInvoiceNumberSchema,
+  insuranceAmount: grInsuranceAmountSchema,
 };
 
 const STATUS_CONFIG = {
@@ -237,21 +271,32 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
   const set = (field: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-      setForm(prev => ({ ...prev, [field]: e.target.value }));
+      const schema = GR_FIELD_SCHEMAS[field];
+      let value = e.target.value;
+      if (schema) value = sanitizeValue(value, schema) as string;
+      setForm(prev => ({ ...prev, [field]: value }));
       if (fieldErrors[field]) {
-        setFieldErrors(prev => {
-          const next = { ...prev };
-          delete next[field];
-          return next;
-        });
+        setFieldErrors(prev => { const n = { ...prev }; delete n[field]; return n; });
       }
-
-      // If user types in consignor name, clear customerId and open dropdown
       if (field === 'consignor') {
         if (customerId) setCustomerId(null);
         setIsDropdownOpen(true);
       }
     };
+
+  const blur = (field: keyof FormState) => () => {
+    const schema = GR_FIELD_SCHEMAS[field];
+    if (schema) {
+      let value = form[field];
+      if (typeof value === 'string') {
+        value = value.trim();
+        setForm(prev => ({ ...prev, [field]: value }));
+      }
+      const error = validateValue(value, schema);
+      if (error) setFieldErrors(prev => ({ ...prev, [field]: error }));
+      else setFieldErrors(prev => { const n = { ...prev }; delete n[field]; return n; });
+    }
+  };
 
   // ── Phone-specific handlers (digits only, max 10) ──
   const handleConsignorPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -270,9 +315,21 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     }
   };
 
-  // Select existing customer from dropdown
   const handleSelectCustomer = (c: Customer) => {
     setCustomerId(c.id);
+    setFieldErrors(prev => {
+      const next = { ...prev };
+      delete next.consignor;
+      delete next.consignorPhone;
+      delete next.consignorGST;
+      delete next.consignorAddress;
+      delete next.consignorCity;
+      delete next.consignorState;
+      delete next.consignorPincode;
+      delete next.fromCity;
+      delete next.rate;
+      return next;
+    });
     setForm(prev => ({
       ...prev,
       consignor: c.name,
@@ -307,29 +364,27 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFieldErrors({});
-
+  const validateAll = (): Record<string, string> => {
     const errors: Record<string, string> = {};
-
+    for (const [field, schema] of Object.entries(GR_FIELD_SCHEMAS)) {
+      if (!schema) continue;
+      const value = form[field as keyof FormState];
+      // Skip optional empty fields
+      if (!schema.required && (!value || (typeof value === 'string' && !value.trim()))) continue;
+      const error = validateValue(value, schema);
+      if (error) errors[field] = error;
+    }
+    // Custom: booking date cannot be in the past
     if (!isEditing && form.bookingDate < today) {
       errors.bookingDate = 'Booking date cannot be in the past.';
     }
+    return errors;
+  };
 
-    if (!isEditing && !customerId && form.consignor.trim()) {
-      if (!form.consignorPhone.trim() || !/^\d{10}$/.test(form.consignorPhone.trim())) {
-        errors.consignorPhone = 'Enter a valid 10-digit mobile number.';
-      }
-      if (form.consignorPincode.trim() && !/^\d{6}$/.test(form.consignorPincode.trim())) {
-        errors.consignorPincode = 'Pincode must be exactly 6 digits.';
-      }
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    if (form.driverMobile.trim() && !/^\d{10}$/.test(form.driverMobile.trim())) {
-      errors.driverMobile = 'Enter a valid 10-digit mobile number.';
-    }
-
+    const errors = validateAll();
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       toast.error('Please fix the errors in the form before submitting.');
@@ -408,7 +463,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
   return (
     <>
-      {isOpen && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40" onClick={onClose} />}
+      {isOpen && <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40" onClick={onClose} />}
 
       <div className={cn(
         'fixed top-0 right-0 h-full bg-white dark:bg-slate-950 z-50 shadow-2xl flex flex-col transition-transform duration-500 ease-in-out',
@@ -459,16 +514,17 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
                 {/* Consignor combobox */}
                 <div ref={dropdownRef} className="relative">
-                  <Field label="Consignor (Sender)" required hint="Type to search existing" error={fieldErrors.consignor}>
+                  <Field label="Consignor (Sender)" required error={fieldErrors.consignor}>
                     <div className="relative">
                       <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                       <input
                         placeholder="Company or person sending goods"
                         value={form.consignor}
                         onChange={set('consignor')}
+                        onBlur={blur('consignor')}
                         onFocus={() => setIsDropdownOpen(true)}
                         readOnly={!!customerId}
-                        maxLength={50}
+                        maxLength={60}
                         className={cn(inputClass, 'pl-11', !!customerId && 'opacity-60 cursor-not-allowed', fieldErrors.consignor && errorInputClass)}
                         required
                         autoComplete="off"
@@ -510,7 +566,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 <Field
                   label="Consignor Phone"
                   required={isNewCustomer}
-                  hint="10-digit mobile number"
                   error={fieldErrors.consignorPhone}
                 >
                   <div className="relative">
@@ -520,6 +575,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       placeholder="9XXXXXXXXX"
                       value={form.consignorPhone}
                       onChange={handleConsignorPhoneChange}
+                      onBlur={blur('consignorPhone')}
                       readOnly={!!customerId}
                       maxLength={10}
                       className={cn(
@@ -560,17 +616,17 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                           <button type="button" onClick={() => setShowMoreDetails(false)} className="text-xs text-slate-400 hover:text-slate-600">Hide</button>
                         </div>
                         <Field label="Address" error={fieldErrors.consignorAddress}>
-                          <input placeholder="Street address" value={form.consignorAddress} onChange={set('consignorAddress')} maxLength={100} className={cn(inputClass, fieldErrors.consignorAddress && errorInputClass)} />
+                          <input placeholder="Street address" value={form.consignorAddress} onChange={set('consignorAddress')} onBlur={blur('consignorAddress')} maxLength={300} className={cn(inputClass, fieldErrors.consignorAddress && errorInputClass)} />
                         </Field>
                         <div className="grid grid-cols-2 gap-4">
                           <Field label="City" error={fieldErrors.consignorCity}>
-                            <input placeholder="City" value={form.consignorCity} onChange={set('consignorCity')} maxLength={50} className={cn(inputClass, fieldErrors.consignorCity && errorInputClass)} />
+                            <input placeholder="City" value={form.consignorCity} onChange={set('consignorCity')} onBlur={blur('consignorCity')} maxLength={60} className={cn(inputClass, fieldErrors.consignorCity && errorInputClass)} />
                           </Field>
                           <Field label="State" error={fieldErrors.consignorState}>
-                            <input placeholder="State" value={form.consignorState} onChange={set('consignorState')} maxLength={50} className={cn(inputClass, fieldErrors.consignorState && errorInputClass)} />
+                            <input placeholder="State" value={form.consignorState} onChange={set('consignorState')} maxLength={60} className={cn(inputClass, fieldErrors.consignorState && errorInputClass)} />
                           </Field>
                           <Field label="Pincode" error={fieldErrors.consignorPincode}>
-                            <input type="number" placeholder="Pincode" value={form.consignorPincode} onChange={set('consignorPincode')} maxLength={6} className={cn(inputClass, fieldErrors.consignorPincode && errorInputClass)} />
+                            <input inputMode="numeric" placeholder="Pincode" value={form.consignorPincode} onChange={set('consignorPincode')} onBlur={blur('consignorPincode')} maxLength={6} className={cn(inputClass, fieldErrors.consignorPincode && errorInputClass)} />
                           </Field>
                         </div>
                       </div>
@@ -584,6 +640,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     placeholder="e.g. 22AAAAA0000A1Z5"
                     value={form.consignorGST}
                     onChange={set('consignorGST')}
+                    onBlur={blur('consignorGST')}
                     readOnly={!!customerId}
                     maxLength={15}
                     className={cn(
@@ -602,7 +659,8 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       placeholder="Company or person receiving goods"
                       value={form.consignee}
                       onChange={set('consignee')}
-                      maxLength={50}
+                      onBlur={blur('consignee')}
+                      maxLength={60}
                       className={cn(inputClass, fieldErrors.consignee && errorInputClass)}
                     />
                   </Field>
@@ -612,6 +670,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                         placeholder="e.g. 22AAAAA0000A1Z5"
                         value={form.consigneeGST}
                         onChange={set('consigneeGST')}
+                        onBlur={blur('consigneeGST')}
                         maxLength={15}
                         className={cn(inputClass, fieldErrors.consigneeGST && errorInputClass)}
                         style={{ textTransform: 'uppercase' }}
@@ -628,16 +687,16 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   <Field label="Booking Date" required error={fieldErrors.bookingDate}>
                     <input type="date" value={form.bookingDate} onChange={set('bookingDate')} min={!isEditing ? today : undefined} className={cn(inputClass, fieldErrors.bookingDate && errorInputClass)} required />
                   </Field>
-                  <Field label="GR Number" hint="Auto-generated">
+                  <Field label="GR Number">
                     <input type="text" value={isEditing ? (editData?.grNumber ?? '') : 'Auto'} readOnly className={inputClass + ' opacity-50 cursor-not-allowed'} />
                   </Field>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="From City" required error={fieldErrors.fromCity}>
-                    <input placeholder="e.g. Mumbai" value={form.fromCity} onChange={set('fromCity')} maxLength={50} className={cn(inputClass, fieldErrors.fromCity && errorInputClass)} required />
+                    <input placeholder="e.g. Mumbai" value={form.fromCity} onChange={set('fromCity')} onBlur={blur('fromCity')} maxLength={60} className={cn(inputClass, fieldErrors.fromCity && errorInputClass)} required />
                   </Field>
                   <Field label="To City" required error={fieldErrors.toCity}>
-                    <input placeholder="e.g. Delhi" value={form.toCity} onChange={set('toCity')} maxLength={50} className={cn(inputClass, fieldErrors.toCity && errorInputClass)} required />
+                    <input placeholder="e.g. Delhi" value={form.toCity} onChange={set('toCity')} onBlur={blur('toCity')} maxLength={60} className={cn(inputClass, fieldErrors.toCity && errorInputClass)} required />
                   </Field>
                 </div>
               </section>
@@ -647,10 +706,10 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 <SectionHeader>3. Invoice & Insurance</SectionHeader>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Invoice Number" error={fieldErrors.invoiceNumber}>
-                    <input placeholder="Invoice no." value={form.invoiceNumber} onChange={set('invoiceNumber')} maxLength={50} className={cn(inputClass, fieldErrors.invoiceNumber && errorInputClass)} />
+                    <input placeholder="Invoice no." value={form.invoiceNumber} onChange={set('invoiceNumber')} onBlur={blur('invoiceNumber')} maxLength={60} className={cn(inputClass, fieldErrors.invoiceNumber && errorInputClass)} />
                   </Field>
                   <Field label="E-way Bill Number" error={fieldErrors.ewayBillNumber}>
-                    <input placeholder="E-way bill no." value={form.ewayBillNumber} onChange={set('ewayBillNumber')} maxLength={50} className={cn(inputClass, fieldErrors.ewayBillNumber && errorInputClass)} />
+                    <input placeholder="E-way bill no." value={form.ewayBillNumber} onChange={set('ewayBillNumber')} maxLength={60} className={cn(inputClass, fieldErrors.ewayBillNumber && errorInputClass)} />
                   </Field>
                 </div>
                 <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4">
@@ -666,7 +725,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       <input type="date" value={form.insuranceDate} onChange={set('insuranceDate')} className={cn(inputClass, fieldErrors.insuranceDate && errorInputClass)} />
                     </Field>
                     <Field label="Amount (₹)" error={fieldErrors.insuranceAmount}>
-                      <input type="number" min={0} step="0.01" placeholder="0.00" value={form.insuranceAmount} onChange={set('insuranceAmount')} className={cn(inputClass, fieldErrors.insuranceAmount && errorInputClass)} />
+                      <input type="number" min={0} step="0.01" placeholder="0.00" value={form.insuranceAmount} onChange={set('insuranceAmount')} onBlur={blur('insuranceAmount')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} className={cn(inputClass, fieldErrors.insuranceAmount && errorInputClass)} />
                     </Field>
                   </div>
                   <Field label="Risk" error={fieldErrors.insuranceRisk}>
@@ -713,6 +772,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     placeholder="Describe the goods..."
                     value={form.productDescription}
                     onChange={set('productDescription')}
+                    onBlur={blur('productDescription')}
                     rows={2}
                     maxLength={300}
                     className={cn(inputClass, 'h-auto resize-none py-3', fieldErrors.productDescription && errorInputClass)}
@@ -720,10 +780,10 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Weight (kg)">
-                    <input type="number" min={0} step="0.01" placeholder="0.00" value={form.weight} onChange={set('weight')} className={inputClass} />
+                    <input type="number" min={0} step="0.01" placeholder="0.00" value={form.weight} onChange={set('weight')} onBlur={blur('weight')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} className={inputClass} />
                   </Field>
                   <Field label="Box Count">
-                    <input type="number" min={0} placeholder="Number of boxes" value={form.boxCount} onChange={set('boxCount')} className={inputClass} />
+                    <input type="number" min={0} placeholder="Number of boxes" value={form.boxCount} onChange={set('boxCount')} onBlur={blur('boxCount')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '.') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} className={inputClass} />
                   </Field>
                 </div>
               </section>
@@ -757,9 +817,9 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Rate (₹)">
-                    <input type="number" min={0} step="0.01" placeholder="0.00" value={form.rate} onChange={set('rate')} className={inputClass} />
+                    <input type="number" min={0} step="0.01" placeholder="0.00" value={form.rate} onChange={set('rate')} onBlur={blur('rate')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} className={inputClass} />
                   </Field>
-                  <Field label="Freight Amount (₹)" hint="Auto-calculated">
+                  <Field label="Freight Amount (₹)">
                     <input
                       type="text"
                       value={`₹ ${form.freightAmount || '0.00'}`}
@@ -768,7 +828,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     />
                   </Field>
                 </div>
-                <Field label="Payment Status">
+                {/* <Field label="Payment Status">
                   <div className="relative">
                     <select value={form.paymentStatus} onChange={set('paymentStatus')} className={inputClass + ' appearance-none pr-10'}>
                       <option value={PaymentStatus.PENDING}>Pending</option>
@@ -776,21 +836,21 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     </select>
                     <ChevronDown size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                   </div>
-                </Field>
+                </Field> */}
               </section>
 
               {/* SECTION: Vehicle & Driver */}
               <section className="space-y-4">
                 <SectionHeader>7. Vehicle & Driver</SectionHeader>
                 <Field label="Vehicle Number" error={fieldErrors.vehicleNumber}>
-                  <input placeholder="e.g. MH04 AB 1234" value={form.vehicleNumber} onChange={set('vehicleNumber')} maxLength={20} className={cn(inputClass, fieldErrors.vehicleNumber && errorInputClass)} />
+                  <input placeholder="e.g. MH04 AB 1234" value={form.vehicleNumber} onChange={set('vehicleNumber')} onBlur={blur('vehicleNumber')} maxLength={20} className={cn(inputClass, fieldErrors.vehicleNumber && errorInputClass)} />
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Driver Name" error={fieldErrors.driverName}>
-                    <input placeholder="Driver's full name" value={form.driverName} onChange={set('driverName')} maxLength={50} className={cn(inputClass, fieldErrors.driverName && errorInputClass)} />
+                    <input placeholder="Driver's full name" value={form.driverName} onChange={set('driverName')} onBlur={blur('driverName')} maxLength={60} className={cn(inputClass, fieldErrors.driverName && errorInputClass)} />
                   </Field>
                   <Field label="Driver Document ID" error={fieldErrors.driverDocumentId}>
-                    <input placeholder="Licence / Aadhar No." value={form.driverDocumentId} onChange={set('driverDocumentId')} maxLength={50} className={cn(inputClass, fieldErrors.driverDocumentId && errorInputClass)} />
+                    <input placeholder="Licence / Aadhar No." value={form.driverDocumentId} onChange={set('driverDocumentId')} maxLength={60} className={cn(inputClass, fieldErrors.driverDocumentId && errorInputClass)} />
                   </Field>
                 </div>
 
@@ -803,6 +863,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       placeholder="9XXXXXXXXX"
                       value={form.driverMobile}
                       onChange={handleDriverMobileChange}
+                      onBlur={blur('driverMobile')}
                       maxLength={10}
                       className={cn(
                         inputClass,
@@ -830,6 +891,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     placeholder="Any additional notes..."
                     value={form.remarks}
                     onChange={set('remarks')}
+                    onBlur={blur('remarks')}
                     rows={3}
                     maxLength={300}
                     className={cn(inputClass, 'h-auto resize-none py-3', fieldErrors.remarks && errorInputClass)}
@@ -870,13 +932,12 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
   return <h3 className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase">{children}</h3>;
 }
 
-function Field({ label, children, required, hint, error }: { label: string; children: React.ReactNode; required?: boolean; hint?: string; error?: string }) {
+function Field({ label, children, required, error }: { label: string; children: React.ReactNode; required?: boolean; error?: string }) {
   return (
     <div className="space-y-1.5">
       <label className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
         {label}
         {required && <span className="text-emerald-500">*</span>}
-        {hint && <span className="text-slate-400 font-normal">({hint})</span>}
       </label>
       {children}
       {error && (

@@ -12,6 +12,17 @@ export const FONT_SIZE_MAP: Record<FontSize, string> = {
   xl: '20px',
 };
 
+const ALLOWED_THEMES: Theme[] = ['light', 'dark', 'system'];
+const ALLOWED_FONT_SIZES: FontSize[] = ['sm', 'md', 'lg', 'xl'];
+
+function isValidTheme(value: string | null): value is Theme {
+  return ALLOWED_THEMES.includes(value as Theme);
+}
+
+function isValidFontSize(value: string | null): value is FontSize {
+  return ALLOWED_FONT_SIZES.includes(value as FontSize);
+}
+
 interface Preferences {
   theme: Theme;
   fontSize: FontSize;
@@ -21,7 +32,7 @@ interface Preferences {
 }
 
 const PreferencesContext = createContext<Preferences>({
-  theme: 'system',
+  theme: 'light',
   fontSize: 'md',
   resolvedTheme: 'light',
   setTheme: () => {},
@@ -55,14 +66,17 @@ function resolve(t: Theme): 'light' | 'dark' {
 }
 
 export function PreferencesProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('system');
+  const [theme, setThemeState] = useState<Theme>('light');
   const [fontSize, setFontSizeState] = useState<FontSize>('md');
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
   // On mount: read saved prefs and apply them
   useEffect(() => {
-    const savedTheme = (localStorage.getItem('tms-theme') as Theme | null) ?? 'system';
-    const savedSize = (localStorage.getItem('tms-font-size') as FontSize | null) ?? 'md';
+    const rawTheme = localStorage.getItem('tms-theme');
+    const rawSize = localStorage.getItem('tms-font-size');
+    
+    const savedTheme: Theme = isValidTheme(rawTheme) ? rawTheme : 'light';
+    const savedSize: FontSize = isValidFontSize(rawSize) ? rawSize : 'md';
 
     const resolved = resolve(savedTheme);
     setThemeState(savedTheme);

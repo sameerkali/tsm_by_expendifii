@@ -44,7 +44,7 @@ export function useAuth() {
         }
         
         toast.success('Welcome back!');
-        router.push('/dashboard');
+        router.push('/gr');
       }
     },
     onError: (error: unknown) => {
@@ -98,7 +98,7 @@ export function useAuth() {
       }
 
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
-      router.push('/dashboard');
+      router.push('/gr');
     },
     onError: (error: unknown) => {
       console.group('[useAuth] Activate onError');
