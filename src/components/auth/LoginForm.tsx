@@ -1,5 +1,4 @@
 'use client';
-
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, type LoginInput } from '@/lib/validations/auth.schema';
@@ -44,7 +43,8 @@ export function LoginForm() {
               {...register('email')}
               type="email"
               placeholder="Email address"
-              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 px-10 py-4 outline-none focus:border-emerald-500 dark:focus:border-emerald-500 transition-colors peer placeholder:text-slate-400 dark:placeholder:text-slate-600 rounded-t-xl"
+              suppressHydrationWarning
             />
             {errors.email && (
               <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
