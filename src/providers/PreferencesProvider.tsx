@@ -21,7 +21,7 @@ interface Preferences {
 }
 
 const PreferencesContext = createContext<Preferences>({
-  theme: 'system',
+  theme: 'light',
   fontSize: 'md',
   resolvedTheme: 'light',
   setTheme: () => {},
@@ -55,13 +55,13 @@ function resolve(t: Theme): 'light' | 'dark' {
 }
 
 export function PreferencesProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('system');
+  const [theme, setThemeState] = useState<Theme>('light');
   const [fontSize, setFontSizeState] = useState<FontSize>('md');
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
   // On mount: read saved prefs and apply them
   useEffect(() => {
-    const savedTheme = (localStorage.getItem('tms-theme') as Theme | null) ?? 'system';
+    const savedTheme = (localStorage.getItem('tms-theme') as Theme | null) ?? 'light';
     const savedSize = (localStorage.getItem('tms-font-size') as FontSize | null) ?? 'md';
 
     const resolved = resolve(savedTheme);
