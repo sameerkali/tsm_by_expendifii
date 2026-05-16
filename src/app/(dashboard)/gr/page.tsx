@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Plus, Search, FileText,
   MapPin, ChevronLeft, ChevronRight, Loader2, Trash2, Pencil, Printer
@@ -131,7 +131,7 @@ export default function GRListPage() {
         {/* Table */}
         <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200/50 dark:shadow-none">
           <div className="overflow-x-auto custom-scrollbar">
-            <table className="w-full border-collapse">
+            <table className="w-full border-collapse min-w-[900px]">
               <thead>
                 <tr className="border-b border-slate-50 dark:border-slate-800/50 h-16 text-left">
                   <th className="px-8 text-[10px] font-black text-slate-400 uppercase tracking-widest">GR Details</th>
@@ -173,25 +173,23 @@ export default function GRListPage() {
                     const statusCfg = STATUS_MAP[row.status] ?? { label: row.status, className: 'bg-slate-100 text-slate-600 border-slate-200' };
                     return (
                       <tr key={row.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-all">
-                        <td className="px-8 py-5">
+                        <td className="px-8 py-5 whitespace-nowrap">
                           <div className="flex items-center gap-3">
-                            <div className="h-11 w-11 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform shrink-0">
-                              <FileText size={18} />
-                            </div>
+                           
                             <div>
                               <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight italic">{row.grNumber}</p>
                               <p className="text-xs text-slate-400 font-medium mt-0.5">{row.bookingDate?.slice(0, 10)}</p>
                             </div>
                           </div>
                         </td>
-                        <td className="px-8 py-5">
+                        <td className="px-8 py-5 whitespace-nowrap">
                           <p className="text-sm font-bold text-slate-800 dark:text-slate-200">{row.consignor}</p>
                           <p className="text-xs text-slate-400 mt-0.5">→ {row.consignee}</p>
                           {row.customer && (
                             <p className="text-[10px] text-emerald-600 font-bold mt-1">Customer: {row.customer.name}</p>
                           )}
                         </td>
-                        <td className="px-8 py-5">
+                        <td className="px-8 py-5 whitespace-nowrap">
                           <div className="flex items-center gap-2 text-sm">
                             <span className="font-bold text-slate-700 dark:text-slate-300">{row.fromCity}</span>
                             <MapPin size={10} className="text-emerald-500" />
@@ -199,7 +197,7 @@ export default function GRListPage() {
                           </div>
                           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{row.vehicleNumber || '—'}</p>
                         </td>
-                        <td className="px-8 py-5">
+                        <td className="px-8 py-5 whitespace-nowrap">
                           <p className="text-sm font-black text-slate-900 dark:text-white">
                             ₹ {(row.freightAmount ?? 0).toLocaleString('en-IN')}
                           </p>
@@ -207,23 +205,23 @@ export default function GRListPage() {
                             {row.pricingType} × ₹{row.rate}
                           </p>
                         </td>
-                        <td className="px-8 py-5">
+                        <td className="px-8 py-5 whitespace-nowrap">
                           <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
                             {PAYMENT_MAP[row.paymentStatus] ?? row.paymentStatus}
                           </span>
                         </td>
-                        <td className="px-8 py-5">
-                          <span className={cn('inline-flex items-center px-3 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest', statusCfg.className)}>
+                        <td className="px-8 py-5 whitespace-nowrap">
+                          <span className={cn('inline-flex items-center px-3 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest whitespace-nowrap', statusCfg.className)}>
                             {statusCfg.label}
                           </span>
                         </td>
-                        <td className="px-8 py-5 text-right">
-                          <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <td className="px-8 py-5 text-right whitespace-nowrap">
+                          <div className="flex items-center justify-end gap-1">
                             <button
                               onClick={() => printGR.mutate(row.id)}
                               disabled={printGR.isPending}
                               title="Print"
-                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-400 hover:text-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-500 dark:text-slate-400 hover:text-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                               {printGR.isPending && printGR.variables === row.id ? (
                                 <Loader2 size={16} className="animate-spin" />
@@ -234,14 +232,14 @@ export default function GRListPage() {
                             <button
                               onClick={() => openEdit(row)}
                               title="Edit"
-                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-400 hover:text-emerald-500"
+                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-500 dark:text-slate-400 hover:text-emerald-500"
                             >
                               <Pencil size={16} />
                             </button>
                             <button
                               onClick={() => setDeleteTarget(row)}
                               title="Delete"
-                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 transition-all text-slate-400 hover:text-red-500"
+                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 transition-all text-slate-500 dark:text-slate-400 hover:text-red-500"
                             >
                               <Trash2 size={16} />
                             </button>
