@@ -264,9 +264,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             >
               {isDesktopExpanded ? <X size={18} /> : <Menu size={18} />}
             </button>
-            <span className="text-xs font-black tracking-[0.2em] text-slate-400 uppercase italic hidden sm:block">
-              SYSTEM ACTIVE
-            </span>
+
           </div>
 
           <Link
@@ -278,8 +276,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 {user?.name?.toUpperCase() || '...'}
               </h2>
             </div>
-            <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center text-white shadow-lg border border-slate-200 dark:border-emerald-400/20 transition-transform group-hover:scale-105 active:scale-95">
-              <UserIcon size={24} />
+            <div className="h-12 w-12 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center text-white shadow-lg border-2 border-slate-200 dark:border-emerald-400/20 transition-transform group-hover:scale-105 active:scale-95 overflow-hidden shrink-0">
+              {user?.company?.logoUrl ? (
+                <img src={user.company.logoUrl} alt={user.name} className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-sm font-black">
+                  {user?.name?.split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2) || '?'}
+                </span>
+              )}
             </div>
           </Link>
         </header>
