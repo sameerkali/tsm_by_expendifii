@@ -19,7 +19,10 @@ export function LoginForm() {
   });
 
   const onSubmit = (data: LoginInput) => {
-    login(data);
+    login({
+      email: data.email.trim().toLowerCase(),
+      password: data.password,
+    });
   };
 
   return (
@@ -43,6 +46,7 @@ export function LoginForm() {
               {...register('email')}
               type="email"
               placeholder="Email address"
+              maxLength={254}
               className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 px-10 py-4 outline-none focus:border-emerald-500 dark:focus:border-emerald-500 transition-colors peer placeholder:text-slate-400 dark:placeholder:text-slate-600 rounded-t-xl"
               suppressHydrationWarning
             />
@@ -59,6 +63,7 @@ export function LoginForm() {
               {...register('password')}
               type={showPassword ? 'text' : 'password'}
               placeholder="Password"
+              maxLength={30}
               className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
             />
             <button

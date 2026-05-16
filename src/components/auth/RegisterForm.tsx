@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterInput } from '@/lib/validations/auth.schema';
+import { INDIAN_STATES } from '@/lib/validations/customer.schema';
 import { useAuth } from '@/hooks/useAuth';
-import { User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff, MapPin, Hash, Briefcase, Landmark } from 'lucide-react';
+import { User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff, MapPin, Hash, Briefcase, Landmark, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
 export function RegisterForm() {
@@ -69,6 +70,7 @@ export function RegisterForm() {
               <input
                 {...register('name')}
                 placeholder="Full Name"
+                maxLength={60}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.name && (
@@ -84,6 +86,7 @@ export function RegisterForm() {
                 {...register('email')}
                 type="email"
                 placeholder="Work Email"
+                maxLength={254}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.email && (
@@ -97,7 +100,11 @@ export function RegisterForm() {
               </div>
               <input
                 {...register('phone')}
-                placeholder="Phone Number"
+                placeholder="Phone Number (10 digits)"
+                maxLength={10}
+                onInput={(e) => {
+                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+                }}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.phone && (
@@ -112,7 +119,8 @@ export function RegisterForm() {
               <input
                 {...register('password')}
                 type={showPassword ? "text" : "password"}
-                placeholder="Create Password"
+                placeholder="Create Password (6-30 chars)"
+                maxLength={30}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               <button
@@ -141,6 +149,7 @@ export function RegisterForm() {
               <input
                 {...register('company.companyName')}
                 placeholder="Company Name"
+                maxLength={60}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.companyName && (
@@ -154,8 +163,9 @@ export function RegisterForm() {
               </div>
               <input
                 {...register('company.gstin')}
-                placeholder="GSTIN"
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                placeholder="GSTIN (e.g. 22AAAAA0000A1Z5)"
+                maxLength={15}
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
               />
               {errors.company?.gstin && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.gstin.message}</p>
@@ -168,8 +178,9 @@ export function RegisterForm() {
               </div>
               <input
                 {...register('company.pan')}
-                placeholder="PAN"
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                placeholder="PAN (e.g. ABCDE1234F)"
+                maxLength={10}
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
               />
               {errors.company?.pan && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.pan.message}</p>
@@ -183,6 +194,7 @@ export function RegisterForm() {
               <input
                 {...register('company.contactPerson')}
                 placeholder="Contact Person"
+                maxLength={60}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.contactPerson && (
@@ -196,7 +208,11 @@ export function RegisterForm() {
               </div>
               <input
                 {...register('company.phone')}
-                placeholder="Company Phone"
+                placeholder="Company Phone (10 digits)"
+                maxLength={10}
+                onInput={(e) => {
+                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+                }}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.phone && (
@@ -212,6 +228,7 @@ export function RegisterForm() {
                 {...register('company.email')}
                 type="email"
                 placeholder="Company Email"
+                maxLength={254}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.email && (
@@ -228,6 +245,7 @@ export function RegisterForm() {
               <input
                 {...register('company.address.fullAddress')}
                 placeholder="Full Address"
+                maxLength={200}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.address?.fullAddress && (
@@ -240,6 +258,7 @@ export function RegisterForm() {
                 <input
                   {...register('company.address.city')}
                   placeholder="City"
+                  maxLength={60}
                   className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
                 />
                 {errors.company?.address?.city && (
@@ -251,6 +270,7 @@ export function RegisterForm() {
                 <input
                   {...register('company.address.district')}
                   placeholder="District"
+                  maxLength={60}
                   className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
                 />
                 {errors.company?.address?.district && (
@@ -259,11 +279,17 @@ export function RegisterForm() {
               </div>
 
               <div className="relative group">
-                <input
+                <select
                   {...register('company.address.state')}
-                  placeholder="State"
-                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
-                />
+                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white appearance-none cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled className="text-slate-400">State</option>
+                  {INDIAN_STATES.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                 {errors.company?.address?.state && (
                   <p className="text-xs text-red-500 mt-1">{errors.company.address.state.message}</p>
                 )}
@@ -273,6 +299,10 @@ export function RegisterForm() {
                 <input
                   {...register('company.address.pincode')}
                   placeholder="Pincode"
+                  maxLength={6}
+                  onInput={(e) => {
+                    e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+                  }}
                   className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
                 />
                 {errors.company?.address?.pincode && (
@@ -294,8 +324,12 @@ export function RegisterForm() {
               <input
                 {...register('company.bankDetails.bankName')}
                 placeholder="Bank Name"
+                maxLength={80}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
+              {errors.company?.bankDetails?.bankName && (
+                <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.bankName.message}</p>
+              )}
             </div>
 
             <div className="relative group">
@@ -305,8 +339,12 @@ export function RegisterForm() {
               <input
                 {...register('company.bankDetails.accountHolder')}
                 placeholder="Account Holder"
+                maxLength={80}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
+              {errors.company?.bankDetails?.accountHolder && (
+                <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.accountHolder.message}</p>
+              )}
             </div>
 
             <div className="relative group">
@@ -315,9 +353,16 @@ export function RegisterForm() {
               </div>
               <input
                 {...register('company.bankDetails.accountNumber')}
-                placeholder="Account Number"
+                placeholder="Account Number (9-18 digits)"
+                maxLength={18}
+                onInput={(e) => {
+                  e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+                }}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
+              {errors.company?.bankDetails?.accountNumber && (
+                <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.accountNumber.message}</p>
+              )}
             </div>
 
             <div className="relative group">
@@ -326,9 +371,13 @@ export function RegisterForm() {
               </div>
               <input
                 {...register('company.bankDetails.ifscCode')}
-                placeholder="IFSC Code"
+                placeholder="IFSC Code (e.g. SBIN0001234)"
+                maxLength={11}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all uppercase text-slate-900 dark:text-white placeholder:text-slate-400"
               />
+              {errors.company?.bankDetails?.ifscCode && (
+                <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.ifscCode.message}</p>
+              )}
             </div>
           </div>
         </div>
