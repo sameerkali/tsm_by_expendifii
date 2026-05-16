@@ -17,11 +17,15 @@ const NAV_ITEMS = [
   { label: 'Settings', icon: Settings, href: '/settings' },
   { label: 'Design System', icon: Palette, href: '/design-system' },
 ];
+interface SidebarCoupon {
+  expiresAt: string;
+  durationDays: number;
+}
 
 interface SidebarProps {
   isMobileOpen: boolean;
   isDesktopExpanded: boolean;
-  coupon: any;
+  coupon: SidebarCoupon | null;
   onLogoutClick: () => void;
 }
 
@@ -154,7 +158,7 @@ export function Sidebar({
       {!isDesktopExpanded && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 pointer-events-none select-none hidden lg:block">
           <span className="text-2xl font-black text-slate-200 dark:text-slate-800 tracking-[0.5em] italic whitespace-nowrap">
-            TMS
+            TSM
           </span>
         </div>
       )}

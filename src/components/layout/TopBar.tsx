@@ -1,15 +1,15 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import { User } from '@/types/session';
 
 interface TopbarProps {
   isMobileOpen: boolean;
   setIsMobileOpen: (val: boolean) => void;
   isDesktopExpanded: boolean;
   setIsDesktopExpanded: (val: boolean) => void;
-  user: any;
+  user: User | undefined;
 }
 
 export function Topbar({
@@ -34,7 +34,7 @@ export function Topbar({
         <button
           onClick={() => setIsDesktopExpanded(!isDesktopExpanded)}
           className="h-10 w-10 hidden lg:flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 text-slate-600 dark:text-slate-400 transition-colors"
-          aria-label="Collapse sidebar"
+          aria-label={isDesktopExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           {isDesktopExpanded ? <X size={18} /> : <Menu size={18} />}
         </button>
