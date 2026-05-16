@@ -145,6 +145,7 @@ export default function SettingsPage() {
             <CompanyProfileSection
         form={form}
         set={set}
+        setForm={setForm}
         handleSave={handleSave}
         handleLogoUpload={handleLogoUpload}
         isUploadingLogo={isUploadingLogo}

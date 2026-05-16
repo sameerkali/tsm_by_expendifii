@@ -23,10 +23,34 @@ const PROFILE_SCHEMAS: Record<string, FieldSchema> = {
   contactPerson: contactPersonSchema,
 };
 
+ type CompanyProfileForm = {
+   name: string;
+   phone: string;
+   companyName: string;
+   gstin: string;
+   pan: string;
+   companyPhone: string;
+   companyEmail: string;
+   contactPerson: string;
+   logoUrl: string;
+   addressFullAddress: string;
+   addressCity: string;
+   addressDistrict: string;
+   addressState: string;
+   addressPincode: string;
+   bankName: string;
+   accountHolder: string;
+   accountNumber: string;
+   ifscCode: string;
+ };
+ 
+ type SettingsUser = { email?: string | null } | null;
+
 interface CompanyProfileSectionProps {
-  form: any;
-  set: (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSave: () => void;
+  form: CompanyProfileForm;
+  setForm?: React.Dispatch<React.SetStateAction<CompanyProfileForm>>;
+  set: <K extends keyof CompanyProfileForm>(field: K) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSave: () => Promise<void> | void;
   handleLogoUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isUploadingLogo: boolean;
   logoUploadError: string;
@@ -41,6 +65,7 @@ const readOnlyStyle = 'bg-slate-50/50 dark:bg-slate-800/50 cursor-default !borde
 export function CompanyProfileSection({
   form,
   set,
+  setForm,
   handleSave,
   handleLogoUpload,
   isUploadingLogo,
@@ -50,15 +75,31 @@ export function CompanyProfileSection({
   user,
 }: CompanyProfileSectionProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [preEditProfile, setPreEditProfile] = useState<CompanyProfileForm | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
+  const startEditing = () => {
+    setPreEditProfile(form);
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    if (isUpdatingProfile) return;
+    if (preEditProfile && setForm) {
+      setForm(preEditProfile);
+    }
+    setIsEditing(false);
+    setFieldErrors({});
+    setTouched({});
+  };
+
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const schema = PROFILE_SCHEMAS[field];
+    const schema = PROFILE_SCHEMAS[field as keyof typeof PROFILE_SCHEMAS];
     if (schema) {
       e.target.value = sanitizeValue(e.target.value, schema) as string;
     }
-    set(field)(e);
+    set(field as keyof CompanyProfileForm)(e);
     if (touched[field] && schema) {
       const error = validateValue(e.target.value, schema);
       setFieldErrors(prev => ({ ...prev, [field]: error ?? '' }));
@@ -67,22 +108,22 @@ export function CompanyProfileSection({
 
   const handleBlur = (field: string) => () => {
     setTouched(prev => ({ ...prev, [field]: true }));
-    const schema = PROFILE_SCHEMAS[field];
+    const schema = PROFILE_SCHEMAS[field as keyof typeof PROFILE_SCHEMAS];
     if (schema) {
-      let value = form[field];
+      let value = form[field as keyof CompanyProfileForm];
       if (typeof value === 'string') {
         value = value.trim();
-        set(field)({ target: { value } } as React.ChangeEvent<HTMLInputElement>);
+        set(field as keyof CompanyProfileForm)({ target: { value } } as React.ChangeEvent<HTMLInputElement>);
       }
       const error = validateValue(value, schema);
       setFieldErrors(prev => ({ ...prev, [field]: error ?? '' }));
     }
   };
 
-  const onSave = () => {
+  const onSave = async () => {
     const errors: Record<string, string> = {};
     for (const [field, schema] of Object.entries(PROFILE_SCHEMAS)) {
-      const value = form[field];
+      const value = form[field as keyof CompanyProfileForm];
       if (!schema.required && (!value || (typeof value === 'string' && !value.trim()))) continue;
       const error = validateValue(value, schema);
       if (error) errors[field] = error;
@@ -95,8 +136,13 @@ export function CompanyProfileSection({
       return;
     }
 
-    handleSave();
-    setIsEditing(false);
+    try {
+      await handleSave();
+      setIsEditing(false);
+      setPreEditProfile(null);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -179,7 +225,7 @@ export function CompanyProfileSection({
               <Field label="Phone Number" error={fieldErrors.phone}>
                 <div className="relative">
                   <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input type="tel" value={form.phone} onChange={handleChange('phone')} onBlur={handleBlur('phone')} readOnly={!isEditing} placeholder="+91 XXXXX XXXXX" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.phone && '!border-red-500 !ring-red-500/20')} />
+                  <input type="tel" value={form.phone} onChange={handleChange('phone')} onBlur={handleBlur('phone')} readOnly={!isEditing} placeholder=" 91 XXXXX XXXXX" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.phone && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
@@ -288,7 +334,7 @@ export function CompanyProfileSection({
         <div className="flex items-center gap-3 pt-2">
           {!isEditing ? (
             <Button
-              onClick={() => setIsEditing(true)}
+              onClick={startEditing}
               disabled={isLoadingProfile}
               className="w-[180px] flex items-center justify-center gap-2"
             >
@@ -298,6 +344,7 @@ export function CompanyProfileSection({
           ) : (
             <>
               <Button
+                type="button"
                 onClick={onSave}
                 loading={isUpdatingProfile}
                 disabled={isUpdatingProfile}
@@ -306,8 +353,9 @@ export function CompanyProfileSection({
                 {isUpdatingProfile ? 'Saving...' : 'Save Profile'}
               </Button>
               <Button
+                type="button"
                 variant="ghost"
-                onClick={() => setIsEditing(false)}
+                onClick={handleCancel}
                 disabled={isUpdatingProfile}
                 className="px-6 text-sm font-bold"
               >
