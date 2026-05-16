@@ -15,7 +15,6 @@ const NAV_ITEMS = [
   { label: 'Customers', icon: UsersIcon, href: '/customers' },
   { label: 'Printing', icon: Printer, href: '/printing' },
   { label: 'Settings', icon: Settings, href: '/settings' },
-  { label: 'Design System', icon: Palette, href: '/design-system' },
 ];
 interface SidebarCoupon {
   expiresAt: string;
