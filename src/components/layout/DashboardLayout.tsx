@@ -73,27 +73,23 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <Modal
         isOpen={showLogoutConfirm}
         onClose={() => setShowLogoutConfirm(false)}
-        title="Sign out?"
+        title="Sign Out"
         footer={
-          <>
-            <Button variant="ghost" onClick={() => setShowLogoutConfirm(false)} className="flex-1">
+          <div className="flex w-full gap-3">
+            <Button variant="danger" onClick={() => { setShowLogoutConfirm(false); logout(); }} className="flex-1 bg-red-500 hover:bg-red-600 shadow-none border border-red-600/20 text-white">
+              Yes, log me out
+            </Button>
+            <Button variant="secondary" onClick={() => setShowLogoutConfirm(false)} className="flex-1">
               Cancel
             </Button>
-            <Button variant="danger" onClick={() => { setShowLogoutConfirm(false); logout(); }} className="flex-1 flex items-center justify-center gap-2">
-              <LogOut size={16} />Sign Out
-            </Button>
-          </>
+          </div>
         }
       >
-        <div className="flex items-start gap-4">
-          <div className="h-11 w-11 bg-red-100 dark:bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 shrink-0">
-            <AlertTriangle size={20} />
-          </div>
-          <div>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-              You'll be logged out of your current session. Any unsaved changes may be lost.
-            </p>
-          </div>
+        <div className="py-2 text-center">
+         
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Leaving so soon?</h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+okay peace out. Log back in when you want your dashboard to acknowledge your existence again.          </p>
         </div>
       </Modal>
 
