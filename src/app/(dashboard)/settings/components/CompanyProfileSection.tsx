@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2, Pencil } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { Button, inputClass } from '@/components/ui';
 import { Field } from './Field';
@@ -18,6 +18,9 @@ interface CompanyProfileSectionProps {
   user: any;
 }
 
+// Style for read-only inputs (view mode)
+const readOnlyStyle = 'bg-slate-50/50 dark:bg-slate-800/50 cursor-default !border-transparent';
+
 export function CompanyProfileSection({
   form,
   set,
@@ -29,11 +32,28 @@ export function CompanyProfileSection({
   isLoadingProfile,
   user,
 }: CompanyProfileSectionProps) {
+  const [isEditing, setIsEditing] = useState(false);
+
+  const onSave = () => {
+    handleSave();
+    setIsEditing(false);
+  };
+
   return (
     <section className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] overflow-hidden">
-      <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800/60">
-        <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">Company Profile</h2>
-        <p className="text-xs text-slate-400 mt-1 font-medium">Update your name, phone, and company. Email is locked.</p>
+      <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800/60 flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">Company Profile</h2>
+          <p className="text-xs text-slate-400 mt-1 font-medium">
+            {isEditing ? 'Edit your details below and click Save Profile.' : 'Your company details. Click Edit Profile to make changes.'}
+          </p>
+        </div>
+        {/* Editing indicator badge */}
+        {isEditing && (
+          <span className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-200 dark:border-emerald-800/50">
+            Editing
+          </span>
+        )}
       </div>
 
       <div className="p-8 space-y-6">
@@ -48,20 +68,24 @@ export function CompanyProfileSection({
           </div>
           <div className="space-y-2">
             <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Company Logo</p>
-            <label className={cn(
-              'flex w-fit items-center gap-2 h-9 px-4 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all',
-              isUploadingLogo ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
-            )}>
-              {isUploadingLogo ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
-              {isUploadingLogo ? 'Uploading...' : 'Upload Logo'}
-              <input
-                type="file"
-                accept="image/png,image/jpeg"
-                className="sr-only"
-                disabled={isUploadingLogo}
-                onChange={handleLogoUpload}
-              />
-            </label>
+            {isEditing ? (
+              <label className={cn(
+                'flex w-fit items-center gap-2 h-9 px-4 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all',
+                isUploadingLogo ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
+              )}>
+                {isUploadingLogo ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+                {isUploadingLogo ? 'Uploading...' : 'Upload Logo'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg"
+                  className="sr-only"
+                  disabled={isUploadingLogo}
+                  onChange={handleLogoUpload}
+                />
+              </label>
+            ) : (
+              <p className="text-[10px] text-slate-400">Click Edit Profile to change the logo.</p>
+            )}
             <p className="text-[10px] text-slate-400">PNG or JPG. Max 2MB. Appears on printed GR documents.</p>
             {logoUploadError && <p className="text-[10px] font-bold text-red-500">{logoUploadError}</p>}
           </div>
@@ -82,8 +106,9 @@ export function CompanyProfileSection({
                 <input
                   value={form.name}
                   onChange={set('name')}
+                  readOnly={!isEditing}
                   placeholder="Your full name"
-                  className={inputClass + ' pl-10'}
+                  className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)}
                 />
               </div>
             </Field>
@@ -103,69 +128,53 @@ export function CompanyProfileSection({
               <Field label="Phone Number">
                 <div className="relative">
                   <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={set('phone')}
-                    placeholder="+91 XXXXX XXXXX"
-                    className={inputClass + ' pl-10'}
-                  />
+                  <input type="tel" value={form.phone} onChange={set('phone')} readOnly={!isEditing} placeholder="+91 XXXXX XXXXX" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
 
               <Field label="Company Name">
                 <div className="relative">
                   <Building2 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input
-                    value={form.companyName}
-                    onChange={set('companyName')}
-                    placeholder="Your company name"
-                    className={inputClass + ' pl-10'}
-                  />
+                  <input value={form.companyName} onChange={set('companyName')} readOnly={!isEditing} placeholder="Your company name" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
 
               <Field label="GSTIN">
                 <div className="relative">
                   <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.gstin} onChange={set('gstin')} placeholder="Company GSTIN" className={inputClass + ' pl-10 uppercase'} />
+                  <input value={form.gstin} onChange={set('gstin')} readOnly={!isEditing} placeholder="Company GSTIN" className={cn(inputClass, 'pl-10 uppercase', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
 
               <Field label="PAN">
                 <div className="relative">
                   <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.pan} onChange={set('pan')} placeholder="Company PAN" className={inputClass + ' pl-10 uppercase'} />
+                  <input value={form.pan} onChange={set('pan')} readOnly={!isEditing} placeholder="Company PAN" className={cn(inputClass, 'pl-10 uppercase', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
 
               <Field label="Company Phone">
                 <div className="relative">
                   <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input type="tel" value={form.companyPhone} onChange={set('companyPhone')} placeholder="Company phone" className={inputClass + ' pl-10'} />
+                  <input type="tel" value={form.companyPhone} onChange={set('companyPhone')} readOnly={!isEditing} placeholder="Company phone" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
 
               <Field label="Company Email">
                 <div className="relative">
                   <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input type="email" value={form.companyEmail} onChange={set('companyEmail')} placeholder="Company email" className={inputClass + ' pl-10'} />
+                  <input type="email" value={form.companyEmail} onChange={set('companyEmail')} readOnly={!isEditing} placeholder="Company email" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
 
               <Field label="Contact Person">
                 <div className="relative">
                   <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.contactPerson} onChange={set('contactPerson')} placeholder="Primary contact" className={inputClass + ' pl-10'} />
+                  <input value={form.contactPerson} onChange={set('contactPerson')} readOnly={!isEditing} placeholder="Primary contact" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
 
-              <Field label="Logo URL">
-                <div className="relative">
-                  <Upload size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.logoUrl} onChange={set('logoUrl')} placeholder="https://..." className={inputClass + ' pl-10'} />
-                </div>
-              </Field>
+          
             </div>
 
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
@@ -173,21 +182,21 @@ export function CompanyProfileSection({
               <Field label="Full Address">
                 <div className="relative">
                   <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.addressFullAddress} onChange={set('addressFullAddress')} placeholder="Registered address" className={inputClass + ' pl-10'} />
+                  <input value={form.addressFullAddress} onChange={set('addressFullAddress')} readOnly={!isEditing} placeholder="Registered address" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                 </div>
               </Field>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <Field label="City">
-                  <input value={form.addressCity} onChange={set('addressCity')} placeholder="City" className={inputClass} />
+                  <input value={form.addressCity} onChange={set('addressCity')} readOnly={!isEditing} placeholder="City" className={cn(inputClass, !isEditing && readOnlyStyle)} />
                 </Field>
                 <Field label="District">
-                  <input value={form.addressDistrict} onChange={set('addressDistrict')} placeholder="District" className={inputClass} />
+                  <input value={form.addressDistrict} onChange={set('addressDistrict')} readOnly={!isEditing} placeholder="District" className={cn(inputClass, !isEditing && readOnlyStyle)} />
                 </Field>
                 <Field label="State">
-                  <input value={form.addressState} onChange={set('addressState')} placeholder="State" className={inputClass} />
+                  <input value={form.addressState} onChange={set('addressState')} readOnly={!isEditing} placeholder="State" className={cn(inputClass, !isEditing && readOnlyStyle)} />
                 </Field>
                 <Field label="Pincode">
-                  <input value={form.addressPincode} onChange={set('addressPincode')} placeholder="Pincode" className={inputClass} />
+                  <input value={form.addressPincode} onChange={set('addressPincode')} readOnly={!isEditing} placeholder="Pincode" className={cn(inputClass, !isEditing && readOnlyStyle)} />
                 </Field>
               </div>
             </div>
@@ -198,25 +207,25 @@ export function CompanyProfileSection({
                 <Field label="Bank Name">
                   <div className="relative">
                     <Landmark size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input value={form.bankName} onChange={set('bankName')} placeholder="Bank name" className={inputClass + ' pl-10'} />
+                    <input value={form.bankName} onChange={set('bankName')} readOnly={!isEditing} placeholder="Bank name" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                   </div>
                 </Field>
                 <Field label="Account Holder">
                   <div className="relative">
                     <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input value={form.accountHolder} onChange={set('accountHolder')} placeholder="Account holder" className={inputClass + ' pl-10'} />
+                    <input value={form.accountHolder} onChange={set('accountHolder')} readOnly={!isEditing} placeholder="Account holder" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                   </div>
                 </Field>
                 <Field label="Account Number">
                   <div className="relative">
                     <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input value={form.accountNumber} onChange={set('accountNumber')} placeholder="Account number" className={inputClass + ' pl-10'} />
+                    <input value={form.accountNumber} onChange={set('accountNumber')} readOnly={!isEditing} placeholder="Account number" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
                   </div>
                 </Field>
                 <Field label="IFSC Code">
                   <div className="relative">
                     <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input value={form.ifscCode} onChange={set('ifscCode')} placeholder="IFSC code" className={inputClass + ' pl-10 uppercase'} />
+                    <input value={form.ifscCode} onChange={set('ifscCode')} readOnly={!isEditing} placeholder="IFSC code" className={cn(inputClass, 'pl-10 uppercase', !isEditing && readOnlyStyle)} />
                   </div>
                 </Field>
               </div>
@@ -224,14 +233,38 @@ export function CompanyProfileSection({
           </div>
         )}
 
-        <Button
-          onClick={handleSave}
-          loading={isUpdatingProfile}
-          disabled={isLoadingProfile || isUpdatingProfile}
-          className="w-[180px]"
-        >
-          {isUpdatingProfile ? 'Saving...' : 'Save Changes'}
-        </Button>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-3 pt-2">
+          {!isEditing ? (
+            <Button
+              onClick={() => setIsEditing(true)}
+              disabled={isLoadingProfile}
+              className="w-[180px] flex items-center justify-center gap-2"
+            >
+              <Pencil size={14} />
+              Edit Profile
+            </Button>
+          ) : (
+            <>
+              <Button
+                onClick={onSave}
+                loading={isUpdatingProfile}
+                disabled={isUpdatingProfile}
+                className="w-[180px]"
+              >
+                {isUpdatingProfile ? 'Saving...' : 'Save Profile'}
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => setIsEditing(false)}
+                disabled={isUpdatingProfile}
+                className="px-6 text-sm font-bold"
+              >
+                Cancel
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </section>
   );
