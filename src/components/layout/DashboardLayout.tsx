@@ -122,13 +122,16 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
         {/* Logo */}
         <div className="h-20 flex items-center px-5 border-b border-slate-100 dark:border-slate-800 overflow-hidden shrink-0">
-          <div className="min-w-[32px] h-8 w-8 bg-emerald-500 rounded-lg flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/30">
-            <span className="font-black text-white text-lg italic">T</span>
-          </div>
+         
           {showLabel && (
+            <div className="">
+
+            
             <span className="ml-3 text-xl font-black tracking-tighter text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
-              TERMINAL<span className="text-emerald-500">_</span>
+              TSM<span className="text-emerald-500">_</span>
             </span>
+            <span className='ml-3 text-[10px] font-bold tracking-tight text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap'>By Expendifii</span>
+            </div>
           )}
         </div>
 
