@@ -81,17 +81,17 @@ function customerToForm(c: Customer): FormState {
 
 function formToPayload(form: FormState) {
   const payload: Record<string, unknown> = {
-    name: form.name,
-    phone: form.phone,
+    name: String(form.name).trim(),
+    phone: String(form.phone).trim(),
   };
-  if (form.email.trim()) payload.email = form.email.trim();
-  if (form.gstin.trim()) payload.gstin = form.gstin.trim();
-  if (form.address.trim()) payload.address = form.address.trim();
-  if (form.city.trim()) payload.city = form.city.trim();
-  if (form.state.trim()) payload.state = form.state.trim();
-  if (form.pincode) payload.pincode = Number(form.pincode);
+  if (form.email != null && String(form.email).trim()) payload.email = String(form.email).trim();
+  if (form.gstin != null && String(form.gstin).trim()) payload.gstin = String(form.gstin).trim();
+  if (form.address != null && String(form.address).trim()) payload.address = String(form.address).trim();
+  if (form.city != null && String(form.city).trim()) payload.city = String(form.city).trim();
+  if (form.state != null && String(form.state).trim()) payload.state = String(form.state).trim();
+  if (form.pincode != null && String(form.pincode).trim() !== '') payload.pincode = Number(form.pincode);
   if (form.pricingType) payload.pricingType = form.pricingType as PricingType;
-  if (form.defaultRate.trim()) payload.defaultRate = parseFloat(form.defaultRate);
+  if (form.defaultRate != null && String(form.defaultRate).trim() !== '') payload.defaultRate = parseFloat(String(form.defaultRate));
   return payload;
 }
 
@@ -128,7 +128,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
 
       // Only show error if already touched
       if (touched[field] && schema) {
-        const error = validateValue(value, schema);
+        const error = validateValue(value != null ? String(value) : '', schema);
         setFieldErrors((prev) => ({ ...prev, [field]: error ?? '' }));
       }
     };
@@ -142,7 +142,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
         value = value.trim();
         setForm(prev => ({ ...prev, [field]: value }));
       }
-      const error = validateValue(value, schema);
+      const error = validateValue(value != null ? String(value) : '', schema);
       setFieldErrors((prev) => ({ ...prev, [field]: error ?? '' }));
     }
   };
@@ -156,7 +156,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
       if (!schema) continue;
       allTouched[field] = true;
       const value = form[field as keyof FormState];
-      const error = validateValue(value, schema);
+      const error = validateValue(value != null ? String(value) : '', schema);
       if (error) errors[field] = error;
     }
 

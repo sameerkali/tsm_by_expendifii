@@ -165,7 +165,7 @@ export default function SettingsPage() {
 
 
       <SubscriptionSection
-        user={user}
+        user={user || null}
         isLoadingProfile={isLoadingProfile}
         getDaysLeft={getDaysLeft}
       />
@@ -180,6 +180,8 @@ export default function SettingsPage() {
       <DangerZoneSection
         showDeleteConfirm={showDeleteConfirm}
         setShowDeleteConfirm={setShowDeleteConfirm}
+        onSubmitDeletionRequest={() => {}} // TODO: Implement deletion
+        isSubmittingDeletion={false}
       />
     </div>
   );

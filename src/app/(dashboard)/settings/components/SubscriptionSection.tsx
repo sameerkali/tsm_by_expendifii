@@ -4,8 +4,22 @@ import React from 'react';
 import { Tag, Calendar, Clock, CreditCard } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
+
+type Coupon = {
+  _id: string;
+  code: string;
+  durationDays: number;
+  expiresAt: string;
+  isActive: boolean;
+  isExpired: boolean;
+};
+
+type SubscriptionUser = {
+  coupons?: Coupon[];
+} | null;
+
 interface SubscriptionSectionProps {
-  user: any;
+  user: SubscriptionUser;
   isLoadingProfile: boolean;
   getDaysLeft: (expiresAt: string) => number;
 }
@@ -25,7 +39,7 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
           </div>
         ) : user?.coupons && user.coupons.length > 0 ? (
           <div className="space-y-4">
-            {user.coupons.map((coupon: any) => {
+            {user.coupons.map((coupon: Coupon) => {
               const isCurrentlyActive = coupon.isActive && !coupon.isExpired;
               const daysLeft = getDaysLeft(coupon.expiresAt);
 
