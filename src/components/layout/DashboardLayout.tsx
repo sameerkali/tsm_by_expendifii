@@ -147,11 +147,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                   isActive
                     ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/25"
                     : [
-                        // Light mode inactive
-                        "text-slate-500 hover:text-slate-900 hover:bg-slate-100",
-                        // Dark mode inactive
-                        "dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800",
-                      ]
+                      // Light mode inactive
+                      "text-slate-500 hover:text-slate-900 hover:bg-slate-100",
+                      // Dark mode inactive
+                      "dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800",
+                    ]
                 )}
               >
                 <item.icon size={19} className="shrink-0" />
@@ -243,25 +243,19 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             </span>
           </div>
 
-          <div className="flex items-center gap-2 md:gap-4">
-            <div className="relative hidden md:block">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="h-10 w-52 lg:w-64 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 text-sm outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-800 transition-all font-medium text-slate-900 dark:text-white placeholder:text-slate-400"
-              />
+          <Link
+            href="/settings"
+            className="flex items-center gap-4 group transition-all hover:opacity-80"
+          >
+            <div className="flex flex-col items-end mr-1">
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tighter italic leading-none">
+                SAMEER FARIDI
+              </h2>
             </div>
-
-            <button className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 text-slate-600 dark:text-slate-400 hover:text-emerald-500 transition-all relative">
-              <Bell size={18} />
-              <span className="absolute top-2 right-2 h-2 w-2 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900" />
-            </button>
-
-            <button className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-900 dark:bg-emerald-600 text-white hover:opacity-90 transition-all shadow-md">
-              <UserIcon size={18} />
-            </button>
-          </div>
+            <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center text-white shadow-lg border border-slate-200 dark:border-emerald-400/20 transition-transform group-hover:scale-105 active:scale-95">
+              <UserIcon size={24} />
+            </div>
+          </Link>
         </header>
 
         {/* Page Content */}
