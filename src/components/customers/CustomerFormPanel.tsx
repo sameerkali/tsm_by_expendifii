@@ -133,12 +133,16 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
       }
     };
 
-  // Validate on blur — mark touched
   const blur = (field: keyof FormState) => () => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     const schema = FIELD_SCHEMAS[field];
     if (schema) {
-      const error = validateValue(form[field], schema);
+      let value = form[field];
+      if (typeof value === 'string') {
+        value = value.trim();
+        setForm(prev => ({ ...prev, [field]: value }));
+      }
+      const error = validateValue(value, schema);
       setFieldErrors((prev) => ({ ...prev, [field]: error ?? '' }));
     }
   };

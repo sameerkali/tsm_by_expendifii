@@ -174,15 +174,17 @@ export const grConsignorSchema: FieldSchema = {
   type: 'string',
   label: 'Consignor',
   required: true,
-  maxLength: 100,
+  maxLength: 60,
+  allowedChars: /^[a-zA-Z0-9\s.\-'&]+$/,
   sanitize: ['trim', 'stripHtml'],
 }
 
 export const grConsigneeSchema: FieldSchema = {
   type: 'string',
   label: 'Consignee',
-  required: true,
-  maxLength: 100,
+  required: false,
+  maxLength: 60,
+  allowedChars: /^[a-zA-Z0-9\s.\-'&]+$/,
   sanitize: ['trim', 'stripHtml'],
 }
 
@@ -190,7 +192,8 @@ export const grCitySchema: FieldSchema = {
   type: 'string',
   label: 'City',
   required: true,
-  maxLength: 50,
+  maxLength: 60,
+  allowedChars: /^[a-zA-Z0-9\s.\-']+$/,
   sanitize: ['trim', 'stripHtml'],
 }
 
@@ -206,7 +209,8 @@ export const grDescriptionSchema: FieldSchema = {
   type: 'string',
   label: 'Description',
   required: false,
-  maxLength: 200,
+  maxLength: 300,
+  allowedChars: /^[a-zA-Z0-9\s,.\-/#()&]+$/,
   sanitize: ['trim', 'stripHtml'],
 }
 
@@ -214,7 +218,17 @@ export const grRemarksSchema: FieldSchema = {
   type: 'string',
   label: 'Remarks',
   required: false,
-  maxLength: 200,
+  maxLength: 300,
+  allowedChars: /^[a-zA-Z0-9\s,.\-/#()&]+$/,
+  sanitize: ['trim', 'stripHtml'],
+}
+
+export const driverNameSchema: FieldSchema = {
+  type: 'string',
+  label: 'Driver Name',
+  required: false,
+  maxLength: 60,
+  allowedChars: /^[a-zA-Z\s.\-']+$/,
   sanitize: ['trim', 'stripHtml'],
 }
 
@@ -223,7 +237,7 @@ export const grWeightSchema: FieldSchema = {
   label: 'Weight',
   required: false,
   min: 0,
-  max: 999999,
+  max: 9999999,
   precision: 2,
 }
 
@@ -232,16 +246,34 @@ export const grQuantitySchema: FieldSchema = {
   label: 'Quantity',
   required: false,
   min: 0,
-  max: 99999,
+  max: 9999999,
   integer: true,
 }
 
 export const grRateSchema: FieldSchema = {
   type: 'number',
   label: 'Rate',
-  required: true,
+  required: false,
   min: 0,
-  max: 999999,
+  max: 9999999,
+  precision: 2,
+}
+
+export const grInvoiceNumberSchema: FieldSchema = {
+  type: 'string',
+  label: 'Invoice Number',
+  required: false,
+  maxLength: 60,
+  allowedChars: /^[a-zA-Z0-9\s\-/]+$/,
+  sanitize: ['trim', 'stripHtml'],
+}
+
+export const grInsuranceAmountSchema: FieldSchema = {
+  type: 'number',
+  label: 'Insurance Amount',
+  required: false,
+  min: 0,
+  max: 9999999,
   precision: 2,
 }
 

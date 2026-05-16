@@ -1,7 +1,7 @@
 import type { FieldSchema, SanitizeRule } from './fieldSchema'
 
 const sanitizeMap: Record<SanitizeRule, (v: string) => string> = {
-  trim:              (v) => v.trim(),
+  trim:              (v) => v.replace(/^\s+/, '').replace(/\s{2,}/g, ' '),
   lowercase:         (v) => v.toLowerCase(),
   uppercase:         (v) => v.toUpperCase(),
   stripHtml:         (v) => v.replace(/<[^>]*>/g, ''),
