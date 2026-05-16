@@ -42,11 +42,33 @@ export function CompanyProfileSection({
   return (
     <section className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2rem] overflow-hidden">
       <div className="px-8 py-6 border-b border-slate-50 dark:border-slate-800/60 flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">Company Profile</h2>
-          <p className="text-xs text-slate-400 mt-1 font-medium">
-            {isEditing ? 'Edit your details below and click Save Profile.' : 'Your company details. Click Edit Profile to make changes.'}
-          </p>
+        <div className="flex items-center gap-4">
+          {/* Round company logo */}
+          <div className="relative">
+            <div className="h-14 w-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border-2 border-slate-200 dark:border-slate-700 text-slate-400 shrink-0 overflow-hidden">
+              {form.logoUrl ? (
+                <img src={form.logoUrl} alt="Company logo" className="h-full w-full object-cover" />
+              ) : (
+                <Building2 size={24} />
+              )}
+            </div>
+            {isEditing && (
+              <label className={cn(
+                'absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-md border-2 border-white dark:border-slate-900',
+                isUploadingLogo ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
+              )}>
+                {isUploadingLogo ? <Loader2 size={10} className="animate-spin" /> : <Upload size={10} />}
+                <input type="file" accept="image/png,image/jpeg" className="sr-only" disabled={isUploadingLogo} onChange={handleLogoUpload} />
+              </label>
+            )}
+          </div>
+          <div>
+            <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">Company Profile</h2>
+            <p className="text-xs text-slate-400 mt-0.5 font-medium">
+              {isEditing ? 'Edit your details below and click Save Profile.' : 'Your company details. Click Edit Profile to make changes.'}
+            </p>
+            {logoUploadError && <p className="text-[10px] font-bold text-red-500 mt-0.5">{logoUploadError}</p>}
+          </div>
         </div>
         {/* Editing indicator badge */}
         {isEditing && (
@@ -57,39 +79,6 @@ export function CompanyProfileSection({
       </div>
 
       <div className="p-8 space-y-6">
-        {/* Logo upload */}
-        <div className="flex items-center gap-6">
-          <div className="h-20 w-20 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 text-slate-400 shrink-0 overflow-hidden">
-            {form.logoUrl ? (
-              <img src={form.logoUrl} alt="Company logo" className="h-full w-full object-contain p-2" />
-            ) : (
-              <Building2 size={32} />
-            )}
-          </div>
-          <div className="space-y-2">
-            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Company Logo</p>
-            {isEditing ? (
-              <label className={cn(
-                'flex w-fit items-center gap-2 h-9 px-4 text-xs font-bold border border-slate-200 dark:border-slate-700 rounded-xl text-slate-600 dark:text-slate-400 hover:border-emerald-500 hover:text-emerald-500 transition-all',
-                isUploadingLogo ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
-              )}>
-                {isUploadingLogo ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
-                {isUploadingLogo ? 'Uploading...' : 'Upload Logo'}
-                <input
-                  type="file"
-                  accept="image/png,image/jpeg"
-                  className="sr-only"
-                  disabled={isUploadingLogo}
-                  onChange={handleLogoUpload}
-                />
-              </label>
-            ) : (
-              <p className="text-[10px] text-slate-400">Click Edit Profile to change the logo.</p>
-            )}
-            <p className="text-[10px] text-slate-400">PNG or JPG. Max 2MB. Appears on printed GR documents.</p>
-            {logoUploadError && <p className="text-[10px] font-bold text-red-500">{logoUploadError}</p>}
-          </div>
-        </div>
 
         {/* Loading skeleton */}
         {isLoadingProfile ? (
