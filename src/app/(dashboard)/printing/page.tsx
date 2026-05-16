@@ -18,8 +18,9 @@ function PrintModal({
   const [toDate, setToDate] = useState('');
   
   const downloadMutation = useDownloadCustomerGrPdf();
-  const today = new Date().toISOString().split('T')[0];
-
+  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+    .toISOString()
+    .split('T')[0];
   if (!customer) return null;
 
   const handleDownload = (e: React.FormEvent) => {
