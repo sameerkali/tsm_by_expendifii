@@ -11,9 +11,9 @@ export async function middleware(request: NextRequest) {
 
   // Root path is the login page
   if (pathname === '/') {
-    // Already authenticated → go to dashboard
+    // Already authenticated → go to GR
     if (token) {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
+      return NextResponse.redirect(new URL('/gr', request.url));
     }
     return NextResponse.next();
   }

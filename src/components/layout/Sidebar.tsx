@@ -10,9 +10,9 @@ import {
 import { cn } from '@/lib/utils/cn';
 
 const NAV_ITEMS = [
+  { label: 'GR', icon: Files, href: '/gr' },
   { label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
   { label: 'Customers', icon: UsersIcon, href: '/customers' },
-  { label: 'GR', icon: Files, href: '/gr' },
   { label: 'Printing', icon: Printer, href: '/printing' },
   { label: 'Settings', icon: Settings, href: '/settings' },
   { label: 'Design System', icon: Palette, href: '/design-system' },
