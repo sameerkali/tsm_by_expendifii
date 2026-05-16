@@ -261,8 +261,63 @@ export const customerNameSchema: FieldSchema = {
   label: 'Customer Name',
   required: true,
   minLength: 2,
-  maxLength: 100,
+  maxLength: 60,
   sanitize: ['trim', 'stripHtml'],
+}
+
+export const customerPhoneSchema: FieldSchema = {
+  type: 'string',
+  label: 'Phone',
+  required: true,
+  minLength: 10,
+  maxLength: 10,
+  pattern: /^\d{10}$/,
+  sanitize: ['trim', 'numeric'],
+}
+
+export const customerEmailSchema: FieldSchema = {
+  type: 'email',
+  label: 'Email',
+  required: false,
+  maxLength: 254,
+  sanitize: ['trim', 'lowercase'],
+}
+
+export const customerGstinSchema: FieldSchema = {
+  type: 'string',
+  label: 'GSTIN',
+  required: false,
+  minLength: 15,
+  maxLength: 15,
+  pattern: /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/,
+  sanitize: ['trim', 'uppercase'],
+}
+
+export const customerAddressSchema: FieldSchema = {
+  type: 'string',
+  label: 'Address',
+  required: false,
+  maxLength: 300,
+  allowedChars: /^[a-zA-Z0-9\s,.\-/#()]+$/,
+  sanitize: ['trim', 'stripHtml'],
+}
+
+export const customerCitySchema: FieldSchema = {
+  type: 'string',
+  label: 'City',
+  required: false,
+  maxLength: 50,
+  sanitize: ['trim', 'stripHtml'],
+}
+
+export const customerPincodeSchema: FieldSchema = {
+  type: 'string',
+  label: 'Pincode',
+  required: false,
+  minLength: 6,
+  maxLength: 6,
+  pattern: /^\d{6}$/,
+  sanitize: ['trim', 'numeric'],
 }
 
 export const defaultRateSchema: FieldSchema = {
@@ -270,7 +325,7 @@ export const defaultRateSchema: FieldSchema = {
   label: 'Default Rate',
   required: false,
   min: 0,
-  max: 999999,
+  max: 9999999,
   precision: 2,
 }
 
