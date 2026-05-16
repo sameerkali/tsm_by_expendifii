@@ -47,7 +47,7 @@ export const companyNameSchema: FieldSchema = {
   type: 'string',
   label: 'Company Name',
   required: false,
-  maxLength: 100,
+  maxLength: 60,
   sanitize: ['trim', 'stripHtml'],
 }
 

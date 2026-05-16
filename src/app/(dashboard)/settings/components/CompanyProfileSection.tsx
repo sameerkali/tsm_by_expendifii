@@ -5,6 +5,23 @@ import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark
 import { cn } from '@/lib/utils/cn';
 import { Button, inputClass } from '@/components/ui';
 import { Field } from './Field';
+import { 
+  fullNameSchema, customerPhoneSchema, companyNameSchema, 
+  gstinSchema, panSchema, emailSchema, contactPersonSchema,
+  sanitizeValue, validateValue, type FieldSchema
+} from '@/lib/validation';
+import { toast } from 'sonner';
+
+const PROFILE_SCHEMAS: Record<string, FieldSchema> = {
+  name: fullNameSchema,
+  phone: customerPhoneSchema,
+  companyName: companyNameSchema,
+  gstin: gstinSchema,
+  pan: panSchema,
+  companyPhone: { ...customerPhoneSchema, required: false, label: 'Company Phone' },
+  companyEmail: { ...emailSchema, required: false, label: 'Company Email' },
+  contactPerson: contactPersonSchema,
+};
 
 interface CompanyProfileSectionProps {
   form: any;
@@ -33,8 +50,51 @@ export function CompanyProfileSection({
   user,
 }: CompanyProfileSectionProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const schema = PROFILE_SCHEMAS[field];
+    if (schema) {
+      e.target.value = sanitizeValue(e.target.value, schema) as string;
+    }
+    set(field)(e);
+    if (touched[field] && schema) {
+      const error = validateValue(e.target.value, schema);
+      setFieldErrors(prev => ({ ...prev, [field]: error ?? '' }));
+    }
+  };
+
+  const handleBlur = (field: string) => () => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const schema = PROFILE_SCHEMAS[field];
+    if (schema) {
+      let value = form[field];
+      if (typeof value === 'string') {
+        value = value.trim();
+        set(field)({ target: { value } } as React.ChangeEvent<HTMLInputElement>);
+      }
+      const error = validateValue(value, schema);
+      setFieldErrors(prev => ({ ...prev, [field]: error ?? '' }));
+    }
+  };
 
   const onSave = () => {
+    const errors: Record<string, string> = {};
+    for (const [field, schema] of Object.entries(PROFILE_SCHEMAS)) {
+      const value = form[field];
+      if (!schema.required && (!value || (typeof value === 'string' && !value.trim()))) continue;
+      const error = validateValue(value, schema);
+      if (error) errors[field] = error;
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setTouched(Object.keys(errors).reduce((acc, k) => ({ ...acc, [k]: true }), {}));
+      toast.error('Please fix the errors before saving.');
+      return;
+    }
+
     handleSave();
     setIsEditing(false);
   };
@@ -89,15 +149,17 @@ export function CompanyProfileSection({
           </div>
         ) : (
           <div className="space-y-4">
-            <Field label="Full Name" required>
+            <Field label="Full Name" required error={fieldErrors.name}>
               <div className="relative">
                 <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   value={form.name}
-                  onChange={set('name')}
+                  onChange={handleChange('name')}
+                  onBlur={handleBlur('name')}
+                  maxLength={60}
                   readOnly={!isEditing}
                   placeholder="Your full name"
-                  className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)}
+                  className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.name && '!border-red-500 !ring-red-500/20')}
                 />
               </div>
             </Field>
@@ -114,52 +176,52 @@ export function CompanyProfileSection({
             </Field>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Field label="Phone Number">
+              <Field label="Phone Number" error={fieldErrors.phone}>
                 <div className="relative">
                   <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input type="tel" value={form.phone} onChange={set('phone')} readOnly={!isEditing} placeholder="+91 XXXXX XXXXX" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
+                  <input type="tel" value={form.phone} onChange={handleChange('phone')} onBlur={handleBlur('phone')} readOnly={!isEditing} placeholder="+91 XXXXX XXXXX" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.phone && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
-              <Field label="Company Name">
+              <Field label="Company Name" error={fieldErrors.companyName}>
                 <div className="relative">
                   <Building2 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.companyName} onChange={set('companyName')} readOnly={!isEditing} placeholder="Your company name" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
+                  <input value={form.companyName} onChange={handleChange('companyName')} onBlur={handleBlur('companyName')} maxLength={60} readOnly={!isEditing} placeholder="Your company name" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.companyName && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
-              <Field label="GSTIN">
+              <Field label="GSTIN" error={fieldErrors.gstin}>
                 <div className="relative">
                   <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.gstin} onChange={set('gstin')} readOnly={!isEditing} placeholder="Company GSTIN" className={cn(inputClass, 'pl-10 uppercase', !isEditing && readOnlyStyle)} />
+                  <input value={form.gstin} onChange={handleChange('gstin')} onBlur={handleBlur('gstin')} maxLength={15} readOnly={!isEditing} placeholder="Company GSTIN" className={cn(inputClass, 'pl-10 uppercase', !isEditing && readOnlyStyle, fieldErrors.gstin && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
-              <Field label="PAN">
+              <Field label="PAN" error={fieldErrors.pan}>
                 <div className="relative">
                   <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.pan} onChange={set('pan')} readOnly={!isEditing} placeholder="Company PAN" className={cn(inputClass, 'pl-10 uppercase', !isEditing && readOnlyStyle)} />
+                  <input value={form.pan} onChange={handleChange('pan')} onBlur={handleBlur('pan')} maxLength={10} readOnly={!isEditing} placeholder="Company PAN" className={cn(inputClass, 'pl-10 uppercase', !isEditing && readOnlyStyle, fieldErrors.pan && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
-              <Field label="Company Phone">
+              <Field label="Company Phone" error={fieldErrors.companyPhone}>
                 <div className="relative">
                   <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input type="tel" value={form.companyPhone} onChange={set('companyPhone')} readOnly={!isEditing} placeholder="Company phone" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
+                  <input type="tel" value={form.companyPhone} onChange={handleChange('companyPhone')} onBlur={handleBlur('companyPhone')} readOnly={!isEditing} placeholder="Company phone" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.companyPhone && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
-              <Field label="Company Email">
+              <Field label="Company Email" error={fieldErrors.companyEmail}>
                 <div className="relative">
                   <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input type="email" value={form.companyEmail} onChange={set('companyEmail')} readOnly={!isEditing} placeholder="Company email" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
+                  <input type="email" value={form.companyEmail} onChange={handleChange('companyEmail')} onBlur={handleBlur('companyEmail')} readOnly={!isEditing} placeholder="Company email" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.companyEmail && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
-              <Field label="Contact Person">
+              <Field label="Contact Person" error={fieldErrors.contactPerson}>
                 <div className="relative">
                   <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <input value={form.contactPerson} onChange={set('contactPerson')} readOnly={!isEditing} placeholder="Primary contact" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle)} />
+                  <input value={form.contactPerson} onChange={handleChange('contactPerson')} onBlur={handleBlur('contactPerson')} maxLength={60} readOnly={!isEditing} placeholder="Primary contact" className={cn(inputClass, 'pl-10', !isEditing && readOnlyStyle, fieldErrors.contactPerson && '!border-red-500 !ring-red-500/20')} />
                 </div>
               </Field>
 
