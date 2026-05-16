@@ -22,8 +22,10 @@ export function sanitizeValue(value: unknown, schema: FieldSchema): unknown {
 
   // Type coercion after sanitization
   if (schema.type === 'number') {
-    const parsed = Number(result)
-    return isNaN(parsed) ? value : parsed
+const normalized = result.trim()
+   if (normalized === '') return ''
+    const parsed = Number(normalized)
+    return Number.isNaN(parsed) ? normalized : parsed
   }
 
   if (schema.type === 'boolean') {
