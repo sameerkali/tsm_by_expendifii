@@ -7,10 +7,11 @@ import { Button } from '@/components/ui';
 interface DangerZoneSectionProps {
   showDeleteConfirm: boolean;
   setShowDeleteConfirm: (show: boolean) => void;
+    onSubmitDeletionRequest: () => void;
+ isSubmittingDeletion?: boolean;
 }
 
-export function DangerZoneSection({ showDeleteConfirm, setShowDeleteConfirm }: DangerZoneSectionProps) {
-  return (
+export function DangerZoneSection({ showDeleteConfirm, setShowDeleteConfirm, onSubmitDeletionRequest, isSubmittingDeletion }: DangerZoneSectionProps) {  return (
     <section className="bg-white dark:bg-slate-900 border border-red-200 dark:border-red-900/50 rounded-[2rem] overflow-hidden">
       <div className="px-8 py-6 border-b border-red-100 dark:border-red-900/30">
         <h2 className="text-lg font-black tracking-tight text-red-600 dark:text-red-400 uppercase italic flex items-center gap-2">
@@ -41,8 +42,12 @@ export function DangerZoneSection({ showDeleteConfirm, setShowDeleteConfirm }: D
               Are you absolutely sure? This will permanently delete all GR records, customer data, and your company account.
             </p>
             <div className="flex items-center gap-3">
-              <Button variant="danger" className="h-10 px-6 font-bold text-sm">
-                Yes, Submit Deletion Request
+<Button
+                variant="danger"
+                onClick={onSubmitDeletionRequest}
+                disabled={isSubmittingDeletion}
+                className="h-10 px-6 font-bold text-sm"
+             >                Yes, Submit Deletion Request
               </Button>
               <Button variant="ghost" onClick={() => setShowDeleteConfirm(false)} className="h-10 px-4 text-sm font-bold">
                 Cancel
