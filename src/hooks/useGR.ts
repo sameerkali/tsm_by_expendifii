@@ -100,6 +100,22 @@ export function useDeleteGR() {
   });
 }
 
+/** Duplicate an existing GR (same details, new GR number). */
+export function useDuplicateGR() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => grApi.duplicate(id),
+    onSuccess: (res) => {
+      toast.success(`GR duplicated as "${res.data.grNumber}".`);
+      queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
+    },
+    onError: (error: unknown) => {
+      toast.error(extractMessage(error, 'Failed to duplicate GR.'));
+    },
+  });
+}
+
 /** Open a single GR PDF in a new tab. */
 export function useDownloadGRPdf() {
   return useMutation({

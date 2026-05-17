@@ -54,6 +54,10 @@ export const grApi = {
     return apiClient.delete(`/gr/${id}`) as any;
   },
 
+  duplicate: async (id: string): Promise<SingleGRResponse> => {
+    return apiClient.post(`/gr/${id}/duplicate`, {}) as any;
+  },
+
   downloadPdf: async (id: string): Promise<Blob> => {
     return apiClient.get(`/gr/${id}/pdf`, {
       responseType: 'blob',

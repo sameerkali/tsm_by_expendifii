@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import {
   Plus, Search, FileText,
-  MapPin, ChevronLeft, ChevronRight, Loader2, Trash2, Pencil, Printer
+  MapPin, ChevronLeft, ChevronRight, Loader2, Trash2, Pencil, Printer, Copy
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { GRFormPanel } from '@/components/gr/GRFormPanel';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
-import { useGRs, useDeleteGR, useDownloadGRPdf } from '@/hooks/useGR';
+import { useGRs, useDeleteGR, useDownloadGRPdf, useDuplicateGR } from '@/hooks/useGR';
 import { useDebounce } from '@/hooks/useDebounce';
 import type { GR } from '@/types/gr';
 import { GRStatus } from '@/types/gr';
@@ -38,6 +38,7 @@ export default function GRListPage() {
 
   const deleteGR = useDeleteGR();
   const printGR = useDownloadGRPdf();
+  const duplicateGR = useDuplicateGR();
 
   const { data: response, isLoading, isError } = useGRs({
     search: debouncedSearch || undefined,
@@ -227,6 +228,18 @@ export default function GRListPage() {
                                 <Loader2 size={16} className="animate-spin" />
                               ) : (
                                 <Printer size={16} />
+                              )}
+                            </button>
+                            <button
+                              onClick={() => duplicateGR.mutate(row.id)}
+                              disabled={duplicateGR.isPending}
+                              title="Duplicate GR"
+                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-amber-50 dark:hover:bg-amber-500/10 transition-all text-slate-400 hover:text-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              {duplicateGR.isPending && duplicateGR.variables === row.id ? (
+                                <Loader2 size={16} className="animate-spin" />
+                              ) : (
+                                <Copy size={16} />
                               )}
                             </button>
                             <button
