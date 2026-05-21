@@ -4,22 +4,26 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { customerApi, type CustomerListParams } from '@/lib/api/customer.api';
 import { getApiErrorMessage } from '@/lib/api/errors';
+import { getDemoCustomerById, getDemoCustomerResponse } from '@/lib/demo/data';
+import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from '@/lib/demo/guest';
 import { CUSTOMER_KEYS } from '@/config/query-keys';
 import type { CreateCustomerInput, UpdateCustomerInput } from '@/types/customer';
 
 /** Fetch paginated customer list with optional search. */
 export function useCustomers(params?: CustomerListParams) {
+  const isGuest = isGuestModeClient();
   return useQuery({
-    queryKey: [...CUSTOMER_KEYS.lists(), params],
-    queryFn: () => customerApi.getAll(params),
+    queryKey: [...CUSTOMER_KEYS.lists(), params, { guest: isGuest }],
+    queryFn: () => isGuest ? getDemoCustomerResponse(params) : customerApi.getAll(params),
   });
 }
 
 /** Fetch a single customer by ID. */
 export function useCustomer(id: string) {
+  const isGuest = isGuestModeClient();
   return useQuery({
-    queryKey: CUSTOMER_KEYS.detail(id),
-    queryFn: () => customerApi.getById(id),
+    queryKey: [...CUSTOMER_KEYS.detail(id), { guest: isGuest }],
+    queryFn: () => isGuest ? getDemoCustomerById(id) : customerApi.getById(id),
     enabled: !!id,
   });
 }
@@ -29,7 +33,10 @@ export function useCreateCustomer() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreateCustomerInput) => customerApi.create(data),
+    mutationFn: (data: CreateCustomerInput) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return customerApi.create(data);
+    },
     onSuccess: (res) => {
       toast.success(`Customer "${res.data.name}" created successfully.`);
       queryClient.invalidateQueries({ queryKey: CUSTOMER_KEYS.lists() });
@@ -45,8 +52,10 @@ export function useUpdateCustomer() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateCustomerInput }) =>
-      customerApi.update(id, data),
+    mutationFn: ({ id, data }: { id: string; data: UpdateCustomerInput }) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return customerApi.update(id, data);
+    },
     onSuccess: (res) => {
       toast.success(`Customer "${res.data.name}" updated successfully.`);
       queryClient.invalidateQueries({ queryKey: CUSTOMER_KEYS.lists() });
@@ -63,7 +72,10 @@ export function useDeleteCustomer() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: string) => customerApi.delete(id),
+    mutationFn: (id: string) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return customerApi.delete(id);
+    },
     onSuccess: () => {
       toast.success('Customer deleted successfully.');
       queryClient.invalidateQueries({ queryKey: CUSTOMER_KEYS.lists() });
@@ -77,8 +89,10 @@ export function useDeleteCustomer() {
 /** Download GR PDF for a customer by date range. */
 export function useDownloadCustomerGrPdf() {
   return useMutation({
-    mutationFn: ({ customerId, from, to }: { customerId: string; from: string; to?: string }) =>
-      customerApi.downloadGrPdf(customerId, from, to),
+    mutationFn: ({ customerId, from, to }: { customerId: string; from: string; to?: string }) => {
+      if (isGuestModeClient()) throw { success: false, message: 'Guest demo uses static data. Sign in to download GR statements.' };
+      return customerApi.downloadGrPdf(customerId, from, to);
+    },
     onSuccess: (blob) => {
       // Create blob link to download
       const url = window.URL.createObjectURL(blob);

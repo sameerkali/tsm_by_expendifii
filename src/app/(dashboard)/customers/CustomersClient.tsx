@@ -5,13 +5,16 @@ import { useRouter } from 'next/navigation';
 import {
   Plus, Search, User as UserIcon, Phone, Mail, Loader2
 } from 'lucide-react';
+import { toast } from 'sonner';
 import { CustomerFormPanel } from '@/components/customers/CustomerFormPanel';
 import { Pagination, type PageSizeOption } from '@/components/shared/Pagination';
+import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from '@/lib/demo/guest';
 import { useCustomers } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
 
 export function CustomersClient() {
   const router = useRouter();
+  const isGuest = isGuestModeClient();
   
   // Panel state for creating a new customer
   const [panelOpen, setPanelOpen] = useState(false);
@@ -32,7 +35,13 @@ export function CustomersClient() {
   const customers = response?.data || [];
   const pagination = response?.pagination;
 
-  const openNew = () => { setPanelOpen(true); };
+  const openNew = () => {
+    if (isGuest) {
+      toast.info(DEMO_READ_ONLY_MESSAGE);
+      return;
+    }
+    setPanelOpen(true);
+  };
 
   const handleLimitChange = (nextLimit: PageSizeOption) => {
     setLimit(nextLimit);
@@ -64,6 +73,11 @@ export function CustomersClient() {
                   {pagination?.total || 0} ACCOUNTS
                 </span>
               </div>
+              {isGuest && (
+                <p className="text-xs font-bold text-amber-600 dark:text-amber-400">
+                  Guest preview uses static data. Create, edit, and delete actions are disabled.
+                </p>
+              )}
             </div>
             <button
               onClick={openNew}

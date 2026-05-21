@@ -21,7 +21,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const pathname = usePathname();
   const { logout } = useAuth();
-  const { isAuthenticated, isLoading, user, coupon } = useSession();
+  const { isAuthenticated, isLoading, user, coupon, isGuest } = useSession();
 
   // Protect dashboard routes
   useEffect(() => {
@@ -110,6 +110,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           isDesktopExpanded={isDesktopExpanded}
           setIsDesktopExpanded={setIsDesktopExpanded}
           user={user}
+          isGuest={isGuest}
         />
 
         {/* Page Content */}

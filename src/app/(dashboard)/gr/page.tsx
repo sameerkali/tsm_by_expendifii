@@ -5,10 +5,12 @@ import {
   Plus, Search, FileText,
   MapPin, Loader2, Trash2, Pencil, Printer, Copy
 } from 'lucide-react';
+import { toast } from 'sonner';
 import { cn } from '@/lib/utils/cn';
 import { GRFormPanel } from '@/components/gr/GRFormPanel';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { Pagination, type PageSizeOption } from '@/components/shared/Pagination';
+import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from '@/lib/demo/guest';
 import { useGRs, useDeleteGR, useDownloadGRPdf, useDuplicateGR } from '@/hooks/useGR';
 import { useDebounce } from '@/hooks/useDebounce';
 import type { GR } from '@/types/gr';
@@ -41,6 +43,7 @@ export default function GRListPage() {
   const deleteGR = useDeleteGR();
   const printGR = useDownloadGRPdf();
   const duplicateGR = useDuplicateGR();
+  const isGuest = isGuestModeClient();
 
   const { data: response, isLoading, isError } = useGRs({
     search: debouncedSearch || undefined,
@@ -67,8 +70,25 @@ export default function GRListPage() {
     setPage(1);
   };
 
-  const openNew = () => { setEditData(null); setPanelOpen(true); };
-  const openEdit = (row: GR) => { setEditData(row); setPanelOpen(true); };
+  const showGuestNotice = () => toast.info(DEMO_READ_ONLY_MESSAGE);
+
+  const openNew = () => {
+    if (isGuest) {
+      showGuestNotice();
+      return;
+    }
+    setEditData(null);
+    setPanelOpen(true);
+  };
+
+  const openEdit = (row: GR) => {
+    if (isGuest) {
+      showGuestNotice();
+      return;
+    }
+    setEditData(row);
+    setPanelOpen(true);
+  };
 
   const handleDelete = () => {
     if (!deleteTarget) return;
@@ -103,6 +123,11 @@ export default function GRListPage() {
                 {pagination?.total ?? 0} RECORDS
               </span>
             </div>
+            {isGuest && (
+              <p className="text-xs font-bold text-amber-600 dark:text-amber-400">
+                Guest preview uses static data. Create, edit, delete, duplicate, and PDF actions are disabled.
+              </p>
+            )}
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -234,7 +259,7 @@ export default function GRListPage() {
                         <td className="px-8 py-5 text-right whitespace-nowrap">
                           <div className="flex items-center justify-end gap-1">
                             <button
-                              onClick={() => printGR.mutate(row.id)}
+                              onClick={() => isGuest ? toast.info('Guest demo uses static data. Sign in to generate PDFs.') : printGR.mutate(row.id)}
                               disabled={printGR.isPending}
                               title="Print"
                               className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-500 dark:text-slate-400 hover:text-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -246,7 +271,7 @@ export default function GRListPage() {
                               )}
                             </button>
                             <button
-                              onClick={() => duplicateGR.mutate(row.id)}
+                              onClick={() => isGuest ? showGuestNotice() : duplicateGR.mutate(row.id)}
                               disabled={duplicateGR.isPending}
                               title="Duplicate GR"
                               className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-amber-50 dark:hover:bg-amber-500/10 transition-all text-slate-400 hover:text-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -265,7 +290,7 @@ export default function GRListPage() {
                               <Pencil size={16} />
                             </button>
                             <button
-                              onClick={() => setDeleteTarget(row)}
+                              onClick={() => isGuest ? showGuestNotice() : setDeleteTarget(row)}
                               title="Delete"
                               className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 transition-all text-slate-500 dark:text-slate-400 hover:text-red-500"
                             >

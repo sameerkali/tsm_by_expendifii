@@ -4,11 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, type LoginInput } from '@/lib/validations/auth.schema';
 import { useAuth } from '@/hooks/useAuth';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
+import { enterGuestMode } from '@/lib/demo/guest';
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const { login, isLoggingIn } = useAuth();
   const {
     register,
@@ -23,6 +26,11 @@ export function LoginForm() {
       email: data.email.trim().toLowerCase(),
       password: data.password,
     });
+  };
+
+  const handleGuestAccess = () => {
+    enterGuestMode();
+    router.push('/gr');
   };
 
   return (
@@ -97,6 +105,20 @@ export function LoginForm() {
           </div>
         </button>
       </form>
+
+      <div className="space-y-3 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20">
+        <p className="text-xs font-bold leading-relaxed text-emerald-800 dark:text-emerald-300">
+          Just testing? Use guest mode to preview static GR, customer, printing, and dashboard screens. Demo mode is read-only, so create/edit/delete actions are disabled.
+        </p>
+        <button
+          type="button"
+          onClick={handleGuestAccess}
+          className="w-full flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm font-black text-emerald-700 transition-all hover:border-emerald-400 hover:bg-emerald-50 active:scale-95 dark:border-emerald-800 dark:bg-slate-950 dark:text-emerald-300 dark:hover:bg-emerald-950/40"
+        >
+          Use as guest
+          <ArrowRight size={16} />
+        </button>
+      </div>
 
       <div className="pt-4 text-center text-sm text-slate-500">
         Don&apos;t have an account?{' '}

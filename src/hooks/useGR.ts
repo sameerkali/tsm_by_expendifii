@@ -4,14 +4,17 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { grApi, type GetGRsParams } from '@/lib/api/gr.api';
 import { getApiErrorMessage } from '@/lib/api/errors';
+import { getDemoGRResponse } from '@/lib/demo/data';
+import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from '@/lib/demo/guest';
 import { GR_KEYS } from '@/config/query-keys';
 import type { CreateGRInput, UpdateGRInput, GRStatus } from '@/types/gr';
 
 /** Fetch paginated GR list with optional filters. */
 export function useGRs(params?: GetGRsParams) {
+  const isGuest = isGuestModeClient();
   return useQuery({
-    queryKey: [...GR_KEYS.lists(), params],
-    queryFn: () => grApi.getAll(params),
+    queryKey: [...GR_KEYS.lists(), params, { guest: isGuest }],
+    queryFn: () => isGuest ? getDemoGRResponse(params) : grApi.getAll(params),
   });
 }
 
@@ -29,7 +32,10 @@ export function useCreateGR() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreateGRInput) => grApi.create(data),
+    mutationFn: (data: CreateGRInput) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return grApi.create(data);
+    },
     onSuccess: (res) => {
       toast.success(`GR "${res.data.grNumber}" created successfully.`);
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
@@ -45,8 +51,10 @@ export function useUpdateGR() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateGRInput }) =>
-      grApi.update(id, data),
+    mutationFn: ({ id, data }: { id: string; data: UpdateGRInput }) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return grApi.update(id, data);
+    },
     onSuccess: (res) => {
       toast.success(`GR "${res.data.grNumber}" updated successfully.`);
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
@@ -63,8 +71,10 @@ export function useUpdateGRStatus() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, status }: { id: string; status: GRStatus }) =>
-      grApi.updateStatus(id, status),
+    mutationFn: ({ id, status }: { id: string; status: GRStatus }) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return grApi.updateStatus(id, status);
+    },
     onSuccess: (res) => {
       toast.success(`GR status updated to "${res.data.status}".`);
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
@@ -81,7 +91,10 @@ export function useDeleteGR() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: string) => grApi.delete(id),
+    mutationFn: (id: string) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return grApi.delete(id);
+    },
     onSuccess: () => {
       toast.success('GR deleted successfully.');
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
@@ -97,7 +110,10 @@ export function useDuplicateGR() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: string) => grApi.duplicate(id),
+    mutationFn: (id: string) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return grApi.duplicate(id);
+    },
     onSuccess: (res) => {
       toast.success(`GR duplicated as "${res.data.grNumber}".`);
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
@@ -111,7 +127,10 @@ export function useDuplicateGR() {
 /** Open a single GR PDF in a new tab. */
 export function useDownloadGRPdf() {
   return useMutation({
-    mutationFn: (id: string) => grApi.downloadPdf(id),
+    mutationFn: (id: string) => {
+      if (isGuestModeClient()) throw { success: false, message: 'Guest demo uses static data. Sign in to generate PDFs.' };
+      return grApi.downloadPdf(id);
+    },
     onSuccess: (blob) => {
       const url = window.URL.createObjectURL(blob);
       const opened = window.open(url, '_blank');

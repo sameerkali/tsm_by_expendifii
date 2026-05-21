@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import authApi from '@/lib/api/auth.api';
 import { getApiErrorMessage } from '@/lib/api/errors';
+import { DEMO_READ_ONLY_MESSAGE, exitGuestMode, isGuestModeClient } from '@/lib/demo/guest';
 import { COMPANY_KEYS } from '@/config/query-keys';
 import { LoginInput, RegisterInput, ActivateInput } from '@/lib/validations/auth.schema';
 import { ApiError } from '@/types/api';
@@ -92,8 +93,10 @@ export function useAuth() {
   });
 
   const updateProfileMutation = useMutation({
-    mutationFn: (data: Parameters<typeof authApi.updateProfile>[0]) =>
-      authApi.updateProfile(data),
+    mutationFn: (data: Parameters<typeof authApi.updateProfile>[0]) => {
+      if (isGuestModeClient()) throw { success: false, message: DEMO_READ_ONLY_MESSAGE };
+      return authApi.updateProfile(data);
+    },
     onSuccess: () => {
       toast.success('Profile updated successfully.');
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
@@ -104,10 +107,16 @@ export function useAuth() {
   });
 
   const logoutMutation = useMutation({
-    mutationFn: () => authApi.logout(),
+    mutationFn: () => {
+      if (isGuestModeClient()) {
+        return Promise.resolve({ success: true });
+      }
+      return authApi.logout();
+    },
     onSuccess: () => {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('profile');
+        exitGuestMode();
       }
       queryClient.clear();
       router.push('/');
@@ -117,6 +126,7 @@ export function useAuth() {
       // Never leave the user stuck on a "logging out" screen.
       if (typeof window !== 'undefined') {
         localStorage.removeItem('profile');
+        exitGuestMode();
       }
       queryClient.clear();
       router.push('/');
