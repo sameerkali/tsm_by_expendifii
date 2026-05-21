@@ -26,6 +26,7 @@ export interface CustomerListResponse {
     currentPage: number;
     totalPages: number;
     total: number;
+    limit?: number;
   };
 }
 

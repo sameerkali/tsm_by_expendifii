@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Plus, Search, FileText,
-  MapPin, ChevronLeft, ChevronRight, Loader2, Trash2, Pencil, Printer, Copy
+  MapPin, Loader2, Trash2, Pencil, Printer, Copy
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { GRFormPanel } from '@/components/gr/GRFormPanel';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
+import { Pagination, type PageSizeOption } from '@/components/shared/Pagination';
 import { useGRs, useDeleteGR, useDownloadGRPdf, useDuplicateGR } from '@/hooks/useGR';
 import { useDebounce } from '@/hooks/useDebounce';
 import type { GR } from '@/types/gr';
@@ -34,6 +35,7 @@ export default function GRListPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState<PageSizeOption>(10);
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   const deleteGR = useDeleteGR();
@@ -44,13 +46,26 @@ export default function GRListPage() {
     search: debouncedSearch || undefined,
     status: statusFilter !== 'All' ? statusFilter : undefined,
     page,
-    limit: 10,
+    limit,
   });
 
   const grs = response?.data || [];
   const pagination = response?.pagination;
 
-  useEffect(() => { setPage(1); }, [debouncedSearch, statusFilter]);
+  const handleLimitChange = (nextLimit: PageSizeOption) => {
+    setLimit(nextLimit);
+    setPage(1);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setPage(1);
+  };
+
+  const handleStatusChange = (status: string) => {
+    setStatusFilter(status);
+    setPage(1);
+  };
 
   const openNew = () => { setEditData(null); setPanelOpen(true); };
   const openEdit = (row: GR) => { setEditData(row); setPanelOpen(true); };
@@ -107,7 +122,7 @@ export default function GRListPage() {
               type="text"
               placeholder="Search by GR number, consignor, vehicle..."
               value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              onChange={e => handleSearchChange(e.target.value)}
               className="w-full h-12 bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-emerald-500 transition-all font-medium"
             />
           </div>
@@ -115,7 +130,7 @@ export default function GRListPage() {
             {STATUS_FILTERS.map(s => (
               <button
                 key={s}
-                onClick={() => setStatusFilter(s)}
+                onClick={() => handleStatusChange(s)}
                 className={cn(
                   'h-12 px-4 flex-1 lg:flex-none rounded-2xl text-xs font-black uppercase tracking-widest transition-all border',
                   statusFilter === s
@@ -267,28 +282,15 @@ export default function GRListPage() {
           </div>
 
           {/* Pagination */}
-          {!isLoading && pagination && pagination.totalPages > 1 && (
-            <div className="h-20 border-t border-slate-50 dark:border-slate-800/50 px-8 flex items-center justify-between">
-              <p className="text-xs font-bold text-slate-400">
-                Page <span className="text-slate-900 dark:text-white font-black">{pagination.currentPage}</span> of {pagination.totalPages}
-              </p>
-              <div className="flex items-center gap-2">
-                <button
-                  disabled={page === 1}
-                  onClick={() => setPage(p => p - 1)}
-                  className="h-10 w-10 flex items-center justify-center rounded-xl border border-slate-100 dark:border-slate-800 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button
-                  disabled={page === pagination.totalPages}
-                  onClick={() => setPage(p => p + 1)}
-                  className="h-10 w-10 flex items-center justify-center rounded-xl border border-slate-100 dark:border-slate-800 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </div>
+          {!isLoading && pagination && (
+            <Pagination
+              pagination={pagination}
+              page={page}
+              limit={limit}
+              onPageChange={setPage}
+              onLimitChange={handleLimitChange}
+              itemLabel="records"
+            />
           )}
         </div>
       </div>

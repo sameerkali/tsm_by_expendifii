@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-  Plus, Search, User as UserIcon, Phone, Mail, ChevronLeft, ChevronRight, Loader2
+  Plus, Search, User as UserIcon, Phone, Mail, Loader2
 } from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
 import { CustomerFormPanel } from '@/components/customers/CustomerFormPanel';
+import { Pagination, type PageSizeOption } from '@/components/shared/Pagination';
 import { useCustomers } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -20,22 +20,29 @@ export function CustomersClient() {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearch = useDebounce(searchTerm, 500);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState<PageSizeOption>(10);
 
   // Fetch customers
   const { data: response, isLoading, isError, error } = useCustomers({
     search: debouncedSearch,
-    page: page,
+    page,
+    limit,
   });
 
   const customers = response?.data || [];
   const pagination = response?.pagination;
 
-  // Reset page to 1 when search changes
-  useEffect(() => {
-    setPage(1);
-  }, [debouncedSearch]);
-
   const openNew = () => { setPanelOpen(true); };
+
+  const handleLimitChange = (nextLimit: PageSizeOption) => {
+    setLimit(nextLimit);
+    setPage(1);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setPage(1);
+  };
 
   const handleRowClick = (id: string) => {
     router.push(`/customers/${id}`);
@@ -73,7 +80,7 @@ export function CustomersClient() {
               type="text"
               placeholder="Search by name, email, or mobile..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full h-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-emerald-500 transition-all font-medium"
             />
           </div>
@@ -106,7 +113,9 @@ export function CustomersClient() {
                   <tr>
                     <td colSpan={5} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center justify-center text-red-400 gap-3">
-                        <span className="text-sm font-medium">Failed to load customers. {(error as any)?.message}</span>
+                        <span className="text-sm font-medium">
+                          Failed to load customers. {error instanceof Error ? error.message : ''}
+                        </span>
                       </div>
                     </td>
                   </tr>
@@ -171,28 +180,15 @@ export function CustomersClient() {
             </table>
           </div>
 
-          {!isLoading && !isError && pagination && pagination.totalPages > 1 && (
-            <div className="h-20 border-t border-slate-50 dark:border-slate-800/50 px-8 flex items-center justify-between">
-                <p className="text-xs font-bold text-slate-400">
-                Showing page <span className="text-slate-900 dark:text-white font-black">{pagination.currentPage}</span> of {pagination.totalPages}
-                </p>
-                <div className="flex items-center gap-2">
-                <button 
-                    disabled={page === 1}
-                    onClick={() => setPage(p => p - 1)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl border border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                    <ChevronLeft size={18} />
-                </button>
-                <button 
-                    disabled={page === pagination.totalPages}
-                    onClick={() => setPage(p => p + 1)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl border border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                    <ChevronRight size={18} />
-                </button>
-                </div>
-            </div>
+          {!isLoading && !isError && pagination && (
+            <Pagination
+              pagination={pagination}
+              page={page}
+              limit={limit}
+              onPageChange={setPage}
+              onLimitChange={handleLimitChange}
+              itemLabel="accounts"
+            />
           )}
         </div>
       </div>

@@ -44,7 +44,7 @@ export function extractMessage(error: unknown, fallback: string): string {
 /** Fetch paginated customer list with optional search. */
 export function useCustomers(params?: CustomerListParams) {
   return useQuery({
-    queryKey: CUSTOMER_KEYS.list(params?.search),
+    queryKey: [...CUSTOMER_KEYS.lists(), params],
     queryFn: () => customerApi.getAll(params),
   });
 }
