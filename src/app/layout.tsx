@@ -76,7 +76,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50">
+      <body
+        className="h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50"
+        suppressHydrationWarning
+      >
         <PreferencesProvider>
           <QueryProvider>
             {children}
