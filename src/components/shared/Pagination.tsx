@@ -39,6 +39,10 @@ export function Pagination({
   const startItem = total === 0 ? 0 : (currentPage - 1) * limit + 1;
   const endItem = total === 0 ? 0 : Math.min(currentPage * limit, total);
 
+  if (total <= limit || totalPages <= 1) {
+    return null;
+  }
+
   return (
     <div
       className={cn(
