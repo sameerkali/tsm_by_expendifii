@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, Loader2, ChevronDown, CheckCircle2, UserPlus, AlertCircle, Search } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useCreateGR, useUpdateGR } from '@/hooks/useGR';
-import { useCustomers, useCreateCustomer, extractMessage } from '@/hooks/useCustomers';
+import { useCustomers, useCreateCustomer } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
 import type { GR, CreateGRInput } from '@/types/gr';
 import type { CreateCustomerInput, Customer, PricingType as CustomerPricingType } from '@/types/customer';

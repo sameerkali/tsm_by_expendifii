@@ -4,18 +4,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import authApi from '@/lib/api/auth.api';
+import { getApiErrorMessage } from '@/lib/api/errors';
 import { COMPANY_KEYS } from '@/config/query-keys';
 import { LoginInput, RegisterInput, ActivateInput } from '@/lib/validations/auth.schema';
 import { ApiError } from '@/types/api';
-
-/** Safely extract a user-facing message from an unknown error. */
-function extractMessage(error: unknown, fallback: string): string {
-  if (error && typeof error === 'object' && 'message' in error) {
-    const msg = (error as ApiError).message;
-    if (typeof msg === 'string' && msg.trim().length > 0) return msg;
-  }
-  return fallback;
-}
 
 export function useAuth() {
   const router = useRouter();
@@ -48,29 +40,19 @@ export function useAuth() {
       }
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Login failed. Check your credentials and try again.'));
+      toast.error(getApiErrorMessage(error, 'Login failed. Check your credentials and try again.', 'auth'));
     },
   });
 
   const registerMutation = useMutation({
     mutationFn: (data: RegisterInput) => authApi.register(data),
     onSuccess: (res) => {
-      // LOG: Full register onSuccess — inspect every possible token location
-      console.group('[useAuth] Register onSuccess');
-      console.log('Full res object:', JSON.stringify(res, null, 2));
-      console.log('res.data (should be user object):', res?.data);
-      console.log('res.data?.token:', (res?.data as any)?.token);
-      console.log('(res as any).token (top-level?):', (res as any)?.token);
-      console.groupEnd();
-
-      console.groupEnd();
-
       toast.success(res.message || 'Account created! Activate with your coupon code.');
       router.push('/activate');
     },
     onError: (error: unknown) => {
       console.error('[useAuth] Register failed:', error);
-      toast.error(extractMessage(error, 'Registration failed. Please try again.'));
+      toast.error(getApiErrorMessage(error, 'Registration failed. Please try again.', 'auth'));
     },
   });
 
@@ -105,7 +87,7 @@ export function useAuth() {
       console.error('Error:', error);
       console.groupEnd();
 
-      toast.error(extractMessage(error, 'Invalid or expired coupon code. Please try again.'));
+      toast.error(getApiErrorMessage(error, 'Invalid or expired coupon code. Please try again.', 'auth'));
     },
   });
 
@@ -117,7 +99,7 @@ export function useAuth() {
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Failed to update profile. Please try again.'));
+      toast.error(getApiErrorMessage(error, 'Failed to update profile. Please try again.', 'auth'));
     },
   });
 

@@ -3,17 +3,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { grApi, type GetGRsParams } from '@/lib/api/gr.api';
+import { getApiErrorMessage } from '@/lib/api/errors';
 import { GR_KEYS } from '@/config/query-keys';
 import type { CreateGRInput, UpdateGRInput, GRStatus } from '@/types/gr';
-import type { ApiError } from '@/types/api';
-
-function extractMessage(error: unknown, fallback: string): string {
-  if (error && typeof error === 'object' && 'message' in error) {
-    const msg = (error as ApiError).message;
-    if (typeof msg === 'string' && msg.trim().length > 0) return msg;
-  }
-  return fallback;
-}
 
 /** Fetch paginated GR list with optional filters. */
 export function useGRs(params?: GetGRsParams) {
@@ -43,7 +35,7 @@ export function useCreateGR() {
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Failed to create GR.'));
+      toast.error(getApiErrorMessage(error, 'Failed to create GR.', 'gr'));
     },
   });
 }
@@ -61,7 +53,7 @@ export function useUpdateGR() {
       queryClient.invalidateQueries({ queryKey: GR_KEYS.detail(res.data.id) });
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Failed to update GR.'));
+      toast.error(getApiErrorMessage(error, 'Failed to update GR.', 'gr'));
     },
   });
 }
@@ -79,7 +71,7 @@ export function useUpdateGRStatus() {
       queryClient.invalidateQueries({ queryKey: GR_KEYS.detail(res.data.id) });
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Failed to update GR status.'));
+      toast.error(getApiErrorMessage(error, 'Failed to update GR status.', 'gr'));
     },
   });
 }
@@ -95,7 +87,7 @@ export function useDeleteGR() {
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Failed to delete GR.'));
+      toast.error(getApiErrorMessage(error, 'Failed to delete GR.', 'gr'));
     },
   });
 }
@@ -111,7 +103,7 @@ export function useDuplicateGR() {
       queryClient.invalidateQueries({ queryKey: GR_KEYS.lists() });
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Failed to duplicate GR.'));
+      toast.error(getApiErrorMessage(error, 'Failed to duplicate GR.', 'gr'));
     },
   });
 }
@@ -131,7 +123,7 @@ export function useDownloadGRPdf() {
       setTimeout(() => window.URL.revokeObjectURL(url), 1000);
     },
     onError: (error: unknown) => {
-      toast.error(extractMessage(error, 'Failed to open GR PDF.'));
+      toast.error(getApiErrorMessage(error, 'Failed to open GR PDF.', 'print'));
     },
   });
 }

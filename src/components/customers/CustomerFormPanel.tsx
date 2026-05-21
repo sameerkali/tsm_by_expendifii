@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { X, Loader2, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useCreateCustomer, useUpdateCustomer } from '@/hooks/useCustomers';
+import { getApiFieldErrors } from '@/lib/api/errors';
 import { PRICING_TYPE_OPTIONS, INDIAN_STATES } from '@/lib/validations/customer.schema';
-import type { Customer, PricingType } from '@/types/customer';
+import type { CreateCustomerInput, Customer, PricingType } from '@/types/customer';
 import { sanitizeValue } from '@/lib/validation/sanitize';
 import { validateValue } from '@/lib/validation/validate';
 import {
@@ -79,8 +80,8 @@ function customerToForm(c: Customer): FormState {
   };
 }
 
-function formToPayload(form: FormState) {
-  const payload: Record<string, unknown> = {
+function formToPayload(form: FormState): CreateCustomerInput {
+  const payload: CreateCustomerInput = {
     name: String(form.name).trim(),
     phone: String(form.phone).trim(),
   };
@@ -173,15 +174,16 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
     const payload = formToPayload(form);
 
     const onError = (error: unknown) => {
-      if (error && typeof error === 'object' && 'errors' in error) {
-        const details = (error as any).errors;
-        if (Array.isArray(details)) {
-          const mapped: Record<string, string> = {};
-          details.forEach((d: { field: string; message: string }) => {
-            mapped[d.field] = d.message;
-          });
-          setFieldErrors((prev) => ({ ...prev, ...mapped }));
-        }
+      const mapped = getApiFieldErrors(error);
+      if (Object.keys(mapped).length > 0) {
+        setFieldErrors((prev) => ({ ...prev, ...mapped }));
+        setTouched((prev) => ({
+          ...prev,
+          ...Object.keys(mapped).reduce<Record<string, boolean>>((acc, field) => {
+            acc[field] = true;
+            return acc;
+          }, {}),
+        }));
       }
     };
 
@@ -191,7 +193,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
         { onSuccess: () => onClose(), onError },
       );
     } else {
-      createMutation.mutate(payload as any, {
+      createMutation.mutate(payload, {
         onSuccess: () => onClose(),
         onError,
       });

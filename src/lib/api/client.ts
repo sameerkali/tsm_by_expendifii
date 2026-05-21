@@ -36,13 +36,18 @@ apiClient.interceptors.response.use(
     const responseData = error.response?.data ?? {};
     const apiError: ApiError = {
       success: false,
+      status: error.response?.status,
       message:
         responseData.message ??
         responseData.error ??
         error.message ??
         'Something went wrong',
+      error: responseData.error,
+      field: responseData.field,
+      code: responseData.code ?? error.code,
       errors: responseData.errors,
       details: responseData.details,
+      debug: responseData.debug,
     };
 
     return Promise.reject(apiError);
@@ -50,4 +55,3 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-

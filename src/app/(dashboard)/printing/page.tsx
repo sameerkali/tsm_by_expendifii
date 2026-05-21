@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Search, Loader2, User as UserIcon, Phone, Mail, ChevronLeft, ChevronRight, X, Download } from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
+import React, { useState } from 'react';
+import { Search, Loader2, User as UserIcon, Phone, Mail, X, Download } from 'lucide-react';
+import { toast } from 'sonner';
+import { getApiErrorMessage } from '@/lib/api/errors';
 import { useCustomers, useDownloadCustomerGrPdf } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
+import { Pagination, type PageSizeOption } from '@/components/shared/Pagination';
 import type { Customer } from '@/types/customer';
 
 function PrintModal({ 
@@ -16,18 +18,20 @@ function PrintModal({
 }) {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  const [today] = useState(() =>
+    new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .split('T')[0]
+  );
   
   const downloadMutation = useDownloadCustomerGrPdf();
-  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-    .toISOString()
-    .split('T')[0];
   if (!customer) return null;
 
   const handleDownload = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fromDate) return;
     if (toDate && toDate < fromDate) {
-      alert("To Date cannot be earlier than From Date.");
+      toast.error('End date cannot be earlier than start date.');
       return;
     }
     
@@ -131,19 +135,27 @@ export default function PrintingPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearch = useDebounce(searchTerm, 500);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState<PageSizeOption>(10);
   const [activeCustomer, setActiveCustomer] = useState<Customer | null>(null);
 
   const { data: response, isLoading, isError, error } = useCustomers({
     search: debouncedSearch,
-    page: page,
+    page,
+    limit,
   });
 
   const customers = response?.data || [];
   const pagination = response?.pagination;
 
-  useEffect(() => {
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
     setPage(1);
-  }, [debouncedSearch]);
+  };
+
+  const handleLimitChange = (nextLimit: PageSizeOption) => {
+    setLimit(nextLimit);
+    setPage(1);
+  };
 
   return (
     <>
@@ -171,7 +183,7 @@ export default function PrintingPage() {
             <input
               type="text"
               value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              onChange={e => handleSearchChange(e.target.value)}
               placeholder="Search customers by name, phone..."
               className="w-full h-12 bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-emerald-500 transition-all font-medium"
             />
@@ -204,7 +216,9 @@ export default function PrintingPage() {
                   <tr>
                     <td colSpan={4} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center justify-center text-red-400 gap-3">
-                        <span className="text-sm font-medium">Failed to load customers. {(error as any)?.message}</span>
+                        <span className="text-sm font-medium">
+                          {getApiErrorMessage(error, 'Failed to load customers.', 'customer')}
+                        </span>
                       </div>
                     </td>
                   </tr>
@@ -266,28 +280,15 @@ export default function PrintingPage() {
             </table>
           </div>
 
-          {!isLoading && !isError && pagination && pagination.totalPages > 1 && (
-            <div className="h-20 border-t border-slate-50 dark:border-slate-800/50 px-8 flex items-center justify-between">
-                <p className="text-xs font-bold text-slate-400">
-                Showing page <span className="text-slate-900 dark:text-white font-black">{pagination.currentPage}</span> of {pagination.totalPages}
-                </p>
-                <div className="flex items-center gap-2">
-                <button 
-                    disabled={page === 1}
-                    onClick={() => setPage(p => p - 1)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl border border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                    <ChevronLeft size={18} />
-                </button>
-                <button 
-                    disabled={page === pagination.totalPages}
-                    onClick={() => setPage(p => p + 1)}
-                    className="h-10 w-10 flex items-center justify-center rounded-xl border border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                    <ChevronRight size={18} />
-                </button>
-                </div>
-            </div>
+          {!isLoading && !isError && pagination && (
+            <Pagination
+              pagination={pagination}
+              page={page}
+              limit={limit}
+              onPageChange={setPage}
+              onLimitChange={handleLimitChange}
+              itemLabel="customers"
+            />
           )}
         </div>
       </div>
