@@ -145,6 +145,7 @@ export function LoginForm() {
         <button
           type="button"
           onClick={handleGuestAccess}
+          
           className="flex items-center gap-1 text-sm underline text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           Use as guest

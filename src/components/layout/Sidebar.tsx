@@ -1,13 +1,14 @@
 'use client';
-
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Users as UsersIcon, Files, Printer, Settings,
-  LogOut, Palette, ChevronRight
+  LogOut, ChevronRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { useAuth } from '@/hooks/useAuth';
+import { LogoutModal } from './LogoutModal';
 
 const NAV_ITEMS = [
   { label: 'GR', icon: Files, href: '/gr' },
@@ -25,17 +26,17 @@ interface SidebarProps {
   isMobileOpen: boolean;
   isDesktopExpanded: boolean;
   coupon: SidebarCoupon | null;
-  onLogoutClick: () => void;
 }
 
 export function Sidebar({
   isMobileOpen,
   isDesktopExpanded,
-  coupon,
-  onLogoutClick
+  coupon
 }: SidebarProps) {
   const pathname = usePathname();
   const showLabel = isMobileOpen || isDesktopExpanded;
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const { logout, isLoggingOut } = useAuth();
 
   return (
     <aside className={cn(
@@ -135,7 +136,8 @@ export function Sidebar({
 
         {/* Sign Out Button */}
         <button
-          onClick={onLogoutClick}
+          onClick={() => setShowLogoutConfirm(true)}
+          disabled={isLoggingOut}
           title="Sign Out"
           className={cn(
             "flex items-center h-11 px-3 w-full rounded-xl transition-all",
@@ -161,6 +163,16 @@ export function Sidebar({
           </span>
         </div>
       )}
+
+      <LogoutModal
+        isOpen={showLogoutConfirm}
+        onClose={() => setShowLogoutConfirm(false)}
+        onConfirm={() => {
+          setShowLogoutConfirm(false);
+          logout();
+        }}
+        isLoading={isLoggingOut}
+      />
     </aside>
   );
 }

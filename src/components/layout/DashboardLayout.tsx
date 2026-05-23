@@ -1,16 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   Truck
 } from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
-import { useAuth } from '@/hooks/useAuth';
 import { useSession } from '@/hooks/useSession';
 import { Sidebar } from './Sidebar';
-import { LogoutModal } from './LogoutModal';
 import { Topbar } from './TopBar';
 
 
@@ -18,9 +14,7 @@ import { Topbar } from './TopBar';
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const pathname = usePathname();
-  const { logout } = useAuth();
   const { isAuthenticated, isLoading, user, coupon, isGuest } = useSession();
 
   // Protect dashboard routes
@@ -41,14 +35,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsMobileOpen(false);
-        setShowLogoutConfirm(false);
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
-
-  const showLabel = isMobileOpen || isDesktopExpanded;
 
   if (isLoading || !isAuthenticated) {
     return (
@@ -78,12 +69,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-emerald-500/30 overflow-hidden">
 
-      <LogoutModal 
-        isOpen={showLogoutConfirm} 
-        onClose={() => setShowLogoutConfirm(false)} 
-        onConfirm={() => { setShowLogoutConfirm(false); logout(); }} 
-      />
-
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
         <div
@@ -97,7 +82,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         isMobileOpen={isMobileOpen}
         isDesktopExpanded={isDesktopExpanded}
         coupon={coupon}
-        onLogoutClick={() => setShowLogoutConfirm(true)}
       />
 
       {/* ── Main Content ── */}
