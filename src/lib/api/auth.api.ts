@@ -86,7 +86,7 @@ export const authApi = {
    * Updates user profile fields.
    */
   updateProfile: async (data: UpdateProfileInput): Promise<ApiResponse<User>> => {
-    return apiClient.put('/auth/profile', data) as any;
+    return apiClient.patch('/auth/profile', data) as any;
   },
 };
 

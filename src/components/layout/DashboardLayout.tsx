@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import {
-  Truck
-} from 'lucide-react';
 import { useSession } from '@/hooks/useSession';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './TopBar';
+import { Spinner } from '../ui';
 
 
 
@@ -44,24 +42,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   if (isLoading || !isAuthenticated) {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
-        <div className="relative flex items-center justify-center w-24 h-24 bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl shadow-emerald-500/10 border border-slate-100 dark:border-slate-800/60">
-          {/* Subtle ping effect behind the truck */}
-          <div className="absolute inset-0 rounded-[2rem] border-2 border-emerald-500/30 animate-ping" />
-          
-          {/* Bouncing Truck Icon */}
-          <Truck size={40} className="text-emerald-500 animate-bounce drop-shadow-md" />
-        </div>
-        
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-[10px] font-black tracking-[0.3em] text-emerald-500 uppercase italic">
-            TMS Workspace
-          </p>
-          <div className="flex gap-1">
-            <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 animate-bounce" style={{ animationDelay: '0ms' }} />
-            <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 animate-bounce" style={{ animationDelay: '150ms' }} />
-            <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 animate-bounce" style={{ animationDelay: '300ms' }} />
-          </div>
-        </div>
+        <Spinner/>
       </div>
     );
   }

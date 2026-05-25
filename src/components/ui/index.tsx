@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
   Check, X, AlertTriangle, Info, ChevronDown, Search, Loader2,
-  Eye, EyeOff, Upload, CheckSquare, Square
+  Eye, EyeOff, Upload, CheckSquare, Square,
+  Loader
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
@@ -184,7 +185,7 @@ export function CardBody({ children, className }: { children: React.ReactNode; c
 
 /** Spinner */
 export function Spinner({ size = 24, className }: { size?: number; className?: string }) {
-  return <Loader2 size={size} className={cn('animate-spin text-emerald-500', className)} />;
+  return <Loader size={size} className={cn('animate-spin text-emerald-500', className)} />;
 }
 
 /** Skeleton Loader */
