@@ -7,13 +7,11 @@ import { Sidebar } from './Sidebar';
 import { Topbar } from './TopBar';
 import { Spinner } from '../ui';
 
-
-
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
-  const { isAuthenticated, isLoading, user, coupon, isGuest } = useSession();
+  const { isAuthenticated, isLoading, user, coupon } = useSession();
 
   // Protect dashboard routes
   useEffect(() => {
@@ -25,6 +23,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   // Close mobile sidebar on route change
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobileOpen(false);
   }, [pathname]);
 
@@ -42,14 +41,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   if (isLoading || !isAuthenticated) {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
-        <Spinner/>
+        <Spinner />
       </div>
     );
   }
 
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-emerald-500/30 overflow-hidden">
-
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
         <div
@@ -67,7 +65,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
       {/* ── Main Content ── */}
       <div className="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
-        
         {/* Topbar */}
         <Topbar 
           isMobileOpen={isMobileOpen}
@@ -75,7 +72,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           isDesktopExpanded={isDesktopExpanded}
           setIsDesktopExpanded={setIsDesktopExpanded}
           user={user}
-          isGuest={isGuest}
+          isGuest={false}
         />
 
         {/* Page Content */}

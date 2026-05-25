@@ -6,6 +6,7 @@ interface LogoutModalProps {
   onConfirm: () => void;
   isLoading?: boolean;
   title?: string;
+  bodyTitle?: string;
   description?: string;
   confirmText?: string;
   cancelText?: string;
@@ -17,10 +18,13 @@ export function LogoutModal({
   onConfirm,
   isLoading = false,
   title = "Sign Out",
+  bodyTitle,
   description = "Okay peace out. Log back in when you want your dashboard to acknowledge your existence again.",
   confirmText = "Yes, log me out",
   cancelText = "Cancel"
 }: LogoutModalProps) {
+  const displayBodyTitle = bodyTitle || (title === "Sign Out" ? "Leaving so soon?" : title);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -49,7 +53,7 @@ export function LogoutModal({
       }
     >
       <div className="py-2 text-center">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Leaving so soon?</h3>
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">{displayBodyTitle}</h3>
         <p className="text-sm text-slate-500 dark:text-slate-400">
           {description}
         </p>
