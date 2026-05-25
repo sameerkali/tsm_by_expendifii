@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2, Pencil } from 'lucide-react';
+import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2, Pencil, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { Button, inputClass } from '@/components/ui';
 import { Field } from './Field';
@@ -44,8 +44,6 @@ const PROFILE_SCHEMAS: Record<string, FieldSchema> = {
    ifscCode: string;
  };
  
- type SettingsUser = { email?: string | null } | null;
-
 interface CompanyProfileSectionProps {
   form: CompanyProfileForm;
   setForm?: React.Dispatch<React.SetStateAction<CompanyProfileForm>>;
@@ -56,7 +54,14 @@ interface CompanyProfileSectionProps {
   logoUploadError: string;
   isUpdatingProfile: boolean;
   isLoadingProfile: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any;
+  deletionRequest?: {
+    status: string;
+    createdAt?: string;
+    requestedAt?: string;
+    reason?: string;
+  } | null;
 }
 
 // Style for read-only inputs (view mode)
@@ -73,6 +78,7 @@ export function CompanyProfileSection({
   isUpdatingProfile,
   isLoadingProfile,
   user,
+  deletionRequest,
 }: CompanyProfileSectionProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [preEditProfile, setPreEditProfile] = useState<CompanyProfileForm | null>(null);
@@ -80,6 +86,10 @@ export function CompanyProfileSection({
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const startEditing = () => {
+    if (deletionRequest?.status === 'PENDING') {
+      toast.error('Cannot edit profile while account deletion is pending.');
+      return;
+    }
     setPreEditProfile(form);
     setIsEditing(true);
   };
@@ -185,6 +195,35 @@ export function CompanyProfileSection({
       </div>
 
       <div className="p-8 space-y-6">
+        {/* Deletion Request Status Ribbon */}
+        {deletionRequest && (deletionRequest.status === 'PENDING' || deletionRequest.status === 'REJECTED') && (
+          <div className={cn(
+            "p-5 rounded-2xl border flex gap-4 transition-all duration-300 shadow-sm animate-in fade-in slide-in-from-top-3",
+            deletionRequest.status === 'PENDING'
+              ? "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/40 text-amber-800 dark:text-amber-300"
+              : "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800/40 text-red-800 dark:text-red-300"
+          )}>
+            <div className="shrink-0 mt-0.5 animate-pulse">
+              <AlertCircle size={20} className={deletionRequest.status === 'PENDING' ? "text-amber-500" : "text-red-500"} />
+            </div>
+            <div className="space-y-1 flex-1">
+              <p className="text-sm font-black uppercase tracking-wider italic">
+                {deletionRequest.status === 'PENDING' ? '⚠️ Account Deletion Pending' : '❌ Deletion Request Rejected'}
+              </p>
+              <p className="text-xs font-medium leading-relaxed opacity-90">
+                {deletionRequest.status === 'PENDING'
+                  ? `Your request to permanently delete this account was submitted on ${new Date(deletionRequest.createdAt || deletionRequest.requestedAt || '').toLocaleDateString()}. Admin review is in progress. All records will be wiped upon approval.`
+                  : `Your account deletion request was rejected by the admin. The system access remains active. Please contact support or the administrator for more details.`}
+              </p>
+              {deletionRequest.reason && (
+                <div className="text-[10px] font-black uppercase tracking-widest mt-2 flex items-center gap-1.5 opacity-80">
+                  <span>Reason Given:</span>
+                  <span className="italic font-bold normal-case">&quot;{deletionRequest.reason}&quot;</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Loading skeleton */}
         {isLoadingProfile ? (
@@ -335,7 +374,7 @@ export function CompanyProfileSection({
           {!isEditing ? (
             <Button
               onClick={startEditing}
-              disabled={isLoadingProfile}
+              disabled={isLoadingProfile || deletionRequest?.status === 'PENDING'}
               className="w-[180px] flex items-center justify-center gap-2"
             >
               <Pencil size={14} />

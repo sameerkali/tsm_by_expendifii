@@ -5,6 +5,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { useSession } from '@/hooks/useSession';
 import { usePreferences } from '@/providers/PreferencesProvider';
 import { cloudinaryApi } from '@/lib/api/cloudinary.api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import authApi from '@/lib/api/auth.api';
+import { toast } from 'sonner';
+import { getApiErrorMessage } from '@/lib/api/errors';
+import { COMPANY_KEYS } from '@/config/query-keys';
 
 // Components
 import { AppearanceSection } from './components/AppearanceSection';
@@ -18,6 +23,33 @@ export function SettingsClient() {
   const { logout, updateProfile, isUpdatingProfile, isLoggingOut } = useAuth();
   const { user, isLoading: isLoadingProfile } = useSession();
   const { theme, setTheme, fontSize, setFontSize } = usePreferences();
+  const queryClient = useQueryClient();
+
+  // Query deletion status - only call if user profile has deletionRequest
+  const { data: deletionStatusData, refetch: refetchDeletionStatus } = useQuery({
+    queryKey: ['deletionStatus'],
+    queryFn: () => authApi.getDeletionStatus(),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    enabled: !!user && (!!(user as any).deletionRequest || (user as any).accountStatus === 'DELETION_REQUESTED'),
+    retry: false,
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const deletionRequest = deletionStatusData?.data || (user as any)?.deletionRequest;
+
+  // Submit deletion request mutation
+  const requestDeletionMutation = useMutation({
+    mutationFn: () => authApi.requestDeletion(),
+    onSuccess: (res) => {
+      toast.success(res.message || 'Deletion request submitted successfully.');
+      setShowDeleteConfirm(false);
+      queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
+      refetchDeletionStatus();
+    },
+    onError: (error: unknown) => {
+      toast.error(getApiErrorMessage(error, 'Failed to submit deletion request.', 'auth'));
+    },
+  });
 
   const [form, setForm] = useState({
     name: '',
@@ -46,6 +78,7 @@ export function SettingsClient() {
   // Populate form once profile loads
   useEffect(() => {
     if (user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm({
         name: user.name ?? '',
         phone: user.phone ?? '',
@@ -153,6 +186,7 @@ export function SettingsClient() {
         isUpdatingProfile={isUpdatingProfile}
         isLoadingProfile={isLoadingProfile}
         user={user}
+        deletionRequest={deletionRequest}
       />
 
       <AppearanceSection
@@ -178,8 +212,8 @@ export function SettingsClient() {
       <DangerZoneSection
         showDeleteConfirm={showDeleteConfirm}
         setShowDeleteConfirm={setShowDeleteConfirm}
-        onSubmitDeletionRequest={() => {}} // TODO: Implement deletion
-        isSubmittingDeletion={false}
+        onSubmitDeletionRequest={() => requestDeletionMutation.mutate()}
+        isSubmittingDeletion={requestDeletionMutation.isPending}
       />
     </div>
   );

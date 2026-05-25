@@ -88,6 +88,20 @@ export const authApi = {
   updateProfile: async (data: UpdateProfileInput): Promise<ApiResponse<User>> => {
     return apiClient.patch('/auth/profile', data) as any;
   },
+
+  /**
+   * Submits a request to delete the account.
+   */
+  requestDeletion: async (): Promise<ApiResponse<any>> => {
+    return apiClient.post('/settings/request-deletion') as any;
+  },
+
+  /**
+   * Fetches the current deletion request status.
+   */
+  getDeletionStatus: async (): Promise<ApiResponse<any>> => {
+    return apiClient.get('/settings/deletion-status') as any;
+  },
 };
 
 export default authApi;
