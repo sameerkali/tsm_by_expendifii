@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import LandingThemeToggle from '@/components/landing/LandingThemeToggle';
 
 export default function Navbar() {
   return (
@@ -39,6 +40,7 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="flex items-center gap-3">
+            <LandingThemeToggle />
             <Link
               href="/login"
               className="hidden sm:inline-flex text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white transition-colors duration-150 cursor-pointer"

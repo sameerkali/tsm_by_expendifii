@@ -15,18 +15,18 @@ export default function PrivacyPolicyPage() {
     <>
       <Navbar />
       <main id="main-content" className="pt-16" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        <section className="relative overflow-hidden bg-[#F8FAFC] border-b border-slate-200 py-16 sm:py-20">
-          <div aria-hidden="true" className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] [background-size:48px_48px] opacity-50" />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 to-[#F8FAFC]" />
+        <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-16 sm:py-20">
+          <div aria-hidden="true" className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-50" />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
           <div className="relative mx-auto max-w-2xl px-4 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] mb-4">Legal</p>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] mb-3">Privacy Policy</h1>
-            <p className="text-sm text-slate-500">Last updated: {lastUpdated}</p>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Legal</p>
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-3">Privacy Policy</h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Last updated: {lastUpdated}</p>
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 bg-white">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 prose prose-slate prose-sm sm:prose-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <section className="py-16 sm:py-20 bg-white dark:bg-slate-950">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 prose prose-slate dark:prose-invert prose-sm sm:prose-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             <h2>1. Introduction</h2>
             <p>
               Expendifii Technologies (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) operates TSM, a Transport Management System available at tsm.expendifii.com. This Privacy Policy explains how we collect, use, disclose, and protect information about you when you use our platform.
@@ -51,9 +51,7 @@ export default function PrivacyPolicyPage() {
             </ul>
 
             <h2>4. Data Sharing</h2>
-            <p>
-              We do not sell, rent, or trade your data. We share data only with:
-            </p>
+            <p>We do not sell, rent, or trade your data. We share data only with:</p>
             <ul>
               <li><strong>Service providers:</strong> Hosting, analytics, and payment processors bound by confidentiality agreements.</li>
               <li><strong>Legal authorities:</strong> When required by applicable law or court order.</li>

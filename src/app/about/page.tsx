@@ -55,50 +55,50 @@ export default function AboutPage() {
       <Navbar />
       <main id="main-content" className="pt-16" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         {/* Hero */}
-        <section className="relative overflow-hidden bg-[#F8FAFC] border-b border-slate-200 py-20 sm:py-28">
+        <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">
           <div
             aria-hidden="true"
-            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] [background-size:48px_48px] opacity-50"
+            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-50"
           />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 to-[#F8FAFC]" />
+          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
           <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] mb-4">Our Story</p>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] mb-6 leading-tight">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Our Story</p>
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-6 leading-tight">
               Built by logistics people, for logistics people
             </h1>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
               TSM was born from frustration. Our founders spent years watching logistics teams drown in WhatsApp messages, misfiled Excel sheets, and phone calls that never get answered. We decided to fix it.
             </p>
           </div>
         </section>
 
         {/* Mission */}
-        <section className="py-20 sm:py-24 bg-white" aria-labelledby="mission-heading">
+        <section className="py-20 sm:py-24 bg-white dark:bg-slate-950" aria-labelledby="mission-heading">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] mb-4">Mission</p>
-                <h2 id="mission-heading" className="text-3xl font-bold text-[#0F172A] tracking-tight mb-5">
+                <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Mission</p>
+                <h2 id="mission-heading" className="text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-5">
                   Operational clarity for every logistics business
                 </h2>
-                <p className="text-slate-600 leading-relaxed mb-5">
-                  We believe every transport company — regardless of fleet size — deserves the same visibility and operational control that only large enterprises could previously afford.
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
+                  We believe every transport company, regardless of fleet size, deserves the same visibility and operational control that only large enterprises could previously afford.
                 </p>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                   TSM levels the playing field. Whether you run 10 trucks or 1,000, you get a real-time, intelligent command centre that keeps you in control and your customers informed.
                 </p>
               </div>
-              <div className="rounded-2xl border border-slate-200 bg-[#F8FAFC] p-8">
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-8">
                 <div className="space-y-6">
                   {[
                     { num: '2020', label: 'Founded by former logistics ops leads' },
-                    { num: '2022', label: 'First enterprise client — 80+ vehicles' },
+                    { num: '2022', label: 'First enterprise client with 80+ vehicles' },
                     { num: '2024', label: 'Expanded to 500+ managed vehicles' },
                     { num: 'Today', label: 'Trusted by teams across India' },
                   ].map((milestone) => (
                     <div key={milestone.num} className="flex items-start gap-4">
-                      <div className="shrink-0 w-16 text-sm font-bold text-[#0369A1]">{milestone.num}</div>
-                      <div className="text-sm text-slate-600 leading-relaxed pt-0.5">{milestone.label}</div>
+                      <div className="shrink-0 w-16 text-sm font-bold text-[#0369A1] dark:text-sky-400">{milestone.num}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{milestone.label}</div>
                     </div>
                   ))}
                 </div>
@@ -108,22 +108,22 @@ export default function AboutPage() {
         </section>
 
         {/* Core Values */}
-        <section className="py-20 sm:py-24 bg-[#F8FAFC] border-y border-slate-200" aria-labelledby="values-heading">
+        <section className="py-20 sm:py-24 bg-[#F8FAFC] dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800" aria-labelledby="values-heading">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] mb-3">Core Principles</p>
-              <h2 id="values-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] tracking-tight">
+              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Core Principles</p>
+              <h2 id="values-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
                 Three values that guide every decision
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {values.map((v) => (
-                <div key={v.title} className="rounded-2xl border border-slate-200 bg-white p-7 hover:shadow-lg hover:shadow-slate-200/60 hover:border-[#0369A1]/30 transition-all duration-200">
-                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#0F172A] text-white">
+                <div key={v.title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-7 hover:shadow-lg hover:shadow-slate-200/60 dark:hover:shadow-slate-900 hover:border-[#0369A1]/30 dark:hover:border-sky-500/30 transition-all duration-200">
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#0F172A] dark:bg-[#0369A1]/20 text-white dark:text-sky-400">
                     {v.icon}
                   </div>
-                  <h3 className="text-base font-semibold text-[#0F172A] mb-2">{v.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">{v.description}</p>
+                  <h3 className="text-base font-semibold text-[#0F172A] dark:text-white mb-2">{v.title}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{v.description}</p>
                 </div>
               ))}
             </div>
@@ -131,20 +131,20 @@ export default function AboutPage() {
         </section>
 
         {/* Team */}
-        <section className="py-20 sm:py-24 bg-white" aria-labelledby="team-heading">
+        <section className="py-20 sm:py-24 bg-white dark:bg-slate-950" aria-labelledby="team-heading">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] mb-3">Who We Are</p>
-            <h2 id="team-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] tracking-tight mb-12">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Who We Are</p>
+            <h2 id="team-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-12">
               A focused team obsessed with operations
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {team.map((member) => (
-                <div key={member.name} className="rounded-2xl border border-slate-200 bg-[#F8FAFC] px-6 py-8 text-center">
-                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#0F172A] text-white text-sm font-bold">
+                <div key={member.name} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 px-6 py-8 text-center">
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#0F172A] dark:bg-[#0369A1] text-white text-sm font-bold">
                     {member.initials}
                   </div>
-                  <p className="text-sm font-semibold text-[#0F172A]">{member.name}</p>
-                  <p className="text-xs text-slate-500 mt-1">{member.role}</p>
+                  <p className="text-sm font-semibold text-[#0F172A] dark:text-white">{member.name}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{member.role}</p>
                 </div>
               ))}
             </div>
@@ -152,15 +152,15 @@ export default function AboutPage() {
         </section>
 
         {/* CTA */}
-        <section className="bg-[#0F172A] py-20" aria-labelledby="about-cta-heading">
+        <section className="bg-[#0F172A] dark:bg-slate-900 py-20 border-t border-slate-800" aria-labelledby="about-cta-heading">
           <div className="mx-auto max-w-3xl px-4 text-center">
             <h2 id="about-cta-heading" className="text-3xl font-bold text-white mb-4">Want to learn more?</h2>
-            <p className="text-slate-400 mb-8 leading-relaxed">Reach out — we&apos;re always happy to show you around the platform.</p>
+            <p className="text-slate-400 mb-8 leading-relaxed">Reach out &mdash; we&apos;re always happy to show you around the platform.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3.5 text-sm font-semibold text-white hover:bg-sky-600 transition-colors duration-200 cursor-pointer">
-                Contact us →
+                Contact us &rarr;
               </Link>
-              <Link href="/login" className="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 text-sm font-semibold text-slate-300 hover:text-white hover:border-slate-500 transition-colors duration-200 cursor-pointer">
+              <Link href="/register" className="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 text-sm font-semibold text-slate-300 hover:text-white hover:border-slate-500 transition-colors duration-200 cursor-pointer">
                 Get started free
               </Link>
             </div>
