@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterInput } from '@/lib/validations/auth.schema';
 import { INDIAN_STATES } from '@/lib/validations/customer.schema';
 import { useAuth } from '@/hooks/useAuth';
-import { User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff, MapPin, Hash, Briefcase, Landmark, ChevronDown } from 'lucide-react';
+import { User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff, MapPin, Hash, Briefcase, Landmark, ChevronDown, Gift } from 'lucide-react';
 import Link from 'next/link';
 
 export function RegisterForm() {
@@ -39,6 +39,7 @@ export function RegisterForm() {
 
     registerUser({
       ...data,
+      referral: clean(data.referral),
       company: {
         ...data.company,
         ...(hasBankDetails ? { bankDetails } : {}),
@@ -132,6 +133,21 @@ export function RegisterForm() {
               </button>
               {errors.password && (
                 <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>
+              )}
+            </div>
+
+            <div className="relative group">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+                <Gift size={18} />
+              </div>
+              <input
+                {...register('referral')}
+                placeholder="Referral Code (Optional)"
+                maxLength={7}
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
+              />
+              {errors.referral && (
+                <p className="text-xs text-red-500 mt-1">{errors.referral.message}</p>
               )}
             </div>
           </div>

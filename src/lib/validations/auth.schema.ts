@@ -80,6 +80,12 @@ export const RegisterSchema = z.object({
     .min(6, 'Password must be at least 6 characters')
     .max(30, 'Password cannot exceed 30 characters'),
   phone: phone10('Phone'),
+  referral: z
+    .string()
+    .max(7, 'Referral code cannot exceed 7 characters')
+    .regex(/^[a-zA-Z0-9-]*$/, 'Referral code can only contain letters, numbers, and hyphens')
+    .optional()
+    .or(z.literal('')),
   company: z.object({
     companyName: safeStringRequired('Company Name', 60),
     gstin: z
