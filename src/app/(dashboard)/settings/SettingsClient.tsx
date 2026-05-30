@@ -214,6 +214,7 @@ export function SettingsClient() {
         setShowDeleteConfirm={setShowDeleteConfirm}
         onSubmitDeletionRequest={() => requestDeletionMutation.mutate()}
         isSubmittingDeletion={requestDeletionMutation.isPending}
+        deletionRequest={deletionRequest}
       />
     </div>
   );

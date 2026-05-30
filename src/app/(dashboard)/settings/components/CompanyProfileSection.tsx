@@ -196,24 +196,20 @@ export function CompanyProfileSection({
 
       <div className="p-8 space-y-6">
         {/* Deletion Request Status Ribbon */}
-        {deletionRequest && (deletionRequest.status === 'PENDING' || deletionRequest.status === 'REJECTED') && (
+        {deletionRequest && deletionRequest.status === 'PENDING' && (
           <div className={cn(
             "p-5 rounded-2xl border flex gap-4 transition-all duration-300 shadow-sm animate-in fade-in slide-in-from-top-3",
-            deletionRequest.status === 'PENDING'
-              ? "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/40 text-amber-800 dark:text-amber-300"
-              : "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800/40 text-red-800 dark:text-red-300"
+            "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/40 text-amber-800 dark:text-amber-300"
           )}>
             <div className="shrink-0 mt-0.5 animate-pulse">
-              <AlertCircle size={20} className={deletionRequest.status === 'PENDING' ? "text-amber-500" : "text-red-500"} />
+              <AlertCircle size={20} className="text-amber-500" />
             </div>
             <div className="space-y-1 flex-1">
               <p className="text-sm font-black uppercase tracking-wider italic">
-                {deletionRequest.status === 'PENDING' ? '⚠️ Account Deletion Pending' : '❌ Deletion Request Rejected'}
+                ⚠️ Account Deletion Pending
               </p>
               <p className="text-xs font-medium leading-relaxed opacity-90">
-                {deletionRequest.status === 'PENDING'
-                  ? `Your request to permanently delete this account was submitted on ${new Date(deletionRequest.createdAt || deletionRequest.requestedAt || '').toLocaleDateString()}. Admin review is in progress. All records will be wiped upon approval.`
-                  : `Your account deletion request was rejected by the admin. The system access remains active. Please contact support or the administrator for more details.`}
+                Your request to permanently delete this account was submitted on {new Date(deletionRequest.createdAt || deletionRequest.requestedAt || '').toLocaleDateString()}. Admin review is in progress. All records will be wiped upon approval.
               </p>
               {deletionRequest.reason && (
                 <div className="text-[10px] font-black uppercase tracking-widest mt-2 flex items-center gap-1.5 opacity-80">
