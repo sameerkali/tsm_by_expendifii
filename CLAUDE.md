@@ -418,3 +418,16 @@ Connectors persist at `.jetro/connectors/{slug}/` and survive restarts.
 ## Project Resource Linking
 
 Projects can have linked connectors, templates, and recipes (`linkedConnectors`, `linkedTemplates`, `linkedRecipes` arrays in project.json). Portfolio mode is enabled via `mode: 'portfolio'` in project.json — use right-click toggle or `jet_save(type='portfolio', ...)`.
+
+---
+
+## 🎯 MANDATORY DEFAULT SKILLS
+
+Whenever the user makes any request related to code modifications, UI/UX design, or workspace/context management, you MUST automatically apply the following default skills without requiring the user to explicitly mention them:
+
+1. **`ui-ux-pro-max`** (located at `.agent/skills/ui-ux-pro-max`):
+   - Apply for any UI/UX visual changes, layout grids, spacing rules (8dp density), micro-interactions, and light/dark contrast standards.
+   - Maintain accessibility (touch target >= 44x44pt, dynamic type, WCAG 4.5:1 text readability).
+   
+2. **`context-engineering-collection`** (located at `.agent/skills/context-engineering-collection`):
+   - Apply for context compaction, tool design standards, filesystem-based memory optimization, and preserving clean state files across long sessions.

@@ -1,22 +1,2 @@
-UI skills:
-nutlope/hallmark 
-context engineering skil 
-remotion 
-UIUX pro max skill
-stop swap skill ---- 
-aweson design .md skill 
-typeUI the design layer for your agentic tooling 
-emilkowalski skill
-pbakaus/impeccable
-leonxlnx/taste-skill
-
-
-
-
-# igentation (visual feedback for agents)
-
-#designprompt .dev fro gettin prompts of design 
-#extract any website design system in details (design-extractor.com)
-
-# jetro vs code extension (show all context in graph)
+add route /live-demo for live demo 
 
