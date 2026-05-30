@@ -5,13 +5,18 @@ import { useRouter } from 'next/navigation';
 import {
   ArrowLeft, Edit2, Trash2, User as UserIcon, MapPin, Phone, Mail, Building, FileText, Loader2
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { toast } from 'sonner';
+import { getApiErrorMessage } from '@/lib/api/errors';
 import { useCustomer, useDeleteCustomer } from '@/hooks/useCustomers';
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog';
 import { CustomerFormPanel } from '@/components/customers/CustomerFormPanel';
+import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from '@/lib/demo/guest';
 
 export default function CustomerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
+  const isGuest = isGuestModeClient();
 
   const { data: response, isLoading, isError, error } = useCustomer(id);
   const deleteMutation = useDeleteCustomer();
@@ -22,6 +27,10 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   const customer = response?.data;
 
   const handleDelete = () => {
+    if (isGuest) {
+      toast.info(DEMO_READ_ONLY_MESSAGE);
+      return;
+    }
     deleteMutation.mutate(id, {
       onSuccess: () => {
         setIsDeleteDialogOpen(false);
@@ -43,7 +52,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
     return (
       <div className="flex flex-col items-center justify-center h-96 gap-4">
         <span className="text-lg font-bold text-slate-800 dark:text-slate-200">Customer Not Found</span>
-        <span className="text-sm text-slate-500">{(error as any)?.message}</span>
+        <span className="text-sm text-slate-500">{getApiErrorMessage(error, 'Customer not found.', 'customer')}</span>
         <button onClick={() => router.push('/customers')} className="mt-4 flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-700">
           <ArrowLeft size={16} /> Back to Customers
         </button>
@@ -82,13 +91,13 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
           
           <div className="flex items-center gap-3">
             <button 
-              onClick={() => setIsEditPanelOpen(true)}
+              onClick={() => isGuest ? toast.info(DEMO_READ_ONLY_MESSAGE) : setIsEditPanelOpen(true)}
               className="flex items-center gap-2 h-10 px-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm hover:border-emerald-500 transition-all"
             >
               <Edit2 size={16} /> Edit
             </button>
             <button 
-              onClick={() => setIsDeleteDialogOpen(true)}
+              onClick={() => isGuest ? toast.info(DEMO_READ_ONLY_MESSAGE) : setIsDeleteDialogOpen(true)}
               className="flex items-center gap-2 h-10 px-5 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 font-bold text-sm hover:bg-red-100 dark:hover:bg-red-500/20 transition-all"
             >
               <Trash2 size={16} /> Delete
@@ -149,7 +158,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   );
 }
 
-function InfoRow({ icon: Icon, label, value }: { icon: any, label: string, value: string }) {
+function InfoRow({ icon: Icon, label, value }: { icon: LucideIcon, label: string, value: string }) {
   return (
     <div className="flex items-start gap-3">
       <div className="mt-0.5 text-slate-400">

@@ -1,26 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  Truck
-} from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
-import { useAuth } from '@/hooks/useAuth';
 import { useSession } from '@/hooks/useSession';
 import { Sidebar } from './Sidebar';
-import { LogoutModal } from './LogoutModal';
 import { Topbar } from './TopBar';
-
-
+import { Spinner } from '../ui';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const pathname = usePathname();
-  const { logout } = useAuth();
   const { isAuthenticated, isLoading, user, coupon } = useSession();
 
   // Protect dashboard routes
@@ -33,6 +23,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   // Close mobile sidebar on route change
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobileOpen(false);
   }, [pathname]);
 
@@ -41,49 +32,22 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsMobileOpen(false);
-        setShowLogoutConfirm(false);
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  const showLabel = isMobileOpen || isDesktopExpanded;
-
   if (isLoading || !isAuthenticated) {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
-        <div className="relative flex items-center justify-center w-24 h-24 bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl shadow-emerald-500/10 border border-slate-100 dark:border-slate-800/60">
-          {/* Subtle ping effect behind the truck */}
-          <div className="absolute inset-0 rounded-[2rem] border-2 border-emerald-500/30 animate-ping" />
-          
-          {/* Bouncing Truck Icon */}
-          <Truck size={40} className="text-emerald-500 animate-bounce drop-shadow-md" />
-        </div>
-        
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-[10px] font-black tracking-[0.3em] text-emerald-500 uppercase italic">
-            TMS Workspace
-          </p>
-          <div className="flex gap-1">
-            <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 animate-bounce" style={{ animationDelay: '0ms' }} />
-            <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 animate-bounce" style={{ animationDelay: '150ms' }} />
-            <span className="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-700 animate-bounce" style={{ animationDelay: '300ms' }} />
-          </div>
-        </div>
+        <Spinner />
       </div>
     );
   }
 
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-emerald-500/30 overflow-hidden">
-
-      <LogoutModal 
-        isOpen={showLogoutConfirm} 
-        onClose={() => setShowLogoutConfirm(false)} 
-        onConfirm={() => { setShowLogoutConfirm(false); logout(); }} 
-      />
-
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
         <div
@@ -96,13 +60,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <Sidebar 
         isMobileOpen={isMobileOpen}
         isDesktopExpanded={isDesktopExpanded}
-        coupon={coupon}
-        onLogoutClick={() => setShowLogoutConfirm(true)}
+        coupons={user?.coupons ?? []}
       />
 
       {/* ── Main Content ── */}
       <div className="flex-1 flex flex-col min-w-0 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
-        
         {/* Topbar */}
         <Topbar 
           isMobileOpen={isMobileOpen}
@@ -110,6 +72,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           isDesktopExpanded={isDesktopExpanded}
           setIsDesktopExpanded={setIsDesktopExpanded}
           user={user}
+          isGuest={false}
         />
 
         {/* Page Content */}

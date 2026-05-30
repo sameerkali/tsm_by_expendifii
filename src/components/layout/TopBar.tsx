@@ -10,6 +10,7 @@ interface TopbarProps {
   isDesktopExpanded: boolean;
   setIsDesktopExpanded: (val: boolean) => void;
   user: User | undefined;
+  isGuest?: boolean;
 }
 
 export function Topbar({
@@ -17,7 +18,8 @@ export function Topbar({
   setIsMobileOpen,
   isDesktopExpanded,
   setIsDesktopExpanded,
-  user
+  user,
+  isGuest = false
 }: TopbarProps) {
   return (
     <header className="h-16 flex items-center justify-between px-5 md:px-8 border-b border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 backdrop-blur-[1px] sticky top-0 z-30 shrink-0">
@@ -45,6 +47,11 @@ export function Topbar({
         className="flex items-center gap-4 group transition-all hover:opacity-80"
       >
         <div className="flex flex-col items-end mr-1">
+          {isGuest && (
+            <span className="mb-1 rounded-full bg-amber-100 px-2 py-0.5 text-[9px] font-black uppercase tracking-widest text-amber-700 dark:bg-amber-500/10 dark:text-amber-300">
+              Guest Preview
+            </span>
+          )}
           <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tighter italic leading-none">
             {user?.name?.toUpperCase() || '...'}
           </h2>

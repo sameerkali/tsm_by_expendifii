@@ -15,6 +15,7 @@ export interface PaginatedGRResponse {
     currentPage: number;
     totalPages: number;
     total: number;
+    limit?: number;
   };
 }
 

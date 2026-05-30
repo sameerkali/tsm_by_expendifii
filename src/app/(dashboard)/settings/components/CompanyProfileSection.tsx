@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2, Pencil } from 'lucide-react';
+import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2, Pencil, AlertCircle, Copy, Check } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { Button, inputClass } from '@/components/ui';
 import { Field } from './Field';
@@ -44,8 +44,6 @@ const PROFILE_SCHEMAS: Record<string, FieldSchema> = {
    ifscCode: string;
  };
  
- type SettingsUser = { email?: string | null } | null;
-
 interface CompanyProfileSectionProps {
   form: CompanyProfileForm;
   setForm?: React.Dispatch<React.SetStateAction<CompanyProfileForm>>;
@@ -56,7 +54,14 @@ interface CompanyProfileSectionProps {
   logoUploadError: string;
   isUpdatingProfile: boolean;
   isLoadingProfile: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any;
+  deletionRequest?: {
+    status: string;
+    createdAt?: string;
+    requestedAt?: string;
+    reason?: string;
+  } | null;
 }
 
 // Style for read-only inputs (view mode)
@@ -73,13 +78,28 @@ export function CompanyProfileSection({
   isUpdatingProfile,
   isLoadingProfile,
   user,
+  deletionRequest,
 }: CompanyProfileSectionProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [preEditProfile, setPreEditProfile] = useState<CompanyProfileForm | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyCode = () => {
+    if (user?.referralCode) {
+      navigator.clipboard.writeText(user.referralCode);
+      setCopied(true);
+      toast.success('Referral code copied!');
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const startEditing = () => {
+    if (deletionRequest?.status === 'PENDING') {
+      toast.error('Cannot edit profile while account deletion is pending.');
+      return;
+    }
     setPreEditProfile(form);
     setIsEditing(true);
   };
@@ -185,6 +205,31 @@ export function CompanyProfileSection({
       </div>
 
       <div className="p-8 space-y-6">
+        {/* Deletion Request Status Ribbon */}
+        {deletionRequest && deletionRequest.status === 'PENDING' && (
+          <div className={cn(
+            "p-5 rounded-2xl border flex gap-4 transition-all duration-300 shadow-sm animate-in fade-in slide-in-from-top-3",
+            "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/40 text-amber-800 dark:text-amber-300"
+          )}>
+            <div className="shrink-0 mt-0.5 animate-pulse">
+              <AlertCircle size={20} className="text-amber-500" />
+            </div>
+            <div className="space-y-1 flex-1">
+              <p className="text-sm font-black uppercase tracking-wider italic">
+                ⚠️ Account Deletion Pending
+              </p>
+              <p className="text-xs font-medium leading-relaxed opacity-90">
+                Your request to permanently delete this account was submitted on {new Date(deletionRequest.createdAt || deletionRequest.requestedAt || '').toLocaleDateString()}. Admin review is in progress. All records will be wiped upon approval.
+              </p>
+              {deletionRequest.reason && (
+                <div className="text-[10px] font-black uppercase tracking-widest mt-2 flex items-center gap-1.5 opacity-80">
+                  <span>Reason Given:</span>
+                  <span className="italic font-bold normal-case">&quot;{deletionRequest.reason}&quot;</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Loading skeleton */}
         {isLoadingProfile ? (
@@ -271,7 +316,26 @@ export function CompanyProfileSection({
                 </div>
               </Field>
 
-          
+              <Field label="Referral Code" locked >
+                <div className="relative">
+                  <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    value={user?.referralCode ?? 'NOT GENERATED'}
+                    readOnly
+                    className={cn(inputClass, 'pl-10 pr-12 opacity-80 cursor-default bg-slate-50/50 dark:bg-slate-800/50')}
+                  />
+                  {user?.referralCode && (
+                    <button
+                      type="button"
+                      onClick={handleCopyCode}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-emerald-500 transition-colors cursor-pointer"
+                      title="Copy referral code"
+                    >
+                      {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+                    </button>
+                  )}
+                </div>
+              </Field>
             </div>
 
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
@@ -335,7 +399,7 @@ export function CompanyProfileSection({
           {!isEditing ? (
             <Button
               onClick={startEditing}
-              disabled={isLoadingProfile}
+              disabled={isLoadingProfile || deletionRequest?.status === 'PENDING'}
               className="w-[180px] flex items-center justify-center gap-2"
             >
               <Pencil size={14} />

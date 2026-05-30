@@ -10,6 +10,7 @@ import type {
 export interface CustomerListParams {
   search?: string;
   page?: number;
+  limit?: number;
 }
 
 export const customerApi = {
@@ -17,6 +18,7 @@ export const customerApi = {
     const query = new URLSearchParams();
     if (params?.search) query.set('search', params.search);
     if (params?.page) query.set('page', String(params.page));
+    if (params?.limit) query.set('limit', String(params.limit));
     const qs = query.toString();
     return apiClient.get(`/customers${qs ? `?${qs}` : ''}`) as any;
   },

@@ -1,18 +1,20 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const PUBLIC_PATHS = ['/register', '/activate'];
+const PUBLIC_PATHS = ['/login', '/register', '/activate'];
 const COOKIE_NAME = process.env.COOKIE_NAME || 'token';
+const GUEST_COOKIE_NAME = 'tms_guest';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const token = request.cookies.get(COOKIE_NAME)?.value;
+  const isGuest = request.cookies.get(GUEST_COOKIE_NAME)?.value === '1';
 
   // Root path is the login page
   if (pathname === '/') {
     // Already authenticated → go to GR
-    if (token) {
+    if (token || isGuest) {
       return NextResponse.redirect(new URL('/gr', request.url));
     }
     return NextResponse.next();
@@ -24,8 +26,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // All other routes require a token — redirect to login if missing
-  if (!token) {
-    const loginUrl = new URL('/', request.url);
+  if (!token && !isGuest) {
+    const loginUrl = new URL('/login', request.url);
     return NextResponse.redirect(loginUrl);
   }
 

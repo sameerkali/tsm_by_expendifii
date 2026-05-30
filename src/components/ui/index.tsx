@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Check, X, AlertTriangle, Info, ChevronDown, Search, Loader2,
-  Eye, EyeOff, Upload, CheckSquare, Square
+  Eye, EyeOff, Upload, CheckSquare, Square,
+  Loader
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
@@ -184,7 +186,7 @@ export function CardBody({ children, className }: { children: React.ReactNode; c
 
 /** Spinner */
 export function Spinner({ size = 24, className }: { size?: number; className?: string }) {
-  return <Loader2 size={size} className={cn('animate-spin text-emerald-500', className)} />;
+  return <Loader size={size} className={cn('animate-spin text-emerald-500', className)} />;
 }
 
 /** Skeleton Loader */
@@ -258,8 +260,15 @@ export function FileUpload({ label, accept, hint }: { label?: string; accept?: s
 
 /** Modal / Dialog */
 export function Modal({ isOpen, onClose, title, children, footer }: { isOpen: boolean; onClose: () => void; title: string; children: React.ReactNode; footer?: React.ReactNode }) {
-  if (!isOpen) return null;
-  return (
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
     <>
       <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-[100]" onClick={onClose} />
       <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -272,7 +281,8 @@ export function Modal({ isOpen, onClose, title, children, footer }: { isOpen: bo
         <div className="p-8">{children}</div>
         {footer && <div className="px-8 py-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">{footer}</div>}
       </div>
-    </>
+    </>,
+    document.body
   );
 }
 

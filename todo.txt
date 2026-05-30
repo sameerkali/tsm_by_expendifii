@@ -1,6 +1,22 @@
-addons :
-add show pass in login signup 
-add forgot password 
+UI skills:
+nutlope/hallmark 
+context engineering skil 
+remotion 
+UIUX pro max skill
+stop swap skill ---- 
+aweson design .md skill 
+typeUI the design layer for your agentic tooling 
+emilkowalski skill
+pbakaus/impeccable
+leonxlnx/taste-skill
 
-admin can change the user password 
-after creating the user admin cannot see it immidiately 
+
+
+
+# igentation (visual feedback for agents)
+
+#designprompt .dev fro gettin prompts of design 
+#extract any website design system in details (design-extractor.com)
+
+# jetro vs code extension (show all context in graph)
+

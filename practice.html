@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice</title>
+</head>
+<body>
+    <div style="background-color: yellow; height: 2000vh;" class="main-class">
+        I am main div
+    </div>
+    <script>
+
+
+        function debounce(fn, delay){
+            let timer;
+            return function(...args){
+                clearTimeout(timer)
+                timer = setTimeout(()=>{
+                    fn.apply(this,args)
+                },delay)
+            } 
+        }
+        const callthefunction = debounce((num)=>{console.log("debouncing", num)}, 500)
+        callthefunction(2)
+        callthefunction(3)
+        callthefunction(4)
+        callthefunction(5)
+        callthefunction(6)
+
+
+
+        console.log("throtelling practice")
+
+        function throttle(fn, delay){
+            let lastcaall = 0
+            return function(...args){
+                let now = Date.now()
+                if(now - lastcaall >= delay){
+                    lastcaall = now;
+                    fn.apply(this, args)
+                }
+            }
+        }
+
+        function handleScroll(){
+            console.log("scrolling"); // 10 event trigger without any throtelling
+        }
+
+        let handleScrollthrottled = throttle(handleScroll, 1000) // 3-5 triggers on scroll
+
+        window.addEventListener("scroll", handleScrollthrottled)
+    </script>
+</body>
+</html>
