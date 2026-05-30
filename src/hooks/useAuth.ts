@@ -119,7 +119,7 @@ export function useAuth() {
         exitGuestMode();
       }
       queryClient.clear();
-      router.push('/');
+      router.push('/login');
     },
     onError: () => {
       // Even if the logout API fails, clear local state and send user to login.
@@ -129,7 +129,7 @@ export function useAuth() {
         exitGuestMode();
       }
       queryClient.clear();
-      router.push('/');
+      router.push('/login');
     },
   });
 

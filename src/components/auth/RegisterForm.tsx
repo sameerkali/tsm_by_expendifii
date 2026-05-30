@@ -422,7 +422,7 @@ export function RegisterForm() {
       <div className="text-center text-sm text-slate-500 pb-8">
         Already have an account?{' '}
         <Link
-          href="/"
+          href="/login"
           className="font-bold text-slate-900 dark:text-emerald-400 hover:underline underline-offset-4"
         >
           Sign in here
