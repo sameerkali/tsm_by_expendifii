@@ -510,7 +510,7 @@ export default function HomePage() {
               Ready to modernise your operations?
             </h2>
             <p className="text-lg text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-              Join logistics teams who&apos;ve already replaced chaos with clarity — in 48 hours.
+              Join logistics teams who&apos;ve already replaced chaos with clarity in 48 hours.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link

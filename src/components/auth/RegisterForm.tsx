@@ -11,6 +11,8 @@ import Link from 'next/link';
 
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [agreed, setAgreed] = useState(false);
+  const [agreedError, setAgreedError] = useState(false);
   const { register: registerUser, isRegistering } = useAuth();
   const {
     register,
@@ -21,6 +23,11 @@ export function RegisterForm() {
   });
 
   const onSubmit = (data: RegisterInput) => {
+    if (!agreed) {
+      setAgreedError(true);
+      return;
+    }
+    setAgreedError(false);
     const clean = (v?: string) => {
       const t = v?.trim();
       return t ? t : undefined;
@@ -398,12 +405,70 @@ export function RegisterForm() {
           </div>
         </div>
 
+        {/* Terms & Conditions Agreement */}
+        <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <label className="flex items-center gap-3 cursor-pointer group select-none">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => {
+                setAgreed(e.target.checked);
+                if (e.target.checked) setAgreedError(false);
+              }}
+              className="peer sr-only"
+            />
+            <div className="h-5 w-5 shrink-0 rounded border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 transition-all duration-150 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 dark:peer-checked:bg-emerald-600 flex items-center justify-center text-white">
+              <svg
+                className="h-3.5 w-3.5 opacity-0 peer-checked:opacity-100 transition-opacity duration-150"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="3"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <span className="text-sm text-slate-500 dark:text-slate-400 leading-tight">
+              I agree to the{' '}
+              <Link
+                href="/user-agreement"
+                target="_blank"
+                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-emerald-500 dark:hover:text-emerald-400 underline decoration-dotted transition-colors"
+              >
+                User Agreement
+              </Link>
+              ,{' '}
+              <Link
+                href="/terms-and-conditions"
+                target="_blank"
+                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-emerald-500 dark:hover:text-emerald-400 underline decoration-dotted transition-colors"
+              >
+                Terms & Conditions
+              </Link>
+              , and{' '}
+              <Link
+                href="/privacy-policy"
+                target="_blank"
+                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-emerald-500 dark:hover:text-emerald-400 underline decoration-dotted transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              .
+            </span>
+          </label>
+          {agreedError && (
+            <p className="text-xs text-red-500 animate-in fade-in duration-200">
+              You must agree to the terms, conditions, and user agreement before signing up.
+            </p>
+          )}
+        </div>
+
         <div className="pt-6">
           <button
             type="submit"
-            disabled={isRegistering}
+            disabled={isRegistering || !agreed}
             suppressHydrationWarning
-            className="w-full group relative overflow-hidden bg-slate-900 dark:bg-emerald-600 text-white py-4 font-bold transition-all hover:bg-slate-800 dark:hover:bg-emerald-500 disabled:opacity-50"
+            className="w-full group relative overflow-hidden bg-slate-900 dark:bg-emerald-600 text-white py-4 font-bold transition-all hover:bg-slate-800 dark:hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="relative z-10 flex items-center justify-center gap-2">
               {isRegistering ? (

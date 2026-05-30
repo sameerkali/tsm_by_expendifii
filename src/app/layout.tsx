@@ -5,6 +5,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import { PreferencesProvider } from "@/providers/PreferencesProvider";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import SmoothScroll from "@/components/landing/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -89,6 +90,7 @@ export default function RootLayout({
       >
         <PreferencesProvider>
           <QueryProvider>
+            <SmoothScroll />
             {children}
             <Analytics />
             <Toaster position="top-right" richColors closeButton />

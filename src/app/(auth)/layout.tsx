@@ -21,8 +21,8 @@ export default function AuthLayout({
 
   return (
     <div className="h-screen overflow-hidden bg-white dark:bg-slate-950 flex font-sans selection:bg-emerald-500/30 selection:text-emerald-500">
-      {/* Auth Content Area - Left Side (50%) */}
-      <main className="w-full lg:w-1/2 h-full overflow-y-auto bg-white dark:bg-slate-950 relative z-20">
+      {/* Auth Content Area - Left Side (60%) */}
+      <main className="w-full lg:w-3/5 h-full overflow-y-auto bg-white dark:bg-slate-950 relative z-20">
         {/* Back to home button */}
         <Link
           href="/"
@@ -37,14 +37,14 @@ export default function AuthLayout({
         </Link>
 
         <div className="min-h-full flex flex-col items-center justify-center p-8">
-          <div className="w-full max-w-md relative z-10 py-12 lg:py-0">
+          <div className="w-full max-w-2xl relative z-10 py-12 lg:py-8">
             {children}
           </div>
         </div>
       </main>
 
-      {/* Visual Area - Right Side (50%) */}
-      <div className="hidden lg:flex lg:w-1/2 h-full bg-slate-900 relative overflow-hidden transition-opacity duration-1000">
+      {/* Visual Area - Right Side (40%) */}
+      <div className="hidden lg:flex lg:w-2/5 h-full bg-slate-900 relative overflow-hidden transition-opacity duration-1000">
         
         <Image
           src={mounted ? bgImage : '/landingImg01.webp'}
