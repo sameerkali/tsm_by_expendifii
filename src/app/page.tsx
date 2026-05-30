@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import FAQSection from '@/components/landing/FAQSection';
 
 export const metadata: Metadata = {
   title: 'TSM by Expendifii — Transport Management System',
@@ -493,35 +494,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-
         {/* ── FAQ ─────────────────────────────────── */}
-        <section id="faq" className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800" aria-labelledby="faq-heading">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">FAQ</p>
-              <h2 id="faq-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Questions we hear often
-              </h2>
-            </div>
-            <div className="space-y-4">
-              {faqs.map((faq) => (
-                <div
-                  key={faq.q}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 px-6 py-5 hover:border-[#0369A1]/30 dark:hover:border-sky-500/30 hover:shadow-md transition-all duration-200"
-                >
-                  <h3 className="text-sm font-semibold text-[#0F172A] dark:text-white mb-2">{faq.q}</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
-                </div>
-              ))}
-            </div>
-            <p className="mt-10 text-center text-sm text-slate-500 dark:text-slate-400">
-              More questions?{' '}
-              <Link href="/contact" className="font-semibold text-[#0369A1] dark:text-sky-400 hover:underline cursor-pointer">
-                Get in touch with our team →
-              </Link>
-            </p>
-          </div>
-        </section>
+        <FAQSection faqs={faqs} />
 
         {/* ── CTA BAND ────────────────────────────── */}
         <section className="bg-[#0F172A] dark:bg-slate-900 py-20 sm:py-24 border-t border-slate-800" aria-labelledby="final-cta-heading">
