@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
 
 type Coupon = {
@@ -28,6 +29,7 @@ interface SubscriptionSectionProps {
 
 export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: SubscriptionSectionProps) {
   const [showDetails, setShowDetails] = useState(false);
+  const router = useRouter();
   const now = new Date().getTime();
 
   // Helper to calculate total active subscription days
@@ -95,14 +97,22 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
           <h2 className="text-base font-semibold text-slate-900 dark:text-white">Subscription & Plan</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Your active dashboard access duration and applied plan logs.</p>
         </div>
-        {!isLoadingProfile && activeAndScheduledCoupons.length > 0 && (
+        <div className="flex items-center gap-4 self-start sm:self-center">
+          {!isLoadingProfile && activeAndScheduledCoupons.length > 0 && (
+            <button
+              onClick={() => setShowDetails(!showDetails)}
+              className="text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white underline cursor-pointer"
+            >
+              {showDetails ? 'Hide details' : 'Show details'}
+            </button>
+          )}
           <button
-            onClick={() => setShowDetails(!showDetails)}
-            className="self-start sm:self-center text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white underline cursor-pointer"
+            onClick={() => router.push('/activate')}
+            className="px-4 py-2 bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg transition-all active:scale-95 cursor-pointer"
           >
-            {showDetails ? 'Hide details' : 'Show details'}
+            Activate Coupon
           </button>
-        )}
+        </div>
       </div>
 
       <div className="p-6 space-y-6">
