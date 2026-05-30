@@ -17,21 +17,18 @@ const NAV_ITEMS = [
   { label: 'Printing', icon: Printer, href: '/printing' },
   { label: 'Settings', icon: Settings, href: '/settings' },
 ];
-interface SidebarCoupon {
-  expiresAt: string;
-  durationDays: number;
-}
+import { Coupon } from '@/types/session';
 
 interface SidebarProps {
   isMobileOpen: boolean;
   isDesktopExpanded: boolean;
-  coupon: SidebarCoupon | null;
+  coupons: Coupon[] | null;
 }
 
 export function Sidebar({
   isMobileOpen,
   isDesktopExpanded,
-  coupon
+  coupons
 }: SidebarProps) {
   const pathname = usePathname();
   const showLabel = isMobileOpen || isDesktopExpanded;
@@ -101,17 +98,53 @@ export function Sidebar({
         {showLabel && (
           <div>
             {(() => {
-              if (!coupon) return (
+              if (!coupons || coupons.length === 0) return (
                 <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-lg">
                   <p className="text-[10px] font-bold text-slate-400 text-center">No active plan</p>
                 </div>
               );
 
               const today = new Date();
-              const expDate = new Date(coupon.expiresAt);
-              const daysLeft = Math.max(0, Math.ceil((expDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
-              const totalDays = coupon.durationDays;
-              const pct = totalDays > 0 ? (daysLeft / totalDays) * 100 : 0;
+              const now = today.getTime();
+
+              const getDaysLeft = (expiresAt: string) => {
+                const expDate = new Date(expiresAt);
+                const diffTime = expDate.getTime() - now;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays > 0 ? diffDays : 0;
+              };
+
+              let totalDaysLeft = 0;
+              let totalDuration = 0;
+              let hasActiveOrScheduled = false;
+
+              coupons.forEach((coupon) => {
+                if (!coupon.isActive || !coupon.isUsed) return;
+                if (!coupon.startDate || !coupon.expiresAt) return;
+
+                const startTime = new Date(coupon.startDate).getTime();
+                const expiresTime = new Date(coupon.expiresAt).getTime();
+
+                if (expiresTime <= now) return;
+
+                if (startTime <= now && expiresTime > now) {
+                  totalDaysLeft += getDaysLeft(coupon.expiresAt);
+                  totalDuration += coupon.durationDays;
+                  hasActiveOrScheduled = true;
+                } else if (startTime > now) {
+                  totalDaysLeft += coupon.durationDays;
+                  totalDuration += coupon.durationDays;
+                  hasActiveOrScheduled = true;
+                }
+              });
+
+              if (!hasActiveOrScheduled) return (
+                <div className="px-2 py-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-lg">
+                  <p className="text-[10px] font-bold text-slate-400 text-center">No active plan</p>
+                </div>
+              );
+
+              const pct = totalDuration > 0 ? (totalDaysLeft / totalDuration) * 100 : 0;
 
               const color = pct <= 20
                 ? { text: 'text-red-500', bg: 'bg-red-500', bar: 'bg-red-100 dark:bg-red-900/30', border: 'border-red-200 dark:border-red-800/50' }
@@ -123,7 +156,7 @@ export function Sidebar({
                 <div className={cn('px-2.5 py-2 rounded-xl border', color.bar, color.border)}>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Plan</span>
-                    <span className={cn('text-xs font-black', color.text)}>{daysLeft}d left</span>
+                    <span className={cn('text-xs font-black', color.text)}>{totalDaysLeft}d left</span>
                   </div>
                   <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                     <div className={cn('h-full rounded-full transition-all', color.bg)} style={{ width: `${Math.min(pct, 100)}%` }} />

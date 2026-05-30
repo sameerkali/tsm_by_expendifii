@@ -60,7 +60,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <Sidebar 
         isMobileOpen={isMobileOpen}
         isDesktopExpanded={isDesktopExpanded}
-        coupon={coupon}
+        coupons={user?.coupons ?? []}
       />
 
       {/* ── Main Content ── */}
