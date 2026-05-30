@@ -53,6 +53,8 @@ export interface User {
   createdAt: string;
   company: Company;
   coupons: Coupon[];
+  referralCode?: string;
+  referredBy?: string | null;
   _count?: {
     coupons: number;
     customers: number;

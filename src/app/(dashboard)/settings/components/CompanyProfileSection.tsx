@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2, Pencil, AlertCircle } from 'lucide-react';
+import { Building2, Phone, Upload, User, Mail, Hash, Briefcase, MapPin, Landmark, Loader2, Pencil, AlertCircle, Copy, Check } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { Button, inputClass } from '@/components/ui';
 import { Field } from './Field';
@@ -84,6 +84,16 @@ export function CompanyProfileSection({
   const [preEditProfile, setPreEditProfile] = useState<CompanyProfileForm | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyCode = () => {
+    if (user?.referralCode) {
+      navigator.clipboard.writeText(user.referralCode);
+      setCopied(true);
+      toast.success('Referral code copied!');
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const startEditing = () => {
     if (deletionRequest?.status === 'PENDING') {
@@ -306,7 +316,26 @@ export function CompanyProfileSection({
                 </div>
               </Field>
 
-          
+              <Field label="Referral Code" locked >
+                <div className="relative">
+                  <Hash size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    value={user?.referralCode ?? 'NOT GENERATED'}
+                    readOnly
+                    className={cn(inputClass, 'pl-10 pr-12 opacity-80 cursor-default bg-slate-50/50 dark:bg-slate-800/50')}
+                  />
+                  {user?.referralCode && (
+                    <button
+                      type="button"
+                      onClick={handleCopyCode}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-emerald-500 transition-colors cursor-pointer"
+                      title="Copy referral code"
+                    >
+                      {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+                    </button>
+                  )}
+                </div>
+              </Field>
             </div>
 
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
