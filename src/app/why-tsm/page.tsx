@@ -4,9 +4,9 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Why TSM by Expendifii? Built for Indian Logistics',
+  title: 'Why TSM by Expendifii? Built for Indian Transporters',
   description:
-    'See why logistics businesses across India choose TSM by Expendifii over generic tools   purpose-built, locally trusted, and proven to save 60%+ admin time.',
+    'See why transporters across NCR choose TSM — a fast, modern GR management system built for how Indian transport businesses actually work.',
   alternates: { canonical: 'https://tsm.expendifii.com/why-tsm' },
 };
 
@@ -15,11 +15,12 @@ const differentiators = [
     emoji: null,
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+        <path d="M12 22C12 22 3 16 3 9C3 7.14348 3.7375 5.36301 5.05025 4.05025C6.36301 2.7375 8.14348 2 10 2H14C15.8565 2 17.637 2.7375 18.9497 4.05025C20.2625 5.36301 21 7.14348 21 9C21 16 12 22 12 22Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+        <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Purpose-built for Indian logistics',
-    body: 'Every feature in TSM was designed around how Indian transport businesses actually work   GST-compliant billing, lorry receipt (GR) workflows, and INR-native financials. No awkward workarounds.',
+    title: 'Built for Indian transport, not adapted for it',
+    body: 'GR workflows, three-copy printing, Indian address formats — all native. Not an afterthought, not a workaround.',
   },
   {
     icon: (
@@ -27,18 +28,17 @@ const differentiators = [
         <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: '10× faster than spreadsheets',
-    body: 'What takes 3 hours in Excel takes 15 minutes in TSM. Auto-calculated freight, pre-filled GR templates, and one-click invoice generation   no copy-pasting.',
+    title: 'Faster than any alternative',
+    body: 'Our competitors run on old PHP and WordPress. Pages load slowly, interfaces are cluttered, and basic tasks take too many clicks. TSM is built on modern technology — it\'s noticeably faster from the first click.',
   },
   {
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M17 21V19C17 17.8954 16.1046 17 15 17H9C7.89543 17 7 17.8954 7 19V21M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        <path d="M3 21V19C3 17.8954 3.89543 17 5 17H7M21 21V19C21 17.8954 20.1046 17 19 17H17M15 6.34C16.1413 6.79 17 7.9 17 9C17 10.1 16.1413 11.21 15 11.66M9 6.34C7.85875 6.79 7 7.9 7 9C7 10.1 7.85875 11.21 9 11.66" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+        <path d="M12 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V12M18.4142 6.58579L12.5 12.5L9 11.5L10 8L15.9142 2.08579C16.6953 1.30474 17.9616 1.30474 18.7426 2.08579L20.9142 4.25736C21.6953 5.03841 21.6953 6.30474 20.9142 7.08579L18.4142 6.58579Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Your entire team on one platform',
-    body: 'Admin, dispatchers, drivers, and customers all have their own role-scoped view. No WhatsApp groups, no information silos   everyone sees exactly what they need.',
+    title: 'Customise your GR the way you want',
+    body: 'Different transporters show different fields. Some want less, some want more. In TSM, you control exactly what appears on your printed GR — no developer needed.',
   },
   {
     icon: (
@@ -46,18 +46,17 @@ const differentiators = [
         <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'GST-ready billing, automatically',
-    body: 'Generate GSTIN-compliant tax invoices with correct HSN codes, CGST/SGST/IGST splits, and digital-signature-ready PDFs   all in under 60 seconds.',
+    title: 'No more paper records that disappear',
+    body: 'A paper GR can be lost to water, fire, rats, or just misplacement. In TSM, every GR is stored permanently and searchable by name, number, or date — always.',
   },
   {
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 22C12 22 3 16 3 9C3 7.14348 3.7375 5.36301 5.05025 4.05025C6.36301 2.7375 8.14348 2 10 2H14C15.8565 2 17.637 2.7375 18.9497 4.05025C20.2625 5.36301 21 7.14348 21 9C21 16 12 22 12 22Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="currentColor" strokeWidth="1.75" />
+        <path d="M17 21V19C17 17.8954 16.1046 17 15 17H9C7.89543 17 7 17.8954 7 19V21M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Real-time GPS, no hardware needed',
-    body: "Driver's existing smartphone becomes your GPS tracker. Live ETA, route deviation alerts, and digital POD capture   zero additional hardware investment.",
+    title: 'Replacing a data-entry person shouldn\'t cost more than one',
+    body: 'Many transporters hire someone just to manage GR paperwork. TSM eliminates that cost — one person can manage everything in the time it used to take three.',
   },
   {
     icon: (
@@ -65,27 +64,29 @@ const differentiators = [
         <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Data you can act on',
-    body: 'TSM turns raw trip data into decisions   best-performing routes, costliest delays, driver efficiency, and receivables ageing   in an executive dashboard built for ops leads.',
+    title: 'We\'re building with you, not for you',
+    body: 'TSM is in its early stage. We\'re onboarding real transporters, listening to real feedback, and adding features based on what actually matters on the ground. Your input shapes the product.',
   },
 ];
 
 const vsComparison = [
-  { label: 'Setup time', tsm: '48 hours', generic: '3–6 months' },
-  { label: 'GR (Lorry Receipt) workflow', tsm: '✓ Native', generic: '✗ Manual workaround' },
-  { label: 'GST-compliant invoicing', tsm: '✓ Built in', generic: '✗ External tool needed' },
-  { label: 'Driver mobile app', tsm: '✓ Included', generic: '✗ Add-on cost' },
-  { label: 'Indian address & pincode support', tsm: '✓ Native', generic: '✗ Custom fields only' },
-  { label: 'Customer tracking portal', tsm: '✓ Included', generic: '✗ Not available' },
-  { label: 'Onboarding support', tsm: '✓ Dedicated team', generic: '✗ Self-serve docs' },
-  { label: 'Price (per vehicle/month)', tsm: 'Transparent flat rate', generic: 'Complex per-seat model' },
+  { label: 'Page load speed', tsm: 'Fast — modern tech stack', generic: 'Slow — PHP/WordPress' },
+  { label: 'UI/UX quality', tsm: 'Clean, simple, modern', generic: 'Cluttered, outdated' },
+  { label: 'GR creation time', tsm: 'Under 1 minute', generic: '5–10 minutes' },
+  { label: 'GR print (3 copies)', tsm: '✓ One click', generic: '✗ Manual setup' },
+  { label: 'Customisable GR layout', tsm: '✓ Yes', generic: '✗ Fixed template' },
+  { label: 'Customer management', tsm: '✓ Built in', generic: '✗ Often missing' },
+  { label: 'Setup time', tsm: '2–24 hours', generic: 'Days to weeks' },
+  { label: 'Mobile friendly', tsm: '✓ Yes', generic: '✗ Rarely' },
+  { label: 'Pricing', tsm: 'Transparent, flat', generic: 'Complex, hidden fees' },
+  { label: 'Built for India', tsm: '✓ From the ground up', generic: '✗ Adapted, not native' },
 ];
 
 const proofPoints = [
-  { value: '500+', label: 'Vehicles managed across India' },
-  { value: '60%', label: 'Admin time saved on average' },
-  { value: '48h', label: 'From sign-up to first live run' },
-  { value: '₹0', label: 'Extra hardware needed' },
+  { value: '2–24H', label: 'From sign-up to your first printed GR' },
+  { value: '3 Copies', label: 'Auto-generated per GR — Driver, Consigner, Consignee' },
+  { value: '20+ Fields', label: 'Supported per GR, all customisable' },
+  { value: '₹0', label: 'Cost right now — completely free to start' },
 ];
 
 export default function WhyTsmPage() {
@@ -107,11 +108,11 @@ export default function WhyTsmPage() {
               Why choose TSM?
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-6 leading-[1.1]">
-              The only TMS built for{' '}
-              <span className="text-[#0369A1] dark:text-sky-400">Indian logistics</span>
+              The transport software that actually{' '}
+              <span className="text-[#0369A1] dark:text-sky-400">works like you do</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-              Generic tools force your operations into their mould. TSM was built around how transport businesses in India actually work   from GR generation to GST billing to ground-level driver workflows.
+              Most transport software in India was built years ago — slow, ugly, and painful to use. TSM was built in 2025 by a software engineer who grew up watching transporters struggle with paper and Excel. It&apos;s fast, clean, and built around how you actually work.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -119,7 +120,7 @@ export default function WhyTsmPage() {
                 id="why-tsm-cta-primary"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-7 py-4 text-sm font-semibold text-white shadow-lg hover:bg-[#0369A1] dark:hover:bg-sky-500 transition-colors duration-200 cursor-pointer"
               >
-                Start for free   48h onboarding
+                Start for free
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -153,7 +154,7 @@ export default function WhyTsmPage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">What makes us different</p>
               <h2 id="differentiators-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Six reasons logistics teams pick TSM
+                Six reasons transporters pick TSM
               </h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -179,18 +180,18 @@ export default function WhyTsmPage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Head to head</p>
               <h2 id="vs-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                TSM vs generic project tools
+                TSM vs Old Software in Market
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-                Jira, Notion, Airtable, and generic ERPs were built for everyone   which means they&apos;re perfect for no one in transport logistics.
+                The existing transport software in India is outdated — built on old technology, with interfaces that feel like they&apos;re from 2008. Here&apos;s how TSM compares.
               </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-md">
               <div className="grid grid-cols-3 bg-[#0F172A] dark:bg-slate-800 text-white text-sm font-semibold">
                 <div className="px-6 py-4 text-slate-300">Feature</div>
-                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20">TSM ✓</div>
-                <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-400">Generic Tools</div>
+                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20">TSM</div>
+                <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-400">Old Market Software</div>
               </div>
               {vsComparison.map((row, i) => (
                 <div

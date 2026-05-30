@@ -4,7 +4,7 @@ import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
   title: 'User Agreement — TSM by Expendifii',
-  description: 'The TSM User Agreement governing your use of accounts, roles, driver access, and customer portals within the platform.',
+  description: 'The TSM User Agreement governing roles, responsibilities, and acceptable conduct on the platform.',
   alternates: { canonical: 'https://tsm.expendifii.com/user-agreement' },
 };
 
@@ -27,53 +27,43 @@ export default function UserAgreementPage() {
 
         <section className="py-16 sm:py-20 bg-white dark:bg-slate-950">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 prose prose-slate dark:prose-invert prose-sm sm:prose-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-            <h2>1. Purpose of This Agreement</h2>
-            <p>This User Agreement supplements our Terms and Conditions and governs the specific obligations, rights, and responsibilities of individual users accessing TSM, including administrators, dispatchers, drivers, and customers.</p>
+            <h2>1. Purpose</h2>
+            <p>This agreement covers how individual users — across different roles — are expected to use TSM responsibly.</p>
 
-            <h2>2. User Roles &amp; Permissions</h2>
+            <h2>2. Roles &amp; Permissions</h2>
             <p>TSM uses a role-based access model. Your role determines what data you can view and what actions you can take:</p>
             <ul>
-              <li><strong>Admin:</strong> Full access to all platform features, user management, and billing.</li>
-              <li><strong>Dispatcher:</strong> Create and manage jobs, assign drivers, view fleet status.</li>
-              <li><strong>Driver:</strong> View assigned jobs, navigate, capture proof of delivery, update status.</li>
-              <li><strong>Customer:</strong> Track shipments via the customer portal. Read-only access to their orders.</li>
+              <li><strong>Admin:</strong> Full access — create GRs, manage customers, manage users, access all records.</li>
+              <li><strong>Dispatcher:</strong> Create and manage GRs, view customer records.</li>
+              <li><strong>Viewer:</strong> Read-only access to records — no creation or editing.</li>
             </ul>
 
-            <h2>3. Account Credentials</h2>
-            <p>You are solely responsible for maintaining the confidentiality of your login credentials. You must notify us immediately at security@expendifii.com if you suspect unauthorised access to your account. We will never ask for your password via email or phone.</p>
+            <h2>3. Your Credentials</h2>
+            <p>You are responsible for your login credentials. Do not share your password. If you suspect unauthorised access, contact us immediately at <a href="mailto:expendifiii@gmail.com">expendifiii@gmail.com</a>.</p>
 
-            <h2>4. Driver-Specific Obligations</h2>
-            <p>Drivers using the TSM mobile interface agree to:</p>
-            <ul>
-              <li>Only access the platform while lawfully permitted to use a mobile device (e.g., not while driving).</li>
-              <li>Accurately capture proof of delivery and report exceptions promptly.</li>
-              <li>Not share their login credentials with any other individual.</li>
-              <li>Use the GPS tracking feature honestly and only during active job shifts.</li>
-            </ul>
+            <h2>4. Accurate Data</h2>
+            <p>You agree to submit accurate and honest data. TSM is a record-keeping system — incorrect data defeats its purpose and may create legal or operational problems for your business.</p>
 
-            <h2>5. Data You Submit</h2>
-            <p>You retain ownership of all data you submit to TSM. By submitting data, you grant us a limited licence to process that data to provide the platform&apos;s services. We do not use your submitted data for any purpose outside of service delivery.</p>
+            <h2>5. Prohibited Conduct</h2>
+            <p>You must not attempt to access other accounts, inject malicious code, scrape data, or use TSM in any way that could harm other users or the platform.</p>
 
-            <h2>6. Prohibited Conduct</h2>
-            <p>All users agree not to:</p>
-            <ul>
-              <li>Submit false, misleading, or fraudulent information.</li>
-              <li>Attempt to access accounts or data belonging to other users.</li>
-              <li>Use the platform to harass, impersonate, or harm any individual.</li>
-              <li>Introduce malware, viruses, or any harmful code into the platform.</li>
-            </ul>
+            <h2>6. Data Ownership</h2>
+            <p>All data you create in TSM belongs to you. We process it only to provide the service.</p>
 
-            <h2>7. Account Suspension &amp; Termination</h2>
-            <p>We reserve the right to suspend or terminate any user account that violates this Agreement, with or without prior notice, depending on the severity of the violation. You may appeal suspension decisions by emailing support@expendifii.com.</p>
+            <h2>7. Suspension</h2>
+            <p>We reserve the right to suspend accounts that violate this agreement. If you believe a suspension was made in error, contact us at <a href="mailto:expendifiii@gmail.com">expendifiii@gmail.com</a>.</p>
 
-            <h2>8. Feedback &amp; Suggestions</h2>
-            <p>Any feedback, ideas, or suggestions you share with us may be used by Expendifii Technologies without obligation, compensation, or restriction of any kind.</p>
+            <h2>8. Refer &amp; Earn</h2>
+            <p>If you refer a fellow transporter and they purchase a paid plan, both of you receive 15 extra days free. Referral rewards are applied automatically.</p>
 
-            <h2>9. Changes to This Agreement</h2>
-            <p>We may update this Agreement periodically. Continued use of the Platform after the effective date of changes constitutes acceptance. We will notify you of material changes by email at least 14 days in advance.</p>
+            <h2>9. Feedback</h2>
+            <p>Any feedback or suggestions you share with us may be used to improve TSM — we won&apos;t owe you compensation for it, but we will genuinely listen.</p>
 
-            <h2>10. Contact</h2>
-            <p>For questions regarding this Agreement, email us at <a href="mailto:legal@expendifii.com">legal@expendifii.com</a>.</p>
+            <h2>10. Updates</h2>
+            <p>We&apos;ll notify you at least 14 days before making material changes to this agreement.</p>
+
+            <h2>11. Contact</h2>
+            <p>Questions about this agreement? Email us at <a href="mailto:expendifiii@gmail.com">expendifiii@gmail.com</a>.</p>
           </div>
         </section>
       </main>
@@ -81,3 +71,4 @@ export default function UserAgreementPage() {
     </>
   );
 }
+

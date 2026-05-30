@@ -5,34 +5,34 @@ import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
   title: 'Security — TSM by Expendifii',
-  description: 'Learn how TSM keeps your transport data safe with industry-standard encryption, access controls, and data governance practices.',
+  description: 'Learn how TSM keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
   alternates: { canonical: 'https://tsm.expendifii.com/security' },
 };
 
 const practices = [
   {
-    title: 'Encryption in Transit & At Rest',
-    body: 'All data transferred between your browser, our APIs, and our databases is encrypted using TLS 1.2+. Data at rest is encrypted using AES-256.',
+    title: 'Encrypted in Transit',
+    body: 'Every piece of data between your browser and our servers is encrypted. Nobody can intercept it.',
   },
   {
-    title: 'Role-Based Access Control',
-    body: 'Granular permissions ensure every user only sees what they need to. Admins, dispatchers, drivers, and customers each have isolated access scopes.',
+    title: 'Encrypted at Rest',
+    body: 'Your GR records, customer data, and account information are stored encrypted. Even if someone got into our database, your data would be unreadable.',
   },
   {
-    title: 'Audit Logs',
-    body: 'Every action in TSM is logged with timestamp, user, and IP. You can export audit trails for compliance and incident investigation at any time.',
+    title: 'Role-Based Access',
+    body: 'Admins see everything. Other users only see what they need. No accidental access, no data leakage between roles.',
   },
   {
-    title: 'SOC-2 Aligned Practices',
-    body: 'Our infrastructure and processes are aligned with SOC-2 Type II controls for security, availability, and confidentiality.',
+    title: 'Your Data is Yours',
+    body: 'We do not sell, share, or use your operational data for anything beyond running TSM for you. It belongs to you — and you can export it or request deletion at any time.',
   },
   {
-    title: 'Regular Security Testing',
-    body: 'We run automated dependency scanning, static analysis, and periodic third-party penetration tests. Critical vulnerabilities are patched within 24 hours.',
+    title: 'Secure Credentials',
+    body: 'Passwords are hashed and never stored in plain text. We recommend using a strong, unique password for your TSM account.',
   },
   {
-    title: 'Data Ownership & Portability',
-    body: 'Your data belongs to you, always. You can export everything at any time. We never share or sell your operational data to third parties.',
+    title: 'Ongoing Improvements',
+    body: 'TSM is actively developed. Security updates and patches are applied as a priority — not an afterthought.',
   },
 ];
 
@@ -47,9 +47,9 @@ export default function SecurityPage() {
           <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
           <div className="relative mx-auto max-w-2xl px-4 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Security</p>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-4">Your data. Locked down.</h1>
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-4">Your data. Always safe.</h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              We treat your operational data with the same care we&apos;d want applied to our own. Here&apos;s exactly how we protect it.
+              Paper GRs can burn, get soaked, or go missing. Your data in TSM won&apos;t. Here&apos;s exactly how we protect it — no technical jargon.
             </p>
           </div>
         </section>
@@ -78,15 +78,15 @@ export default function SecurityPage() {
         {/* Report a vulnerability */}
         <section className="py-16 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
           <div className="mx-auto max-w-2xl px-4 text-center">
-            <h2 className="text-2xl font-bold text-[#0F172A] dark:text-white mb-3">Found a vulnerability?</h2>
+            <h2 className="text-2xl font-bold text-[#0F172A] dark:text-white mb-3">Found a security issue?</h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              We run a responsible disclosure programme. If you discover a security issue, please email us directly and we&apos;ll respond within 24 hours.
+              We take every report seriously. If you discover a vulnerability, please email us at <a href="mailto:expendifiii@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">expendifiii@gmail.com</a> with the subject line &ldquo;Security Issue&rdquo; and we&apos;ll respond as quickly as possible.
             </p>
             <a
-              href="mailto:security@expendifii.com"
+              href="mailto:expendifiii@gmail.com"
               className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0369A1] dark:hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
             >
-              security@expendifii.com
+              expendifiii@gmail.com
             </a>
           </div>
         </section>

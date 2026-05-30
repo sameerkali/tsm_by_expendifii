@@ -7,7 +7,7 @@ import Footer from '@/components/landing/Footer';
 export const metadata: Metadata = {
   title: 'TSM by Expendifii — Transport Management System',
   description:
-    'Replace manual transport workflows with an intelligent dashboard. Real-time visibility, automated billing, and effortless fleet management for modern logistics teams.',
+    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters — create, print, and manage lorry receipts in minutes.',
   alternates: { canonical: 'https://tsm.expendifii.com' },
 };
 
@@ -17,39 +17,56 @@ const jsonLd = {
   name: 'TSM by Expendifii',
   applicationCategory: 'BusinessApplication',
   description:
-    'B2B Transport Management System that replaces manual workflows with an intelligent dashboard.',
+    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters — create, print, and manage lorry receipts in minutes.',
   url: 'https://tsm.expendifii.com',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
 };
 
 const features = [
   {
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M9 20L3 17V4L9 7M9 20L15 17M9 20V7M15 17L21 20V7L15 4M15 17V4M9 7L15 4" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+        <path d="M12 4V20M20 12H4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Real-Time Fleet Tracking',
-    description: 'Live GPS visibility across your entire fleet. Know exactly where every vehicle is, reducing delays and improving ETA accuracy.',
+    title: 'GR Creation in Seconds',
+    description: 'Create a complete lorry receipt with all required fields in under a minute. No paper, no pen, no mistakes.',
   },
   {
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+        <path d="M6 9V2H18V9M6 18H4C2.89543 18 2 17.1046 2 16V11C2 9.89543 2.89543 9 4 9H20C21.1046 9 22 9.89543 22 11V16C22 17.1046 21.1046 18 20 18H18M6 14H18V22H6V14Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Automated Billing',
-    description: 'Generate invoices, track payments, and reconcile accounts automatically — eliminating spreadsheet errors and saving hours every week.',
+    title: 'Print-Ready GR (3 Copies)',
+    description: 'Generate all three copies — Driver, Consigner, Consignee — in one click. Print instantly. Always legible, always complete.',
   },
   {
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M16 8V5L19 2L20 4L22 5L19 8H16ZM16 8L12 12M22 16C22 19.3137 19.3137 22 16 22C12.6863 22 10 19.3137 10 16C10 12.6863 12.6863 10 16 10C19.3137 10 22 12.6863 22 16Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        <path d="M4 6H2V20C2 21.1046 2.89543 22 4 22H18V20" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+        <path d="M12 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V12M18.4142 6.58579L12.5 12.5L9 11.5L10 8L15.9142 2.08579C16.6953 1.30474 17.9616 1.30474 18.7426 2.08579L20.9142 4.25736C21.6953 5.03841 21.6953 6.30474 20.9142 7.08579L18.4142 6.58579Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Smart Job Dispatching',
-    description: 'Intelligently assign jobs to the nearest available driver based on location, load capacity, and shift schedule.',
+    title: 'Customisable GR Layout',
+    description: 'Show more fields or fewer — your choice. Every transporter works differently. TSM adapts to you, not the other way around.',
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    title: 'Batch GR Management',
+    description: 'Update, track, and organise multiple GRs at once. No more digging through piles of paper or scrolling through Excel rows.',
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M17 21V19C17 17.8954 16.1046 17 15 17H9C7.89543 17 7 17.8954 7 19V21M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+      </svg>
+    ),
+    title: 'Add & Manage Customers',
+    description: 'Maintain a clean customer list. Auto-fill consigner and consignee details when creating new GRs — no retyping the same information every time.',
   },
   {
     icon: (
@@ -57,80 +74,83 @@ const features = [
         <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Analytics Dashboard',
-    description: 'Gain actionable insights into trip costs, driver performance, and route efficiency with visual, data-dense reports.',
+    title: 'Analytics Dashboard (Soon)',
+    description: 'Get visibility into your trips, volumes, and operations — in a simple dashboard designed for transport owners, not accountants.',
   },
   {
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M17 21V19C17 17.8954 16.1046 17 15 17H9C7.89543 17 7 17.8954 7 19V21M21 7V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V7M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+        <path d="M12 18H12.01M8 21H16C17.1046 21 18 20.1046 18 19V5C18 3.89543 17.1046 3 16 3H8C6.89543 3 6 3.89543 6 5V19C6 20.1046 6.89543 21 8 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Customer & Driver Portals',
-    description: 'Empower customers to self-track shipments and drivers to manage tasks — reducing inbound support calls by up to 60%.',
+    title: 'Driver App (Soon)',
+    description: 'Give drivers their own GR copy digitally. No more lost paper slips.',
   },
   {
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 22C12 22 3 16 3 9C3 7.14348 3.7375 5.36301 5.05025 4.05025C6.36301 2.7375 8.14348 2 10 2H14C15.8565 2 17.637 2.7375 18.9497 4.05025C20.2625 5.36301 21 7.14348 21 9C21 16 12 22 12 22Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="currentColor" strokeWidth="1.75" />
+        <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Route Optimisation',
-    description: 'Cut fuel costs and time with AI-assisted route planning that factors in traffic, delivery windows, and load requirements.',
+    title: 'Smart Billing (Soon)',
+    description: 'Auto-generate invoices from GR data. GST-compliant, fast, and accurate.',
   },
 ];
 
 const comparisonRows = [
-  { label: 'Job dispatch speed', manual: 'Manual calls & WhatsApp', tsm: 'One-click auto-dispatch' },
-  { label: 'Invoice generation', manual: 'Hours of Excel work', tsm: 'Instant automated billing' },
-  { label: 'Driver tracking', manual: 'Phone calls every hour', tsm: 'Real-time GPS dashboard' },
-  { label: 'Proof of delivery', manual: 'Paper signatures, often lost', tsm: 'Digital POD with photos' },
-  { label: 'Payment tracking', manual: 'Manual reconciliation', tsm: 'Auto-matched payments' },
-  { label: 'Customer updates', manual: 'Ad-hoc phone calls', tsm: 'Automated SMS / portal' },
+  { label: 'Creating a GR', manual: 'Fill 20+ fields by hand, make 3 paper copies', tsm: 'Done in under a minute, 3 copies auto-generated' },
+  { label: 'Storing records', manual: 'Paper files — lost to rats, water, or fire', tsm: 'Permanent digital records, accessible anywhere' },
+  { label: 'Finding old GRs', manual: 'Search through stacks of paper', tsm: 'Search by name, date, or GR number instantly' },
+  { label: 'GR layout control', manual: 'Fixed printed format, no flexibility', tsm: 'Customise which fields appear on print' },
+  { label: 'Hiring staff', manual: 'Pay someone just to manage paper GRs', tsm: 'One person can handle everything in TSM' },
+  { label: 'Using Excel', manual: 'Complex, slow, breaks easily', tsm: 'Not a solution — TSM is' },
 ];
 
 const testimonials = [
   {
-    quote: 'TSM cut our invoice processing time from 3 days to under 2 hours. It has completely transformed how we run operations.',
-    name: 'Rajiv M.',
-    role: 'Operations Head, FastMove Logistics',
-    initials: 'RM',
+    quote: 'Pehle ek GR banane mein 15 minute lagte the. TSM mein 2 minute mein ho jaata hai. Aur teen copy ek dum ready.',
+    name: 'Nazim Faridi',
+    role: 'Owner, Faridi Tempo Transport, Delhi',
+    initials: 'NF',
   },
   {
-    quote: 'Our drivers love the app. No more confusion about jobs, and our customers are happier because they can track deliveries themselves.',
-    name: 'Priya S.',
-    role: 'Director, ShipFirst Express',
-    initials: 'PS',
+    quote: 'Humara saara record paper mein tha. Ek baar baarish mein sab bheeg gaya. Ab TSM mein sab safe hai, kabhi nahi jaayega.',
+    name: 'Faisal Ali',
+    role: 'Owner, Ali Roadlines, NCR',
+    initials: 'FA',
   },
   {
-    quote: 'We scaled from 20 vehicles to 80 without hiring extra admin staff. TSM handled all the complexity transparently.',
-    name: 'Arun K.',
-    role: 'CEO, KPL Transport',
-    initials: 'AK',
+    quote: 'Simple hai, fast hai. Maine socha tha seekhne mein time lagega — 1 din mein sab samajh aa gaya.',
+    name: 'Ravi Sharma',
+    role: 'Dispatcher, Northern Freight Co., Ghaziabad',
+    initials: 'RS',
   },
 ];
 
 const faqs = [
   {
     q: 'How quickly can we get started?',
-    a: 'Most teams are fully onboarded within 48 hours. We handle data migration, driver setup, and your first live run — together.',
+    a: 'Most transporters are up and running within 2 to 24 hours. We help you set up your account, add your customers, and print your first GR — together.',
   },
   {
-    q: 'Do we need to replace our existing tools?',
-    a: 'No. TSM integrates with your existing billing software and ERP. We plug in, not pull out.',
+    q: "We've been doing this on paper for years. Is it hard to switch?",
+    a: 'Not at all. TSM was designed for transporters, not software people. If you can fill a paper GR, you can use TSM. Most users are comfortable within a day.',
   },
   {
-    q: 'Is our data secure?',
-    a: 'Yes. All data is encrypted in transit and at rest. We follow industry-standard security practices. Read our Security page for full details.',
+    q: 'Can we customise what appears on the printed GR?',
+    a: 'Yes. You choose which fields appear on print. Every transport business is different — TSM works around your format, not a fixed template.',
   },
   {
-    q: 'Can drivers use it on mobile?',
-    a: 'Absolutely. Drivers get a clean mobile interface for accepting jobs, navigation, POD capture, and shift management.',
+    q: 'What happens to our data if something goes wrong?',
+    a: 'Your data is stored securely on our servers — not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
   },
   {
-    q: 'What support is included?',
-    a: 'Every plan includes dedicated onboarding support, a help centre, and a direct line to our team. We treat your success as ours.',
+    q: 'Is TSM free?',
+    a: 'Yes — TSM is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service — but we\'ll always give you fair notice before anything changes.',
+  },
+  {
+    q: 'Do you have a referral programme?',
+    a: 'Yes. Refer a fellow transporter and if they purchase a plan, both of you get 15 extra days free. No catch.',
   },
 ];
 
@@ -163,7 +183,7 @@ export default function HomePage() {
             <div className="flex justify-center mb-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-[#0369A1]/30 dark:border-sky-500/30 bg-[#0369A1]/8 dark:bg-sky-500/10 px-4 py-1.5 text-xs font-semibold text-[#0369A1] dark:text-sky-400 uppercase tracking-wider">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#0369A1] dark:bg-sky-400 animate-pulse" aria-hidden="true" />
-                Now live for logistics teams
+                Now live for transporters in NCR
               </span>
             </div>
 
@@ -179,7 +199,7 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-6 text-center text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              TSM is the intelligent dashboard that replaces WhatsApp chains, Excel sheets, and phone-tag dispatching — with one transparent, trustworthy platform.
+              TSM replaces paper GRs, Excel sheets, and hired data-entry staff — with one fast, simple, and trustworthy platform built specifically for Indian transporters.
             </p>
 
             {/* CTAs */}
@@ -199,13 +219,13 @@ export default function HomePage() {
                 id="hero-cta-secondary"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-[#0369A1] dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
               >
-                Why TSM? Talk to sales →
+                See how it works →
               </Link>
             </div>
 
             {/* Trust indicators */}
             <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
-              {['No credit card required', 'Onboarded in 48 hours', '99.9% uptime SLA'].map((item) => (
+              {['No credit card required', 'Up and running in 2–24 hours', 'Your data, always safe'].map((item) => (
                 <span key={item} className="flex items-center gap-1.5">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -335,10 +355,10 @@ export default function HomePage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Platform Capabilities</p>
               <h2 id="features-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Everything your team needs,<br className="hidden sm:block" /> nothing they don&apos;t
+                Everything a transporter actually needs.<br className="hidden sm:block" /> Nothing they don&apos;t.
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Purpose-built for transport and logistics — not a generic project tool repurposed.
+                TSM is purpose-built for transport businesses — not a generic tool forced to fit.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -368,17 +388,17 @@ export default function HomePage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Before vs After</p>
               <h2 id="comparison-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Manual workflows cost you more than you think
+                Paper GRs cost you more than you think —<br className="hidden sm:block" /> in time, money, and stress
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                See exactly what changes when you switch from duct-tape operations to TSM.
+                Here&apos;s what actually changes when you move to TSM.
               </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-md overflow-hidden">
               <div className="grid grid-cols-3 bg-[#0F172A] dark:bg-slate-800 text-white text-sm font-semibold">
-                <div className="px-6 py-4 text-slate-300">Workflow</div>
-                <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-300">Without TSM</div>
+                <div className="px-6 py-4 text-slate-300">Pain Point</div>
+                <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-300">Manual (Today)</div>
                 <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20 text-white">With TSM ✓</div>
               </div>
               {comparisonRows.map((row, i) => (
@@ -460,10 +480,10 @@ export default function HomePage() {
             {/* Stats band */}
             <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
-                { value: '500+', label: 'Vehicles managed' },
-                { value: '98%', label: 'Customer satisfaction' },
-                { value: '60%', label: 'Admin time saved' },
-                { value: '48h', label: 'Average onboarding' },
+                { value: '2–24h', label: 'Up and running' },
+                { value: '3 Copies', label: 'Auto-generated per GR' },
+                { value: '20+ Fields', label: 'Supported & customisable' },
+                { value: '₹0', label: 'Free to start right now' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900">
                   <p className="text-3xl font-bold text-[#0369A1] dark:text-sky-400 mb-1">{stat.value}</p>
@@ -507,10 +527,10 @@ export default function HomePage() {
         <section className="bg-[#0F172A] dark:bg-slate-900 py-20 sm:py-24 border-t border-slate-800" aria-labelledby="final-cta-heading">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 id="final-cta-heading" className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              Ready to modernise your operations?
+              Ready to leave the paper behind?
             </h2>
             <p className="text-lg text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-              Join logistics teams who&apos;ve already replaced chaos with clarity in 48 hours.
+              Join transporters across NCR who are creating GRs in minutes — not hours.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -531,7 +551,7 @@ export default function HomePage() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" fill="currentColor" />
                 </svg>
-                Live demo — no signup
+                See a live demo — no signup
               </Link>
             </div>
           </div>

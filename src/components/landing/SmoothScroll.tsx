@@ -8,8 +8,17 @@ export default function SmoothScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Avoid running Lenis on the dashboard and other dynamic panel paths
-    const bypassRoutes = ['/dashboard', '/gr', '/settings', '/customers', '/printing'];
+    // Avoid running Lenis on the dashboard, auth pages, and dynamic panel paths
+    const bypassRoutes = [
+      '/dashboard',
+      '/gr',
+      '/settings',
+      '/customers',
+      '/printing',
+      '/login',
+      '/register',
+      '/activate'
+    ];
     const shouldBypass = bypassRoutes.some((route) => pathname.startsWith(route));
 
     if (shouldBypass) {

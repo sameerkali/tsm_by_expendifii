@@ -4,7 +4,7 @@ import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — TSM by Expendifii',
-  description: 'Read the TSM Privacy Policy to understand how we collect, use, and protect your personal and operational data.',
+  description: 'How TSM collects, uses, and protects your personal and operational data.',
   alternates: { canonical: 'https://tsm.expendifii.com/privacy-policy' },
 };
 
@@ -29,66 +29,59 @@ export default function PrivacyPolicyPage() {
           <div className="mx-auto max-w-3xl px-4 sm:px-6 prose prose-slate dark:prose-invert prose-sm sm:prose-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             <h2>1. Introduction</h2>
             <p>
-              Expendifii Technologies (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) operates TSM, a Transport Management System available at tsm.expendifii.com. This Privacy Policy explains how we collect, use, disclose, and protect information about you when you use our platform.
+              Expendifii (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) operates TSM, a Transport Management System available at tsm.expendifii.com. This Privacy Policy explains how we collect, use, and protect your information. Expendifii is currently an unregistered business operating in India.
             </p>
 
             <h2>2. Information We Collect</h2>
-            <p>We collect the following categories of information:</p>
+            <p>We collect the following information:</p>
             <ul>
-              <li><strong>Account data:</strong> Name, email address, company name, and role when you register.</li>
-              <li><strong>Operational data:</strong> Jobs, routes, vehicles, invoices, and other records you create within the platform.</li>
-              <li><strong>Usage data:</strong> Log data including IP address, browser type, pages visited, and timestamps for security and analytics purposes.</li>
-              <li><strong>Location data:</strong> GPS coordinates from driver devices, used exclusively for live tracking and job management.</li>
+              <li><strong>Account data:</strong> Your name, email address, and company name when you register.</li>
+              <li><strong>Operational data:</strong> GRs, customer records, and other data you create within TSM.</li>
+              <li><strong>Usage data:</strong> Basic log data including IP address, browser type, and timestamps for security purposes.</li>
             </ul>
 
             <h2>3. How We Use Your Information</h2>
             <ul>
-              <li>To provide, maintain, and improve the TSM platform.</li>
-              <li>To process and manage transport operations, jobs, and billing.</li>
-              <li>To send transactional communications (job updates, invoices, alerts).</li>
-              <li>To ensure security and prevent fraud.</li>
-              <li>To comply with legal obligations.</li>
+              <li>To provide and run the TSM platform.</li>
+              <li>To help you create, manage, and print GRs and related records.</li>
+              <li>To send essential communications — account alerts, product updates.</li>
+              <li>To improve the product based on how it&apos;s used.</li>
+              <li>To comply with applicable legal obligations.</li>
             </ul>
 
             <h2>4. Data Sharing</h2>
-            <p>We do not sell, rent, or trade your data. We share data only with:</p>
+            <p>We do not sell, rent, or trade your data. Period. We share data only with:</p>
             <ul>
-              <li><strong>Service providers:</strong> Hosting, analytics, and payment processors bound by confidentiality agreements.</li>
-              <li><strong>Legal authorities:</strong> When required by applicable law or court order.</li>
+              <li><strong>Service providers:</strong> Hosting and infrastructure partners bound by confidentiality.</li>
+              <li><strong>Legal authorities:</strong> Only when required by Indian law or a valid court order.</li>
             </ul>
 
             <h2>5. Data Retention</h2>
             <p>
-              We retain your data for as long as your account is active or as required by law. You may request deletion of your data at any time by contacting us at privacy@expendifii.com. Some data may be retained in anonymised form for statistical purposes.
+              Your data is retained as long as your account is active. You may request deletion at any time by emailing <a href="mailto:expendifiii@gmail.com">expendifiii@gmail.com</a>. Requests are processed within 7 business days.
             </p>
 
             <h2>6. Your Rights</h2>
-            <p>You have the right to:</p>
-            <ul>
-              <li>Access, correct, or delete your personal data.</li>
-              <li>Restrict or object to certain processing.</li>
-              <li>Export your data in a portable format.</li>
-              <li>Withdraw consent at any time where processing is based on consent.</li>
-            </ul>
+            <p>You have the right to access, correct, or delete your personal data; export your data in a usable format; withdraw consent at any time by contacting us.</p>
 
             <h2>7. Security</h2>
             <p>
-              We implement industry-standard security measures including TLS encryption, AES-256 encryption at rest, and role-based access controls. See our <a href="/security">Security page</a> for full details.
+              We use encryption in transit and at rest to protect your data. See our <a href="/security">Security page</a> for full details.
             </p>
 
             <h2>8. Cookies</h2>
             <p>
-              We use strictly necessary cookies for session management and optional analytics cookies. You may control cookie preferences through your browser settings.
+              We use only necessary cookies for session management. No advertising or third-party tracking cookies.
             </p>
 
             <h2>9. Changes to This Policy</h2>
             <p>
-              We may update this policy periodically. Material changes will be communicated via email or an in-app notice at least 14 days before they take effect.
+              We&apos;ll notify you by email at least 14 days before any material changes take effect.
             </p>
 
             <h2>10. Contact</h2>
             <p>
-              For privacy-related enquiries, please contact us at <a href="mailto:privacy@expendifii.com">privacy@expendifii.com</a>.
+              For privacy-related questions, email us at <a href="mailto:expendifiii@gmail.com">expendifiii@gmail.com</a>.
             </p>
           </div>
         </section>
@@ -97,3 +90,4 @@ export default function PrivacyPolicyPage() {
     </>
   );
 }
+

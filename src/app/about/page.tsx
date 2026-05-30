@@ -6,7 +6,7 @@ import Footer from '@/components/landing/Footer';
 export const metadata: Metadata = {
   title: 'About — TSM by Expendifii',
   description:
-    'Learn about TSM by Expendifii — our mission is to make transport management transparent, trustworthy, and easy for every logistics team.',
+    'TSM was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
   alternates: { canonical: 'https://tsm.expendifii.com/about' },
 };
 
@@ -19,7 +19,7 @@ const values = [
       </svg>
     ),
     title: 'Transparency',
-    description: 'No hidden fees, no black boxes. Every data point, every log, every calculation is visible and auditable by your team.',
+    description: 'No hidden fees, no surprises. You always know what TSM does with your data, what the pricing is, and what\'s coming next.',
   },
   {
     icon: (
@@ -29,7 +29,7 @@ const values = [
       </svg>
     ),
     title: 'Trust',
-    description: "Your data is yours. We're SOC-2 aligned, encrypt everything end-to-end, and never sell or share your operational data.",
+    description: 'Your data is yours. We don\'t sell it, we don\'t share it, and we\'ve built the platform to keep it secure. See our Security page for full details.',
   },
   {
     icon: (
@@ -39,14 +39,13 @@ const values = [
       </svg>
     ),
     title: 'Easiness',
-    description: 'Onboard in 48 hours, not 6 months. Clean interfaces, sensible defaults, and a support team that actually answers.',
+    description: 'If a transporter who\'s never used software before can use TSM comfortably within one day — we\'ve done our job right.',
   },
 ];
 
 const team = [
-  { name: 'Founders at Expendifii', role: 'Product & Engineering', initials: 'EX' },
-  { name: 'Operations Specialists', role: 'Customer Success & Onboarding', initials: 'OS' },
-  { name: 'Logistics Veterans', role: 'Domain Expertise & Advisory', initials: 'LV' },
+  { name: 'Sameer Faridi', role: 'Founder. Handles product, frontend, SEO, marketing, content, pricing, and client relationships.', initials: 'SF' },
+  { name: 'Dev Sharma', role: 'Backend Engineer. Responsible for all APIs, data infrastructure, and platform reliability.', initials: 'DS' },
 ];
 
 export default function AboutPage() {
@@ -64,11 +63,25 @@ export default function AboutPage() {
           <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Our Story</p>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-6 leading-tight">
-              Built by logistics people, for logistics people
+              Built by a transporter&apos;s son, for transporters
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              TSM was born from frustration. Our founders spent years watching logistics teams drown in WhatsApp messages, misfiled Excel sheets, and phone calls that never get answered. We decided to fix it.
-            </p>
+            <div className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed space-y-4 text-left sm:text-center">
+              <p>
+                My father and relatives have been in the transport business for years. Growing up, I watched them fill paper GRs by hand — 20+ fields, three copies, every single trip. I watched records get lost, misplaced, soaked in rain. I watched them hire people just to manage paperwork that a good system should handle automatically.
+              </p>
+              <p>
+                I&apos;m a software engineer. I knew the tools to fix this existed. So in 2025, I built TSM.
+              </p>
+              <p>
+                Not as a generic logistics platform. Not as a repurposed project management tool. As something built specifically for how Indian transporters actually work — from the GR format to the three-copy print to the way customers and drivers are managed on the ground.
+              </p>
+              <p>
+                TSM is still early. We&apos;re onboarding our first transporters, listening hard, and improving fast. If you&apos;re a transporter willing to help shape what this becomes — we&apos;d love to have you.
+              </p>
+              <p className="font-semibold text-slate-800 dark:text-slate-200 pt-2 text-center">
+                — Sameer Faridi, Founder, TSM by Expendifii
+              </p>
+            </div>
           </div>
         </section>
 
@@ -79,22 +92,22 @@ export default function AboutPage() {
               <div>
                 <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Mission</p>
                 <h2 id="mission-heading" className="text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-5">
-                  Operational clarity for every logistics business
+                  Operational clarity for every transport business in India
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
-                  We believe every transport company, regardless of fleet size, deserves the same visibility and operational control that only large enterprises could previously afford.
+                  We believe every transporter — whether you run 5 vehicles or 500 — deserves a system that&apos;s fast, honest, and actually built for your work. Not a spreadsheet. Not a paper file. Not software from 2008.
                 </p>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                  TSM levels the playing field. Whether you run 10 trucks or 1,000, you get a real-time, intelligent command centre that keeps you in control and your customers informed.
+                  TSM exists to give every transport business the same operational clarity that used to require a full admin team.
                 </p>
               </div>
               <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-8">
                 <div className="space-y-6">
                   {[
-                    { num: '2020', label: 'Founded by former logistics ops leads' },
-                    { num: '2022', label: 'First enterprise client with 80+ vehicles' },
-                    { num: '2024', label: 'Expanded to 500+ managed vehicles' },
-                    { num: 'Today', label: 'Trusted by teams across India' },
+                    { num: '2025', label: 'Founded by Sameer Faridi after seeing the gap firsthand' },
+                    { num: '2025', label: 'First version live — GR creation, printing, and customer management' },
+                    { num: 'Now', label: 'Onboarding first transporters across NCR, building with real feedback' },
+                    { num: 'Next', label: 'Driver app, invoicing, analytics, and pan-India expansion' },
                   ].map((milestone) => (
                     <div key={milestone.num} className="flex items-start gap-4">
                       <div className="shrink-0 w-16 text-sm font-bold text-[#0369A1] dark:text-sky-400">{milestone.num}</div>
@@ -137,7 +150,7 @@ export default function AboutPage() {
             <h2 id="team-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-12">
               A focused team obsessed with operations
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto gap-6">
               {team.map((member) => (
                 <div key={member.name} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 px-6 py-8 text-center">
                   <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#0F172A] dark:bg-[#0369A1] text-white text-sm font-bold">
