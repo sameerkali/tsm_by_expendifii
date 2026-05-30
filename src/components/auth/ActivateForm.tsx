@@ -35,13 +35,13 @@ export function ActivateForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-4">
           <div className="relative group">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
               <Ticket size={18} />
             </div>
             <input
               {...register('couponCode')}
               placeholder="Coupon Code (e.g. TMS-XXXXXXX)"
-              className="w-full uppercase bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+              className="w-full uppercase bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
             />
             {errors.couponCode && (
               <p className="text-xs text-red-500 mt-1">{errors.couponCode.message}</p>
@@ -52,7 +52,7 @@ export function ActivateForm() {
         <button
           type="submit"
           disabled={isActivating}
-          className="w-full group relative overflow-hidden bg-slate-900 dark:bg-emerald-600 text-white py-4 font-bold transition-all hover:bg-slate-800 dark:hover:bg-emerald-500 disabled:opacity-50"
+          className="w-full group relative overflow-hidden bg-sky-700 dark:bg-sky-600 text-white py-4 font-bold transition-all hover:bg-sky-800 dark:hover:bg-sky-500 disabled:opacity-50"
         >
           <div className="relative z-10 flex items-center justify-center gap-2">
             {isActivating ? (
@@ -71,7 +71,7 @@ export function ActivateForm() {
         Already active?{' '}
         <Link 
           href="/login" 
-          className="font-bold text-slate-900 dark:text-emerald-400 hover:underline underline-offset-4"
+          className="font-bold text-slate-900 dark:text-sky-400 hover:underline underline-offset-4"
         >
           Sign in to your account
         </Link>

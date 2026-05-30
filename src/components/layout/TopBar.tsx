@@ -27,7 +27,7 @@ export function Topbar({
         {/* Mobile burger */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 text-slate-600 dark:text-slate-400 transition-colors lg:hidden"
+          className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#0369A1] text-slate-600 dark:text-slate-400 transition-colors lg:hidden"
           aria-label="Toggle sidebar"
         >
           {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
@@ -35,7 +35,7 @@ export function Topbar({
         {/* Desktop collapse */}
         <button
           onClick={() => setIsDesktopExpanded(!isDesktopExpanded)}
-          className="h-10 w-10 hidden lg:flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 text-slate-600 dark:text-slate-400 transition-colors"
+          className="h-10 w-10 hidden lg:flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#0369A1] text-slate-600 dark:text-slate-400 transition-colors"
           aria-label={isDesktopExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           {isDesktopExpanded ? <X size={18} /> : <Menu size={18} />}
@@ -56,7 +56,7 @@ export function Topbar({
             {user?.name?.toUpperCase() || '...'}
           </h2>
         </div>
-        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 dark:from-emerald-500 dark:to-emerald-700 flex items-center justify-center text-white shadow-lg border-2 border-slate-200 dark:border-emerald-400/20 transition-transform group-hover:scale-105 active:scale-95 overflow-hidden shrink-0">
+        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 dark:from-sky-500 dark:to-sky-700 flex items-center justify-center text-white shadow-lg border-2 border-slate-200 dark:border-sky-400/20 transition-transform group-hover:scale-105 active:scale-95 overflow-hidden shrink-0">
           {user?.company?.logoUrl ? (
             <img src={user.company.logoUrl} alt={user.name} className="h-full w-full object-cover" />
           ) : (

@@ -42,7 +42,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center h-96 gap-4">
-        <Loader2 className="w-10 h-10 animate-spin text-emerald-500" />
+        <Loader2 className="w-10 h-10 animate-spin text-sky-500" />
         <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Loading Customer...</span>
       </div>
     );
@@ -53,7 +53,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
       <div className="flex flex-col items-center justify-center h-96 gap-4">
         <span className="text-lg font-bold text-slate-800 dark:text-slate-200">Customer Not Found</span>
         <span className="text-sm text-slate-500">{getApiErrorMessage(error, 'Customer not found.', 'customer')}</span>
-        <button onClick={() => router.push('/customers')} className="mt-4 flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-700">
+        <button onClick={() => router.push('/customers')} className="mt-4 flex items-center gap-2 text-sm font-bold text-sky-600 hover:text-sky-700">
           <ArrowLeft size={16} /> Back to Customers
         </button>
       </div>
@@ -92,7 +92,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
           <div className="flex items-center gap-3">
             <button 
               onClick={() => isGuest ? toast.info(DEMO_READ_ONLY_MESSAGE) : setIsEditPanelOpen(true)}
-              className="flex items-center gap-2 h-10 px-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm hover:border-emerald-500 transition-all"
+              className="flex items-center gap-2 h-10 px-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm hover:border-sky-500 transition-all"
             >
               <Edit2 size={16} /> Edit
             </button>
@@ -110,14 +110,14 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
           <div className="flex flex-col md:flex-row gap-10 items-start">
             
             {/* Avatar / Icon */}
-            <div className="h-32 w-32 bg-emerald-500/10 rounded-[2rem] flex items-center justify-center text-emerald-500 shrink-0">
+            <div className="h-32 w-32 bg-sky-500/10 rounded-[2rem] flex items-center justify-center text-sky-500 shrink-0">
               <UserIcon size={48} strokeWidth={1.5} />
             </div>
 
             {/* Core Details */}
             <div className="flex-1 space-y-6">
               <div>
-                <p className="text-[10px] font-black tracking-[0.3em] text-emerald-500 uppercase italic">CUSTOMER PROFILE</p>
+                <p className="text-[10px] font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">CUSTOMER PROFILE</p>
                 <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 dark:text-white mt-2">
                   {customer.name}
                 </h1>

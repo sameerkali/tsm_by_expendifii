@@ -20,7 +20,7 @@ export default function AuthLayout({
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden bg-white dark:bg-slate-950 flex font-sans selection:bg-emerald-500/30 selection:text-emerald-500">
+    <div className="h-screen overflow-hidden bg-white dark:bg-slate-950 flex font-sans selection:bg-sky-500/30 selection:text-sky-500">
       {/* Auth Content Area - Left Side (60%) */}
       <main className="w-full lg:w-3/5 h-full overflow-y-auto bg-white dark:bg-slate-950 relative z-20">
         {/* Back to home button */}
@@ -60,7 +60,7 @@ export default function AuthLayout({
         <div className="absolute inset-0 bg-slate-900/40 z-10" />
 
         {/* Floating Accent Shapes (kept for visual flair, optional) */}
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-emerald-500/20 blur-[120px] rounded-full animate-pulse z-10 pointer-events-none" />
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-sky-500/20 blur-[120px] rounded-full animate-pulse z-10 pointer-events-none" />
         <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500/10 blur-[150px] rounded-full z-10 pointer-events-none" />
       </div>
     </div>

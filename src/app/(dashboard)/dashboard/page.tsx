@@ -15,9 +15,9 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils/cn';
 
 const STATS = [
-  { label: 'Total GRs', value: '1,284', change: '+12.5%', icon: Package, color: 'emerald' },
+  { label: 'Total GRs', value: '1,284', change: '+12.5%', icon: Package, color: 'sky' },
   { label: 'Active Customers', value: '432', change: '+3.2%', icon: UsersIcon, color: 'blue' },
-  { label: 'Revenue (MTD)', pressed: '₹ 4.2L', value: '₹ 4.2L', change: '+18.4%', icon: TrendingUp, color: 'emerald' },
+  { label: 'Revenue (MTD)', pressed: '₹ 4.2L', value: '₹ 4.2L', change: '+18.4%', icon: TrendingUp, color: 'sky' },
   { label: 'Pending Delivery', value: '28', change: '-4.1%', icon: Clock, color: 'amber' },
 ];
 
@@ -29,17 +29,17 @@ const RECENT_ACTIVITY = [
 
 export default function OverviewPage() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="space-y-1">
-          <p className="text-xs font-black tracking-[0.3em] text-emerald-500 uppercase italic">OPERATIONAL OVERVIEW</p>
+          <p className="text-xs font-black tracking-[0.3em] text-[#0369A1] dark:text-sky-400 uppercase italic">OPERATIONAL OVERVIEW</p>
           <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">
             Command Center
           </h1>
         </div>
         <div className="flex items-center gap-3">
-           <button className="flex items-center gap-2 px-6 h-12 bg-slate-900 dark:bg-slate-50 text-white dark:text-slate-900 rounded-xl font-bold tracking-tight hover:opacity-90 transition-all active:scale-95">
+           <button className="flex items-center gap-2 px-6 h-12 bg-[#0369A1] hover:bg-sky-600 dark:bg-sky-500 dark:hover:bg-sky-400 text-white dark:text-slate-950 rounded-xl font-bold tracking-tight transition-all active:scale-95 shadow-md shadow-sky-500/10 cursor-pointer">
               <Plus size={18} />
               Quick Action
            </button>
@@ -51,13 +51,13 @@ export default function OverviewPage() {
         {STATS.map((stat, i) => (
           <div 
             key={i} 
-            className="group p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl hover:border-emerald-500/50 transition-all duration-300 relative overflow-hidden"
+            className="group p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl hover:border-sky-500/50 transition-all duration-300 relative overflow-hidden"
           >
              <div className="relative z-10 flex flex-col justify-between h-full gap-4">
                 <div className="flex items-center justify-between">
                    <div className={cn(
                      "h-12 w-12 rounded-2xl flex items-center justify-center",
-                     stat.color === 'emerald' ? "bg-emerald-500/10 text-emerald-500" :
+                     stat.color === 'sky' ? "bg-sky-500/10 text-[#0369A1] dark:text-sky-400" :
                      stat.color === 'blue' ? "bg-blue-500/10 text-blue-500" :
                      "bg-amber-500/10 text-amber-500"
                    )}>
@@ -65,7 +65,7 @@ export default function OverviewPage() {
                    </div>
                    <div className={cn(
                      "flex items-center gap-1 text-[10px] font-black px-2 py-1 rounded-full",
-                     stat.change.startsWith('+') ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"
+                     stat.change.startsWith('+') ? "bg-sky-500/10 text-[#0369A1] dark:text-sky-400" : "bg-red-500/10 text-red-500"
                    )}>
                       {stat.change.startsWith('+') ? <ArrowUpRight size={10} /> : <ArrowDownRight size={10} />}
                       {stat.change}
@@ -79,20 +79,20 @@ export default function OverviewPage() {
                 </div>
              </div>
              {/* Decorative BG element */}
-             <div className="absolute top-0 right-0 h-24 w-24 -translate-y-1/2 translate-x-1/2 bg-emerald-500/5 blur-3xl rounded-full" />
+             <div className="absolute top-0 right-0 h-24 w-24 -translate-y-1/2 translate-x-1/2 bg-sky-500/5 blur-3xl rounded-full" />
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {/* Main Chart Placeholder */}
-        <div className="xl:col-span-2 p-8 bg-slate-900 rounded-[2.5rem] border border-slate-800 relative overflow-hidden flex flex-col justify-between min-h-[400px]">
+        <div className="xl:col-span-2 p-8 bg-slate-900 rounded-3xl border border-slate-800 relative overflow-hidden flex flex-col justify-between min-h-[400px]">
            <div className="relative z-10">
               <div className="flex items-center justify-between mb-8">
                  <h3 className="text-xl font-black text-white tracking-tight uppercase italic">Tonnage Analytics</h3>
                  <div className="flex gap-2">
                     {['1W', '1M', '3M'].map(t => (
-                      <button key={t} className="px-3 py-1 text-[10px] font-black text-slate-400 hover:text-white border border-slate-700 rounded-lg transition-colors">{t}</button>
+                      <button key={t} className="px-3 py-1 text-[10px] font-black text-slate-400 hover:text-white border border-slate-700 rounded-lg transition-colors cursor-pointer">{t}</button>
                     ))}
                  </div>
               </div>
@@ -102,10 +102,10 @@ export default function OverviewPage() {
                  {[40, 70, 45, 90, 65, 80, 55, 75, 95, 60, 85, 50].map((h, i) => (
                    <div 
                     key={i} 
-                    className="flex-1 bg-emerald-500/20 rounded-t-lg transition-all hover:bg-emerald-500 relative group cursor-pointer"
+                    className="flex-1 bg-sky-500/20 rounded-t-lg transition-all hover:bg-sky-500 relative group cursor-pointer"
                     style={{ height: `${h}%` }}
                    >
-                     <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-emerald-500 text-[10px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                     <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#0369A1] text-white text-[10px] font-bold px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                         {h}k kg
                      </div>
                    </div>
@@ -124,7 +124,7 @@ export default function OverviewPage() {
                     <p className="text-xl font-bold text-white tracking-tighter">94.2%</p>
                  </div>
               </div>
-              <button className="text-xs font-black text-emerald-500 hover:text-emerald-400 transition-colors uppercase tracking-[0.2em] italic">Full Report &rarr;</button>
+              <button className="text-xs font-black text-sky-400 hover:text-sky-300 transition-colors uppercase tracking-[0.2em] italic cursor-pointer">Full Report &rarr;</button>
            </div>
 
            {/* Backdrop Typo */}
@@ -134,16 +134,16 @@ export default function OverviewPage() {
         </div>
 
         {/* Recent Activity */}
-        <div className="p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem]">
+        <div className="p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-3xl">
            <div className="flex items-center justify-between mb-8">
               <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight uppercase italic">Live Feed</h3>
-              <Link href="/logs" className="text-xs font-bold text-slate-400 hover:text-emerald-500 transition-colors tracking-tight">View All</Link>
+              <Link href="/logs" className="text-xs font-bold text-slate-400 hover:text-[#0369A1] transition-colors tracking-tight cursor-pointer">View All</Link>
            </div>
 
            <div className="space-y-6">
               {RECENT_ACTIVITY.map((item) => (
                 <div key={item.id} className="flex gap-4 relative group cursor-pointer">
-                   <div className="shrink-0 h-10 w-10 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-emerald-500/10 group-hover:text-emerald-500 transition-all">
+                   <div className="shrink-0 h-10 w-10 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-sky-500/10 group-hover:text-[#0369A1] dark:group-hover:text-sky-400 transition-all">
                       <Clock size={16} />
                    </div>
                    <div className="flex-1 pb-6 border-b border-slate-50 dark:border-slate-800/50 group-last:border-none">
@@ -157,7 +157,7 @@ export default function OverviewPage() {
               ))}
            </div>
            
-           <button className="w-full h-14 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-2xl font-bold text-sm tracking-tight border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-all active:scale-[0.98] mt-4">
+           <button className="w-full h-14 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-2xl font-bold text-sm tracking-tight border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-850 transition-all active:scale-[0.98] mt-4 cursor-pointer">
               Refresh System Logs
            </button>
         </div>

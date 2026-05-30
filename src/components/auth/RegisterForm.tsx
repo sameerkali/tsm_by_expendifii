@@ -72,14 +72,14 @@ export function RegisterForm() {
           <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 border-b pb-2">Personal Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <User size={18} />
               </div>
               <input
                 {...register('name')}
                 placeholder="Full Name"
                 maxLength={60}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.name && (
                 <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>
@@ -87,7 +87,7 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Mail size={18} />
               </div>
               <input
@@ -95,7 +95,7 @@ export function RegisterForm() {
                 type="email"
                 placeholder="Work Email"
                 maxLength={254}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.email && (
                 <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
@@ -103,7 +103,7 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Phone size={18} />
               </div>
               <input
@@ -113,7 +113,7 @@ export function RegisterForm() {
                 onInput={(e) => {
                   e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
                 }}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.phone && (
                 <p className="text-xs text-red-500 mt-1">{errors.phone.message}</p>
@@ -121,7 +121,7 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Lock size={18} />
               </div>
               <input
@@ -129,12 +129,12 @@ export function RegisterForm() {
                 type={showPassword ? "text" : "password"}
                 placeholder="Create Password (6-30 chars)"
                 maxLength={30}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-500 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -144,14 +144,14 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Gift size={18} />
               </div>
               <input
                 {...register('referral')}
                 placeholder="Referral Code (Optional)"
                 maxLength={7}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
               />
               {errors.referral && (
                 <p className="text-xs text-red-500 mt-1">{errors.referral.message}</p>
@@ -166,14 +166,14 @@ export function RegisterForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Building size={18} />
               </div>
               <input
                 {...register('company.companyName')}
                 placeholder="Company Name"
                 maxLength={60}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.companyName && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.companyName.message}</p>
@@ -181,14 +181,14 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Hash size={18} />
               </div>
               <input
                 {...register('company.gstin')}
                 placeholder="GSTIN (e.g. 22AAAAA0000A1Z5)"
                 maxLength={15}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
               />
               {errors.company?.gstin && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.gstin.message}</p>
@@ -196,14 +196,14 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Hash size={18} />
               </div>
               <input
                 {...register('company.pan')}
                 placeholder="PAN (e.g. ABCDE1234F)"
                 maxLength={10}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
               />
               {errors.company?.pan && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.pan.message}</p>
@@ -211,14 +211,14 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Briefcase size={18} />
               </div>
               <input
                 {...register('company.contactPerson')}
                 placeholder="Contact Person"
                 maxLength={60}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.contactPerson && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.contactPerson.message}</p>
@@ -226,7 +226,7 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Phone size={18} />
               </div>
               <input
@@ -236,7 +236,7 @@ export function RegisterForm() {
                 onInput={(e) => {
                   e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
                 }}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.phone && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.phone.message}</p>
@@ -244,7 +244,7 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Mail size={18} />
               </div>
               <input
@@ -252,7 +252,7 @@ export function RegisterForm() {
                 type="email"
                 placeholder="Company Email"
                 maxLength={254}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.email && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.email.message}</p>
@@ -262,14 +262,14 @@ export function RegisterForm() {
 
           <div className="space-y-4 pt-2">
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <MapPin size={18} />
               </div>
               <input
                 {...register('company.address.fullAddress')}
                 placeholder="Full Address"
                 maxLength={200}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.address?.fullAddress && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.address.fullAddress.message}</p>
@@ -282,7 +282,7 @@ export function RegisterForm() {
                   {...register('company.address.city')}
                   placeholder="City"
                   maxLength={60}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
                 />
                 {errors.company?.address?.city && (
                   <p className="text-xs text-red-500 mt-1">{errors.company.address.city.message}</p>
@@ -294,7 +294,7 @@ export function RegisterForm() {
                   {...register('company.address.district')}
                   placeholder="District"
                   maxLength={60}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
                 />
                 {errors.company?.address?.district && (
                   <p className="text-xs text-red-500 mt-1">{errors.company.address.district.message}</p>
@@ -304,7 +304,7 @@ export function RegisterForm() {
               <div className="relative group">
                 <select
                   {...register('company.address.state')}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white appearance-none cursor-pointer"
+                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white appearance-none cursor-pointer"
                   defaultValue=""
                 >
                   <option value="" disabled className="text-slate-400">State</option>
@@ -326,7 +326,7 @@ export function RegisterForm() {
                   onInput={(e) => {
                     e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
                   }}
-                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                  className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 px-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
                 />
                 {errors.company?.address?.pincode && (
                   <p className="text-xs text-red-500 mt-1">{errors.company.address.pincode.message}</p>
@@ -341,14 +341,14 @@ export function RegisterForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Landmark size={18} />
               </div>
               <input
                 {...register('company.bankDetails.bankName')}
                 placeholder="Bank Name"
                 maxLength={80}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.bankDetails?.bankName && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.bankName.message}</p>
@@ -356,14 +356,14 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <User size={18} />
               </div>
               <input
                 {...register('company.bankDetails.accountHolder')}
                 placeholder="Account Holder"
                 maxLength={80}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.bankDetails?.accountHolder && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.accountHolder.message}</p>
@@ -371,7 +371,7 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Hash size={18} />
               </div>
               <input
@@ -381,7 +381,7 @@ export function RegisterForm() {
                 onInput={(e) => {
                   e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
                 }}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.bankDetails?.accountNumber && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.accountNumber.message}</p>
@@ -389,14 +389,14 @@ export function RegisterForm() {
             </div>
 
             <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Hash size={18} />
               </div>
               <input
                 {...register('company.bankDetails.ifscCode')}
                 placeholder="IFSC Code (e.g. SBIN0001234)"
                 maxLength={11}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-emerald-500 transition-all uppercase text-slate-900 dark:text-white placeholder:text-slate-400"
+                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all uppercase text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.bankDetails?.ifscCode && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.ifscCode.message}</p>
@@ -417,7 +417,7 @@ export function RegisterForm() {
               }}
               className="peer sr-only"
             />
-            <div className="h-5 w-5 shrink-0 rounded border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 transition-all duration-150 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 dark:peer-checked:bg-emerald-600 flex items-center justify-center text-white">
+            <div className="h-5 w-5 shrink-0 rounded border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 transition-all duration-150 peer-checked:border-sky-500 peer-checked:bg-sky-500 dark:peer-checked:bg-sky-600 flex items-center justify-center text-white">
               <svg
                 className="h-3.5 w-3.5 opacity-0 peer-checked:opacity-100 transition-opacity duration-150"
                 fill="none"
@@ -433,7 +433,7 @@ export function RegisterForm() {
               <Link
                 href="/user-agreement"
                 target="_blank"
-                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-emerald-500 dark:hover:text-emerald-400 underline decoration-dotted transition-colors"
+                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
               >
                 User Agreement
               </Link>
@@ -441,7 +441,7 @@ export function RegisterForm() {
               <Link
                 href="/terms-and-conditions"
                 target="_blank"
-                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-emerald-500 dark:hover:text-emerald-400 underline decoration-dotted transition-colors"
+                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
               >
                 Terms & Conditions
               </Link>
@@ -449,7 +449,7 @@ export function RegisterForm() {
               <Link
                 href="/privacy-policy"
                 target="_blank"
-                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-emerald-500 dark:hover:text-emerald-400 underline decoration-dotted transition-colors"
+                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
               >
                 Privacy Policy
               </Link>
@@ -468,7 +468,7 @@ export function RegisterForm() {
             type="submit"
             disabled={isRegistering || !agreed}
             suppressHydrationWarning
-            className="w-full group relative overflow-hidden bg-slate-900 dark:bg-emerald-600 text-white py-4 font-bold transition-all hover:bg-slate-800 dark:hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full group relative overflow-hidden bg-sky-700 dark:bg-sky-600 text-white py-4 font-bold transition-all hover:bg-sky-800 dark:hover:bg-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="relative z-10 flex items-center justify-center gap-2">
               {isRegistering ? (
@@ -488,7 +488,7 @@ export function RegisterForm() {
         Already have an account?{' '}
         <Link
           href="/login"
-          className="font-bold text-slate-900 dark:text-emerald-400 hover:underline underline-offset-4"
+          className="font-bold text-slate-900 dark:text-sky-400 hover:underline underline-offset-4"
         >
           Sign in here
         </Link>

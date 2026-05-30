@@ -50,7 +50,7 @@ export function Sidebar({
         {showLabel && (
           <div>
             <span className="ml-3 text-xl font-black tracking-tighter text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
-              TSM<span className="text-emerald-500">_</span>
+              TSM<span className="text-[#0369A1] dark:text-sky-400">_</span>
             </span>
             <span className="ml-3 text-[10px] font-bold tracking-tight text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
               By Expendifii
@@ -72,7 +72,7 @@ export function Sidebar({
                 "flex items-center h-11 px-3 rounded-xl transition-all group relative",
                 showLabel ? "gap-3" : "justify-center",
                 isActive
-                  ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/25"
+                  ? "bg-[#0369A1] text-white shadow-md shadow-sky-600/20"
                   : [
                     "text-slate-500 hover:text-slate-900 hover:bg-slate-100",
                     "dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800",
@@ -150,7 +150,7 @@ export function Sidebar({
                 ? { text: 'text-red-500', bg: 'bg-red-500', bar: 'bg-red-100 dark:bg-red-900/30', border: 'border-red-200 dark:border-red-800/50' }
                 : pct <= 50
                   ? { text: 'text-amber-500', bg: 'bg-amber-500', bar: 'bg-amber-100 dark:bg-amber-900/30', border: 'border-amber-200 dark:border-amber-800/50' }
-                  : { text: 'text-emerald-500', bg: 'bg-emerald-500', bar: 'bg-emerald-100 dark:bg-emerald-900/30', border: 'border-emerald-200 dark:border-emerald-800/50' };
+                  : { text: 'text-[#0369A1] dark:text-sky-400', bg: 'bg-[#0369A1] dark:bg-sky-500', bar: 'bg-sky-50 dark:bg-sky-950/20', border: 'border-sky-100 dark:border-sky-900/50' };
 
               return (
                 <div className={cn('px-2.5 py-2 rounded-xl border', color.bar, color.border)}>

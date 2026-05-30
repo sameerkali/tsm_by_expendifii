@@ -35,7 +35,7 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
     >
       {/* Decorative Background Elements */}
       <div aria-hidden="true" className="absolute top-0 right-0 w-[400px] h-[400px] bg-sky-400/5 dark:bg-sky-500/5 blur-[120px] rounded-full pointer-events-none" />
-      <div aria-hidden="true" className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-400/5 dark:bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div aria-hidden="true" className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-400/5 dark:bg-sky-500/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
@@ -59,9 +59,9 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
 
               {/* Premium CTA Card */}
               <div className="relative group overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/80 p-6 shadow-sm hover:shadow-md transition-all duration-300">
-                <div aria-hidden="true" className="absolute -right-10 -bottom-10 w-32 h-32 bg-emerald-500/10 dark:bg-emerald-500/5 blur-2xl rounded-full group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
+                <div aria-hidden="true" className="absolute -right-10 -bottom-10 w-32 h-32 bg-sky-500/10 dark:bg-sky-500/5 blur-2xl rounded-full group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
                 <div className="flex gap-4 items-start relative z-10">
-                  <div className="p-3 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-xl shrink-0">
+                  <div className="p-3 bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-400 rounded-xl shrink-0">
                     <MessageCircle className="w-6 h-6" />
                   </div>
                   <div>

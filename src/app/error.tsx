@@ -35,7 +35,7 @@ export default function Error({
         <div className="flex flex-col gap-3">
           <button
             onClick={() => reset()}
-            className="flex items-center justify-center gap-2 bg-slate-900 dark:bg-emerald-600 text-white py-3 px-6 font-bold hover:bg-slate-800 dark:hover:bg-emerald-500 transition-all active:scale-[0.98]"
+            className="flex items-center justify-center gap-2 bg-sky-700 dark:bg-sky-600 text-white py-3 px-6 font-bold hover:bg-sky-800 dark:hover:bg-sky-500 transition-all active:scale-[0.98]"
           >
             <RefreshCcw size={18} />
             Try again

@@ -171,7 +171,7 @@ export function SettingsClient() {
     <div className="space-y-10">
       {/* Header */}
       <div className="space-y-1">
-        <p className="text-xs font-black tracking-[0.3em] text-emerald-500 uppercase italic">SYSTEM CONFIGURATION</p>
+        <p className="text-xs font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">SYSTEM CONFIGURATION</p>
         <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Settings</h1>
       </div>
 

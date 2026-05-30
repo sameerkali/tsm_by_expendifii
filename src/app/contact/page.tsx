@@ -105,10 +105,10 @@ export default function ContactPage() {
             {/* Right — form */}
             <div className="lg:col-span-3">
               {status === 'success' ? (
-                <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center p-8 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900">
+                <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center p-8 rounded-2xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/40">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-sky-100 dark:bg-sky-900">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 13L9 17L19 7" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                   <h3 className="text-xl font-bold text-[#0F172A] dark:text-white mb-2">Message sent!</h3>

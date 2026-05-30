@@ -19,7 +19,7 @@ import { GRStatus } from '@/types/gr';
 const STATUS_MAP: Record<string, { label: string; className: string }> = {
   [GRStatus.BOOKED]:     { label: 'Booked',     className: 'bg-slate-100 text-slate-600 border-slate-200' },
   [GRStatus.IN_TRANSIT]: { label: 'In Transit', className: 'bg-amber-100 text-amber-700 border-amber-200' },
-  [GRStatus.DELIVERED]:  { label: 'Delivered',  className: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
+  [GRStatus.DELIVERED]:  { label: 'Delivered',  className: 'bg-sky-50 text-sky-700 border-sky-200' },
 };
 
 const PAYMENT_MAP: Record<string, string> = {
@@ -116,7 +116,7 @@ export default function GRListPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-1">
-            <p className="text-xs font-black tracking-[0.3em] text-emerald-500 uppercase italic">FREIGHT MANAGEMENT</p>
+            <p className="text-xs font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">FREIGHT MANAGEMENT</p>
             <div className="flex items-center gap-4">
               <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Goods Receipts</h1>
               <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-black tracking-widest text-slate-500 uppercase mt-2">
@@ -132,7 +132,7 @@ export default function GRListPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={openNew}
-              className="flex items-center gap-2 px-6 h-12 bg-slate-900 dark:bg-emerald-600 text-white rounded-xl font-bold tracking-tight hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-emerald-500/20"
+              className="flex items-center gap-2 px-6 h-12 bg-sky-700 dark:bg-sky-600 text-white rounded-xl font-bold tracking-tight hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-sky-500/25"
             >
               <Plus size={18} />New Receipt
             </button>
@@ -148,7 +148,7 @@ export default function GRListPage() {
               placeholder="Search by GR number, consignor, vehicle..."
               value={searchTerm}
               onChange={e => handleSearchChange(e.target.value)}
-              className="w-full h-12 bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-emerald-500 transition-all font-medium"
+              className="w-full h-12 bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10 transition-all font-medium"
             />
           </div>
           <div className="flex gap-2 w-full lg:w-auto">
@@ -159,7 +159,7 @@ export default function GRListPage() {
                 className={cn(
                   'h-12 px-4 flex-1 lg:flex-none rounded-2xl text-xs font-black uppercase tracking-widest transition-all border',
                   statusFilter === s
-                    ? 'bg-slate-900 dark:bg-emerald-600 text-white border-transparent'
+                    ? 'bg-sky-700 dark:bg-sky-600 text-white border-transparent shadow-sm shadow-sky-500/20'
                     : 'border-slate-100 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
                 )}
               >
@@ -189,7 +189,7 @@ export default function GRListPage() {
                   <tr>
                     <td colSpan={7} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center justify-center gap-3 text-slate-400">
-                        <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+                        <Loader2 className="w-8 h-8 animate-spin text-sky-500" />
                         <span className="text-sm font-medium">Loading goods receipts...</span>
                       </div>
                     </td>
@@ -227,13 +227,13 @@ export default function GRListPage() {
                           <p className="text-sm font-bold text-slate-800 dark:text-slate-200">{row.consignor}</p>
                           <p className="text-xs text-slate-400 mt-0.5">→ {row.consignee}</p>
                           {row.customer && (
-                            <p className="text-[10px] text-emerald-600 font-bold mt-1">Customer: {row.customer.name}</p>
+                            <p className="text-[10px] text-sky-600 dark:text-sky-400 font-bold mt-1">Customer: {row.customer.name}</p>
                           )}
                         </td>
                         <td className="px-8 py-5 whitespace-nowrap">
                           <div className="flex items-center gap-2 text-sm">
                             <span className="font-bold text-slate-700 dark:text-slate-300">{row.fromCity}</span>
-                            <MapPin size={10} className="text-emerald-500" />
+                            <MapPin size={10} className="text-sky-500" />
                             <span className="font-bold text-slate-500">{row.toCity}</span>
                           </div>
                           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{row.vehicleNumber || '—'}</p>
@@ -285,7 +285,7 @@ export default function GRListPage() {
                             <button
                               onClick={() => openEdit(row)}
                               title="Edit"
-                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-500 dark:text-slate-400 hover:text-emerald-500"
+                              className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-sky-50 dark:hover:bg-sky-500/10 transition-all text-slate-500 dark:text-slate-400 hover:text-sky-600"
                             >
                               <Pencil size={16} />
                             </button>

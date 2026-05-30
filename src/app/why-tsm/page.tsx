@@ -199,7 +199,7 @@ export default function WhyTsmPage() {
                   className={`grid grid-cols-3 border-b border-slate-100 dark:border-slate-800 last:border-0 ${i % 2 === 0 ? 'bg-white dark:bg-slate-950' : 'bg-slate-50/50 dark:bg-slate-900/50'}`}
                 >
                   <div className="px-6 py-4 text-sm font-medium text-[#0F172A] dark:text-slate-200">{row.label}</div>
-                  <div className="px-6 py-4 text-sm font-semibold text-emerald-600 dark:text-emerald-400 border-l border-[#0369A1]/20 bg-[#0369A1]/4 dark:bg-sky-500/5">
+                  <div className="px-6 py-4 text-sm font-semibold text-sky-600 dark:text-sky-400 border-l border-[#0369A1]/20 bg-[#0369A1]/4 dark:bg-sky-500/5">
                     {row.tsm}
                   </div>
                   <div className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 border-l border-slate-100 dark:border-slate-800">
