@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Plus, Search, FileText,
   MapPin, Loader2, Trash2, Pencil, Printer, Copy
@@ -33,6 +33,7 @@ export default function GRListPage() {
   const [panelOpen, setPanelOpen] = useState(false);
   const [editData, setEditData] = useState<GR | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<GR | null>(null);
+  const [highlightedId, setHighlightedId] = useState<string | null>(null);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
@@ -54,6 +55,12 @@ export default function GRListPage() {
 
   const grs = response?.data || [];
   const pagination = response?.pagination;
+
+  useEffect(() => {
+    if (!highlightedId) return;
+    const timer = setTimeout(() => setHighlightedId(null), 3000);
+    return () => clearTimeout(timer);
+  }, [highlightedId]);
 
   const handleLimitChange = (nextLimit: PageSizeOption) => {
     setLimit(nextLimit);
@@ -94,6 +101,16 @@ export default function GRListPage() {
     if (!deleteTarget) return;
     deleteGR.mutate(deleteTarget.id, {
       onSuccess: () => setDeleteTarget(null),
+    });
+  };
+
+ const handleDuplicate = (row: GR) => {
+    if (isGuest) {
+      showGuestNotice();
+      return;
+    }
+    duplicateGR.mutate(row.id, {
+      onSuccess: () => setHighlightedId(row.id),
     });
   };
 
@@ -212,11 +229,19 @@ export default function GRListPage() {
                 ) : (
                   grs.map((row) => {
                     const statusCfg = STATUS_MAP[row.status] ?? { label: row.status, className: 'bg-slate-100 text-slate-600 border-slate-200' };
+                    const isHighlighted = highlightedId === row.id;
                     return (
-                      <tr key={row.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-all">
+                      <tr 
+                        key={row.id} 
+                        className={cn(
+                          "group transition-all",
+                          isHighlighted 
+                            ? 'bg-amber-50 dark:bg-amber-500/10' 
+                            : 'hover:bg-slate-50 dark:hover:bg-slate-800/40'
+                        )}
+                      >
                         <td className="px-8 py-5 whitespace-nowrap">
                           <div className="flex items-center gap-3">
-                           
                             <div>
                               <p className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight italic">{row.grNumber}</p>
                               <p className="text-xs text-slate-400 font-medium mt-0.5">{row.bookingDate?.slice(0, 10)}</p>
@@ -271,7 +296,7 @@ export default function GRListPage() {
                               )}
                             </button>
                             <button
-                              onClick={() => isGuest ? showGuestNotice() : duplicateGR.mutate(row.id)}
+                              onClick={() => handleDuplicate(row)}
                               disabled={duplicateGR.isPending}
                               title="Duplicate GR"
                               className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-amber-50 dark:hover:bg-amber-500/10 transition-all text-slate-400 hover:text-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"

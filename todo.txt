@@ -1,3 +1,6 @@
 add route /live-demo for live demo 
 
 press back on 404 page and page is loading infinitly 
+
+ when i copy a GR show it high lited for some time so user got to know which one he make duplicate just now 
+jus for few secounds 
