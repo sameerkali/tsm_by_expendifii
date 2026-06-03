@@ -8,7 +8,7 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-6 font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-6 font-sans selection:bg-sky-500/30">
       <div className="max-w-md w-full text-center space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
         {/* Error Code & Icon */}
         <div className="relative inline-block">
@@ -16,7 +16,7 @@ export default function NotFound() {
             404
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-24 w-24 bg-emerald-500 rounded-2xl rotate-12 flex items-center justify-center shadow-xl shadow-emerald-500/20">
+            <div className="h-24 w-24 bg-sky-600 rounded-2xl rotate-12 flex items-center justify-center shadow-xl shadow-sky-500/20">
               <Search className="text-white -rotate-12" size={48} />
             </div>
           </div>
@@ -34,13 +34,14 @@ export default function NotFound() {
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => router.back()}
-            className="flex items-center justify-center gap-2 bg-slate-900 dark:bg-emerald-600 text-white py-4 px-8 font-bold hover:bg-slate-800 dark:hover:bg-emerald-500 transition-all active:scale-[0.98]"
-          >
+            <Link
+            href="/"
+                      className="flex items-center justify-center gap-2 bg-sky-700 dark:bg-sky-600 text-white py-4 px-8 font-bold hover:bg-sky-800 dark:hover:bg-sky-500 transition-all active:scale-[0.98]"
+
+>
             <ArrowLeft size={18} />
-            Go back
-          </button>
+            Go Back
+          </Link>
           
           <Link
             href="/"

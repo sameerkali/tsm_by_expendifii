@@ -1,7 +1,21 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const PUBLIC_PATHS = ['/login', '/register', '/activate'];
+const PUBLIC_PATHS = [
+  '/login',
+  '/register',
+  '/activate',
+  '/forgot-password',
+  // Public landing site routes — no auth required
+  '/about',
+  '/contact',
+  '/security',
+  '/privacy-policy',
+  '/terms-and-conditions',
+  '/user-agreement',
+  '/why-tsm',
+  '/live-demo',
+];
 const COOKIE_NAME = process.env.COOKIE_NAME || 'token';
 const GUEST_COOKIE_NAME = 'tms_guest';
 

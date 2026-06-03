@@ -132,7 +132,7 @@ const GR_FIELD_SCHEMAS: Partial<Record<keyof FormState, FieldSchema>> = {
 const STATUS_CONFIG = {
   [GRStatus.BOOKED]: { label: 'Booked', cls: 'bg-slate-100 text-slate-700 border-slate-300' },
   [GRStatus.IN_TRANSIT]: { label: 'In Transit', cls: 'bg-amber-100 text-amber-700 border-amber-300' },
-  [GRStatus.DELIVERED]: { label: 'Delivered', cls: 'bg-emerald-100 text-emerald-700 border-emerald-300' },
+  [GRStatus.DELIVERED]: { label: 'Delivered', cls: 'bg-sky-50 text-sky-700 border-sky-300' },
 };
 
 function buildCustomerPayloadFromGR(form: FormState): CreateCustomerInput {
@@ -473,7 +473,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
         {/* Header */}
         <div className="h-20 flex items-center justify-between px-10 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div>
-            <p className="text-[10px] font-black tracking-[0.3em] text-emerald-500 uppercase italic">
+            <p className="text-[10px] font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">
               {isEditing ? 'EDIT RECORD' : 'NEW RECORD'}
             </p>
             <h2 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white">
@@ -498,11 +498,11 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
                 {/* Customer linked badge */}
                 {customerId && (
-                  <div className="flex items-center gap-3 px-4 py-3 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-2xl mb-4">
-                    <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
+                  <div className="flex items-center gap-3 px-4 py-3 bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/30 rounded-2xl mb-4">
+                    <CheckCircle2 size={16} className="text-sky-500 shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Customer Linked</p>
-                      <p className="text-sm font-bold text-emerald-900 dark:text-emerald-200 truncate">{form.consignor} · {form.consignorPhone}</p>
+                      <p className="text-[10px] font-black text-sky-600 dark:text-sky-400 uppercase tracking-widest">Customer Linked</p>
+                      <p className="text-sm font-bold text-sky-900 dark:text-sky-200 truncate">{form.consignor} · {form.consignorPhone}</p>
                     </div>
                     {!isEditing && (
                       <button type="button" onClick={handleClearCustomer} className="text-xs text-slate-500 hover:text-red-500 font-bold transition-colors">
@@ -583,14 +583,14 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                         !!customerId && 'opacity-60 cursor-not-allowed',
                         fieldErrors.consignorPhone && errorInputClass,
                         // live green border when exactly 10 digits
-                        !fieldErrors.consignorPhone && form.consignorPhone.length === 10 && '!border-emerald-500',
+                        !fieldErrors.consignorPhone && form.consignorPhone.length === 10 && '!border-sky-500',
                       )}
                     />
                     {/* digit counter */}
                     {!customerId && form.consignorPhone.length > 0 && (
                       <span className={cn(
                         'absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold tabular-nums pointer-events-none',
-                        form.consignorPhone.length === 10 ? 'text-emerald-500' : 'text-slate-400'
+                        form.consignorPhone.length === 10 ? 'text-sky-500' : 'text-slate-400'
                       )}>
                         {form.consignorPhone.length}/10
                       </span>
@@ -605,7 +605,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       <button
                         type="button"
                         onClick={() => setShowMoreDetails(true)}
-                        className="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors"
+                        className="text-xs font-bold text-sky-600 hover:text-sky-700 transition-colors"
                       >
                         + Add Full Address (Optional)
                       </button>
@@ -824,7 +824,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       type="text"
                       value={`₹ ${form.freightAmount || '0.00'}`}
                       readOnly
-                      className={inputClass + ' font-black text-emerald-600 dark:text-emerald-400 cursor-not-allowed'}
+                      className={inputClass + ' font-black text-sky-600 dark:text-sky-400 cursor-not-allowed'}
                     />
                   </Field>
                 </div>
@@ -868,13 +868,13 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       className={cn(
                         inputClass,
                         fieldErrors.driverMobile && errorInputClass,
-                        !fieldErrors.driverMobile && form.driverMobile.length === 10 && '!border-emerald-500',
+                        !fieldErrors.driverMobile && form.driverMobile.length === 10 && '!border-sky-500',
                       )}
                     />
                     {form.driverMobile.length > 0 && (
                       <span className={cn(
                         'absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold tabular-nums pointer-events-none',
-                        form.driverMobile.length === 10 ? 'text-emerald-500' : 'text-slate-400'
+                        form.driverMobile.length === 10 ? 'text-sky-500' : 'text-slate-400'
                       )}>
                         {form.driverMobile.length}/10
                       </span>
@@ -915,7 +915,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
             type="submit"
             disabled={isSaving}
             onClick={handleSubmit}
-            className="h-12 px-10 bg-slate-900 dark:bg-emerald-600 text-white rounded-xl font-bold text-sm tracking-tight hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-emerald-500/20 disabled:opacity-50 flex items-center gap-2"
+            className="h-12 px-10 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-bold text-sm tracking-tight transition-all active:scale-95 shadow-lg shadow-sky-500/25 disabled:opacity-50 flex items-center gap-2"
           >
             {isSaving && <Loader2 size={15} className="animate-spin" />}
             {isSaving ? 'Saving...' : isEditing ? 'Save Changes' : 'Create GR'}
@@ -937,7 +937,7 @@ function Field({ label, children, required, error }: { label: string; children: 
     <div className="space-y-1.5">
       <label className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
         {label}
-        {required && <span className="text-emerald-500">*</span>}
+        {required && <span className="text-sky-500">*</span>}
       </label>
       {children}
       {error && (
@@ -949,5 +949,5 @@ function Field({ label, children, required, error }: { label: string; children: 
   );
 }
 
-const inputClass = 'w-full h-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all';
+const inputClass = 'w-full h-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all';
 const errorInputClass = '!border-red-500 !ring-red-500/20';

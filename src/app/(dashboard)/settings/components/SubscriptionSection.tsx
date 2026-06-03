@@ -108,7 +108,7 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
           )}
           <button
             onClick={() => router.push('/activate')}
-            className="px-4 py-2 bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg transition-all active:scale-95 cursor-pointer"
+            className="px-4 py-2 bg-sky-700 dark:bg-sky-600 hover:bg-sky-800 dark:hover:bg-sky-500 text-white text-xs font-semibold rounded-lg transition-all active:scale-95 cursor-pointer"
           >
             Activate Coupon
           </button>
@@ -161,7 +161,7 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
                           <div className="space-y-1">
                             <div className="flex items-center gap-2">
                               {isCurrentlyActive && (
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
                               )}
                               <span className="font-semibold text-sm text-slate-900 dark:text-white tracking-wide uppercase">
                                 {coupon.code}
@@ -182,11 +182,11 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
                             )}
 
                             {isCurrentlyActive && coupon.expiresAt && (
-                              <div className="px-3 py-1 bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100/50 dark:border-emerald-900/30 rounded-lg text-center min-w-[70px]">
-                                <span className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
+                              <div className="px-3 py-1 bg-sky-50/50 dark:bg-sky-950/20 border border-sky-100/50 dark:border-sky-900/30 rounded-lg text-center min-w-[70px]">
+                                <span className="text-[9px] font-semibold text-sky-600 dark:text-sky-400 uppercase tracking-wider block">
                                   Days Left
                                 </span>
-                                <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 leading-none mt-0.5">
+                                <p className="text-sm font-bold text-sky-600 dark:text-sky-400 leading-none mt-0.5">
                                   {getDaysLeft(coupon.expiresAt)}
                                 </p>
                               </div>

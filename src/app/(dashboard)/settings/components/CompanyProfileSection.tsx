@@ -180,7 +180,7 @@ export function CompanyProfileSection({
             </div>
             {isEditing && (
               <label className={cn(
-                'absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-md border-2 border-white dark:border-slate-900',
+                'absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-sky-500 flex items-center justify-center text-white shadow-md border-2 border-white dark:border-slate-900',
                 isUploadingLogo ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
               )}>
                 {isUploadingLogo ? <Loader2 size={10} className="animate-spin" /> : <Upload size={10} />}
@@ -198,7 +198,7 @@ export function CompanyProfileSection({
         </div>
         {/* Editing indicator badge */}
         {isEditing && (
-          <span className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-200 dark:border-emerald-800/50">
+          <span className="px-3 py-1 bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-sky-200 dark:border-sky-800/50">
             Editing
           </span>
         )}
@@ -328,10 +328,10 @@ export function CompanyProfileSection({
                     <button
                       type="button"
                       onClick={handleCopyCode}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-emerald-500 transition-colors cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-sky-500 transition-colors cursor-pointer"
                       title="Copy referral code"
                     >
-                      {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+                      {copied ? <Check size={16} className="text-sky-500" /> : <Copy size={16} />}
                     </button>
                   )}
                 </div>

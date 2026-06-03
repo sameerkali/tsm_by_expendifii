@@ -26,7 +26,7 @@ export function Field({
     <div className="space-y-1.5 w-full">
 <label htmlFor={htmlFor} className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">        {locked && <Lock size={10} className="text-slate-400" />}
         {label}
-        {required && <span className="text-emerald-500">*</span>}
+        {required && <span className="text-sky-500">*</span>}
         {hint && <span className="text-slate-400 font-normal">— {hint}</span>}
       </label>
       {children}

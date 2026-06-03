@@ -66,7 +66,7 @@ export function CustomersClient() {
         <div className="space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-1">
-              <p className="text-xs font-black tracking-[0.3em] text-emerald-500 uppercase italic">CRM INTEGRITY</p>
+              <p className="text-xs font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">CRM INTEGRITY</p>
               <div className="flex items-center gap-4">
                 <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Customer Registry</h1>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-black tracking-widest text-slate-500 uppercase mt-2">
@@ -81,7 +81,7 @@ export function CustomersClient() {
             </div>
             <button
               onClick={openNew}
-              className="flex items-center gap-2.5 px-7 h-12 bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-black text-sm tracking-tight transition-all active:scale-95 shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/40"
+              className="flex items-center gap-2.5 px-7 h-12 bg-sky-700 hover:bg-sky-800 text-white rounded-2xl font-black text-sm tracking-tight transition-all active:scale-95 shadow-lg shadow-sky-500/25"
             >
               <Plus size={20} strokeWidth={2.5} />Add Customer
             </button>
@@ -95,7 +95,7 @@ export function CustomersClient() {
               placeholder="Search by name, email, or mobile..."
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full h-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-emerald-500 transition-all font-medium"
+              className="w-full h-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl pl-12 pr-4 text-sm outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/10 transition-all font-medium"
             />
           </div>
         </div>
@@ -118,7 +118,7 @@ export function CustomersClient() {
                   <tr>
                     <td colSpan={5} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center justify-center text-slate-400 gap-3">
-                        <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+                        <Loader2 className="w-8 h-8 animate-spin text-sky-500" />
                         <span className="text-sm font-medium">Loading customers...</span>
                       </div>
                     </td>
@@ -151,7 +151,7 @@ export function CustomersClient() {
                     >
                       <td className="px-8 py-5">
                         <div className="flex items-center gap-3">
-                          <div className="h-11 w-11 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 rounded-2xl flex items-center justify-center text-slate-400 group-hover:text-emerald-500 transition-colors shrink-0">
+                          <div className="h-11 w-11 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 rounded-2xl flex items-center justify-center text-slate-400 group-hover:text-sky-500 transition-colors shrink-0">
                             <UserIcon size={20} />
                           </div>
                           <div>
@@ -166,7 +166,7 @@ export function CustomersClient() {
                       </td>
                       <td className="px-8 py-5 space-y-1">
                         <div className="flex items-center gap-2 text-slate-500">
-                          <Phone size={12} className="text-emerald-500" />
+                          <Phone size={12} className="text-sky-500" />
                           <span className="text-xs font-bold">{row.phone}</span>
                         </div>
                         {row.email && (

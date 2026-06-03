@@ -66,7 +66,7 @@ export function Pagination({
             <select
               value={limit}
               onChange={(event) => onLimitChange(Number(event.target.value) as PageSizeOption)}
-              className="h-10 appearance-none rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 pl-3 pr-9 text-xs font-black text-slate-700 dark:text-slate-200 outline-none transition-all hover:bg-slate-50 dark:hover:bg-slate-800 focus:border-emerald-500"
+              className="h-10 appearance-none rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 pl-3 pr-9 text-xs font-black text-slate-700 dark:text-slate-200 outline-none transition-all hover:bg-slate-50 dark:hover:bg-slate-800 focus:border-sky-500"
             >
               {PAGE_SIZE_OPTIONS.map((option) => (
                 <option key={option} value={option}>

@@ -47,7 +47,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-emerald-500/30 overflow-hidden">
+    <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-sky-500/30 overflow-hidden">
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
         <div
@@ -78,7 +78,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-5 md:p-8 custom-scrollbar relative">
           {/* Ambient blobs */}
-          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-emerald-500/[0.04] dark:bg-emerald-500/[0.02] blur-[120px] rounded-full -z-10 pointer-events-none" />
+          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-sky-500/[0.04] dark:bg-sky-500/[0.02] blur-[120px] rounded-full -z-10 pointer-events-none" />
           <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-500/[0.04] dark:bg-blue-500/[0.02] blur-[100px] rounded-full -z-10 pointer-events-none" />
 
           <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-400">

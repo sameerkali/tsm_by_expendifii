@@ -59,7 +59,7 @@ export function LoginForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-4">
           <div className="relative group">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
               <Mail size={18} />
             </div>
 
@@ -68,7 +68,7 @@ export function LoginForm() {
               type="email"
               placeholder="Email address"
               maxLength={254}
-              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 px-10 py-4 outline-none focus:border-emerald-500 dark:focus:border-emerald-500 transition-colors peer placeholder:text-slate-400 dark:placeholder:text-slate-600 rounded-t-xl"
+              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 px-10 py-4 outline-none focus:border-sky-500 dark:focus:border-sky-500 transition-colors peer placeholder:text-slate-400 dark:placeholder:text-slate-600 rounded-t-xl"
               suppressHydrationWarning
             />
 
@@ -80,7 +80,7 @@ export function LoginForm() {
           </div>
 
           <div className="relative group">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
               <Lock size={18} />
             </div>
 
@@ -89,13 +89,13 @@ export function LoginForm() {
               type={showPassword ? 'text' : 'password'}
               placeholder="Password"
               maxLength={30}
-              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-emerald-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+              className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
             />
 
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-500 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -112,7 +112,7 @@ export function LoginForm() {
           type="submit"
           disabled={isLoggingIn}
           suppressHydrationWarning
-          className="w-full group relative overflow-hidden bg-slate-900 dark:bg-emerald-600 text-white py-4 font-bold transition-all hover:bg-slate-800 dark:hover:bg-emerald-500 disabled:opacity-50"
+          className="w-full group relative overflow-hidden bg-sky-700 dark:bg-sky-600 text-white py-4 font-bold transition-all hover:bg-sky-800 dark:hover:bg-sky-500 disabled:opacity-50"
         >
           <div className="relative z-10 flex items-center justify-center gap-2">
             {isLoggingIn ? (
@@ -136,16 +136,21 @@ export function LoginForm() {
           Don&apos;t have an account?{' '}
           <Link
             href="/register"
-            className="font-bold text-slate-900 dark:text-emerald-400 hover:underline underline-offset-4"
+            className="font-bold text-slate-900 dark:text-sky-400 hover:underline underline-offset-4"
           >
             Register your company
           </Link>
         </div>
 
+        <Link
+          href="/forgot-password"
+          className="font-medium text-sky-600 hover:underline underline-offset-2"
+        >
+          Forgot password?
+        </Link>
         <button
           type="button"
           onClick={handleGuestAccess}
-          
           className="flex items-center gap-1 text-sm underline text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           Use as guest

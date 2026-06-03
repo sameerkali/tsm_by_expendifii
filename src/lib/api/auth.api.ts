@@ -102,6 +102,16 @@ export const authApi = {
   getDeletionStatus: async (): Promise<ApiResponse<any>> => {
     return apiClient.get('/settings/deletion-status') as any;
   },
+  // Request password reset (send OTP)
+  requestPasswordReset: async (email: string): Promise<ApiResponse<any>> => {
+    return apiClient.post('/auth/forgot-password', { email }) as any;
+  },
+
+  // Reset password using OTP
+  resetPassword: async (payload: { email: string; otp: string; newPassword: string }): Promise<ApiResponse<any>> => {
+    return apiClient.post('/auth/reset-password', payload) as any;
+  },
+
 };
 
 export default authApi;

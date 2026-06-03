@@ -81,7 +81,7 @@ export function ConfirmDialog({
               'h-11 px-6 rounded-xl font-bold text-sm text-white transition-all active:scale-95 disabled:opacity-50 flex items-center gap-2',
               isDanger
                 ? 'bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/20'
-                : 'bg-slate-900 dark:bg-emerald-600 hover:opacity-90 shadow-lg shadow-emerald-500/20',
+                : 'bg-sky-700 dark:bg-sky-600 hover:opacity-90 shadow-lg shadow-sky-500/25',
             )}
           >
             {isLoading && <Loader2 size={16} className="animate-spin" />}

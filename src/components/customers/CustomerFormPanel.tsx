@@ -217,7 +217,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
         {/* Header */}
         <div className="h-20 flex items-center justify-between px-8 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div>
-            <p className="text-[10px] font-black tracking-[0.3em] text-emerald-500 uppercase italic">
+            <p className="text-[10px] font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">
               {isEditing ? 'EDIT CUSTOMER' : 'NEW CUSTOMER'}
             </p>
             <h2 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white">
@@ -389,11 +389,11 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
 
           {/* Rate preview */}
           {form.defaultRate && form.pricingType && (
-            <div className="flex items-center gap-2 px-4 py-3 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl">
-              <span className="text-lg font-black text-emerald-600 dark:text-emerald-400">
+            <div className="flex items-center gap-2 px-4 py-3 bg-sky-500/5 border border-sky-500/20 rounded-2xl">
+              <span className="text-lg font-black text-sky-600 dark:text-sky-400">
                 ₹ {form.defaultRate}
               </span>
-              <span className="text-xs font-bold text-emerald-700/60 dark:text-emerald-400/60 uppercase tracking-widest">
+              <span className="text-xs font-bold text-sky-700/60 dark:text-sky-400/60 uppercase tracking-widest">
                 / {form.pricingType}
               </span>
               <span className="ml-auto text-[10px] text-slate-400 font-medium">
@@ -415,7 +415,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
           <button
             onClick={handleSubmit}
             disabled={isSaving}
-            className="h-12 px-8 bg-slate-900 dark:bg-emerald-600 text-white rounded-xl font-bold text-sm tracking-tight hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-emerald-500/20 disabled:opacity-50 flex items-center gap-2"
+            className="h-12 px-8 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-bold text-sm tracking-tight hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-sky-500/25 disabled:opacity-50 flex items-center gap-2"
           >
             {isSaving ? <Loader2 size={16} className="animate-spin" /> : null}
             {isSaving ? 'Saving...' : isEditing ? 'Save Changes' : 'Add Customer'}
@@ -445,7 +445,7 @@ function Field({
     <div className="space-y-1.5">
       <label className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
         {label}
-        {required && <span className="text-emerald-500">*</span>}
+        {required && <span className="text-sky-500">*</span>}
         {hint && (
           <span className="text-slate-400 font-normal italic">— {hint}</span>
         )}
@@ -469,6 +469,6 @@ function CharCount({ value, max }: { value: string; max: number }) {
 }
 
 const inputClass =
-  'w-full h-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all';
+  'w-full h-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all';
 
 const errorInputClass = 'border-red-400 focus:border-red-500 focus:ring-red-500/20';

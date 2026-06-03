@@ -24,7 +24,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-plus-jakarta-sans);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -116,4 +116,27 @@ body {
     /* Disable theme transitions for print */
     transition: none !important;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LENIS SMOOTH SCROLL INTEGRATION
+───────────────────────────────────────────────────────────────────────────── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
 }

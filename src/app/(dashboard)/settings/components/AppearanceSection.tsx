@@ -48,7 +48,7 @@ export function AppearanceSection({ theme, setTheme, fontSize, setFontSize }: Ap
                 className={cn(
                   'relative flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all hover:scale-[1.02] active:scale-[0.98]',
                   theme === opt.value
-                    ? 'border-emerald-500 bg-emerald-500/5 dark:bg-emerald-500/10'
+                    ? 'border-sky-500 bg-sky-500/5 dark:bg-sky-500/10'
                     : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-white dark:bg-slate-800/30',
                 )}
               >
@@ -67,16 +67,16 @@ export function AppearanceSection({ theme, setTheme, fontSize, setFontSize }: Ap
                   </div>
                   <div className={cn('absolute left-0 top-0 bottom-0 w-4', opt.value === 'dark' ? 'bg-slate-800' : opt.value === 'light' ? 'bg-slate-100' : 'bg-slate-700')} />
                   <div className={cn('absolute top-2 left-6 h-1 w-8 rounded-full', opt.value === 'dark' ? 'bg-slate-700' : 'bg-slate-200')} />
-                  <div className={cn('absolute top-5 left-6 h-1 w-6 rounded-full', opt.value === 'dark' ? 'bg-emerald-500/40' : 'bg-emerald-500/30')} />
+                  <div className={cn('absolute top-5 left-6 h-1 w-6 rounded-full', opt.value === 'dark' ? 'bg-sky-500/40' : 'bg-sky-500/30')} />
                 </div>
                 <div className="text-center">
-                  <p className={cn('text-sm font-black tracking-tight', theme === opt.value ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300')}>
+                  <p className={cn('text-sm font-black tracking-tight', theme === opt.value ? 'text-sky-600 dark:text-sky-400' : 'text-slate-700 dark:text-slate-300')}>
                     {opt.label}
                   </p>
                   <p className="text-[10px] text-slate-400 mt-0.5">{opt.desc}</p>
                 </div>
                 {theme === opt.value && (
-                  <div className="absolute top-3 right-3 h-5 w-5 bg-emerald-500 rounded-full flex items-center justify-center">
+                  <div className="absolute top-3 right-3 h-5 w-5 bg-sky-500 rounded-full flex items-center justify-center">
                     <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
                       <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -101,7 +101,7 @@ export function AppearanceSection({ theme, setTheme, fontSize, setFontSize }: Ap
                 className={cn(
                   'relative flex flex-col items-center gap-2 py-5 px-3 rounded-2xl border-2 transition-all hover:scale-[1.02] active:scale-[0.98]',
                   fontSize === opt.value
-                    ? 'border-emerald-500 bg-emerald-500/5 dark:bg-emerald-500/10'
+                    ? 'border-sky-500 bg-sky-500/5 dark:bg-sky-500/10'
                     : 'border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-white dark:bg-slate-800/30',
                 )}
               >
@@ -113,12 +113,12 @@ export function AppearanceSection({ theme, setTheme, fontSize, setFontSize }: Ap
                 >
                   Aa
                 </span>
-                <p className={cn('text-[10px] font-black uppercase tracking-widest', fontSize === opt.value ? 'text-emerald-500' : 'text-slate-400')}>
+                <p className={cn('text-[10px] font-black uppercase tracking-widest', fontSize === opt.value ? 'text-sky-500' : 'text-slate-400')}>
                   {opt.label}
                 </p>
                 <p className="text-[9px] text-slate-400 font-mono">{opt.size}</p>
                 {fontSize === opt.value && (
-                  <div className="absolute top-2 right-2 h-4 w-4 bg-emerald-500 rounded-full flex items-center justify-center">
+                  <div className="absolute top-2 right-2 h-4 w-4 bg-sky-500 rounded-full flex items-center justify-center">
                     <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
                       <path d="M1 3L2.8 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

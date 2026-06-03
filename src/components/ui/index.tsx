@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils/cn';
 // SHARED INPUT CLASS (source of truth — import this in any component)
 // ─────────────────────────────────────────────────────────────────────────────
 export const inputClass =
-  'w-full h-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 transition-all';
+  'w-full h-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all';
 
 /** Text Input */
 export function Input({ label, hint, required, error, className, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label?: string; hint?: string; required?: boolean; error?: string }) {
@@ -19,7 +19,7 @@ export function Input({ label, hint, required, error, className, ...props }: Rea
     <div className="space-y-1.5">
       {label && (
         <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
-          {label}{required && <span className="text-emerald-500">*</span>}
+          {label}{required && <span className="text-sky-500">*</span>}
           {hint && <span className="font-normal text-slate-400 italic">— {hint}</span>}
         </label>
       )}
@@ -35,7 +35,7 @@ export function Textarea({ label, hint, required, error, className, ...props }: 
     <div className="space-y-1.5">
       {label && (
         <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
-          {label}{required && <span className="text-emerald-500">*</span>}
+          {label}{required && <span className="text-sky-500">*</span>}
           {hint && <span className="font-normal text-slate-400 italic">— {hint}</span>}
         </label>
       )}
@@ -56,7 +56,7 @@ export function Select({ label, hint, required, options, value, onChange, classN
     <div className="space-y-1.5">
       {label && (
         <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
-          {label}{required && <span className="text-emerald-500">*</span>}
+          {label}{required && <span className="text-sky-500">*</span>}
           {hint && <span className="font-normal text-slate-400 italic">— {hint}</span>}
         </label>
       )}
@@ -81,7 +81,7 @@ export function PasswordInput({ label, hint, required, error, className, ...prop
     <div className="space-y-1.5">
       {label && (
         <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
-          {label}{required && <span className="text-emerald-500">*</span>}
+          {label}{required && <span className="text-sky-500">*</span>}
         </label>
       )}
       <div className="relative">
@@ -109,11 +109,11 @@ export function SearchInput({ placeholder = 'Search...', className, ...props }: 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline';
 export function Button({ children, variant = 'primary', loading, className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant; loading?: boolean }) {
   const variants: Record<ButtonVariant, string> = {
-    primary: 'bg-slate-900 dark:bg-emerald-600 text-white hover:opacity-90 shadow-lg shadow-emerald-500/20',
+    primary: 'bg-sky-700 dark:bg-sky-600 text-white hover:opacity-90 shadow-lg shadow-sky-500/25',
     secondary: 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700',
     ghost: 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900',
     danger: 'bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-500/20',
-    outline: 'border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600',
+    outline: 'border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-sky-500 hover:text-sky-600',
   };
   return (
     <button {...props} disabled={loading || props.disabled} className={cn('flex items-center justify-center gap-2 h-12 px-6 rounded-xl font-bold text-sm tracking-tight transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed', variants[variant], className)}>
@@ -128,7 +128,7 @@ type BadgeVariant = 'default' | 'success' | 'warning' | 'error' | 'info';
 export function Badge({ children, variant = 'default', className }: { children: React.ReactNode; variant?: BadgeVariant; className?: string }) {
   const variants: Record<BadgeVariant, string> = {
     default: 'bg-slate-100 text-slate-600 border-slate-200',
-    success: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+    success: 'bg-sky-50 text-sky-700 border-sky-200',
     warning: 'bg-yellow-100 text-yellow-700 border-yellow-200',
     error: 'bg-red-100 text-red-700 border-red-200',
     info: 'bg-blue-100 text-blue-700 border-blue-200',
@@ -145,7 +145,7 @@ type AlertVariant = 'info' | 'success' | 'warning' | 'error';
 export function Alert({ children, variant = 'info', title }: { children: React.ReactNode; variant?: AlertVariant; title?: string }) {
   const map: Record<AlertVariant, { bg: string; border: string; text: string; icon: React.ReactNode }> = {
     info: { bg: 'bg-blue-50 dark:bg-blue-900/20', border: 'border-blue-200 dark:border-blue-700/40', text: 'text-blue-700 dark:text-blue-300', icon: <Info size={16} /> },
-    success: { bg: 'bg-emerald-50 dark:bg-emerald-900/20', border: 'border-emerald-200 dark:border-emerald-700/40', text: 'text-emerald-700 dark:text-emerald-300', icon: <Check size={16} /> },
+    success: { bg: 'bg-sky-50 dark:bg-sky-900/20', border: 'border-sky-200 dark:border-sky-700/40', text: 'text-sky-700 dark:text-sky-300', icon: <Check size={16} /> },
     warning: { bg: 'bg-yellow-50 dark:bg-yellow-900/20', border: 'border-yellow-200 dark:border-yellow-700/40', text: 'text-yellow-700 dark:text-yellow-300', icon: <AlertTriangle size={16} /> },
     error: { bg: 'bg-red-50 dark:bg-red-900/20', border: 'border-red-200 dark:border-red-700/40', text: 'text-red-700 dark:text-red-300', icon: <X size={16} /> },
   };
@@ -186,7 +186,7 @@ export function CardBody({ children, className }: { children: React.ReactNode; c
 
 /** Spinner */
 export function Spinner({ size = 24, className }: { size?: number; className?: string }) {
-  return <Loader size={size} className={cn('animate-spin text-emerald-500', className)} />;
+  return <Loader size={size} className={cn('animate-spin text-sky-500', className)} />;
 }
 
 /** Skeleton Loader */
@@ -200,7 +200,7 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
     <label className="flex items-center gap-3 cursor-pointer group">
       <div className="relative">
         <input type="checkbox" className="sr-only" checked={checked} onChange={(e) => onChange(e.target.checked)} />
-        <div className={cn('w-11 h-6 rounded-full transition-all', checked ? 'bg-emerald-500' : 'bg-slate-200 dark:bg-slate-700')} />
+        <div className={cn('w-11 h-6 rounded-full transition-all', checked ? 'bg-sky-500' : 'bg-slate-200 dark:bg-slate-700')} />
         <div className={cn('absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200', checked ? 'translate-x-6' : 'translate-x-1')} />
       </div>
       {label && <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</span>}
@@ -212,8 +212,8 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
 export function Checkbox({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label?: string }) {
   return (
     <label className="flex items-center gap-2.5 cursor-pointer">
-      <button type="button" onClick={() => onChange(!checked)} className="text-slate-400 hover:text-emerald-500 transition-colors">
-        {checked ? <CheckSquare size={20} className="text-emerald-500" /> : <Square size={20} />}
+      <button type="button" onClick={() => onChange(!checked)} className="text-slate-400 hover:text-sky-500 transition-colors">
+        {checked ? <CheckSquare size={20} className="text-sky-500" /> : <Square size={20} />}
       </button>
       {label && <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</span>}
     </label>
@@ -227,13 +227,13 @@ export function Slider({ label, value, onChange, min = 0, max = 100, step = 1 }:
       {label && (
         <div className="flex items-center justify-between">
           <label className="text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">{label}</label>
-          <span className="text-xs font-black text-emerald-500">{value}</span>
+          <span className="text-xs font-black text-sky-500">{value}</span>
         </div>
       )}
       <input
         type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-2 rounded-full accent-emerald-500 cursor-pointer"
+        className="w-full h-2 rounded-full accent-sky-500 cursor-pointer"
       />
     </div>
   );
@@ -244,8 +244,8 @@ export function FileUpload({ label, accept, hint }: { label?: string; accept?: s
   return (
     <div className="space-y-1.5">
       {label && <label className="text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">{label}</label>}
-      <div className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center gap-3 hover:border-emerald-500 transition-colors cursor-pointer group">
-        <div className="h-12 w-12 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-400 group-hover:text-emerald-500 transition-colors">
+      <div className="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center gap-3 hover:border-sky-500 transition-colors cursor-pointer group">
+        <div className="h-12 w-12 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-400 group-hover:text-sky-500 transition-colors">
           <Upload size={24} />
         </div>
         <div className="text-center">
@@ -288,7 +288,7 @@ export function Modal({ isOpen, onClose, title, children, footer }: { isOpen: bo
 
 /** Section Label */
 export function SectionLabel({ children }: { children: string }) {
-  return <p className="text-[10px] font-black tracking-[0.3em] text-emerald-500 uppercase italic">{children}</p>;
+  return <p className="text-[10px] font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">{children}</p>;
 }
 
 /** Page Heading */
