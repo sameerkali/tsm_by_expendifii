@@ -5,6 +5,7 @@ const PUBLIC_PATHS = [
   '/login',
   '/register',
   '/activate',
+  '/forgot-password',
   // Public landing site routes — no auth required
   '/about',
   '/contact',

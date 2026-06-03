@@ -1,0 +1,7 @@
+forgot passward 
+referal wala check 
+import via csv (admin and user) {user: api/settings/import}
+email template (src/shared/emails/template all)
+GR template (backend path : /src/modules/gr/grtemplate.ejs)
+bill template ()
+bill implimentation 

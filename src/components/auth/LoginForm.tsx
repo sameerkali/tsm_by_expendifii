@@ -142,10 +142,15 @@ export function LoginForm() {
           </Link>
         </div>
 
+        <Link
+          href="/forgot-password"
+          className="font-medium text-sky-600 hover:underline underline-offset-2"
+        >
+          Forgot password?
+        </Link>
         <button
           type="button"
           onClick={handleGuestAccess}
-          
           className="flex items-center gap-1 text-sm underline text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
         >
           Use as guest
