@@ -16,6 +16,7 @@ import { AppearanceSection } from './components/AppearanceSection';
 import { CompanyProfileSection } from './components/CompanyProfileSection';
 import { SubscriptionSection } from './components/SubscriptionSection';
 import { DownloadDataSection } from './components/DownloadDataSection';
+import { ImportDataSection } from './components/ImportDataSection';
 import { SessionSection } from './components/SessionSection';
 import { DangerZoneSection } from './components/DangerZoneSection';
 
@@ -203,6 +204,8 @@ export function SettingsClient() {
       />
 
       <DownloadDataSection />
+
+      <ImportDataSection />
 
       <SessionSection
         logout={logout}
