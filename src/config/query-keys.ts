@@ -18,3 +18,9 @@ export const COMPANY_KEYS = {
   all: ['company'] as const,
   profile: () => [...COMPANY_KEYS.all, 'profile'] as const,
 };
+
+export const CAROUSEL_KEYS = {
+  all: ['carousel'] as const,
+  list: () => [...CAROUSEL_KEYS.all, 'list'] as const,
+};
+
