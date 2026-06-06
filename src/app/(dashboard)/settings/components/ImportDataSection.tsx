@@ -182,6 +182,15 @@ export function ImportDataSection() {
               onDragEnter={handleDrag}
               onDragOver={handleDrag}
               onDragLeave={handleDrag}
+                       onKeyDown={(e) => {
+               if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                 fileInputRef.current?.click();
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label="Upload CSV or XLSX file"
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
               className={`border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center gap-3 transition-colors cursor-pointer group min-h-[160px] ${

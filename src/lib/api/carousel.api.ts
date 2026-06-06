@@ -11,8 +11,8 @@ export interface CarouselSlide {
 }
 
 export const carouselApi = {
-  getSlides: async (): Promise<ApiResponse<CarouselSlide[]>> => {
-    return apiClient.get('/carousel') as any;
+ getSlides: (): Promise<ApiResponse<CarouselSlide[]>> => {
+    return apiClient.get('/carousel') as Promise<ApiResponse<CarouselSlide[]>>;
   },
 };
 

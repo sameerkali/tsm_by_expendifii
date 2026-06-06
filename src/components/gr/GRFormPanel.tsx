@@ -912,7 +912,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   <div className="relative">
                     <select value={form.gstPaidBy} onChange={set('gstPaidBy')} className={inputClass + ' appearance-none pr-10'}>
                       <option value="">Select who pays GST</option>
-                      <option value="CONSIGNER">Consignor</option>
+                      <option value="CONSIGNOR">Consignor</option>
                       <option value="CONSIGNEE">Consignee</option>
                       <option value="TRANSPORTER">Transporter</option>
                     </select>

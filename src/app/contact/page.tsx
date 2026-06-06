@@ -35,10 +35,14 @@ export default function ContactPage() {
         message: form.message.trim() || undefined,
       });
       setStatus('success');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       setStatus('idle');
-      toast.error(err.message || 'Failed to send message. Please try again.');
+      const message =
+        err instanceof Error && err.message
+          ? err.message
+          : 'Failed to send message. Please try again.';
+      toast.error(message);
     }
   };
 

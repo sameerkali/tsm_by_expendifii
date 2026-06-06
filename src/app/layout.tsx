@@ -95,7 +95,7 @@ export default function RootLayout({
             <SmoothScroll />
             {children}
             <Analytics />
-            {process.env.MODE === "development" && <Agentation />}
+{process.env.NODE_ENV === "development" && <Agentation />}
             <Toaster position="top-right" richColors closeButton />
           </QueryProvider>
         </PreferencesProvider>

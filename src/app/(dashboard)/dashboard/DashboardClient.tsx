@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Play, 
-  Pause, 
+import {
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause,
   Loader2
 } from 'lucide-react';
 import { carouselApi, CarouselSlide } from '@/lib/api/carousel.api';
@@ -75,13 +75,12 @@ export function DashboardClient() {
     }
 
     const intervalTime = 10000;
-    const updateRate = 10;
-    const totalSteps = intervalTime / updateRate;
-    let stepCount = 0;
+    const updateRate = 100;
+    const startedAt = Date.now();
 
     progressTimerRef.current = setInterval(() => {
-      stepCount++;
-      setProgress((stepCount / totalSteps) * 100);
+      const elapsed = Date.now() - startedAt;
+      setProgress(Math.min((elapsed / intervalTime) * 100, 100));
     }, updateRate);
 
     autoplayTimerRef.current = setInterval(() => {
@@ -108,7 +107,7 @@ export function DashboardClient() {
       {/* Main Premium Carousel Banner */}
       <div className="relative h-[500px] w-full overflow-hidden rounded-[2rem] bg-slate-950 text-white shadow-2xl border border-slate-900">
         {/* Slides Container */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
           style={{ backgroundImage: `url(${slides[currentIndex]?.image})` }}
         />
@@ -119,7 +118,7 @@ export function DashboardClient() {
 
         {/* Slide Content */}
         <div className="absolute inset-y-0 left-0 w-full md:w-3/5 p-8 md:p-16 flex flex-col justify-end z-10 space-y-8">
-          
+
           {/* Text Block */}
           <div className="space-y-4">
             <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight max-w-md uppercase italic">
@@ -135,7 +134,7 @@ export function DashboardClient() {
             {/* Left-aligned controls (Play/Pause, Prev, Next) */}
             <div className="flex items-center -space-x-px">
               {/* Play/Pause Toggle */}
-              <button 
+              <button
                 onClick={() => setIsPlaying(!isPlaying)}
                 className="flex h-11 w-11 items-center justify-center rounded-l-xl rounded-r-none bg-slate-900/60 hover:bg-slate-900 border border-slate-800 text-white transition-colors cursor-pointer active:scale-95"
                 title={isPlaying ? 'Pause Autoplay' : 'Start Autoplay'}
@@ -144,7 +143,7 @@ export function DashboardClient() {
               </button>
 
               {/* Prev Arrow */}
-              <button 
+              <button
                 onClick={prevSlide}
                 className="flex h-11 w-11 items-center justify-center rounded-none bg-slate-900/60 hover:bg-slate-900 border-t border-b border-r border-slate-800 text-white transition-colors cursor-pointer active:scale-95"
                 title="Previous Slide"
@@ -153,7 +152,7 @@ export function DashboardClient() {
               </button>
 
               {/* Next Arrow */}
-              <button 
+              <button
                 onClick={nextSlide}
                 className="flex h-11 w-11 items-center justify-center rounded-r-xl rounded-l-none bg-slate-900/60 hover:bg-slate-900 border-t border-b border-r border-slate-800 text-white transition-colors cursor-pointer active:scale-95"
                 title="Next Slide"
@@ -171,9 +170,8 @@ export function DashboardClient() {
                     setCurrentIndex(idx);
                     setProgress(0);
                   }}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    idx === currentIndex ? 'w-6 bg-sky-500' : 'w-2 bg-slate-700/40 hover:bg-slate-500'
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentIndex ? 'w-6 bg-sky-500' : 'w-2 bg-slate-700/40 hover:bg-slate-500'
+                    }`}
                   title={`Go to slide ${idx + 1}`}
                 />
               ))}
@@ -183,9 +181,9 @@ export function DashboardClient() {
 
         {/* Bottom Autoplay Timer Progress Bar */}
         <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-slate-900">
-          <div 
+          <div
             className="h-full bg-sky-500 transition-all ease-linear"
-            style={{ 
+            style={{
               width: `${isPlaying ? progress : 0}%`,
               transitionDuration: isPlaying ? '50ms' : '0ms'
             }}
