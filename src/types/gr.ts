@@ -18,9 +18,9 @@ export enum PaymentStatus {
 }
 
 export enum BillingType {
-  TO_BE_BILLED = 'To be Billed',
-  PAID = 'Paid',
-  TO_PAID = 'To Paid',
+  TO_BE_BILLED = 'TO_BE_BILLED',
+  PAID = 'PAID',
+  TO_PAID = 'TO_PAID',
 }
 
 export interface GRInsurance {
@@ -59,6 +59,10 @@ export interface GR {
   ewayBillNumber?: string | null;
   insurance?: GRInsurance | null;
   remarks?: string;
+  value?: string;
+  gstPaidBy?: string;
+  shipTo?: string;
+  doorDelivery?: boolean;
   isDeleted: boolean;
   deletedAt: string | null;
   createdAt: string;
@@ -76,9 +80,9 @@ export interface GR {
 
 export interface CreateGRInput {
   customerId?: string;
-  bookingDate: string;
-  fromCity: string;
-  toCity: string;
+  bookingDate?: string;
+  fromCity?: string;
+  toCity?: string;
   consignor?: string;
   consignorGST?: string;
   consignee?: string;
@@ -87,19 +91,23 @@ export interface CreateGRInput {
   weight?: number;
   boxCount?: number;
   billingType?: BillingType | string;
-  pricingType: PricingType | string;
+  pricingType?: PricingType | string;
   rate?: number;
-  freightAmount: number;
+  freightAmount?: number;
   vehicleNumber?: string;
   driverName?: string;
   driverDocumentId?: string;
   driverMobile?: string;
-  paymentStatus: PaymentStatus | string;
-  status: GRStatus | string;
+  paymentStatus?: PaymentStatus | string;
+  status?: GRStatus | string;
   invoiceNumber?: string | null;
   ewayBillNumber?: string | null;
   insurance?: GRInsurance | null;
   remarks?: string;
+  value?: string;
+  gstPaidBy?: string;
+  shipTo?: string;
+  doorDelivery?: boolean;
 }
 
 export type UpdateGRInput = Partial<CreateGRInput>;

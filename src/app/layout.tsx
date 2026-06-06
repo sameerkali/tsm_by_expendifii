@@ -6,6 +6,8 @@ import { PreferencesProvider } from "@/providers/PreferencesProvider";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import SmoothScroll from "@/components/landing/SmoothScroll";
+import { Agentation } from "agentation";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -93,6 +95,7 @@ export default function RootLayout({
             <SmoothScroll />
             {children}
             <Analytics />
+{process.env.NODE_ENV === "development" && <Agentation />}
             <Toaster position="top-right" richColors closeButton />
           </QueryProvider>
         </PreferencesProvider>

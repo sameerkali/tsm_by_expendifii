@@ -4,16 +4,46 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { toast } from 'sonner';
+import apiClient from '@/lib/api/client';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', company: '', phone: '', message: '' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('loading');
-    await new Promise((r) => setTimeout(r, 1200));
-    setStatus('success');
+    
+    if (
+      !form.name.trim() &&
+      !form.email.trim() &&
+      !form.phone.trim() &&
+      !form.company.trim() &&
+      !form.message.trim()
+    ) {
+      toast.error('Please fill in at least one field.');
+      return;
+    }
+
+    try {
+      setStatus('loading');
+      await apiClient.post('/contact', {
+        name: form.name.trim() || undefined,
+        email: form.email.trim() || undefined,
+        phone: form.phone.trim() || undefined,
+        companyName: form.company.trim() || undefined,
+        message: form.message.trim() || undefined,
+      });
+      setStatus('success');
+    } catch (err: unknown) {
+      console.error(err);
+      setStatus('idle');
+      const message =
+        err instanceof Error && err.message
+          ? err.message
+          : 'Failed to send message. Please try again.';
+      toast.error(message);
+    }
   };
 
   return (
@@ -126,12 +156,11 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="contact-name" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
-                        Full name <span className="text-red-500" aria-label="required">*</span>
+                        Full name
                       </label>
                       <input
                         id="contact-name"
                         type="text"
-                        required
                         autoComplete="name"
                         value={form.name}
                         onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
@@ -141,12 +170,11 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <label htmlFor="contact-email" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
-                        Work email <span className="text-red-500" aria-label="required">*</span>
+                        Work email
                       </label>
                       <input
                         id="contact-email"
                         type="email"
-                        required
                         autoComplete="email"
                         value={form.email}
                         onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
@@ -156,28 +184,43 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="contact-company" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
-                      Company name
-                    </label>
-                    <input
-                      id="contact-company"
-                      type="text"
-                      autoComplete="organization"
-                      value={form.company}
-                      onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
-                      placeholder="FastMove Logistics Pvt. Ltd."
-                      className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="contact-company" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
+                        Company name
+                      </label>
+                      <input
+                        id="contact-company"
+                        type="text"
+                        autoComplete="organization"
+                        value={form.company}
+                        onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
+                        placeholder="FastMove Logistics Pvt. Ltd."
+                        className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-phone" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
+                        Contact number
+                      </label>
+                      <input
+                        id="contact-phone"
+                        type="tel"
+                        autoComplete="tel"
+                        value={form.phone}
+                        onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
+                        placeholder="+91 98765 43210"
+                        className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150"
+                      />
+                    </div>
                   </div>
 
                   <div>
                     <label htmlFor="contact-message" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
-                      Message <span className="text-red-500" aria-label="required">*</span>
+                      Message
                     </label>
                     <textarea
                       id="contact-message"
-                      required
                       rows={5}
                       value={form.message}
                       onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
