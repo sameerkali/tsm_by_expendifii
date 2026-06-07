@@ -143,12 +143,6 @@ export default function ForgotPasswordForm() {
           </button>
         </form>
       )}
-
-      <div className="text-center text-sm">
-        <Link href="/login" className="text-sky-600 hover:underline">
-          ← Back to login
-        </Link>
-      </div>
     </div>
   );
 }
