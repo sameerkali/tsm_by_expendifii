@@ -93,7 +93,7 @@ export function RegisterForm() {
               <input
                 {...register('email')}
                 type="email"
-                placeholder="Work Email"
+                placeholder="Email"
                 maxLength={254}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
@@ -406,62 +406,53 @@ export function RegisterForm() {
         </div>
 
         {/* Terms & Conditions Agreement */}
-        <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
-          <label className="flex items-center gap-3 cursor-pointer group select-none">
-            <input
-              type="checkbox"
-              checked={agreed}
-              onChange={(e) => {
-                setAgreed(e.target.checked);
-                if (e.target.checked) setAgreedError(false);
-              }}
-              className="peer sr-only"
-            />
-            <div className="h-5 w-5 shrink-0 rounded border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 transition-all duration-150 peer-checked:border-sky-500 peer-checked:bg-sky-500 dark:peer-checked:bg-sky-600 flex items-center justify-center text-white">
-              <svg
-                className="h-3.5 w-3.5 opacity-0 peer-checked:opacity-100 transition-opacity duration-150"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="3"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <span className="text-sm text-slate-500 dark:text-slate-400 leading-tight">
-              I agree to the{' '}
-              <Link
-                href="/user-agreement"
-                target="_blank"
-                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
-              >
-                User Agreement
-              </Link>
-              ,{' '}
-              <Link
-                href="/terms-and-conditions"
-                target="_blank"
-                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
-              >
-                Terms & Conditions
-              </Link>
-              , and{' '}
-              <Link
-                href="/privacy-policy"
-                target="_blank"
-                className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              .
-            </span>
-          </label>
-          {agreedError && (
-            <p className="text-xs text-red-500 animate-in fade-in duration-200">
-              You must agree to the terms, conditions, and user agreement before signing up.
-            </p>
-          )}
-        </div>
+       <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+  <label className="flex items-center gap-3 cursor-pointer select-none">
+    <input
+      type="checkbox"
+      checked={agreed}
+      onChange={(e) => {
+        setAgreed(e.target.checked);
+        if (e.target.checked) setAgreedError(false);
+      }}
+      className="mt-0.5 h-5 w-5 rounded border-slate-300 text-sky-500 focus:ring-sky-500 dark:border-slate-700 dark:bg-slate-900"
+    />
+
+    <span className="text-sm text-slate-500 dark:text-slate-400 leading-tight">
+      I agree to the{' '}
+      <Link
+        href="/user-agreement"
+        target="_blank"
+        className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
+      >
+        User Agreement
+      </Link>
+      ,{' '}
+      <Link
+        href="/terms-and-conditions"
+        target="_blank"
+        className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
+      >
+        Terms & Conditions
+      </Link>
+      , and{' '}
+      <Link
+        href="/privacy-policy"
+        target="_blank"
+        className="font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 underline decoration-dotted transition-colors"
+      >
+        Privacy Policy
+      </Link>
+      .
+    </span>
+  </label>
+
+  {agreedError && (
+    <p className="text-xs text-red-500 animate-in fade-in duration-200">
+      You must agree to the terms, conditions, and user agreement before signing up.
+    </p>
+  )}
+</div>
 
         <div className="pt-6">
           <button

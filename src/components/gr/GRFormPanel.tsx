@@ -173,17 +173,29 @@ const STATUS_CONFIG = {
 
 function buildCustomerPayloadFromGR(form: FormState): CreateCustomerInput {
   const payload: CreateCustomerInput = {
-    name: form.consignor.trim(),
-    phone: form.consignorPhone.trim(),
+    name: String(form.consignor ?? '').trim(),
+    phone: String(form.consignorPhone ?? '').trim(),
   };
 
-  if (form.consignorGST.trim()) payload.gstin = form.consignorGST.trim().toUpperCase();
-  if (form.consignorAddress.trim()) payload.address = form.consignorAddress.trim();
-  if (form.consignorCity.trim()) payload.city = form.consignorCity.trim();
-  if (form.consignorState.trim()) payload.state = form.consignorState.trim();
-  if (form.consignorPincode.trim()) payload.pincode = Number(form.consignorPincode.trim());
+  const gst = String(form.consignorGST ?? '').trim();
+  if (gst) payload.gstin = gst.toUpperCase();
+
+  const addr = String(form.consignorAddress ?? '').trim();
+  if (addr) payload.address = addr;
+
+  const city = String(form.consignorCity ?? '').trim();
+  if (city) payload.city = city;
+
+  const state = String(form.consignorState ?? '').trim();
+  if (state) payload.state = state;
+
+  const pincodeVal = typeof form.consignorPincode === 'number' ? form.consignorPincode : parseInt(String(form.consignorPincode ?? '').trim(), 10);
+  if (pincodeVal && !isNaN(pincodeVal)) payload.pincode = pincodeVal;
+
   if (form.pricingType) payload.pricingType = form.pricingType as CustomerPricingType;
-  if (form.rate.trim()) payload.defaultRate = parseFloat(form.rate);
+
+  const rateVal = typeof form.rate === 'number' ? form.rate : parseFloat(String(form.rate ?? '').trim());
+  if (rateVal != null && !isNaN(rateVal)) payload.defaultRate = rateVal;
 
   return payload;
 }
@@ -225,6 +237,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   useEffect(() => {
     if (isOpen) {
       if (editData) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setForm({
           bookingDate: editData.bookingDate?.slice(0, 10) ?? today,
           fromCity: editData.fromCity ?? '',
@@ -282,6 +295,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     const qty = form.pricingType === PricingType.BOX
       ? parseFloat(form.boxCount) || 0
       : parseFloat(form.weight) || 0;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setForm(prev => ({ ...prev, freightAmount: (rate * qty).toFixed(2) }));
   }, [form.rate, form.weight, form.boxCount, form.pricingType]);
 
@@ -467,29 +481,34 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     let finalCustomerId = customerId;
 
     // IMPLICIT CUSTOMER CREATION (only if both name and phone are provided since everything is optional)
-    if (!isEditing && !customerId && form.consignor.trim() && form.consignorPhone.trim()) {
+    if (!isEditing && !customerId && String(form.consignor ?? '').trim() && String(form.consignorPhone ?? '').trim()) {
       try {
         const res = await createCustomer.mutateAsync(buildCustomerPayloadFromGR(form));
         finalCustomerId = res.data.id;
         setCustomerId(res.data.id); // Save it locally in case GR creation fails and they retry
-      } catch {
+      } catch (err) {
+        console.error('Failed to implicitly create customer:', err);
         // Error toast is already handled by useCreateCustomer hook
         return;
       }
     }
 
+    const insCompany = String(form.insuranceCompany ?? '').trim();
+    const insPolicy = String(form.insurancePolicyNo ?? '').trim();
+    const insRisk = String(form.insuranceRisk ?? '').trim();
+
     const insurance =
-      form.insuranceCompany.trim() ||
-      form.insurancePolicyNo.trim() ||
+      insCompany ||
+      insPolicy ||
       form.insuranceDate ||
       form.insuranceAmount ||
-      form.insuranceRisk.trim()
+      insRisk
         ? {
-            company: form.insuranceCompany.trim() || undefined,
-            policyNo: form.insurancePolicyNo.trim() || undefined,
+            company: insCompany || undefined,
+            policyNo: insPolicy || undefined,
             date: form.insuranceDate || undefined,
             amount: parseFloat(form.insuranceAmount) || undefined,
-            risk: form.insuranceRisk.trim() || undefined,
+            risk: insRisk || undefined,
           }
         : undefined;
 
@@ -515,13 +534,13 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
       driverMobile: form.driverMobile || undefined,
       paymentStatus: form.paymentStatus || undefined,
       status: form.status || undefined,
-      invoiceNumber: form.invoiceNumber.trim() || undefined,
-      ewayBillNumber: form.ewayBillNumber.trim() || undefined,
+      invoiceNumber: String(form.invoiceNumber ?? '').trim() || undefined,
+      ewayBillNumber: String(form.ewayBillNumber ?? '').trim() || undefined,
       insurance,
       remarks: form.remarks || undefined,
-      value: form.value.trim() || undefined,
+      value: String(form.value ?? '').trim() || undefined,
       gstPaidBy: form.gstPaidBy || undefined,
-      shipTo: form.shipTo.trim() || undefined,
+      shipTo: String(form.shipTo ?? '').trim() || undefined,
       doorDelivery: form.doorDelivery,
     };
     if (isEditing && editData?.id) {
@@ -863,7 +882,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     <input type="number" min={0} placeholder="Number of boxes" value={form.boxCount} onChange={set('boxCount')} onBlur={blur('boxCount')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '.') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} className={cn(inputClass, fieldErrors.boxCount && errorInputClass)} />
                   </Field>
                 </div>
-                <Field label="Declared Value (₹)" error={fieldErrors.value}>
+                <Field label="Value (₹)" error={fieldErrors.value}>
                   <input placeholder="e.g. 250000" value={form.value} onChange={set('value')} onBlur={blur('value')} className={cn(inputClass, fieldErrors.value && errorInputClass)} />
                 </Field>
               </section>

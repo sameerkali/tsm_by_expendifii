@@ -6,9 +6,9 @@ import Footer from '@/components/landing/Footer';
 import FAQSection from '@/components/landing/FAQSection';
 
 export const metadata: Metadata = {
-  title: 'TSM by Expendifii — Transport Management System',
+  title: 'TSM by Expendifii Transport Management System',
   description:
-    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters — create, print, and manage lorry receipts in minutes.',
+    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
   alternates: { canonical: 'https://tsm.expendifii.com' },
 };
 
@@ -18,7 +18,7 @@ const jsonLd = {
   name: 'TSM by Expendifii',
   applicationCategory: 'BusinessApplication',
   description:
-    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters — create, print, and manage lorry receipts in minutes.',
+    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
   url: 'https://tsm.expendifii.com',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
 };
@@ -40,7 +40,7 @@ const features = [
       </svg>
     ),
     title: 'Print-Ready GR (3 Copies)',
-    description: 'Generate all three copies — Driver, Consigner, Consignee — in one click. Print instantly. Always legible, always complete.',
+    description: 'Generate all three copies Driver, Consigner, Consignee in one click. Print instantly. Always legible, always complete.',
   },
   {
     icon: (
@@ -49,7 +49,7 @@ const features = [
       </svg>
     ),
     title: 'Customisable GR Layout',
-    description: 'Show more fields or fewer — your choice. Every transporter works differently. TSM adapts to you, not the other way around.',
+    description: 'Show more fields or fewer your choice. Every transporter works differently. TSM adapts to you, not the other way around.',
   },
   {
     icon: (
@@ -67,7 +67,7 @@ const features = [
       </svg>
     ),
     title: 'Add & Manage Customers',
-    description: 'Maintain a clean customer list. Auto-fill consigner and consignee details when creating new GRs — no retyping the same information every time.',
+    description: 'Maintain a clean customer list. Auto-fill consigner and consignee details when creating new GRs no retyping the same information every time.',
   },
   {
     icon: (
@@ -76,7 +76,7 @@ const features = [
       </svg>
     ),
     title: 'Analytics Dashboard (Soon)',
-    description: 'Get visibility into your trips, volumes, and operations — in a simple dashboard designed for transport owners, not accountants.',
+    description: 'Get visibility into your trips, volumes, and operations in a simple dashboard designed for transport owners, not accountants.',
   },
   {
     icon: (
@@ -100,11 +100,11 @@ const features = [
 
 const comparisonRows = [
   { label: 'Creating a GR', manual: 'Fill 20+ fields by hand, make 3 paper copies', tsm: 'Done in under a minute, 3 copies auto-generated' },
-  { label: 'Storing records', manual: 'Paper files — lost to rats, water, or fire', tsm: 'Permanent digital records, accessible anywhere' },
+  { label: 'Storing records', manual: 'Paper files lost to rats, water, or fire', tsm: 'Permanent digital records, accessible anywhere' },
   { label: 'Finding old GRs', manual: 'Search through stacks of paper', tsm: 'Search by name, date, or GR number instantly' },
   { label: 'GR layout control', manual: 'Fixed printed format, no flexibility', tsm: 'Customise which fields appear on print' },
   { label: 'Hiring staff', manual: 'Pay someone just to manage paper GRs', tsm: 'One person can handle everything in TSM' },
-  { label: 'Using Excel', manual: 'Complex, slow, breaks easily', tsm: 'Not a solution — TSM is' },
+  { label: 'Using Excel', manual: 'Complex, slow, breaks easily', tsm: 'Not a solution TSM is' },
 ];
 
 const testimonials = [
@@ -121,7 +121,7 @@ const testimonials = [
     initials: 'FA',
   },
   {
-    quote: 'Simple hai, fast hai. Maine socha tha seekhne mein time lagega — 1 din mein sab samajh aa gaya.',
+    quote: 'Simple hai, fast hai. Maine socha tha seekhne mein time lagega 1 din mein sab samajh aa gaya.',
     name: 'Ravi Sharma',
     role: 'Dispatcher, Northern Freight Co., Ghaziabad',
     initials: 'RS',
@@ -131,7 +131,7 @@ const testimonials = [
 const faqs = [
   {
     q: 'How quickly can we get started?',
-    a: 'Most transporters are up and running within 2 to 24 hours. We help you set up your account, add your customers, and print your first GR — together.',
+    a: 'Most transporters are up and running within 2 to 24 hours. We help you set up your account, add your customers, and print your first GR together.',
   },
   {
     q: "We've been doing this on paper for years. Is it hard to switch?",
@@ -139,15 +139,15 @@ const faqs = [
   },
   {
     q: 'Can we customise what appears on the printed GR?',
-    a: 'Yes. You choose which fields appear on print. Every transport business is different — TSM works around your format, not a fixed template.',
+    a: 'Yes. You choose which fields appear on print. Every transport business is different TSM works around your format, not a fixed template.',
   },
   {
     q: 'What happens to our data if something goes wrong?',
-    a: 'Your data is stored securely on our servers — not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
+    a: 'Your data is stored securely on our servers not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
   },
   {
     q: 'Is TSM free?',
-    a: 'Yes — TSM is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service — but we\'ll always give you fair notice before anything changes.',
+    a: 'Yes TSM is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service but we\'ll always give you fair notice before anything changes.',
   },
   {
     q: 'Do you have a referral programme?',
@@ -200,7 +200,7 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-6 text-center text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              TSM replaces paper GRs, Excel sheets, and hired data-entry staff — with one fast, simple, and trustworthy platform built specifically for Indian transporters.
+              TSM replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters.
             </p>
 
             {/* CTAs */}
@@ -210,7 +210,7 @@ export default function HomePage() {
                 id="hero-cta-primary"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-[#0369A1] dark:hover:bg-sky-500 transition-all duration-200 cursor-pointer"
               >
-                Get Started — It&apos;s Free
+                Get Started It&apos;s Free
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -240,7 +240,7 @@ export default function HomePage() {
             <p className="mt-5 text-center text-sm text-slate-500 dark:text-slate-400">
               Not ready to sign up?{' '}
               <Link href="/live-demo" className="font-semibold text-[#0369A1] dark:text-sky-400 hover:underline cursor-pointer">
-                Try the live demo — no account needed →
+                Try the live demo no account needed →
               </Link>
             </p>
 
@@ -359,7 +359,7 @@ export default function HomePage() {
                 Everything a transporter actually needs.<br className="hidden sm:block" /> Nothing they don&apos;t.
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                TSM is purpose-built for transport businesses — not a generic tool forced to fit.
+                TSM is purpose-built for transport businesses not a generic tool forced to fit.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -389,7 +389,7 @@ export default function HomePage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Before vs After</p>
               <h2 id="comparison-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Paper GRs cost you more than you think —<br className="hidden sm:block" /> in time, money, and stress
+                Paper GRs cost you more than you think <br className="hidden sm:block" /> in time, money, and stress
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
                 Here&apos;s what actually changes when you move to TSM.
@@ -504,7 +504,7 @@ export default function HomePage() {
               Ready to leave the paper behind?
             </h2>
             <p className="text-lg text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-              Join transporters across NCR who are creating GRs in minutes — not hours.
+              Join transporters across NCR who are creating GRs in minutes not hours.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -525,7 +525,7 @@ export default function HomePage() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" fill="currentColor" />
                 </svg>
-                See a live demo — no signup
+                See a live demo no signup
               </Link>
             </div>
           </div>

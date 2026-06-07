@@ -19,6 +19,10 @@ export function useAuth() {
     onSuccess: async (res) => {
       const accountStatus = res.data?.accountStatus;
 
+      // Clear guest mode state and cache immediately
+      exitGuestMode();
+      queryClient.clear();
+
       // Refetch profile so useSession picks up the authenticated user
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
 
@@ -63,6 +67,10 @@ export function useAuth() {
       console.group('[useAuth] Activate onSuccess');
       console.log('Response:', JSON.stringify(res, null, 2));
       console.groupEnd();
+
+      // Clear guest mode state and cache immediately
+      exitGuestMode();
+      queryClient.clear();
 
       const durationDays = res.data?.durationDays;
       const msg = durationDays
