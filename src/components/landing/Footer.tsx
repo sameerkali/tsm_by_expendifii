@@ -28,7 +28,7 @@ export default function Footer() {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" fill="currentColor" />
               </svg>
-              Try live demo — no signup
+              Try live demo no signup
             </Link>
           </div>
 
