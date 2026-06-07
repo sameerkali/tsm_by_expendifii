@@ -78,7 +78,6 @@ export const authApi = {
    */
   getProfile: async (): Promise<ApiResponse<ProfileData>> => {
     const response = await apiClient.get('/auth/profile');
-    console.log('[AUTH] GetProfile response:', JSON.stringify(response, null, 2));
     return response as any;
   },
 

@@ -7,6 +7,8 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import SmoothScroll from "@/components/landing/SmoothScroll";
 import { Agentation } from "agentation";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 
 const geistSans = Geist({
@@ -98,6 +100,7 @@ export default function RootLayout({
 {process.env.NODE_ENV === "development" && <Agentation />}
             <Toaster position="top-right" richColors closeButton />
           </QueryProvider>
+          <SpeedInsights />
         </PreferencesProvider>
       </body>
     </html>
