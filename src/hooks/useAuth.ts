@@ -37,7 +37,7 @@ export function useAuth() {
             localStorage.setItem('profile', JSON.stringify(profile.data));
           }
         } catch (e) {
-          console.error('[useAuth] Failed to fetch profile after login', e);
+          console.warn('[useAuth] Failed to fetch profile after login', e);
         }
         
         toast.success('Welcome back!');
@@ -56,7 +56,7 @@ export function useAuth() {
       router.push('/activate');
     },
     onError: (error: unknown) => {
-      console.error('[useAuth] Register failed:', error);
+      console.warn('[useAuth] Register failed:', error);
       toast.error(getApiErrorMessage(error, 'Registration failed. Please try again.', 'auth'));
     },
   });
@@ -85,7 +85,7 @@ export function useAuth() {
           localStorage.setItem('profile', JSON.stringify(profile.data));
         }
       } catch (e) {
-        console.error('[useAuth] Failed to fetch profile after activation', e);
+        console.warn('[useAuth] Failed to fetch profile after activation', e);
       }
 
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
@@ -93,7 +93,7 @@ export function useAuth() {
     },
     onError: (error: unknown) => {
       console.group('[useAuth] Activate onError');
-      console.error('Error:', error);
+      console.warn('Error:', error);
       console.groupEnd();
 
       toast.error(getApiErrorMessage(error, 'Invalid or expired coupon code. Please try again.', 'auth'));
