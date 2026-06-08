@@ -96,6 +96,12 @@ function makeDuplicateMessage(error: ApiError): string | null {
 function makeAuthMessage(message: string, status?: number): string | null {
   const lower = message.toLowerCase();
 
+  if (lower.includes('authentication required') || lower.includes('please login')) {
+    return 'please login and active after that';
+  }
+  if (lower.includes('invalid or already used coupon')) {
+    return 'wrong coupon';
+  }
   if (lower.includes('expired')) return 'Your session has expired. Please log in again.';
   if (lower.includes('invalid token')) return 'Your login session is invalid. Please log in again.';
   if (lower.includes('coupon')) return message;

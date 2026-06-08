@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ActivateSchema, type ActivateInput } from '@/lib/validations/auth.schema';
 import { useAuth } from '@/hooks/useAuth';
+import { getApiErrorMessage } from '@/lib/api/errors';
 import { Ticket, Loader2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -12,13 +13,22 @@ export function ActivateForm() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ActivateInput>({
     resolver: zodResolver(ActivateSchema),
   });
 
   const onSubmit = (data: ActivateInput) => {
-    activate(data);
+    activate(data, {
+      onError: (err) => {
+        const message = getApiErrorMessage(err, undefined, 'auth');
+        setError('couponCode', {
+          type: 'manual',
+          message: message,
+        });
+      },
+    });
   };
 
   return (

@@ -8,12 +8,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0F172A] dark:bg-[#0369A1] shadow-sm group-hover:bg-[#0369A1] dark:group-hover:bg-sky-500 transition-colors duration-200">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3 9L12 2L21 9V20C21 20.5523 20.5523 21 20 21H15V15H9V21H4C3.44772 21 3 20.5523 3 20V9Z" fill="white" />
-                <path d="M9 21V15H15V21" stroke="white" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
-              </svg>
-            </div>
+            
             <span className="text-[15px] tracking-tight text-[#0F172A] dark:text-white" style={{ fontWeight: 700 }}>
               TSM <span className="text-[#0369A1] dark:text-sky-400">by Expendifii</span>
             </span>

@@ -821,7 +821,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       <input type="date" value={form.insuranceDate} onChange={set('insuranceDate')} className={cn(inputClass, fieldErrors.insuranceDate && errorInputClass)} />
                     </Field>
                     <Field label="Amount (₹)" error={fieldErrors.insuranceAmount}>
-                      <input type="number" min={0} step="0.01" placeholder="0.00" value={form.insuranceAmount} onChange={set('insuranceAmount')} onBlur={blur('insuranceAmount')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} className={cn(inputClass, fieldErrors.insuranceAmount && errorInputClass)} />
+                      <input type="number" min={0} step="0.01" placeholder="0.00" value={form.insuranceAmount} onChange={set('insuranceAmount')} onBlur={blur('insuranceAmount')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onWheel={(e) => e.currentTarget.blur()} className={cn(inputClass, fieldErrors.insuranceAmount && errorInputClass)} />
                     </Field>
                   </div>
                   <Field label="Risk" error={fieldErrors.insuranceRisk}>
@@ -876,10 +876,10 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Weight (kg)" error={fieldErrors.weight}>
-                    <input type="number" min={0} step="0.01" placeholder="0.00" value={form.weight} onChange={set('weight')} onBlur={blur('weight')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} className={cn(inputClass, fieldErrors.weight && errorInputClass)} />
+                    <input type="number" min={0} step="0.01" placeholder="0.00" value={form.weight} onChange={set('weight')} onBlur={blur('weight')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} onWheel={(e) => e.currentTarget.blur()} className={cn(inputClass, fieldErrors.weight && errorInputClass)} />
                   </Field>
                   <Field label="Box Count" error={fieldErrors.boxCount}>
-                    <input type="number" min={0} placeholder="Number of boxes" value={form.boxCount} onChange={set('boxCount')} onBlur={blur('boxCount')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '.') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} className={cn(inputClass, fieldErrors.boxCount && errorInputClass)} />
+                    <input type="number" min={0} placeholder="Number of boxes" value={form.boxCount} onChange={set('boxCount')} onBlur={blur('boxCount')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '.') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} onWheel={(e) => e.currentTarget.blur()} className={cn(inputClass, fieldErrors.boxCount && errorInputClass)} />
                   </Field>
                 </div>
                 <Field label="Value (₹)" error={fieldErrors.value}>
@@ -916,7 +916,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Rate (₹)" error={fieldErrors.rate}>
-                    <input type="number" min={0} step="0.01" placeholder="0.00" value={form.rate} onChange={set('rate')} onBlur={blur('rate')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} className={cn(inputClass, fieldErrors.rate && errorInputClass)} />
+                    <input type="number" min={0} step="1" placeholder="0.00" value={form.rate} onChange={set('rate')} onBlur={blur('rate')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} onWheel={(e) => e.currentTarget.blur()} className={cn(inputClass, fieldErrors.rate && errorInputClass)} />
                   </Field>
                   <Field label="Freight Amount (₹)">
                     <input

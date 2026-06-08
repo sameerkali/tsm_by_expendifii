@@ -381,6 +381,7 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
                   value={form.defaultRate}
                   onChange={set('defaultRate')}
                   onBlur={blur('defaultRate')}
+                  onWheel={(e) => e.currentTarget.blur()}
                   className={cn(inputClass, 'pl-8', err('defaultRate') && errorInputClass)}
                 />
               </div>
