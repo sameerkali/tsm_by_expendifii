@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import { carouselApi, CarouselSlide } from '@/lib/api/carousel.api';
 import { CAROUSEL_KEYS } from '@/config/query-keys';
+import { dashboardApi } from '@/lib/api/dashboard.api';
+import { AnalyticsDashboard } from '@/components/dashboard/AnalyticsDashboard';
 
 const MOCK_SLIDES: CarouselSlide[] = [
   {
@@ -40,10 +42,22 @@ const MOCK_SLIDES: CarouselSlide[] = [
 ];
 
 export function DashboardClient() {
-  // Fetch from the API
+  // Fetch carousel slides from the API
   const { data: apiResponse, isLoading } = useQuery({
     queryKey: CAROUSEL_KEYS.list(),
     queryFn: () => carouselApi.getSlides(),
+    retry: 1,
+  });
+
+  // Fetch dashboard stats from the API
+  const {
+    data: dashboardResponse,
+    isLoading: isDashboardLoading,
+    isError: isDashboardError,
+    refetch: refetchDashboard
+  } = useQuery({
+    queryKey: ['dashboard', 'analytics'],
+    queryFn: () => dashboardApi.getDashboardData(),
     retry: 1,
   });
 
@@ -103,9 +117,9 @@ export function DashboardClient() {
   }
 
   return (
-    <div className="space-y-6 pb-16" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="space-y-12 pb-16" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       {/* Main Premium Carousel Banner */}
-      <div className="relative h-[500px] w-full overflow-hidden rounded-[2rem] bg-slate-950 text-white shadow-2xl border border-slate-900">
+      <div className="relative h-[450px] w-full overflow-hidden rounded-[2rem] bg-slate-950 text-white shadow-2xl border border-slate-900">
         {/* Slides Container */}
         <div
           className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
@@ -170,7 +184,7 @@ export function DashboardClient() {
                     setCurrentIndex(idx);
                     setProgress(0);
                   }}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentIndex ? 'w-6 bg-sky-500' : 'w-2 bg-slate-700/40 hover:bg-slate-500'
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentIndex ? 'w-6 bg-sky-600 dark:bg-sky-400' : 'w-2 bg-slate-700/40 hover:bg-slate-500'
                     }`}
                   title={`Go to slide ${idx + 1}`}
                 />
@@ -182,7 +196,7 @@ export function DashboardClient() {
         {/* Bottom Autoplay Timer Progress Bar */}
         <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-slate-900">
           <div
-            className="h-full bg-sky-500 transition-all ease-linear"
+            className="h-full bg-sky-600 dark:bg-sky-400 transition-all ease-linear"
             style={{
               width: `${isPlaying ? progress : 0}%`,
               transitionDuration: isPlaying ? '50ms' : '0ms'
@@ -190,7 +204,16 @@ export function DashboardClient() {
           />
         </div>
       </div>
+
+      {/* Analytics Dashboard Panel */}
+      <AnalyticsDashboard
+        data={dashboardResponse?.data}
+        isLoading={isDashboardLoading}
+        isError={isDashboardError}
+        refetch={refetchDashboard}
+      />
     </div>
   );
 }
+
 
