@@ -9,3 +9,15 @@ dashboad implimentation on user nad admin both
 # both
 data import nd export on both 
 email testing (signup, referal, forgot password, coupon create)
+
+
+TSM 
+
+internet slow msg logic on frontend 
+multiple login (logout -msg)
+
+TODO
+PDF formatting with printer
+Bill - A4  , gr - customised/a5
+try to -bill in A4 -GR in a5
+email template changes - by react emails — BE and FE
