@@ -143,6 +143,13 @@ const GR_FIELD_SCHEMAS: Partial<Record<keyof FormState, FieldSchema>> = {
   remarks: grRemarksSchema,
   invoiceNumber: grInvoiceNumberSchema,
   insuranceAmount: grInsuranceAmountSchema,
+  freightAmount: {
+    type: 'number',
+    label: 'Freight Amount',
+    required: true,
+    min: 0,
+    max: 99999999,
+  },
   value: {
     type: 'string',
     label: 'Declared Value',
@@ -321,7 +328,12 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     const schema = GR_FIELD_SCHEMAS[field];
     if (!schema) return null;
 
-    // Treat all fields as optional for this form
+    const isMandatory = field === 'consignor' || field === 'fromCity' || field === 'toCity' || field === 'freightAmount';
+    if (isMandatory && (!value || (typeof value === 'string' && !value.trim()))) {
+      return `${schema.label || field} is required.`;
+    }
+
+    // Treat other fields as optional for this form
     const optionalSchema = { ...schema, required: false };
     if (!value || (typeof value === 'string' && !value.trim())) {
       return null;
@@ -469,11 +481,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
         return acc;
       }, {} as Record<string, boolean>);
       setTouchedFields(allTouched);
-      setFieldErrors(errors);
-      
-      // Log the validation errors to console for easier troubleshooting
-      console.error('Form validation failed:', errors);
-      
+      setFieldErrors(errors);      
       toast.error('Please fix the errors in the form before submitting.');
       return;
     }
@@ -551,6 +559,13 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   };
 
   const isSaving = createGR.isPending || updateGR.isPending || createCustomer.isPending;
+  const isSubmitDisabled =
+    !form.consignor.trim() ||
+    !form.fromCity.trim() ||
+    !form.toCity.trim() ||
+    !form.freightAmount ||
+    parseFloat(form.freightAmount) <= 0 ||
+    isSaving;
   const isNewCustomer = !isEditing && !customerId && form.consignor.trim().length > 0 && !exactMatchExists;
 
   return (
@@ -586,7 +601,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Customer */}
               <section className="space-y-4">
-                <SectionHeader>1. Consignor Details</SectionHeader>
 
                 {/* Customer linked badge */}
                 {customerId && (
@@ -606,7 +620,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
                 {/* Consignor combobox */}
                 <div ref={dropdownRef} className="relative">
-                  <Field label="Consignor (Sender)" error={fieldErrors.consignor}>
+                  <Field label="Consignor (Sender)" required error={fieldErrors.consignor}>
                     <div className="relative">
                       <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                       <input
@@ -772,7 +786,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Shipment Info */}
               <section className="space-y-4">
-                <SectionHeader>2. Shipment Info</SectionHeader>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Booking Date" error={fieldErrors.bookingDate}>
                     <input type="date" value={form.bookingDate} onChange={set('bookingDate')} onBlur={blur('bookingDate')} min={!isEditing ? today : undefined} className={cn(inputClass, fieldErrors.bookingDate && errorInputClass)} />
@@ -782,10 +795,10 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   </Field>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Field label="From City" error={fieldErrors.fromCity}>
+                  <Field label="From City" required error={fieldErrors.fromCity}>
                     <input placeholder="e.g. Mumbai" value={form.fromCity} onChange={set('fromCity')} onBlur={blur('fromCity')} maxLength={60} className={cn(inputClass, fieldErrors.fromCity && errorInputClass)} />
                   </Field>
-                  <Field label="To City" error={fieldErrors.toCity}>
+                  <Field label="To City" required error={fieldErrors.toCity}>
                     <input placeholder="e.g. Delhi" value={form.toCity} onChange={set('toCity')} onBlur={blur('toCity')} maxLength={60} className={cn(inputClass, fieldErrors.toCity && errorInputClass)} />
                   </Field>
                 </div>
@@ -799,7 +812,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Invoice & Insurance */}
               <section className="space-y-4">
-                <SectionHeader>3. Invoice & Insurance</SectionHeader>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Invoice Number" error={fieldErrors.invoiceNumber}>
                     <input placeholder="Invoice no." value={form.invoiceNumber} onChange={set('invoiceNumber')} onBlur={blur('invoiceNumber')} maxLength={60} className={cn(inputClass, fieldErrors.invoiceNumber && errorInputClass)} />
@@ -832,7 +844,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Status */}
               <section className="space-y-4">
-                <SectionHeader>4. GR Status</SectionHeader>
                 <div className="flex gap-2 flex-wrap">
                   {[GRStatus.BOOKED, GRStatus.IN_TRANSIT, GRStatus.DELIVERED].map((s) => {
                     const cfg = STATUS_CONFIG[s];
@@ -862,7 +873,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Goods */}
               <section className="space-y-4">
-                <SectionHeader>5. Goods Details</SectionHeader>
                 <Field label="Product Description" error={fieldErrors.productDescription}>
                   <textarea
                     placeholder="Describe the goods..."
@@ -889,7 +899,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Pricing */}
               <section className="space-y-4">
-                <SectionHeader>6. Freight & Pricing</SectionHeader>
                 <div className="grid grid-cols-2 gap-4">
                   <Field label="Billing Type">
                     <div className="relative">
@@ -918,7 +927,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   <Field label="Rate (₹)" error={fieldErrors.rate}>
                     <input type="number" min={0} step="1" placeholder="0.00" value={form.rate} onChange={set('rate')} onBlur={blur('rate')} onKeyDown={(e) => { if (e.key === '-' || e.key === 'e') e.preventDefault(); }} onInput={(e) => { if (e.currentTarget.value.length > 7) e.currentTarget.value = e.currentTarget.value.slice(0, 7); }} onWheel={(e) => e.currentTarget.blur()} className={cn(inputClass, fieldErrors.rate && errorInputClass)} />
                   </Field>
-                  <Field label="Freight Amount (₹)">
+                  <Field label="Freight Amount (₹)" required>
                     <input
                       type="text"
                       value={`₹ ${form.freightAmount || '0.00'}`}
@@ -951,7 +960,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Vehicle & Driver */}
               <section className="space-y-4">
-                <SectionHeader>7. Vehicle & Driver</SectionHeader>
                 <Field label="Vehicle Number" error={fieldErrors.vehicleNumber}>
                   <input placeholder="e.g. MH04 AB 1234" value={form.vehicleNumber} onChange={set('vehicleNumber')} onBlur={blur('vehicleNumber')} maxLength={20} className={cn(inputClass, fieldErrors.vehicleNumber && errorInputClass)} />
                 </Field>
@@ -995,7 +1003,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
               {/* SECTION: Remarks */}
               <section className="space-y-4">
-                <SectionHeader>8. Remarks</SectionHeader>
                 <Field label="Remarks" error={fieldErrors.remarks}>
                   <textarea
                     placeholder="Any additional notes..."
@@ -1023,7 +1030,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
           </button>
           <button
             type="submit"
-            disabled={isSaving}
+            disabled={isSubmitDisabled}
             onClick={handleSubmit}
             className="h-12 px-10 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-bold text-sm tracking-tight transition-all active:scale-95 shadow-lg shadow-sky-500/25 disabled:opacity-50 flex items-center gap-2"
           >
@@ -1038,16 +1045,12 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function SectionHeader({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase">{children}</h3>;
-}
-
 function Field({ label, children, required, error }: { label: string; children: React.ReactNode; required?: boolean; error?: string }) {
   return (
     <div className="space-y-1.5">
       <label className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
         {label}
-        {required && <span className="text-sky-500">*</span>}
+        {required && <span className="text-red-500">*</span>}
       </label>
       {children}
       {error && (

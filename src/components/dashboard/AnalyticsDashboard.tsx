@@ -14,7 +14,8 @@ import {
   Truck,
   CheckCircle,
   HelpCircle,
-  Building
+  Building,
+  IndianRupee
 } from 'lucide-react';
 import { DashboardData } from '@/lib/api/dashboard.api';
 import { cn } from '@/lib/utils/cn';
@@ -195,7 +196,7 @@ export function AnalyticsDashboard({ data, isLoading, isError, refetch }: Analyt
                 </h3>
               </div>
               <div className="p-2.5 bg-sky-600/10 dark:bg-sky-400/10 rounded-md text-sky-600 dark:text-sky-400">
-                <DollarSign size={20} />
+                <IndianRupee size={20} />
               </div>
             </div>
             

@@ -110,7 +110,7 @@ export default function GRListPage() {
       return;
     }
     duplicateGR.mutate(row.id, {
-      onSuccess: () => setHighlightedId(row.id),
+      onSuccess: (res) => setHighlightedId(res.data.id),
     });
   };
 
