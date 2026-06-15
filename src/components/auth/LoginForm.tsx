@@ -41,7 +41,7 @@ export function LoginForm() {
 
   const handleGuestAccess = () => {
     enterGuestMode();
-    router.push('/gr');
+    window.location.href = '/gr';
   };
 
   return (

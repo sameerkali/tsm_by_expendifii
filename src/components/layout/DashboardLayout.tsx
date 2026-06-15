@@ -16,8 +16,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   // Protect dashboard routes
   useEffect(() => {
     if (!isLoading && !isAuthenticated && typeof window !== 'undefined') {
-      console.warn('User is not authenticated. Redirect disabled for debugging.');
-      // window.location.href = '/';
+      console.warn('User is not authenticated. Redirecting to login.');
+      localStorage.removeItem('profile');
+      window.location.href = '/login';
     }
   }, [isLoading, isAuthenticated]);
 

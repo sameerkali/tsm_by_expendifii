@@ -28,20 +28,10 @@ export function useAuth() {
 
       if (accountStatus === 'INACTIVE') {
         toast.info('Account is inactive. Enter your coupon code to activate.');
-        router.push('/activate');
+        window.location.href = '/activate';
       } else {
-        // Fetch profile explicitly and cache in localStorage as requested
-        try {
-          const profile = await authApi.getProfile();
-          if (profile.data && typeof window !== 'undefined') {
-            localStorage.setItem('profile', JSON.stringify(profile.data));
-          }
-        } catch (e) {
-          console.warn('[useAuth] Failed to fetch profile after login', e);
-        }
-        
         toast.success('Welcome back!');
-        router.push('/gr');
+        window.location.href = '/gr';
       }
     },
     onError: (error: unknown) => {
@@ -53,7 +43,7 @@ export function useAuth() {
     mutationFn: (data: RegisterInput) => authApi.register(data),
     onSuccess: (res) => {
       toast.success(res.message || 'Account created! Activate with your coupon code.');
-      router.push('/activate');
+      window.location.href = '/activate';
     },
     onError: (error: unknown) => {
       console.warn('[useAuth] Register failed:', error);
@@ -77,19 +67,9 @@ export function useAuth() {
         ? `Account activated! Valid for ${durationDays} days.`
         : 'Account activated successfully!';
       toast.success(msg);
-      
-      // Fetch profile explicitly and cache in localStorage as requested
-      try {
-        const profile = await authApi.getProfile();
-        if (profile.data && typeof window !== 'undefined') {
-          localStorage.setItem('profile', JSON.stringify(profile.data));
-        }
-      } catch (e) {
-        console.warn('[useAuth] Failed to fetch profile after activation', e);
-      }
 
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
-      router.push('/gr');
+      window.location.href = '/gr';
     },
     onError: (error: unknown) => {
       console.group('[useAuth] Activate onError');
@@ -127,7 +107,7 @@ export function useAuth() {
         exitGuestMode();
       }
       queryClient.clear();
-      router.push('/login');
+      window.location.href = '/login';
     },
     onError: () => {
       // Even if the logout API fails, clear local state and send user to login.
@@ -137,7 +117,7 @@ export function useAuth() {
         exitGuestMode();
       }
       queryClient.clear();
-      router.push('/login');
+      window.location.href = '/login';
     },
   });
 

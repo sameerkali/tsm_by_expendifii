@@ -6,6 +6,7 @@ const apiClient = axios.create({
   // This makes every request same-origin so httpOnly cookies work correctly.
   baseURL: '/api/proxy',
   withCredentials: true,
+  timeout: 15_000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -27,7 +28,8 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && !isAuthEndpoint) {
       if (typeof window !== 'undefined') {
         console.warn('API returned 401 Unauthorized for', requestUrl);
-        // window.location.href = '/'; // Disabled to prevent hard refresh while debugging
+        localStorage.removeItem('profile');
+        window.location.href = '/login';
       }
     }
 

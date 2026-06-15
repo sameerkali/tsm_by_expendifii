@@ -34,8 +34,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Public auth pages (register, activate) don't need a token
+  // Public paths — allow unauthenticated, redirect authenticated users to dashboard
+  // (/activate is exempt from redirect so inactive accounts can use it after login)
   if (PUBLIC_PATHS.some((path) => pathname.startsWith(path))) {
+    if ((token || isGuest) && !pathname.startsWith('/activate')) {
+      return NextResponse.redirect(new URL('/gr', request.url));
+    }
     return NextResponse.next();
   }
 

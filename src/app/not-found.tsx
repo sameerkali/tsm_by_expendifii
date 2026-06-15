@@ -34,17 +34,16 @@ export default function NotFound() {
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-            href="/"
-                      className="flex items-center justify-center gap-2 bg-sky-700 dark:bg-sky-600 text-white py-4 px-8 font-bold hover:bg-sky-800 dark:hover:bg-sky-500 transition-all active:scale-[0.98]"
-
->
+          <button
+            onClick={() => router.push('/gr')}
+            className="flex items-center justify-center gap-2 bg-sky-700 dark:bg-sky-600 text-white py-4 px-8 font-bold hover:bg-sky-800 dark:hover:bg-sky-500 transition-all active:scale-[0.98] cursor-pointer"
+          >
             <ArrowLeft size={18} />
             Go Back
-          </Link>
+          </button>
           
           <Link
-            href="/"
+            href="/gr"
             className="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-2 border-slate-200 dark:border-slate-700 py-4 px-8 font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all active:scale-[0.98]"
           >
             <Home size={18} />
