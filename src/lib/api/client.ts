@@ -19,7 +19,7 @@ const AUTH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/activate', '/aut
 
 apiClient.interceptors.response.use(
   (response) => response.data,
-  (error) => {
+  async (error) => {
     const requestUrl: string = error.config?.url ?? '';
     const isAuthEndpoint = AUTH_ENDPOINTS.some((path) => requestUrl.includes(path));
 
@@ -35,7 +35,18 @@ apiClient.interceptors.response.use(
 
     // Normalise all errors into a consistent ApiError shape.
     // Backend uses both `message` and `error` as keys — check both.
-    const responseData = error.response?.data ?? {};
+    let responseData = error.response?.data ?? {};
+
+    // Handle Blob error responses (e.g. for PDF downloads that fail)
+    if (typeof window !== 'undefined' && responseData instanceof Blob && responseData.type === 'application/json') {
+      try {
+        const text = await responseData.text();
+        responseData = JSON.parse(text);
+      } catch (e) {
+        console.error('Failed to parse error Blob as JSON:', e);
+      }
+    }
+
     const apiError: ApiError = {
       success: false,
       status: error.response?.status,
