@@ -128,16 +128,7 @@ export function AppearanceSection({ theme, setTheme, fontSize, setFontSize }: Ap
             ))}
           </div>
 
-          {/* Live Preview */}
-          <div className="p-5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
-            <p className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase">Live Preview</p>
-            <p className="font-extrabold tracking-tighter text-slate-900 dark:text-white" style={{ fontSize: FONT_SIZE_MAP[fontSize] }}>
-              GR-0001 • Mumbai → Delhi
-            </p>
-            <p className="text-slate-500 dark:text-slate-400" style={{ fontSize: `calc(${FONT_SIZE_MAP[fontSize]} * 0.875)` }}>
-              Stark Industries → Avengers HQ • 5,400 kg • ₹ 64,800
-            </p>
-          </div>
+       
         </div>
       </div>
     </section>
