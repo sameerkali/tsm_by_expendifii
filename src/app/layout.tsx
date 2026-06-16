@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import QueryProvider from "@/providers/QueryProvider";
 import { PreferencesProvider } from "@/providers/PreferencesProvider";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import SmoothScroll from "@/components/landing/SmoothScroll";
@@ -74,9 +75,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      {/* Anti-flash: applies dark class & font size BEFORE first paint, preventing flicker */}
-      <head>
-        <script
+      <body
+        className="h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50"
+        suppressHydrationWarning
+      >
+        {/* Anti-flash: applies dark class & font size BEFORE first paint, preventing flicker */}
+        <Script
+          id="theme-anti-flash"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(){try{
               var t=localStorage.getItem('tms-theme')||'system';
@@ -89,11 +95,6 @@ export default function RootLayout({
             }catch(e){}})();`,
           }}
         />
-      </head>
-      <body
-        className="h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50"
-        suppressHydrationWarning
-      >
         <PreferencesProvider>
           <QueryProvider>
             <SmoothScroll />

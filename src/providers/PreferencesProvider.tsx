@@ -75,7 +75,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     const rawTheme = localStorage.getItem('tms-theme');
     const rawSize = localStorage.getItem('tms-font-size');
     
-    const savedTheme: Theme = isValidTheme(rawTheme) ? rawTheme : 'light';
+    const savedTheme: Theme = isValidTheme(rawTheme) ? rawTheme : 'system';
     const savedSize: FontSize = isValidFontSize(rawSize) ? rawSize : 'md';
 
     const resolved = resolve(savedTheme);

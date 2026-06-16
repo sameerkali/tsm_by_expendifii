@@ -8,10 +8,15 @@ import { Topbar } from './TopBar';
 import { Spinner } from '../ui';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const [hydrated, setHydrated] = useState(false);
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
   const { isAuthenticated, isLoading, user, coupon } = useSession();
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   // Protect dashboard routes
   useEffect(() => {
@@ -39,7 +44,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  if (isLoading || !isAuthenticated) {
+  if (!hydrated || isLoading || !isAuthenticated) {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
         <Spinner />

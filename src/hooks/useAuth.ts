@@ -23,6 +23,12 @@ export function useAuth() {
       exitGuestMode();
       queryClient.clear();
 
+      // Persist profile to localStorage so useSession has data on next load
+      // (the hard redirect below kills the current JS context)
+      if (res.data?.user && typeof window !== 'undefined') {
+        localStorage.setItem('profile', JSON.stringify(res.data.user));
+      }
+
       // Refetch profile so useSession picks up the authenticated user
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
 
@@ -67,6 +73,16 @@ export function useAuth() {
         ? `Account activated! Valid for ${durationDays} days.`
         : 'Account activated successfully!';
       toast.success(msg);
+
+      // Fetch and persist profile before the hard redirect
+      try {
+        const profile = await authApi.getProfile();
+        if (profile.data && typeof window !== 'undefined') {
+          localStorage.setItem('profile', JSON.stringify(profile.data));
+        }
+      } catch {
+        // Non-critical: useSession will fetch on next load
+      }
 
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
       window.location.href = '/gr';

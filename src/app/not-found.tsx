@@ -34,13 +34,7 @@ export default function NotFound() {
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => router.push('/gr')}
-            className="flex items-center justify-center gap-2 bg-sky-700 dark:bg-sky-600 text-white py-4 px-8 font-bold hover:bg-sky-800 dark:hover:bg-sky-500 transition-all active:scale-[0.98] cursor-pointer"
-          >
-            <ArrowLeft size={18} />
-            Go Back
-          </button>
+          
           
           <Link
             href="/gr"

@@ -28,7 +28,7 @@ export function useSession() {
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: false,
     enabled: !isGuest,
-    placeholderData: isGuest ? undefined : getStoredProfile,
+    initialData: isGuest ? undefined : getStoredProfile,
   });
 
   // The profile API returns: { success: true, data: { ...userFields } }
