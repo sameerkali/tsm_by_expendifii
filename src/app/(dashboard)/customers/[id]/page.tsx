@@ -3,9 +3,8 @@
 import React, { useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-  ArrowLeft, Edit2, Trash2, User as UserIcon, MapPin, Phone, Mail, Building, FileText, Loader2
+  ArrowLeft, Edit2, Trash2, Loader2, Copy, Check
 } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { getApiErrorMessage } from '@/lib/api/errors';
 import { useCustomer, useDeleteCustomer } from '@/hooks/useCustomers';
@@ -23,6 +22,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
 
   const [isEditPanelOpen, setIsEditPanelOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [copiedGstin, setCopiedGstin] = useState(false);
 
   const customer = response?.data;
 
@@ -39,11 +39,44 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
     });
   };
 
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return 'N/A';
+    return new Date(dateString).toLocaleDateString('en-IN', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
+  const getPricingBadgeColor = (type: string) => {
+    switch (type) {
+      case 'KM':
+        return 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50';
+      case 'BOX':
+        return 'bg-sky-50 text-sky-700 border border-sky-200 dark:bg-sky-950/20 dark:text-sky-400 dark:border-sky-900/50';
+      case 'KG':
+        return 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50';
+      case 'QUINTAL':
+        return 'bg-cyan-50 text-cyan-700 border border-cyan-200 dark:bg-cyan-950/20 dark:text-cyan-400 dark:border-cyan-900/50';
+      case 'TON':
+        return 'bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/20 dark:text-orange-400 dark:border-orange-900/50';
+      default:
+        return 'bg-slate-50 text-slate-700 border border-slate-200 dark:bg-slate-950/20 dark:text-slate-400 dark:border-slate-900/50';
+    }
+  };
+
+  const handleCopyGstin = (gstin: string) => {
+    navigator.clipboard.writeText(gstin);
+    setCopiedGstin(true);
+    toast.success('GSTIN copied to clipboard');
+    setTimeout(() => setCopiedGstin(false), 2000);
+  };
+
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center h-96 gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-sky-500" />
-        <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Loading Customer...</span>
+        <span className="text-sm font-bold text-slate-400 uppercase tracking-widest animate-pulse">Loading Customer...</span>
       </div>
     );
   }
@@ -53,7 +86,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
       <div className="flex flex-col items-center justify-center h-96 gap-4">
         <span className="text-lg font-bold text-slate-800 dark:text-slate-200">Customer Not Found</span>
         <span className="text-sm text-slate-500">{getApiErrorMessage(error, 'Customer not found.', 'customer')}</span>
-        <button onClick={() => router.push('/customers')} className="mt-4 flex items-center gap-2 text-sm font-bold text-sky-600 hover:text-sky-700">
+        <button onClick={() => router.push('/customers')} className="mt-4 flex items-center gap-2 text-sm font-bold text-sky-500 hover:text-sky-600 cursor-pointer">
           <ArrowLeft size={16} /> Back to Customers
         </button>
       </div>
@@ -79,95 +112,171 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
         isLoading={deleteMutation.isPending}
       />
 
-      <div className="space-y-8 max-w-5xl mx-auto">
-        {/* Header Actions */}
-        <div className="flex items-center justify-between">
-          <button 
-            onClick={() => router.push('/customers')}
-            className="flex items-center gap-2 h-10 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all font-bold text-sm"
-          >
-            <ArrowLeft size={18} /> Back to List
-          </button>
+      <div className="max-w-4xl mx-auto space-y-8">
+        {/* Top bar: Back Link and Action Buttons */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <button 
+              onClick={() => router.push('/customers')}
+              className="flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer group"
+            >
+              <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
+              Back to Customers
+            </button>
+          </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button 
               onClick={() => isGuest ? toast.info(DEMO_READ_ONLY_MESSAGE) : setIsEditPanelOpen(true)}
-              className="flex items-center gap-2 h-10 px-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-bold text-sm hover:border-sky-500 transition-all"
+              className="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-sky-500 hover:bg-sky-600 text-white font-semibold text-sm shadow-sm hover:shadow transition-all cursor-pointer"
             >
-              <Edit2 size={16} /> Edit
+              <Edit2 size={14} /> Edit
             </button>
             <button 
               onClick={() => isGuest ? toast.info(DEMO_READ_ONLY_MESSAGE) : setIsDeleteDialogOpen(true)}
-              className="flex items-center gap-2 h-10 px-5 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 font-bold text-sm hover:bg-red-100 dark:hover:bg-red-500/20 transition-all"
+              className="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-red-50 hover:bg-red-100 dark:bg-red-950/10 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 border border-red-200/50 dark:border-red-900/30 font-semibold text-sm transition-all cursor-pointer"
             >
-              <Trash2 size={16} /> Delete
+              <Trash2 size={14} /> Delete
             </button>
           </div>
         </div>
 
-        {/* Main Card */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] p-8 md:p-12 shadow-xl shadow-slate-200/20 dark:shadow-none">
-          <div className="flex flex-col md:flex-row gap-10 items-start">
-            
-            {/* Avatar / Icon */}
-            <div className="h-32 w-32 bg-sky-500/10 rounded-[2rem] flex items-center justify-center text-sky-500 shrink-0">
-              <UserIcon size={48} strokeWidth={1.5} />
-            </div>
-
-            {/* Core Details */}
-            <div className="flex-1 space-y-6">
-              <div>
-                <p className="text-[10px] font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">CUSTOMER PROFILE</p>
-                <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 dark:text-white mt-2">
-                  {customer.name}
-                </h1>
-                <div className="flex flex-wrap items-center gap-4 mt-4 text-sm font-bold text-slate-500">
-                  <span className="flex items-center gap-1.5"><Phone size={14} className="text-slate-400" /> {customer.phone}</span>
-                  {customer.email && <span className="flex items-center gap-1.5"><Mail size={14} className="text-slate-400" /> {customer.email}</span>}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-slate-100 dark:border-slate-800">
-                {/* Contact & Business Info */}
-                <div className="space-y-6">
-                  <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Business Info</h3>
-                  <div className="space-y-4">
-                    <InfoRow icon={FileText} label="GSTIN" value={customer.gstin || 'Not Provided'} />
-                    <InfoRow icon={Building} label="Pricing Type" value={customer.pricingType ? `Per ${customer.pricingType}` : 'Not Configured'} />
-                    <InfoRow icon={Building} label="Default Rate" value={customer.defaultRate ? `₹ ${customer.defaultRate}` : 'Not Configured'} />
-                  </div>
-                </div>
-
-                {/* Location Info */}
-                <div className="space-y-6">
-                  <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Location Info</h3>
-                  <div className="space-y-4">
-                    <InfoRow icon={MapPin} label="Address" value={customer.address || 'Not Provided'} />
-                    <InfoRow icon={MapPin} label="City & State" value={[customer.city, customer.state].filter(Boolean).join(', ') || 'Not Provided'} />
-                    <InfoRow icon={MapPin} label="Pincode" value={customer.pincode || 'Not Provided'} />
-                  </div>
-                </div>
-              </div>
-
-            </div>
+        {/* Profile Header */}
+        <div className="space-y-1.5">
+          <div className="flex flex-wrap items-baseline gap-3">
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+              {customer.name}
+            </h1>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50">
+              Active
+            </span>
           </div>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+            Member since {formatDate(customer.createdAt)}
+          </p>
         </div>
 
+        {/* Info Grid (No icons, typography-driven, minimal) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-12 pt-4">
+          
+          {/* Column 1: Contact Details */}
+          <div className="space-y-6">
+            <h2 className="text-[11px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase border-b border-slate-100 dark:border-slate-800 pb-2">
+              Contact Information
+            </h2>
+            
+            <div className="space-y-4">
+              <div>
+                <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Phone Number</span>
+                <a 
+                  href={`tel:${customer.phone}`}
+                  className="mt-1 block text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
+                >
+                  {customer.phone}
+                </a>
+              </div>
+              
+              {customer.email && (
+                <div>
+                  <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Email Address</span>
+                  <a 
+                    href={`mailto:${customer.email}`}
+                    className="mt-1 block text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 transition-colors truncate"
+                  >
+                    {customer.email}
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Column 2: Business & Pricing Configurations */}
+          <div className="space-y-6">
+            <h2 className="text-[11px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase border-b border-slate-100 dark:border-slate-800 pb-2">
+              Business Profile
+            </h2>
+            
+            <div className="space-y-4">
+              <div>
+                <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">GSTIN</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-mono font-bold tracking-wide text-slate-800 dark:text-slate-200">
+                    {customer.gstin || 'Not Provided'}
+                  </span>
+                  {customer.gstin && (
+                    <button
+                      onClick={() => handleCopyGstin(customer.gstin!)}
+                      className="inline-flex items-center justify-center p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
+                      title="Copy GSTIN"
+                    >
+                      {copiedGstin ? (
+                        <Check size={14} className="text-emerald-500" />
+                      ) : (
+                        <Copy size={14} />
+                      )}
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Pricing Unit</span>
+                  <div className="mt-1">
+                    {customer.pricingType ? (
+                      <span className={`inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold ${getPricingBadgeColor(customer.pricingType)}`}>
+                        Per {customer.pricingType}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-slate-400 dark:text-slate-500">Not Set</span>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Default Rate</span>
+                  <p className="mt-1 text-sm font-semibold text-slate-800 dark:text-slate-200">
+                    {customer.defaultRate ? `₹${customer.defaultRate}` : 'N/A'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: Location Details */}
+          <div className="space-y-6">
+            <h2 className="text-[11px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase border-b border-slate-100 dark:border-slate-800 pb-2">
+              Billing Address
+            </h2>
+            
+            <div className="space-y-4">
+              <div>
+                <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Street Address</span>
+                <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
+                  {customer.address || 'Not Provided'}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">City / State</span>
+                  <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">
+                    {[customer.city, customer.state].filter(Boolean).join(', ') || 'N/A'}
+                  </p>
+                </div>
+
+                <div>
+                  <span className="block text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Pincode</span>
+                  <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">
+                    {customer.pincode || 'N/A'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </>
-  );
-}
-
-function InfoRow({ icon: Icon, label, value }: { icon: LucideIcon, label: string, value: string }) {
-  return (
-    <div className="flex items-start gap-3">
-      <div className="mt-0.5 text-slate-400">
-        <Icon size={16} />
-      </div>
-      <div>
-        <p className="text-xs font-bold text-slate-500">{label}</p>
-        <p className="text-sm font-bold text-slate-900 dark:text-white mt-0.5">{value}</p>
-      </div>
-    </div>
   );
 }

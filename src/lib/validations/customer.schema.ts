@@ -4,7 +4,7 @@ export const PRICING_TYPE_OPTIONS = [
   { value: 'KM', label: 'Per KM' },
   { value: 'BOX', label: 'Per Box' },
   { value: 'KG', label: 'Per KG' },
-  { value: 'QUINTEL', label: 'Per Quintal' },
+  { value: 'QUINTAL', label: 'Per Quintal' },
   { value: 'TON', label: 'Per Ton' },
 ] as const;
 
@@ -26,7 +26,7 @@ export const CreateCustomerSchema = z.object({
   city: z.string().optional().or(z.literal('')),
   state: z.string().optional().or(z.literal('')),
   pincode: z.string().optional().or(z.literal('')),
-  pricingType: z.enum(['KM', 'BOX', 'KG', 'QUINTEL', 'TON']).optional(),
+  pricingType: z.enum(['KM', 'BOX', 'KG', 'QUINTAL', 'TON']).optional(),
   defaultRate: z.number().min(0, 'Rate must be positive').optional(),
 });
 
