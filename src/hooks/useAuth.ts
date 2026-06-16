@@ -23,10 +23,15 @@ export function useAuth() {
       exitGuestMode();
       queryClient.clear();
 
-      // Persist profile to localStorage so useSession has data on next load
-      // (the hard redirect below kills the current JS context)
-      if (res.data?.user && typeof window !== 'undefined') {
-        localStorage.setItem('profile', JSON.stringify(res.data.user));
+      // Fetch full profile from API and persist to localStorage
+      // (the hard redirect below kills JS context, so we save before navigating)
+      try {
+        const profile = await authApi.getProfile();
+        if (profile.data && typeof window !== 'undefined') {
+          localStorage.setItem('profile', JSON.stringify(profile.data));
+        }
+      } catch {
+        // Non-critical: useSession will fetch on next load
       }
 
       // Refetch profile so useSession picks up the authenticated user
