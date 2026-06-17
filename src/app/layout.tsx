@@ -10,6 +10,7 @@ import SmoothScroll from "@/components/landing/SmoothScroll";
 import { Agentation } from "agentation";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import NetworkStatusBanner from "@/components/NetworkStatusBanner";
+import CookieConsentBanner from "@/components/cookie/CookieConsentBanner";
 
 
 
@@ -96,15 +97,16 @@ export default function RootLayout({
           }}
         />
         <PreferencesProvider>
-          <QueryProvider>
-            <SmoothScroll />
-            {children}
-            <Analytics />
+            <QueryProvider>
+              <SmoothScroll />
+              {children}
+              <Analytics />
 {process.env.NODE_ENV === "development" && <Agentation />}
-            <Toaster position="top-right" richColors closeButton />
-            <NetworkStatusBanner />
-          </QueryProvider>
-          <SpeedInsights />
+              <Toaster position="top-right" richColors closeButton />
+              <NetworkStatusBanner />
+              <CookieConsentBanner />
+            </QueryProvider>
+            <SpeedInsights />
         </PreferencesProvider>
       </body>
     </html>

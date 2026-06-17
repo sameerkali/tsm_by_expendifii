@@ -19,6 +19,7 @@ import { DownloadDataSection } from './components/DownloadDataSection';
 import { ImportDataSection } from './components/ImportDataSection';
 import { SessionSection } from './components/SessionSection';
 import { DangerZoneSection } from './components/DangerZoneSection';
+import { CookieSettingsSection } from './components/CookieSettingsSection';
 
 export function SettingsClient() {
   const { logout, updateProfile, isUpdatingProfile, isLoggingOut } = useAuth();
@@ -231,6 +232,8 @@ export function SettingsClient() {
         isSubmittingDeletion={requestDeletionMutation.isPending}
         deletionRequest={deletionRequest}
       />
+
+      <CookieSettingsSection />
     </div>
   );
 }

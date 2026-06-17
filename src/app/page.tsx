@@ -314,41 +314,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── TRANSPORT IMAGERY BAND ───────────────── */}
-        <section className="py-16 bg-[#0F172A] dark:bg-slate-900 overflow-hidden" aria-label="Fleet on road">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-xs font-semibold uppercase tracking-widest text-slate-500 mb-6">
-              Managing fleets across India
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                {
-                  src: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',
-                  alt: 'Heavy logistics truck on Indian highway at dawn',
-                },
-                {
-                  src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
-                  alt: 'Fleet of cargo trucks parked at a logistics yard',
-                },
-                {
-                  src: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800&q=80',
-                  alt: 'Delivery truck driving on a highway',
-                },
-              ].map((img, i) => (
-                <div key={i} className="relative h-48 sm:h-56 rounded-xl overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover opacity-70 hover:opacity-90 transition-opacity duration-300"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/60 to-transparent" aria-hidden="true" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* ── KEY FEATURES ────────────────────────── */}
         <section id="features" className="py-20 sm:py-28 bg-white dark:bg-slate-950" aria-labelledby="features-heading">

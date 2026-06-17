@@ -139,3 +139,30 @@ html.lenis, html.lenis body {
 .lenis-scrolling iframe {
   pointer-events: none;
 }
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   GLOWING BORDER 
+───────────────────────────────────────────────────────────────────────────── */
+/* Static Purple Glow Border */
+.animated-border-box,
+.animated-border-box-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  pointer-events: none;
+}
+
+.animated-border-box {
+  border: 2px solid #7c3aed;
+  box-shadow:
+    0 0 10px #7c3aed30,
+    0 0 20px #7c3aed30,
+    0 0 40px rgba(124, 58, 237, 0.7);
+}
+
+.animated-border-box-glow {
+  border: 2px solid #7c3aed30;
+  filter: blur(12px);
+  opacity: 0.6;
+}
