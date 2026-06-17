@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Loader2, ChevronDown, CheckCircle2, AlertCircle, Search } from 'lucide-react';
+import { X, Loader2, ChevronDown, CheckCircle2, AlertCircle, Search, Pencil } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useCreateGR, useUpdateGR } from '@/hooks/useGR';
 import { useCustomers, useCreateCustomer } from '@/hooks/useCustomers';
@@ -21,6 +21,7 @@ import {
   customerCitySchema, pincodeSchema, driverNameSchema,
   grInvoiceNumberSchema, grInsuranceAmountSchema,
 } from '@/lib/validation/schemas';
+import { usePincodeAutofill } from '@/hooks/usePincodeAutofill';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -568,6 +569,72 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     isSaving;
   const isNewCustomer = !isEditing && !customerId && form.consignor.trim().length > 0 && !exactMatchExists;
 
+  // ── Pincode autofill for isNewCustomer address block ───────────────────────────
+  const [grManualMode, setGrManualMode] = React.useState(false);
+  const [grStateLocked, setGrStateLocked] = React.useState(true);
+  const [grLocalityOptions, setGrLocalityOptions] = React.useState<string[]>([]);
+  const [grLocalityOpen, setGrLocalityOpen] = React.useState(false);
+  const [grLocalityQuery, setGrLocalityQuery] = React.useState('');
+  const grLocalityRef = React.useRef<HTMLDivElement>(null);
+
+  const { status: grPincodeStatus, errorMessage: grPincodeError, localityOptions, selectLocality: grSelectLocality, clearAutofill: grClearAutofill } =
+    usePincodeAutofill(
+      form.consignorPincode,
+      (payload) => {
+        setForm((prev) => ({
+          ...prev,
+          ...(payload.city ? { consignorCity: payload.city } : {}),
+          consignorState: payload.state || prev.consignorState,
+        }));
+      },
+      () => {
+        setForm((prev) => ({ ...prev, consignorCity: '', consignorState: '' }));
+      }
+    );
+
+  // Sync locality options from hook
+  React.useEffect(() => { setGrLocalityOptions(localityOptions); }, [localityOptions]);
+
+  // Re-lock when API succeeds; reset manual mode on new customer
+  React.useEffect(() => {
+    if (grPincodeStatus === 'success') {
+      setGrStateLocked(true);
+      setGrManualMode(false);
+    }
+    if (grPincodeStatus === 'idle') setGrStateLocked(true);
+  }, [grPincodeStatus]);
+
+  // Reset pincode UI state when the customer section resets
+  React.useEffect(() => {
+    if (!isNewCustomer) {
+      setGrManualMode(false);
+      setGrStateLocked(true);
+    }
+  }, [isNewCustomer]);
+
+  // Locality combobox outside-click
+  React.useEffect(() => {
+    function handleOutside(e: MouseEvent) {
+      if (grLocalityRef.current && !grLocalityRef.current.contains(e.target as Node)) {
+        setGrLocalityOpen(false);
+        setGrLocalityQuery('');
+      }
+    }
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, []);
+
+  const grHandleEnterManually = () => {
+    grClearAutofill();
+    setGrManualMode(true);
+  };
+
+  const grHandleBackToAuto = () => {
+    setGrManualMode(false);
+    setForm((prev) => ({ ...prev, consignorCity: '', consignorState: '' }));
+  };
+  // ───────────────────────────────────────────────────────────────────────────────
+
   return (
     <>
       {isOpen && <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40" onClick={onClose} />}
@@ -719,20 +786,151 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                           <p className="text-xs font-bold text-slate-500">Additional Details</p>
                           <button type="button" onClick={() => setShowMoreDetails(false)} className="text-xs text-slate-400 hover:text-slate-600">Hide</button>
                         </div>
+
+                        {/* Full street address (always plain) */}
                         <Field label="Address" error={fieldErrors.consignorAddress}>
                           <input placeholder="Street address" value={form.consignorAddress} onChange={set('consignorAddress')} onBlur={blur('consignorAddress')} maxLength={300} className={cn(inputClass, fieldErrors.consignorAddress && errorInputClass)} />
                         </Field>
-                        <div className="grid grid-cols-2 gap-4">
-                          <Field label="City" error={fieldErrors.consignorCity}>
-                            <input placeholder="City" value={form.consignorCity} onChange={set('consignorCity')} onBlur={blur('consignorCity')} maxLength={60} className={cn(inputClass, fieldErrors.consignorCity && errorInputClass)} />
-                          </Field>
-                          <Field label="State" error={fieldErrors.consignorState}>
-                            <input placeholder="State" value={form.consignorState} onChange={set('consignorState')} maxLength={60} className={cn(inputClass, fieldErrors.consignorState && errorInputClass)} />
-                          </Field>
-                          <Field label="Pincode" error={fieldErrors.consignorPincode}>
-                            <input inputMode="numeric" placeholder="Pincode" value={form.consignorPincode} onChange={set('consignorPincode')} onBlur={blur('consignorPincode')} maxLength={6} className={cn(inputClass, fieldErrors.consignorPincode && errorInputClass)} />
-                          </Field>
-                        </div>
+
+                        {/* ── Pincode-first smart block ── */}
+                        {grManualMode ? (
+                          /* Manual fallback */
+                          <>
+                            <div className="flex items-center justify-between px-3 py-1.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-xl">
+                              <span className="text-xs text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
+                                <Pencil size={11} /> Manual entry
+                              </span>
+                              <button type="button" onClick={grHandleBackToAuto} className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium">
+                                ← Auto-detect
+                              </button>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                              <Field label="Pincode" error={fieldErrors.consignorPincode}>
+                                <input
+                                  inputMode="numeric" placeholder="Pincode"
+                                  value={form.consignorPincode}
+                                  onChange={(e) => handleFieldChange('consignorPincode', e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                  onBlur={blur('consignorPincode')} maxLength={6}
+                                  className={cn(inputClass, fieldErrors.consignorPincode && errorInputClass)}
+                                />
+                              </Field>
+                              <Field label="City" error={fieldErrors.consignorCity}>
+                                <input placeholder="City" value={form.consignorCity} onChange={set('consignorCity')} onBlur={blur('consignorCity')} maxLength={60} className={cn(inputClass, fieldErrors.consignorCity && errorInputClass)} />
+                              </Field>
+                              <Field label="State" error={fieldErrors.consignorState}>
+                                <input placeholder="State" value={form.consignorState} onChange={set('consignorState')} maxLength={60} className={cn(inputClass, fieldErrors.consignorState && errorInputClass)} />
+                              </Field>
+                            </div>
+                          </>
+                        ) : (
+                          /* Smart mode */
+                          <>
+                            {/* Pincode trigger */}
+                            <Field label="Pincode" error={fieldErrors.consignorPincode}>
+                              <div className="relative">
+                                <input
+                                  inputMode="numeric" placeholder="Enter 6-digit pincode"
+                                  value={form.consignorPincode}
+                                  onChange={(e) => handleFieldChange('consignorPincode', e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                  onBlur={blur('consignorPincode')} maxLength={6}
+                                  className={cn(
+                                    inputClass, 'pr-10',
+                                    grPincodeStatus === 'error' && 'border-red-400 focus:border-red-500',
+                                    grPincodeStatus === 'success' && 'border-emerald-400 focus:border-emerald-500',
+                                    fieldErrors.consignorPincode && errorInputClass
+                                  )}
+                                />
+                                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                                  {grPincodeStatus === 'loading' && <Loader2 size={14} className="animate-spin text-sky-500" />}
+                                  {grPincodeStatus === 'success' && <CheckCircle2 size={14} className="text-emerald-500" />}
+                                  {grPincodeStatus === 'error' && <AlertCircle size={14} className="text-red-400" />}
+                                </div>
+                              </div>
+                              {grPincodeStatus === 'error' && grPincodeError && (
+                                <div className="mt-1 space-y-1">
+                                  <p className="text-xs text-red-500">{grPincodeError}</p>
+                                  <button type="button" onClick={grHandleEnterManually} className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium">
+                                    Fill manually instead →
+                                  </button>
+                                </div>
+                              )}
+                            </Field>
+
+                            {/* Locality combobox + State */}
+                            <div className="grid grid-cols-2 gap-4">
+                              {/* Locality */}
+                              <div ref={grLocalityRef} className="relative">
+                                <Field label="City / Locality" error={fieldErrors.consignorCity}>
+                                  <div className="relative">
+                                    <input
+                                      type="text"
+                                      value={grLocalityOpen ? grLocalityQuery : form.consignorCity}
+                                      onChange={(e) => setGrLocalityQuery(e.target.value)}
+                                      onFocus={() => { if (grPincodeStatus === 'success' && grLocalityOptions.length > 0) setGrLocalityOpen(true); }}
+                                      onClick={() => { if (grPincodeStatus === 'success' && grLocalityOptions.length > 0) setGrLocalityOpen(true); }}
+                                      placeholder={grPincodeStatus !== 'success' ? 'Enter pincode first' : 'Select locality'}
+                                      disabled={grPincodeStatus !== 'success'}
+                                      autoComplete="off"
+                                      className={cn(inputClass, 'pr-8', grPincodeStatus !== 'success' && 'opacity-60 cursor-not-allowed')}
+                                    />
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+                                      {grLocalityOpen ? <Search size={13} /> : <ChevronDown size={13} />}
+                                    </div>
+                                  </div>
+                                  {grLocalityOpen && grLocalityOptions.filter(o => !grLocalityQuery || o.toLowerCase().includes(grLocalityQuery.toLowerCase())).length > 0 && (
+                                    <div className="absolute z-50 mt-1 w-full max-h-44 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg">
+                                      {grLocalityOptions
+                                        .filter(o => !grLocalityQuery || o.toLowerCase().includes(grLocalityQuery.toLowerCase()))
+                                        .map(name => (
+                                          <button
+                                            key={name} type="button"
+                                            onMouseDown={(e) => e.preventDefault()}
+                                            onClick={() => {
+                                              grSelectLocality(name);
+                                              setForm(prev => ({ ...prev, consignorCity: name }));
+                                              setGrLocalityQuery('');
+                                              setGrLocalityOpen(false);
+                                            }}
+                                            className={cn('w-full text-left px-3 py-2.5 text-sm transition-colors',
+                                              form.consignorCity === name
+                                                ? 'bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 font-medium'
+                                                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                                            )}
+                                          >{name}</button>
+                                        ))
+                                      }
+                                    </div>
+                                  )}
+                                  {grPincodeStatus === 'success' && grLocalityOptions.length > 1 && !form.consignorCity && (
+                                    <p className="text-xs text-sky-500 mt-1">Select your locality above</p>
+                                  )}
+                                  {(grPincodeStatus === 'idle' || grPincodeStatus === 'loading') && (
+                                    <button type="button" onClick={grHandleEnterManually} className="mt-1 text-xs text-slate-400 hover:text-sky-500 transition-colors">
+                                      Skip, enter manually
+                                    </button>
+                                  )}
+                                </Field>
+                              </div>
+
+                              {/* State — locked when autofilled */}
+                              <Field label="State">
+                                {grPincodeStatus === 'success' && grStateLocked ? (
+                                  <div className={cn(inputClass, 'bg-sky-50 dark:bg-sky-900/20 border-sky-300 dark:border-sky-700 flex items-center justify-between')}>
+                                    <span className="text-sm font-medium text-slate-900 dark:text-sky-100">{form.consignorState || 'State'}</span>
+                                    <button type="button" onClick={() => setGrStateLocked(false)} className="text-sky-400 hover:text-sky-600 transition-colors ml-2 flex-shrink-0" title="Edit manually">
+                                      <Pencil size={13} />
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <input placeholder="State" value={form.consignorState} onChange={set('consignorState')} maxLength={60} className={cn(inputClass, fieldErrors.consignorState && errorInputClass)} />
+                                )}
+                                {grPincodeStatus === 'success' && grStateLocked && (
+                                  <p className="text-xs text-sky-500 mt-1 flex items-center gap-1"><CheckCircle2 size={11} /> Auto-filled</p>
+                                )}
+                              </Field>
+                            </div>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>

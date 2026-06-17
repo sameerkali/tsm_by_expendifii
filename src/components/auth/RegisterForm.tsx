@@ -125,7 +125,19 @@ interface AddressBlockProps {
 function AddressBlock({ register, errors, setValue, watch }: AddressBlockProps) {
   const pincode = watch('company.address.pincode') ?? '';
   const cityValue = watch('company.address.city') ?? '';
-  const { status, errorMessage, localityOptions, selectLocality, clearAutofill } = usePincodeAutofill(pincode, setValue);
+  const { status, errorMessage, localityOptions, selectLocality, clearAutofill } = usePincodeAutofill(
+    pincode,
+    (payload) => {
+      if (payload.city) setValue('company.address.city', payload.city);
+      if (payload.district) setValue('company.address.district', payload.district);
+      if (payload.state) setValue('company.address.state', payload.state);
+    },
+    () => {
+      setValue('company.address.city', '');
+      setValue('company.address.district', '');
+      setValue('company.address.state', '');
+    }
+  );
 
   // Manual fallback mode — user or API failure can activate this
   const [manualMode, setManualMode] = useState(false);
