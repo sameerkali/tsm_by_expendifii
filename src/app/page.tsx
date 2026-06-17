@@ -75,7 +75,7 @@ const features = [
         <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Analytics Dashboard (Soon)',
+    title: 'Analytics Dashboard',
     description: 'Get visibility into your trips, volumes, and operations in a simple dashboard designed for transport owners, not accountants.',
   },
   {
@@ -93,7 +93,7 @@ const features = [
         <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
       </svg>
     ),
-    title: 'Smart Billing (Soon)',
+    title: 'Smart Billing',
     description: 'Auto-generate invoices from GR data. GST-compliant, fast, and accurate.',
   },
 ];

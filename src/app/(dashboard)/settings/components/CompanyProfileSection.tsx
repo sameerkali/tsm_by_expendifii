@@ -184,7 +184,7 @@ export function CompanyProfileSection({
                 isUploadingLogo ? 'cursor-not-allowed opacity-60' : 'cursor-pointer',
               )}>
                 {isUploadingLogo ? <Loader2 size={10} className="animate-spin" /> : <Upload size={10} />}
-                <input type="file" accept="image/png,image/jpeg" className="sr-only" disabled={isUploadingLogo} onChange={handleLogoUpload} />
+                <input type="file" accept="image/*" className="sr-only" disabled={isUploadingLogo} onChange={handleLogoUpload} />
               </label>
             )}
           </div>

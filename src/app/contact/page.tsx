@@ -90,7 +90,7 @@ export default function ContactPage() {
                     ),
                     label: 'Email',
                     value: 'hello@expendifii.com',
-                    href: 'mailto:hello@expendifii.com',
+                    href: 'mailto:work.sameerfaridi@gmail.com',
                   },
                   {
                     icon: (

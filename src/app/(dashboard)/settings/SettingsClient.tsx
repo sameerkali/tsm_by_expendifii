@@ -147,6 +147,18 @@ export function SettingsClient() {
     e.target.value = '';
     if (!file) return;
 
+    // Validate: must be an image
+    if (!file.type.startsWith('image/')) {
+      toast.error('Only image files are allowed.');
+      return;
+    }
+
+    // Validate: max 2 MB
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image must be under 2 MB.');
+      return;
+    }
+
     setLogoUploadError('');
     setIsUploadingLogo(true);
 
