@@ -572,12 +572,11 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   // ── Pincode autofill for isNewCustomer address block ───────────────────────────
   const [grManualMode, setGrManualMode] = React.useState(false);
   const [grStateLocked, setGrStateLocked] = React.useState(true);
-  const [grLocalityOptions, setGrLocalityOptions] = React.useState<string[]>([]);
   const [grLocalityOpen, setGrLocalityOpen] = React.useState(false);
   const [grLocalityQuery, setGrLocalityQuery] = React.useState('');
   const grLocalityRef = React.useRef<HTMLDivElement>(null);
 
-  const { status: grPincodeStatus, errorMessage: grPincodeError, localityOptions, selectLocality: grSelectLocality, clearAutofill: grClearAutofill } =
+  const { status: grPincodeStatus, errorMessage: grPincodeError, localityOptions: grLocalityOptions, selectLocality: grSelectLocality, clearAutofill: grClearAutofill } =
     usePincodeAutofill(
       form.consignorPincode,
       (payload) => {
@@ -591,9 +590,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
         setForm((prev) => ({ ...prev, consignorCity: '', consignorState: '' }));
       }
     );
-
-  // Sync locality options from hook
-  React.useEffect(() => { setGrLocalityOptions(localityOptions); }, [localityOptions]);
 
   // Re-lock when API succeeds; reset manual mode on new customer
   React.useEffect(() => {
