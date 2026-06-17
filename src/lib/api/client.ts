@@ -37,8 +37,11 @@ apiClient.interceptors.response.use(
     // Backend uses both `message` and `error` as keys — check both.
     let responseData = error.response?.data ?? {};
 
-    // Handle Blob error responses (e.g. for PDF downloads that fail)
-    if (typeof window !== 'undefined' && responseData instanceof Blob && responseData.type === 'application/json') {
+    // Handle Blob error responses (e.g. for PDF downloads that fail).
+    // Check the response content-type header instead of Blob.type, because
+    // Safari strips the MIME from the Blob's type property cross-origin.
+    const isBlob = typeof window !== 'undefined' && responseData instanceof Blob;
+    if (isBlob && (error.response?.headers?.['content-type'] ?? '').includes('application/json')) {
       try {
         const text = await responseData.text();
         responseData = JSON.parse(text);

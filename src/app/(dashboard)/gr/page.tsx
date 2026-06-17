@@ -104,7 +104,7 @@ export default function GRListPage() {
     });
   };
 
- const handleDuplicate = (row: GR) => {
+  const handleDuplicate = (row: GR) => {
     if (isGuest) {
       showGuestNotice();
       return;
