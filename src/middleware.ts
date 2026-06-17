@@ -13,6 +13,7 @@ const PUBLIC_PATHS = [
   '/privacy-policy',
   '/terms-and-conditions',
   '/user-agreement',
+  '/cookie-policy',
   '/why-tsm',
   '/live-demo',
 ];

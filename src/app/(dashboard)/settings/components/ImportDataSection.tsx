@@ -20,6 +20,7 @@ export function ImportDataSection() {
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [result, setResult] = useState<ImportResult | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -136,8 +137,19 @@ export function ImportDataSection() {
     } catch (e: unknown) {
       console.error(e);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const errorMsg = (e as any).message || 'Failed to import backup.';
-      toast.error(errorMsg);
+      const err: any = e;
+      const apiError = err?.response?.data;
+      if (apiError?.errors) {
+        setResult({
+          imported: { grs: 0, customers: 0 },
+          skipped: { grs: 0, customers: 0 },
+          errors: apiError.errors,
+        });
+      } else {
+        const errorMsg = err?.message || 'Failed to import backup.';
+        setUploadError(errorMsg);
+        toast.error(errorMsg);
+      }
     } finally {
       setIsUploading(false);
     }
@@ -248,6 +260,23 @@ export function ImportDataSection() {
           </div>
         </div>
 
+        {/* API Error Display */}
+        {uploadError && !result && (
+          <div className="p-6 bg-red-50 dark:bg-red-950/30 rounded-2xl border border-red-200 dark:border-red-900/50 space-y-3">
+            <h3 className="text-sm font-black text-red-600 dark:text-red-400 uppercase tracking-wider flex items-center gap-2">
+              <AlertTriangle size={16} />
+              Import Failed
+            </h3>
+            <p className="text-xs text-red-600 dark:text-red-400 font-medium">{uploadError}</p>
+            <button
+              onClick={() => setUploadError(null)}
+              className="text-xs font-bold text-red-500 hover:text-red-700 underline underline-offset-2"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
         {/* Results Panel */}
         {result && (
           <div className="p-6 bg-slate-50 dark:bg-slate-800/30 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-6">
@@ -289,7 +318,7 @@ export function ImportDataSection() {
                         Row {err.row} (GR Records)
                       </span>
                       <div className="text-slate-600 dark:text-slate-300 space-y-1">
-                        {err.errors.map((msg, mIdx) => (
+                        {(err.errors || []).map((msg, mIdx) => (
                           <p key={mIdx} className="leading-relaxed">{msg}</p>
                         ))}
                       </div>
@@ -302,7 +331,7 @@ export function ImportDataSection() {
                         Row {err.row} (Customers)
                       </span>
                       <div className="text-slate-600 dark:text-slate-300 space-y-1">
-                        {err.errors.map((msg, mIdx) => (
+                        {(err.errors || []).map((msg, mIdx) => (
                           <p key={mIdx} className="leading-relaxed">{msg}</p>
                         ))}
                       </div>

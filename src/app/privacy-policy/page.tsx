@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li>To provide and run the TSM platform.</li>
               <li>To help you create, manage, and print GRs and related records.</li>
-              <li>To send essential communications — account alerts, product updates.</li>
+              <li>To send essential communications account alerts, product updates.</li>
               <li>To improve the product based on how it&apos;s used.</li>
               <li>To comply with applicable legal obligations.</li>
             </ul>
@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
 
             <h2>5. Data Retention</h2>
             <p>
-              Your data is retained as long as your account is active. You may request deletion at any time by emailing <a href="mailto:expendifiii@gmail.com">expendifiii@gmail.com</a>. Requests are processed within 7 business days.
+              Your data is retained as long as your account is active. You may request deletion at any time by emailing <a href="mailto:expendifiii@gmail.com">expendifiii@gmail.com</a> or <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>. Requests are processed within 7 business days.
             </p>
 
             <h2>6. Your Rights</h2>

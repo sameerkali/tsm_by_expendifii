@@ -18,11 +18,10 @@ interface CloudinaryUploadResponse {
 }
 
 const MAX_LOGO_SIZE_BYTES = 2 * 1024 * 1024;
-const ALLOWED_LOGO_TYPES = ['image/png', 'image/jpeg'];
 
 function validateLogoFile(file: File) {
-  if (!ALLOWED_LOGO_TYPES.includes(file.type)) {
-    throw new Error('Please upload a PNG or JPG logo.');
+  if (!file.type.startsWith('image/')) {
+    throw new Error('Only image files are allowed.');
   }
 
   if (file.size > MAX_LOGO_SIZE_BYTES) {

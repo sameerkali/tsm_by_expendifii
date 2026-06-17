@@ -94,9 +94,26 @@ export function useDownloadCustomerGrPdf() {
       return customerApi.downloadGrPdf(customerId, from, to);
     },
     onSuccess: (blob) => {
-      // Create blob link to download
       const url = window.URL.createObjectURL(blob);
-      window.open(url, '_blank');
+      const isChrome = navigator.userAgent.includes('Chrome') && navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Edg');
+
+      if (isChrome) {
+        // Chrome: Use window.open - it works and doesn't block
+        const opened = window.open(url, '_blank');
+        if (!opened) {
+          toast.error('Popup blocked. Please allow popups to open the GR PDF.');
+        }
+      } else {
+        // Non-Chrome: Use a temporary download link (popover-safe)
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
       // Revoke the object URL after a delay to ensure it opened
       setTimeout(() => window.URL.revokeObjectURL(url), 1000);
     },

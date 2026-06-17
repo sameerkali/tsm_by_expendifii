@@ -19,6 +19,7 @@ import { DownloadDataSection } from './components/DownloadDataSection';
 import { ImportDataSection } from './components/ImportDataSection';
 import { SessionSection } from './components/SessionSection';
 import { DangerZoneSection } from './components/DangerZoneSection';
+import { CookieSettingsSection } from './components/CookieSettingsSection';
 
 export function SettingsClient() {
   const { logout, updateProfile, isUpdatingProfile, isLoggingOut } = useAuth();
@@ -147,6 +148,18 @@ export function SettingsClient() {
     e.target.value = '';
     if (!file) return;
 
+    // Validate: must be an image
+    if (!file.type.startsWith('image/')) {
+      toast.error('Only image files are allowed.');
+      return;
+    }
+
+    // Validate: max 2 MB
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image must be under 2 MB.');
+      return;
+    }
+
     setLogoUploadError('');
     setIsUploadingLogo(true);
 
@@ -219,6 +232,8 @@ export function SettingsClient() {
         isSubmittingDeletion={requestDeletionMutation.isPending}
         deletionRequest={deletionRequest}
       />
+
+      <CookieSettingsSection />
     </div>
   );
 }

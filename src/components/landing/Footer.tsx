@@ -78,6 +78,7 @@ export default function Footer() {
                 { label: 'Privacy Policy', href: '/privacy-policy' },
                 { label: 'Terms & Conditions', href: '/terms-and-conditions' },
                 { label: 'User Agreement', href: '/user-agreement' },
+                { label: 'Cookie Policy', href: '/cookie-policy' },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors duration-150 cursor-pointer">

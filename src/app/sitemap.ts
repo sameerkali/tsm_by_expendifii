@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.3 },
     { path: '/terms-and-conditions', changeFrequency: 'yearly', priority: 0.3 },
     { path: '/user-agreement', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/cookie-policy', changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   return routes.map(({ path, changeFrequency, priority }) => ({

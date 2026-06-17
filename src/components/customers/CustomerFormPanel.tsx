@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { X, Loader2, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { X, Loader2, ChevronDown, CheckCircle2, AlertCircle, Search, Pencil } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useCreateCustomer, useUpdateCustomer } from '@/hooks/useCustomers';
 import { getApiFieldErrors } from '@/lib/api/errors';
-import { PRICING_TYPE_OPTIONS, INDIAN_STATES } from '@/lib/validations/customer.schema';
+import { PRICING_TYPE_OPTIONS } from '@/lib/validations/customer.schema';
 import type { CreateCustomerInput, Customer, PricingType } from '@/types/customer';
 import { sanitizeValue } from '@/lib/validation/sanitize';
 import { validateValue } from '@/lib/validation/validate';
@@ -20,6 +20,7 @@ import {
   defaultRateSchema,
 } from '@/lib/validation/schemas';
 import type { FieldSchema } from '@/lib/validation/fieldSchema';
+import { usePincodeAutofill } from '@/hooks/usePincodeAutofill';
 
 interface CustomerFormPanelProps {
   isOpen: boolean;
@@ -96,6 +97,94 @@ function formToPayload(form: FormState): CreateCustomerInput {
   return payload;
 }
 
+// ─── Locality Combobox (inline, reused pattern from RegisterForm) ─────────────
+
+interface LocalityComboboxProps {
+  options: string[];
+  value: string;
+  onChange: (val: string) => void;
+  disabled?: boolean;
+}
+
+function LocalityCombobox({ options, value, onChange, disabled }: LocalityComboboxProps) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const filtered = query
+    ? options.filter((o) => o.toLowerCase().includes(query.toLowerCase()))
+    : options;
+
+  useEffect(() => {
+    function handleOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        setQuery('');
+      }
+    }
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, []);
+
+  const handleSelect = (name: string) => {
+    onChange(name);
+    setQuery('');
+    setOpen(false);
+  };
+
+  return (
+    <div ref={containerRef} className="relative">
+      <div className="relative">
+        <input
+          type="text"
+          value={open ? query : value}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => { if (!disabled && options.length > 0) setOpen(true); }}
+          onClick={() => { if (!disabled && options.length > 0) setOpen(true); }}
+          placeholder={disabled ? 'Enter pincode first' : 'Select Locality / Area'}
+          disabled={disabled}
+          autoComplete="off"
+          className={cn(
+            inputClass,
+            'pr-8',
+            disabled && 'opacity-60 cursor-not-allowed'
+          )}
+        />
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+          {open ? <Search size={14} /> : <ChevronDown size={14} />}
+        </div>
+      </div>
+      {open && filtered.length > 0 && (
+        <div className="absolute z-50 mt-1 w-full max-h-48 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg animate-in fade-in slide-in-from-top-1 duration-150">
+          {filtered.map((name) => (
+            <button
+              key={name}
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => handleSelect(name)}
+              className={cn(
+                'w-full text-left px-4 py-2.5 text-sm transition-colors',
+                value === name
+                  ? 'bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 font-medium'
+                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+              )}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+      )}
+      {open && filtered.length === 0 && query && (
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg px-4 py-3 text-sm text-slate-400">
+          No results for &ldquo;{query}&rdquo;
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPanelProps) {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -106,11 +195,71 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
   const updateMutation = useUpdateCustomer();
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
+  // ── Pincode autofill state ─────────────────────────────────────────────────
+  const [manualMode, setManualMode] = useState(false);
+  const [districtLocked, setDistrictLocked] = useState(true);
+  const [stateLocked, setStateLocked] = useState(true);
+
+  const pincodeStr = String(form.pincode || '');
+
+  const onAutofill = useCallback((payload: { city: string; district: string; state: string }) => {
+    setForm((prev) => ({
+      ...prev,
+      ...(payload.city ? { city: payload.city } : {}),
+      ...(payload.district ? { } : {}), // district stored separately
+      ...(payload.state ? { state: payload.state } : {}),
+    }));
+    // Store district in fieldErrors-adjacent state via a dedicated holder
+    setAutofillDistrict(payload.district);
+    setForm((prev) => ({
+      ...prev,
+      ...(payload.city ? { city: payload.city } : {}),
+      state: payload.state || prev.state,
+    }));
+  }, []);
+
+  const onClear = useCallback(() => {
+    setForm((prev) => ({ ...prev, city: '', state: '' }));
+    setAutofillDistrict('');
+  }, []);
+
+  const [autofillDistrict, setAutofillDistrict] = useState('');
+
+  const { status: pincodeStatus, errorMessage: pincodeError, localityOptions, selectLocality, clearAutofill } =
+    usePincodeAutofill(pincodeStr, onAutofill, onClear);
+
+  // Re-lock when autofill succeeds; reset manual mode if pincode becomes valid
+  useEffect(() => {
+    if (pincodeStatus === 'success') {
+      setDistrictLocked(true);
+      setStateLocked(true);
+      setManualMode(false);
+    }
+    if (pincodeStatus === 'idle') {
+      setDistrictLocked(true);
+      setStateLocked(true);
+    }
+  }, [pincodeStatus]);
+
+  const handleEnterManually = () => {
+    clearAutofill();
+    setManualMode(true);
+  };
+
+  const handleBackToAuto = () => {
+    setManualMode(false);
+    setForm((prev) => ({ ...prev, city: '', state: '' }));
+    setAutofillDistrict('');
+  };
+  // ──────────────────────────────────────────────────────────────────────────
+
   useEffect(() => {
     if (isOpen) {
       setForm(editData ? customerToForm(editData) : EMPTY_FORM);
       setFieldErrors({});
       setTouched({});
+      setManualMode(false);
+      setAutofillDistrict('');
     }
   }, [isOpen, editData]);
 
@@ -299,49 +448,169 @@ export function CustomerFormPanel({ isOpen, onClose, editData }: CustomerFormPan
             />
           </Field>
 
-          <div className="grid grid-cols-3 gap-4">
-            <Field label="City" error={err('city')}>
-              <input
-                placeholder="e.g. Delhi"
-                value={form.city}
-                onChange={set('city')}
-                onBlur={blur('city')}
-                maxLength={50}
-                className={cn(inputClass, err('city') && errorInputClass)}
-              />
-            </Field>
-            <Field label="State" error={fieldErrors.state}>
-              <div className="relative">
-                <select
-                  value={form.state}
-                  onChange={set('state')}
-                  className={cn(inputClass, 'appearance-none pr-8 cursor-pointer', fieldErrors.state && errorInputClass)}
+          {/* ── Pincode-first address autofill ─────────────────────────── */}
+          {manualMode ? (
+            /* Manual fallback */
+            <>
+              <div className="flex items-center justify-between px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-xl">
+                <span className="text-xs text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
+                  <Pencil size={11} />
+                  Manual address entry
+                </span>
+                <button
+                  type="button"
+                  onClick={handleBackToAuto}
+                  className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium transition-colors"
                 >
-                  <option value="">Select</option>
-                  {INDIAN_STATES.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown
-                  size={14}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
-                />
+                  ← Back to auto-detect
+                </button>
               </div>
-            </Field>
-            <Field label="Pincode" error={err('pincode')} >
-              <input
-                inputMode="numeric"
-                placeholder="110001"
-                value={form.pincode}
-                onChange={set('pincode')}
-                onBlur={blur('pincode')}
-                maxLength={6}
-                className={cn(inputClass, err('pincode') && errorInputClass)}
-              />
-            </Field>
-          </div>
+              <div className="grid grid-cols-3 gap-4">
+                <Field label="Pincode" error={err('pincode')}>
+                  <input
+                    inputMode="numeric"
+                    placeholder="110001"
+                    value={form.pincode || ''}
+                    onChange={set('pincode')}
+                    onBlur={blur('pincode')}
+                    maxLength={6}
+                    className={cn(inputClass, err('pincode') && errorInputClass)}
+                  />
+                </Field>
+                <Field label="Locality / City" error={err('city')}>
+                  <input
+                    placeholder="e.g. Saket"
+                    value={form.city}
+                    onChange={set('city')}
+                    onBlur={blur('city')}
+                    maxLength={50}
+                    className={cn(inputClass, err('city') && errorInputClass)}
+                  />
+                </Field>
+                <Field label="State" error={fieldErrors.state}>
+                  <input
+                    placeholder="e.g. Maharashtra"
+                    value={form.state}
+                    onChange={set('state')}
+                    onBlur={blur('state')}
+                    maxLength={60}
+                    className={cn(inputClass, fieldErrors.state && errorInputClass)}
+                  />
+                </Field>
+              </div>
+            </>
+          ) : (
+            /* Smart autofill mode */
+            <>
+              {/* Row: Pincode (trigger) */}
+              <Field
+                label="Pincode"
+                error={err('pincode')}
+                hint={pincodeStatus === 'loading' ? 'looking up…' : undefined}
+              >
+                <div className="relative">
+                  <input
+                    inputMode="numeric"
+                    placeholder="Enter 6-digit pincode"
+                    value={form.pincode || ''}
+                    onChange={(e) => {
+                      const v = e.target.value.replace(/\D/g, '').slice(0, 6);
+                      setForm((prev) => ({ ...prev, pincode: Number(v) || 0 }));
+                      if (touched.pincode) {
+                        const error = validateValue(v, customerPincodeSchema);
+                        setFieldErrors((prev) => ({ ...prev, pincode: error ?? '' }));
+                      }
+                    }}
+                    onBlur={blur('pincode')}
+                    maxLength={6}
+                    className={cn(
+                      inputClass, 'pr-10',
+                      pincodeStatus === 'error' && 'border-red-400 focus:border-red-500',
+                      pincodeStatus === 'success' && 'border-emerald-400 focus:border-emerald-500',
+                      err('pincode') && errorInputClass
+                    )}
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    {pincodeStatus === 'loading' && <Loader2 size={15} className="animate-spin text-sky-500" />}
+                    {pincodeStatus === 'success' && <CheckCircle2 size={15} className="text-emerald-500" />}
+                    {pincodeStatus === 'error' && <AlertCircle size={15} className="text-red-400" />}
+                  </div>
+                </div>
+                {pincodeStatus === 'error' && pincodeError && (
+                  <div className="mt-1 space-y-1">
+                    <p className="text-xs text-red-500">{pincodeError}</p>
+                    <button
+                      type="button"
+                      onClick={handleEnterManually}
+                      className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium"
+                    >
+                      Fill manually instead →
+                    </button>
+                  </div>
+                )}
+              </Field>
+
+              {/* Row: Locality + State */}
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Locality / City" error={err('city')}>
+                  <LocalityCombobox
+                    options={localityOptions}
+                    value={form.city}
+                    onChange={(name) => {
+                      selectLocality(name);
+                      setForm((prev) => ({ ...prev, city: name }));
+                    }}
+                    disabled={pincodeStatus !== 'success'}
+                  />
+                  {pincodeStatus === 'success' && localityOptions.length > 1 && !form.city && (
+                    <p className="text-xs text-sky-500 mt-1">Select your locality above</p>
+                  )}
+                  {(pincodeStatus === 'idle' || pincodeStatus === 'loading') && (
+                    <button
+                      type="button"
+                      onClick={handleEnterManually}
+                      className="mt-1 text-xs text-slate-400 hover:text-sky-500 transition-colors"
+                    >
+                      Skip, enter manually
+                    </button>
+                  )}
+                </Field>
+
+                <Field label="State">
+                  {pincodeStatus === 'success' && stateLocked ? (
+                    <div className={cn(inputClass, 'bg-sky-50 dark:bg-sky-900/20 border-sky-300 dark:border-sky-700 flex items-center justify-between')}>
+                      <span className="text-sm font-medium text-slate-900 dark:text-sky-100">
+                        {form.state || 'State'}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setStateLocked(false)}
+                        className="text-sky-400 hover:text-sky-600 transition-colors ml-2 flex-shrink-0"
+                        title="Edit manually"
+                      >
+                        <Pencil size={13} />
+                      </button>
+                    </div>
+                  ) : (
+                    <input
+                      placeholder="e.g. Maharashtra"
+                      value={form.state}
+                      onChange={set('state')}
+                      onBlur={blur('state')}
+                      maxLength={60}
+                      className={cn(inputClass, fieldErrors.state && errorInputClass)}
+                    />
+                  )}
+                  {pincodeStatus === 'success' && stateLocked && (
+                    <p className="text-xs text-sky-500 mt-1 flex items-center gap-1">
+                      <CheckCircle2 size={11} /> Auto-filled
+                    </p>
+                  )}
+                </Field>
+              </div>
+            </>
+          )}
+          {/* ────────────────────────────────────────────────────────────── */}
 
           {/* Pricing Section */}
           <Field
