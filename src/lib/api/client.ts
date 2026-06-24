@@ -15,7 +15,14 @@ const apiClient = axios.create({
 
 // Auth endpoints that intentionally return 4xx — must NEVER trigger a redirect.
 // A 401 here means wrong password; a 409 means duplicate email, etc.
-const AUTH_ENDPOINTS = ['/auth/login', '/auth/register', '/auth/activate', '/auth/profile'];
+const AUTH_ENDPOINTS = [
+  '/auth/login',
+  '/auth/register',
+  '/auth/activate',
+  '/auth/profile',
+  '/auth/forgot-password',
+  '/auth/reset-password',
+];
 
 apiClient.interceptors.response.use(
   (response) => response.data,

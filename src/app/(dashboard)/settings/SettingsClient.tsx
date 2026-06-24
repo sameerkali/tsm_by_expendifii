@@ -224,6 +224,7 @@ export function SettingsClient() {
         logout={logout}
         isLoggingOut={isLoggingOut}
       />
+      <CookieSettingsSection />
 
       <DangerZoneSection
         showDeleteConfirm={showDeleteConfirm}
@@ -233,7 +234,6 @@ export function SettingsClient() {
         deletionRequest={deletionRequest}
       />
 
-      <CookieSettingsSection />
     </div>
   );
 }
