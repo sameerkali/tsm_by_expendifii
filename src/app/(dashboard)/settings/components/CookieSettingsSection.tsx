@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils/cn';
 import { toast } from 'sonner';
+import { CookiePolicyModal } from '@/components/cookie/CookiePolicyModal';
 
 interface CookiePreferences {
   necessary: boolean;
@@ -83,6 +84,7 @@ export function CookieSettingsSection() {
     necessary: true,
     analytics: false,
   });
+  const [isPolicyOpen, setIsPolicyOpen] = useState(false);
   const [saved, setSaved] = useState<CookiePreferences | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -177,12 +179,21 @@ export function CookieSettingsSection() {
 
         <p className="text-xs text-slate-400 dark:text-slate-500">
           Read our{' '}
-          <Link href="/cookie-policy" className="text-[#0369A1] dark:text-sky-400 hover:underline underline-offset-2 transition-colors">
+          <Link 
+            href="/cookie-policy" 
+            onClick={(e) => {
+              e.preventDefault();
+              setIsPolicyOpen(true);
+            }}
+            className="text-[#0369A1] dark:text-sky-400 hover:underline underline-offset-2 transition-colors cursor-pointer"
+          >
             Cookie Policy
           </Link>{' '}
           to learn more.
         </p>
       </div>
+
+      <CookiePolicyModal isOpen={isPolicyOpen} onClose={() => setIsPolicyOpen(false)} />
     </section>
   );
 }
