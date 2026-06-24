@@ -23,6 +23,7 @@ export function ImportDataSection() {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showFullError, setShowFullError] = useState(false);
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -135,7 +136,6 @@ export function ImportDataSection() {
         toast.error('Failed to import records.');
       }
     } catch (e: unknown) {
-      console.error(e);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const err: any = e;
       const apiError = err?.response?.data;
@@ -148,7 +148,7 @@ export function ImportDataSection() {
       } else {
         const errorMsg = err?.message || 'Failed to import backup.';
         setUploadError(errorMsg);
-        toast.error(errorMsg);
+        toast.error(errorMsg.length > 20 ? `${errorMsg.slice(0, 50)}...` : errorMsg);
       }
     } finally {
       setIsUploading(false);
@@ -267,7 +267,20 @@ export function ImportDataSection() {
               <AlertTriangle size={16} />
               Import Failed
             </h3>
-            <p className="text-xs text-red-600 dark:text-red-400 font-medium">{uploadError}</p>
+            <p className="text-xs text-red-600 dark:text-red-400 font-medium">
+  {showFullError || uploadError.length <= 100
+    ? uploadError
+    : `${uploadError.slice(0, 100)}...`}
+  
+  {uploadError.length > 100 && (
+    <button
+      onClick={() => setShowFullError(!showFullError)}
+      className="ml-1 text-purple-600 hover:underline"
+    >
+      {showFullError ? "less" : "more"}
+    </button>
+  )}
+</p>
             <button
               onClick={() => setUploadError(null)}
               className="text-xs font-bold text-red-500 hover:text-red-700 underline underline-offset-2"
