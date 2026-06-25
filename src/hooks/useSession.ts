@@ -4,7 +4,9 @@ import authApi from '@/lib/api/auth.api';
 import { COMPANY_KEYS } from '@/config/query-keys';
 import { guestCoupon, guestUser, isGuestModeClient } from '@/lib/demo/guest';
 import { User, Coupon, ProfileData } from '@/types/session';
-import type { ApiResponse } from '@/types/api';
+import type { ApiError, ApiResponse } from '@/types/api';
+
+const ACCOUNT_DEACTIVATED_EVENT = 'account-deactivated';
 
 const PROFILE_STORAGE_KEY = 'profile';
 
@@ -40,6 +42,19 @@ export function useSession() {
       localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
     }
   }, [profileData]);
+
+  // Detect account deactivation from the profile query error.
+  // The profile endpoint is in AUTH_ENDPOINTS so the axios interceptor won't
+  // dispatch the event — we must catch it here for fresh page loads.
+  useEffect(() => {
+    if (!error || typeof window === 'undefined') return;
+    const apiError = error as unknown as ApiError;
+    const message = apiError.message ?? '';
+    if (/account (not found|inactive|deactivated)/i.test(message)) {
+      sessionStorage.setItem('account_deactivated', 'true');
+      window.dispatchEvent(new CustomEvent(ACCOUNT_DEACTIVATED_EVENT, { detail: { message } }));
+    }
+  }, [error]);
 
   const user: User | undefined = isGuest ? guestUser : profileData as User | undefined;
   

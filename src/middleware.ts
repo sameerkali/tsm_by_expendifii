@@ -39,6 +39,13 @@ export async function middleware(request: NextRequest) {
   // (/activate is exempt from redirect so inactive accounts can use it after login)
   if (PUBLIC_PATHS.some((path) => pathname.startsWith(path))) {
     if ((token || isGuest) && !pathname.startsWith('/activate')) {
+      // Account was deactivated — clear the httpOnly cookie and let the user
+      // through to /login instead of redirecting back to the dashboard loop.
+      if (pathname === '/login' && request.nextUrl.searchParams.get('reason') === 'deactivated') {
+        const response = NextResponse.next();
+        response.cookies.set(COOKIE_NAME, '', { maxAge: 0, path: '/' });
+        return response;
+      }
       return NextResponse.redirect(new URL('/gr', request.url));
     }
     return NextResponse.next();

@@ -23,9 +23,15 @@ import { CookieSettingsSection } from './components/CookieSettingsSection';
 
 export function SettingsClient() {
   const { logout, updateProfile, isUpdatingProfile, isLoggingOut } = useAuth();
-  const { user, isLoading: isLoadingProfile } = useSession();
+  const { user, isLoading: isLoadingProfile, refetch: refetchProfile } = useSession();
   const { theme, setTheme, fontSize, setFontSize } = usePreferences();
   const queryClient = useQueryClient();
+
+  // Force a fresh profile fetch on mount so admin-side changes (coupon activation,
+  // account updates, etc.) are reflected immediately without requiring re-login.
+  useEffect(() => {
+    refetchProfile();
+  }, [refetchProfile]);
 
   // Query deletion status - only call if user profile has deletionRequest
   const { data: deletionStatusData, refetch: refetchDeletionStatus } = useQuery({
