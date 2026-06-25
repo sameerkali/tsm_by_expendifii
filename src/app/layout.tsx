@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 import QueryProvider from "@/providers/QueryProvider";
 import { PreferencesProvider } from "@/providers/PreferencesProvider";
@@ -8,12 +9,9 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import SmoothScroll from "@/components/landing/SmoothScroll";
 import { Agentation } from "agentation";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 // import NetworkStatusBanner from "@/components/NetworkStatusBanner";
 import CookieConsentBanner from "@/components/cookie/CookieConsentBanner";
-
-
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +33,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://tsm.expendifii.com"),
   title: "TMS by Expendifii",
-  description: "Advanced Transport Management System for modern logistics and fleet tracking.",
+  description:
+    "Advanced Transport Management System for modern logistics and fleet tracking.",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
@@ -43,7 +42,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "TMS by Expendifii",
-    description: "Advanced Transport Management System for modern logistics and fleet tracking.",
+    description:
+      "Advanced Transport Management System for modern logistics and fleet tracking.",
     url: "https://tsm.expendifii.com",
     siteName: "Expendifii TMS",
     images: [
@@ -60,7 +60,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "TMS by Expendifii",
-    description: "Advanced Transport Management System for modern logistics and fleet tracking.",
+    description:
+      "Advanced Transport Management System for modern logistics and fleet tracking.",
     images: ["/og-image.png"],
   },
 };
@@ -97,16 +98,16 @@ export default function RootLayout({
           }}
         />
         <PreferencesProvider>
-            <QueryProvider>
-              <SmoothScroll />
-              {children}
-              <Analytics />
-{process.env.NODE_ENV === "development" && <Agentation />}
-              <Toaster position="top-right" richColors closeButton />
-              {/* <NetworkStatusBanner /> */}
-              <CookieConsentBanner />
-            </QueryProvider>
-            <SpeedInsights />
+          <QueryProvider>
+            <SmoothScroll />
+            <Suspense fallback={null}>{children}</Suspense>
+            <Analytics />
+            {process.env.NODE_ENV === "development" && <Agentation />}
+            <Toaster position="top-right" richColors closeButton />
+            {/* <NetworkStatusBanner /> */}
+            <CookieConsentBanner />
+          </QueryProvider>
+          <SpeedInsights />
         </PreferencesProvider>
       </body>
     </html>
