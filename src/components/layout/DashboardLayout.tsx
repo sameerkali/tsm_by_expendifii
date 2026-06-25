@@ -6,6 +6,7 @@ import { useSession } from '@/hooks/useSession';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './TopBar';
 import { Spinner } from '../ui';
+import { DeactivatedAccountModal } from '../auth/DeactivatedAccountModal';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
@@ -21,6 +22,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   // Protect dashboard routes
   useEffect(() => {
     if (!isLoading && !isAuthenticated && typeof window !== 'undefined') {
+      // If the account was deactivated, don't redirect — the DeactivatedAccountModal
+      // handles the flow (displays the error and forces logout, clearing the cookie first).
+      if (sessionStorage.getItem('account_deactivated') === 'true') return;
       console.warn('User is not authenticated. Redirecting to login.');
       localStorage.removeItem('profile');
       window.location.href = '/login';
@@ -46,14 +50,18 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   if (!hydrated || isLoading || !isAuthenticated) {
     return (
-      <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
-        <Spinner />
-      </div>
+      <>
+        <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
+          <Spinner />
+        </div>
+        <DeactivatedAccountModal />
+      </>
     );
   }
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-sky-500/30 overflow-hidden">
+    <>
+      <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-sky-500/30 overflow-hidden">
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
         <div
@@ -93,5 +101,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     </div>
+      <DeactivatedAccountModal />
+    </>
   );
 }

@@ -22,6 +22,7 @@ const AUTH_ENDPOINTS = [
   '/auth/profile',
   '/auth/forgot-password',
   '/auth/reset-password',
+  '/auth/logout',
 ];
 
 apiClient.interceptors.response.use(
@@ -29,16 +30,6 @@ apiClient.interceptors.response.use(
   async (error) => {
     const requestUrl: string = error.config?.url ?? '';
     const isAuthEndpoint = AUTH_ENDPOINTS.some((path) => requestUrl.includes(path));
-
-    // Only redirect to login on 401 for protected routes (session expiry).
-    // Auth endpoints must surface their errors back to the form.
-    if (error.response?.status === 401 && !isAuthEndpoint) {
-      if (typeof window !== 'undefined') {
-        console.warn('API returned 401 Unauthorized for', requestUrl);
-        localStorage.removeItem('profile');
-        window.location.href = '/login';
-      }
-    }
 
     // Normalise all errors into a consistent ApiError shape.
     // Backend uses both `message` and `error` as keys — check both.
@@ -54,6 +45,27 @@ apiClient.interceptors.response.use(
         responseData = JSON.parse(text);
       } catch (e) {
         console.error('Failed to parse error Blob as JSON:', e);
+      }
+    }
+
+    // Only redirect to login on 401 for protected routes (session expiry).
+    // Auth endpoints must surface their errors back to the form.
+    if (error.response?.status === 401 && !isAuthEndpoint) {
+      if (typeof window !== 'undefined') {
+        const message = responseData.message ?? responseData.error ?? '';
+        // Account deactivated by admin — show modal instead of redirecting to login.
+        // The modal displays the error and forces logout, which clears the cookie first
+        // to prevent the middleware from redirecting back into an infinite loop.
+        if (/account (not found|inactive|deactivated)/i.test(message)) {
+          // Fire-and-forget: clear the httpOnly cookie server-side so the middleware
+          // doesn't redirect back from /login after we show the modal.
+          fetch('/api/proxy/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
+          window.dispatchEvent(new CustomEvent('account-deactivated', { detail: { message } }));
+        } else {
+          console.warn('API returned 401 Unauthorized for', requestUrl);
+          localStorage.removeItem('profile');
+          window.location.href = '/login';
+        }
       }
     }
 

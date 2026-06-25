@@ -21,3 +21,13 @@ PDF formatting with printer
 Bill - A4  , gr - customised/a5
 try to -bill in A4 -GR in a5
 email template changes - by react emails — BE and FE
+
+// 
+
+sitemap 
+add to google search console 
+add keyword (backlinks )
+demo video 
+post about it on product hunt 
+add posthog in website 
+test issues ()
