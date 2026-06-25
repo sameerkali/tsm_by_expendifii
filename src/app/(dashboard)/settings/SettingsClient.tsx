@@ -1,29 +1,34 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { useSession } from '@/hooks/useSession';
-import { usePreferences } from '@/providers/PreferencesProvider';
-import { cloudinaryApi } from '@/lib/api/cloudinary.api';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import authApi from '@/lib/api/auth.api';
-import { toast } from 'sonner';
-import { getApiErrorMessage } from '@/lib/api/errors';
-import { COMPANY_KEYS } from '@/config/query-keys';
+import React, { useState, useEffect } from "react";
+import posthog from "posthog-js";
+import { useAuth } from "@/hooks/useAuth";
+import { useSession } from "@/hooks/useSession";
+import { usePreferences } from "@/providers/PreferencesProvider";
+import { cloudinaryApi } from "@/lib/api/cloudinary.api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import authApi from "@/lib/api/auth.api";
+import { toast } from "sonner";
+import { getApiErrorMessage } from "@/lib/api/errors";
+import { COMPANY_KEYS } from "@/config/query-keys";
 
 // Components
-import { AppearanceSection } from './components/AppearanceSection';
-import { CompanyProfileSection } from './components/CompanyProfileSection';
-import { SubscriptionSection } from './components/SubscriptionSection';
-import { DownloadDataSection } from './components/DownloadDataSection';
-import { ImportDataSection } from './components/ImportDataSection';
-import { SessionSection } from './components/SessionSection';
-import { DangerZoneSection } from './components/DangerZoneSection';
-import { CookieSettingsSection } from './components/CookieSettingsSection';
+import { AppearanceSection } from "./components/AppearanceSection";
+import { CompanyProfileSection } from "./components/CompanyProfileSection";
+import { SubscriptionSection } from "./components/SubscriptionSection";
+import { DownloadDataSection } from "./components/DownloadDataSection";
+import { ImportDataSection } from "./components/ImportDataSection";
+import { SessionSection } from "./components/SessionSection";
+import { DangerZoneSection } from "./components/DangerZoneSection";
+import { CookieSettingsSection } from "./components/CookieSettingsSection";
 
 export function SettingsClient() {
   const { logout, updateProfile, isUpdatingProfile, isLoggingOut } = useAuth();
-  const { user, isLoading: isLoadingProfile, refetch: refetchProfile } = useSession();
+  const {
+    user,
+    isLoading: isLoadingProfile,
+    refetch: refetchProfile,
+  } = useSession();
   const { theme, setTheme, fontSize, setFontSize } = usePreferences();
   const queryClient = useQueryClient();
 
@@ -34,78 +39,86 @@ export function SettingsClient() {
   }, [refetchProfile]);
 
   // Query deletion status - only call if user profile has deletionRequest
-  const { data: deletionStatusData, refetch: refetchDeletionStatus } = useQuery({
-    queryKey: ['deletionStatus'],
-    queryFn: () => authApi.getDeletionStatus(),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    enabled: !!user && (!!(user as any).deletionRequest || (user as any).accountStatus === 'DELETION_REQUESTED'),
-    retry: false,
-  });
+  const { data: deletionStatusData, refetch: refetchDeletionStatus } = useQuery(
+    {
+      queryKey: ["deletionStatus"],
+      queryFn: () => authApi.getDeletionStatus(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      enabled:
+        !!user &&
+        (!!(user as any).deletionRequest ||
+          (user as any).accountStatus === "DELETION_REQUESTED"),
+      retry: false,
+    },
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const deletionRequest = deletionStatusData?.data || (user as any)?.deletionRequest;
+  const deletionRequest =
+    deletionStatusData?.data || (user as any)?.deletionRequest;
 
   // Submit deletion request mutation
   const requestDeletionMutation = useMutation({
     mutationFn: () => authApi.requestDeletion(),
     onSuccess: (res) => {
-      toast.success(res.message || 'Deletion request submitted successfully.');
+      toast.success(res.message || "Deletion request submitted successfully.");
       setShowDeleteConfirm(false);
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
       refetchDeletionStatus();
     },
     onError: (error: unknown) => {
-      toast.error(getApiErrorMessage(error, 'Failed to submit deletion request.', 'auth'));
+      toast.error(
+        getApiErrorMessage(error, "Failed to submit deletion request.", "auth"),
+      );
     },
   });
 
   const [form, setForm] = useState({
-    name: '',
-    phone: '',
-    companyName: '',
-    gstin: '',
-    pan: '',
-    companyPhone: '',
-    companyEmail: '',
-    contactPerson: '',
-    logoUrl: '',
-    addressFullAddress: '',
-    addressCity: '',
-    addressDistrict: '',
-    addressState: '',
-    addressPincode: '',
-    bankName: '',
-    accountHolder: '',
-    accountNumber: '',
-    ifscCode: '',
+    name: "",
+    phone: "",
+    companyName: "",
+    gstin: "",
+    pan: "",
+    companyPhone: "",
+    companyEmail: "",
+    contactPerson: "",
+    logoUrl: "",
+    addressFullAddress: "",
+    addressCity: "",
+    addressDistrict: "",
+    addressState: "",
+    addressPincode: "",
+    bankName: "",
+    accountHolder: "",
+    accountNumber: "",
+    ifscCode: "",
   });
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
-  const [logoUploadError, setLogoUploadError] = useState('');
+  const [logoUploadError, setLogoUploadError] = useState("");
 
   // Populate form once profile loads
   useEffect(() => {
     if (user) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm({
-        name: user.name ?? '',
-        phone: user.phone ?? '',
-        companyName: user.company?.companyName ?? '',
-        gstin: user.company?.gstin ?? '',
-        pan: user.company?.pan ?? '',
-        companyPhone: user.company?.phone ?? '',
-        companyEmail: user.company?.email ?? '',
-        contactPerson: user.company?.contactPerson ?? '',
-        logoUrl: user.company?.logoUrl ?? '',
-        addressFullAddress: user.company?.address?.fullAddress ?? '',
-        addressCity: user.company?.address?.city ?? '',
-        addressDistrict: user.company?.address?.district ?? '',
-        addressState: user.company?.address?.state ?? '',
-        addressPincode: user.company?.address?.pincode ?? '',
-        bankName: user.company?.bankDetails?.bankName ?? '',
-        accountHolder: user.company?.bankDetails?.accountHolder ?? '',
-        accountNumber: user.company?.bankDetails?.accountNumber ?? '',
-        ifscCode: user.company?.bankDetails?.ifscCode ?? '',
+        name: user.name ?? "",
+        phone: user.phone ?? "",
+        companyName: user.company?.companyName ?? "",
+        gstin: user.company?.gstin ?? "",
+        pan: user.company?.pan ?? "",
+        companyPhone: user.company?.phone ?? "",
+        companyEmail: user.company?.email ?? "",
+        contactPerson: user.company?.contactPerson ?? "",
+        logoUrl: user.company?.logoUrl ?? "",
+        addressFullAddress: user.company?.address?.fullAddress ?? "",
+        addressCity: user.company?.address?.city ?? "",
+        addressDistrict: user.company?.address?.district ?? "",
+        addressState: user.company?.address?.state ?? "",
+        addressPincode: user.company?.address?.pincode ?? "",
+        bankName: user.company?.bankDetails?.bankName ?? "",
+        accountHolder: user.company?.bankDetails?.accountHolder ?? "",
+        accountNumber: user.company?.bankDetails?.accountNumber ?? "",
+        ifscCode: user.company?.bankDetails?.ifscCode ?? "",
       });
     }
   }, [user]);
@@ -151,29 +164,31 @@ export function SettingsClient() {
 
   const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    e.target.value = '';
+    e.target.value = "";
     if (!file) return;
 
     // Validate: must be an image
-    if (!file.type.startsWith('image/')) {
-      toast.error('Only image files are allowed.');
+    if (!file.type.startsWith("image/")) {
+      toast.error("Only image files are allowed.");
       return;
     }
 
     // Validate: max 2 MB
     if (file.size > 2 * 1024 * 1024) {
-      toast.error('Image must be under 2 MB.');
+      toast.error("Image must be under 2 MB.");
       return;
     }
 
-    setLogoUploadError('');
+    setLogoUploadError("");
     setIsUploadingLogo(true);
 
     try {
       const logoUrl = await cloudinaryApi.uploadCompanyLogo(file);
       setForm((prev) => ({ ...prev, logoUrl }));
     } catch (error) {
-      setLogoUploadError(error instanceof Error ? error.message : 'Logo upload failed.');
+      setLogoUploadError(
+        error instanceof Error ? error.message : "Logo upload failed.",
+      );
     } finally {
       setIsUploadingLogo(false);
     }
@@ -191,8 +206,12 @@ export function SettingsClient() {
     <div className="space-y-10">
       {/* Header */}
       <div className="space-y-1">
-        <p className="text-xs font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">SYSTEM CONFIGURATION</p>
-        <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Settings</h1>
+        <p className="text-xs font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">
+          SYSTEM CONFIGURATION
+        </p>
+        <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 dark:text-white">
+          Settings
+        </h1>
       </div>
 
       <CompanyProfileSection
@@ -226,10 +245,7 @@ export function SettingsClient() {
 
       <ImportDataSection />
 
-      <SessionSection
-        logout={logout}
-        isLoggingOut={isLoggingOut}
-      />
+      <SessionSection logout={logout} isLoggingOut={isLoggingOut} />
       <CookieSettingsSection />
 
       <DangerZoneSection
@@ -239,7 +255,6 @@ export function SettingsClient() {
         isSubmittingDeletion={requestDeletionMutation.isPending}
         deletionRequest={deletionRequest}
       />
-
     </div>
   );
 }

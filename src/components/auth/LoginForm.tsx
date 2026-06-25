@@ -1,21 +1,15 @@
-'use client';
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginSchema, type LoginInput } from '@/lib/validations/auth.schema';
-import { useAuth } from '@/hooks/useAuth';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import {
-  Mail,
-  Lock,
-  Loader2,
-  ArrowRight,
-  Eye,
-  EyeOff,
-} from 'lucide-react';
-import Link from 'next/link';
-import { enterGuestMode } from '@/lib/demo/guest';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginSchema, type LoginInput } from "@/lib/validations/auth.schema";
+import { useAuth } from "@/hooks/useAuth";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
+import posthog from "posthog-js";
+import { enterGuestMode } from "@/lib/demo/guest";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,8 +34,9 @@ export function LoginForm() {
   };
 
   const handleGuestAccess = () => {
+    posthog.capture("guest_mode_entered");
     enterGuestMode();
-    window.location.href = '/gr';
+    window.location.href = "/gr";
   };
 
   return (
@@ -64,7 +59,7 @@ export function LoginForm() {
             </div>
 
             <input
-              {...register('email')}
+              {...register("email")}
               type="email"
               placeholder="Email address"
               maxLength={254}
@@ -85,8 +80,8 @@ export function LoginForm() {
             </div>
 
             <input
-              {...register('password')}
-              type={showPassword ? 'text' : 'password'}
+              {...register("password")}
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               maxLength={30}
               className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
@@ -120,7 +115,6 @@ export function LoginForm() {
             ) : (
               <>
                 Sign In
-
                 <ArrowRight
                   size={18}
                   className="transition-transform group-hover:translate-x-1"
@@ -133,7 +127,7 @@ export function LoginForm() {
 
       <div className="flex items-center justify-between pt-2 text-sm text-slate-500">
         <div>
-          Don&apos;t have an account?{' '}
+          Don&apos;t have an account?{" "}
           <Link
             href="/register"
             className="font-bold text-slate-900 dark:text-sky-400 hover:underline underline-offset-4"
