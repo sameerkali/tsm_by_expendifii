@@ -28,6 +28,7 @@ export async function middleware(request: NextRequest) {
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml' ||
     pathname === '/favicon.ico' ||
+    pathname === '/manifest.webmanifest' ||
     (pathname.startsWith('/google') && pathname.endsWith('.html'))
   ) {
     return NextResponse.next();
@@ -83,9 +84,10 @@ export const config = {
      * - favicon.ico
      * - robots.txt
      * - sitemap.xml
+     * - manifest.webmanifest
      * - google verification html files (e.g. googlec380e86b30f31d8b.html)
      * - static image files (webp, png, jpg, jpeg, svg, gif)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|robots\\.txt|sitemap\\.xml|google.*\\.html|.*\\.(?:webp|png|jpg|jpeg|svg|gif)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|robots\\.txt|sitemap\\.xml|manifest\\.webmanifest|google.*\\.html|.*\\.(?:webp|png|jpg|jpeg|svg|gif)$).*)',
   ],
 };

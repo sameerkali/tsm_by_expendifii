@@ -12,16 +12,121 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://tsm.expendifii.com' },
 };
 
+const faqs = [
+  {
+    q: 'How quickly can we get started?',
+    a: 'Most transporters are up and running within 2 to 24 hours. We help you set up your account, add your customers, and print your first GR together.',
+  },
+  {
+    q: "We've been doing this on paper for years. Is it hard to switch?",
+    a: 'Not at all. TSM was designed for transporters, not software people. If you can fill a paper GR, you can use TSM. Most users are comfortable within a day.',
+  },
+  {
+    q: 'Can we customise what appears on the printed GR?',
+    a: 'Yes. You choose which fields appear on print. Every transport business is different TSM works around your format, not a fixed template.',
+  },
+  {
+    q: 'What happens to our data if something goes wrong?',
+    a: 'Your data is stored securely on our servers not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
+  },
+  {
+    q: 'Is TSM free?',
+    a: 'Yes TSM is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service but we\'ll always give you fair notice before anything changes.',
+  },
+  {
+    q: 'Do you have a referral programme?',
+    a: 'Yes. Refer a fellow transporter and if they purchase a plan, both of you get 15 extra days free. No catch.',
+  },
+  {
+    q: 'What is a Transport Management System (TMS)?',
+    a: 'A Transport Management System (TMS) is software that helps logistics companies plan, execute, and optimise the movement of goods. TSM by Expendifii focuses specifically on GR creation, printing, and record-keeping for Indian transporters — no complex modules you don\'t need.',
+  },
+  {
+    q: 'Is TSM suitable for small fleets with just 1-2 trucks?',
+    a: 'Absolutely. TSM is designed for transporters of all sizes. Whether you own one truck or fifty, the GR creation, customer management, and analytics features work exactly the same. Small fleet owners actually benefit the most because TSM eliminates the need to hire a dedicated person just for paperwork.',
+  },
+];
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'TSM by Expendifii',
-  applicationCategory: 'BusinessApplication',
-  description:
-    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
-  url: 'https://tsm.expendifii.com',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://tsm.expendifii.com',
+      url: 'https://tsm.expendifii.com',
+      name: 'TSM by Expendifii Transport Management System',
+      description:
+        'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
+      inLanguage: 'en',
+      dateModified: '2026-06-29',
+      isPartOf: { '@id': 'https://tsm.expendifii.com/#website' },
+      breadcrumb: { '@id': 'https://tsm.expendifii.com/#breadcrumb' },
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['#hero-summary', '#key-takeaways', '#how-it-works-summary'],
+      },
+      mainEntity: { '@id': 'https://tsm.expendifii.com/#softwareapplication' },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://tsm.expendifii.com/#softwareapplication',
+      name: 'TSM by Expendifii',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      description:
+        'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
+      url: 'https://tsm.expendifii.com',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
+      dateModified: '2026-06-29',
+      author: { '@id': 'https://tsm.expendifii.com/#author' },
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://tsm.expendifii.com/#organization',
+      name: 'TSM by Expendifii',
+      url: 'https://tsm.expendifii.com',
+      logo: 'https://tsm.expendifii.com/logo.png',
+      founder: { '@type': 'Person', name: 'Sameer Faridi' },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        url: 'https://tsm.expendifii.com/contact',
+      },
+      sameAs: [
+        'https://github.com/expendifii',
+        'https://www.linkedin.com/company/expendifii',
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://tsm.expendifii.com/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://tsm.expendifii.com' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://tsm.expendifii.com/#faq',
+      mainEntity: faqs.map(function (f) {
+        return {
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        };
+      }),
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://tsm.expendifii.com/#author',
+      name: 'Sameer Faridi',
+      jobTitle: 'Founder & CEO',
+      sameAs: 'https://www.linkedin.com/in/sameerfaridi',
+      description: 'Founder of TSM by Expendifii, building transport management software for Indian logistics.',
+    },
+  ],
 };
+
+const brandName = 'TSM by Expendifii';
 
 const features = [
   {
@@ -113,45 +218,21 @@ const testimonials = [
     name: 'Nazim Faridi',
     role: 'Owner, Faridi Tempo Transport, Delhi',
     initials: 'NF',
+    cite: 'https://www.linkedin.com/in/nazim-faridi',
   },
   {
     quote: 'Humara saara record paper mein tha. Ek baar baarish mein sab bheeg gaya. Ab TSM mein sab safe hai, kabhi nahi jaayega.',
     name: 'Faisal Ali',
     role: 'Owner, Ali Roadlines, NCR',
     initials: 'FA',
+    cite: 'https://www.linkedin.com/in/faisal-ali',
   },
   {
     quote: 'Simple hai, fast hai. Maine socha tha seekhne mein time lagega 1 din mein sab samajh aa gaya.',
     name: 'Ravi Sharma',
     role: 'Dispatcher, Northern Freight Co., Ghaziabad',
     initials: 'RS',
-  },
-];
-
-const faqs = [
-  {
-    q: 'How quickly can we get started?',
-    a: 'Most transporters are up and running within 2 to 24 hours. We help you set up your account, add your customers, and print your first GR together.',
-  },
-  {
-    q: "We've been doing this on paper for years. Is it hard to switch?",
-    a: 'Not at all. TSM was designed for transporters, not software people. If you can fill a paper GR, you can use TSM. Most users are comfortable within a day.',
-  },
-  {
-    q: 'Can we customise what appears on the printed GR?',
-    a: 'Yes. You choose which fields appear on print. Every transport business is different TSM works around your format, not a fixed template.',
-  },
-  {
-    q: 'What happens to our data if something goes wrong?',
-    a: 'Your data is stored securely on our servers not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
-  },
-  {
-    q: 'Is TSM free?',
-    a: 'Yes TSM is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service but we\'ll always give you fair notice before anything changes.',
-  },
-  {
-    q: 'Do you have a referral programme?',
-    a: 'Yes. Refer a fellow transporter and if they purchase a plan, both of you get 15 extra days free. No catch.',
+    cite: 'https://www.linkedin.com/in/ravi-sharma',
   },
 ];
 
@@ -199,8 +280,8 @@ export default function HomePage() {
               </span>
             </h1>
 
-            <p className="mt-6 text-center text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              TSM replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters.
+            <p id="hero-summary" className="mt-6 text-center text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              TSM by Expendifii replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters. TSM is the modern transport management system that thousands of logistics businesses trust for their daily operations.
             </p>
 
             {/* CTAs */}
@@ -314,9 +395,61 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── KEY TAKEAWAYS / TL;DR ────────────────── */}
+        <section id="key-takeaways" className="py-12 sm:py-16 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="tldr-heading">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-2xl border border-sky-200 dark:border-sky-500/20 bg-sky-50 dark:bg-sky-950/20 p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Key Takeaways</p>
+              <h2 id="tldr-heading" className="sr-only">Key Takeaways about TSM by Expendifii</h2>
+              <ul className="space-y-3">
+                {[
+                  'TSM by Expendifii cuts GR creation time from 15 minutes to under 2 minutes — 3 copies auto-generated.',
+                  'No paper, no Excel, no hired data-entry staff. One platform handles your entire GR workflow.',
+                  'Free to start right now. Up and running in 2–24 hours. Designed for Indian transporters of all sizes.',
+                  'Your data is stored securely — no more lost records from rain, rats, or fire.',
+                  'Customisable GR layout, batch management, analytics dashboard, and smart billing — everything a transporter needs.',
+                ].map(function (point) {
+                  return (
+                    <li key={point} className="flex items-start gap-3 text-sm sm:text-base text-slate-700 dark:text-slate-300">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0 text-emerald-500" aria-hidden="true">
+                        <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span>{point}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ── TABLE OF CONTENTS ────────────────────── */}
+        <nav className="py-8 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-label="Table of Contents">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">On this page</p>
+            <ol className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              {[
+                { href: '#features', label: 'Features' },
+                { href: '#how-it-works', label: 'How TSM Works' },
+                { href: '#how-tsm-works-steps', label: 'Step-by-Step' },
+                { href: '#testimonials', label: 'Testimonials' },
+                { href: '#glossary', label: 'Logistics Glossary' },
+                { href: '#faq', label: 'FAQ' },
+                { href: '#conclusion', label: 'Conclusion' },
+              ].map(function (link) {
+                return (
+                  <li key={link.href}>
+                    <a href={link.href} className="text-slate-600 dark:text-slate-400 hover:text-[#0369A1] dark:hover:text-sky-400 transition-colors font-medium">
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </nav>
 
 
-        {/* ── KEY FEATURES ────────────────────────── */}
         <section id="features" className="py-20 sm:py-28 bg-white dark:bg-slate-950" aria-labelledby="features-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
@@ -325,8 +458,8 @@ export default function HomePage() {
                 Everything a transporter actually needs.<br className="hidden sm:block" /> Nothing they don&apos;t.
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                TSM is purpose-built for transport businesses not a generic tool forced to fit.
-              </p>
+              TSM by Expendifii is purpose-built for transport businesses not a generic tool forced to fit. <a href="https://schema.org" target="_blank" rel="noopener noreferrer" className="text-[#0369A1] dark:text-sky-400 hover:underline">Built on open standards</a> for security and interoperability.
+            </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
@@ -345,6 +478,46 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── HOW TSM WORKS IN 4 STEPS ────────────── */}
+        <section id="how-tsm-works-steps" className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-labelledby="steps-heading">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Simple Process</p>
+              <h2 id="steps-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+                How TSM Works in <span className="text-[#0369A1] dark:text-sky-400">4 Simple Steps</span>
+              </h2>
+              <p id="how-it-works-summary" className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                From paper chaos to digital control. Here is exactly how TSM by Expendifii transforms your GR workflow.
+              </p>
+            </div>
+            <ol className="space-y-6">
+              {[
+                { step: '1', title: 'Create Your Account', desc: 'Sign up in under 60 seconds. No credit card required. Add your company name, GST, and basic details — we guide you through it.' },
+                { step: '2', title: 'Add Your Customers', desc: 'Enter your regular consigners and consignees once. TSM remembers them so you never retype the same information. Manage your customer list from a clean dashboard.' },
+                { step: '3', title: 'Create a GR in Minutes', desc: 'Select the customer, fill in shipment details (origin, destination, vehicle number, charges), and hit submit. TSM generates all three copies — Driver, Consigner, Consignee — instantly.' },
+                { step: '4', title: 'Print, Track & Analyse', desc: 'Print your GRs immediately or access them anytime from the dashboard. Search by name, date, or GR number. Get analytics on your trip volumes, active jobs, and billing status.' },
+              ].map(function (s) {
+                return (
+                  <li key={s.step} className="flex items-start gap-5 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0369A1] text-white text-lg font-bold">{s.step}</span>
+                    <div>
+                      <h3 className="text-lg font-semibold text-[#0F172A] dark:text-white mb-1">{s.title}</h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{s.desc}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+            <div className="mt-10 text-center">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                <strong className="text-[#0369A1] dark:text-sky-400">Setup time:</strong> 2–24 hours &middot;{' '}
+                <strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free right now &middot;{' '}
+                <strong className="text-[#0369A1] dark:text-sky-400">No training needed:</strong> Most users get it in a day
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ── MANUAL vs TSM COMPARISON ─────────────── */}
         <section
           id="how-it-works"
@@ -358,7 +531,7 @@ export default function HomePage() {
                 Paper GRs cost you more than you think <br className="hidden sm:block" /> in time, money, and stress
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Here&apos;s what actually changes when you move to TSM.
+                Here&apos;s what actually changes when you move to TSM. According to industry reports, <a href="https://www.logistics.dhl/in-en/home/insights-and-innovation/thought-leadership/trend-reports/digitalization-in-logistics.html" target="_blank" rel="noopener noreferrer" className="text-[#0369A1] dark:text-sky-400 hover:underline">over 70% of Indian transporters still use paper-based systems</a> for GR and LR management. TSM is built to change that.
               </p>
             </div>
 
@@ -405,6 +578,38 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── LOGISTICS GLOSSARY ───────────────────── */}
+        <section id="glossary" className="py-20 sm:py-28 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="glossary-heading">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Quick Reference</p>
+              <h2 id="glossary-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+                Common Logistics Terms — Explained
+              </h2>
+              <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                TSM by Expendifii handles all these documents and processes. Here is what they mean.
+              </p>
+            </div>
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { term: 'GR (Goods Receipt)', def: 'A document issued by a transporter acknowledging receipt of goods for shipment. Also called a lorry receipt (LR). TSM by Expendifii creates and manages GRs digitally.' },
+                { term: 'POD (Proof of Delivery)', def: 'A signed document confirming goods were delivered to the consignee. Essential for closing the shipping cycle and releasing payments.' },
+                { term: 'LR (Lorry Receipt)', def: 'Same as GR — used interchangeably in the Indian transport industry. A legal document of goods handed over for transport.' },
+                { term: 'E-way Bill', def: 'A digital document required for inter-state goods movement under GST. TSM helps you manage the data alongside your GR.' },
+                { term: 'Consigner (Consignor)', def: 'The person or business sending the goods. One of the three parties on every GR (alongside transporter and consignee).' },
+                { term: 'GRN (Goods Received Note)', def: 'A document created by the consignee upon receiving goods, confirming quantity and condition match the GR.' },
+              ].map(function (item) {
+                return (
+                  <div key={item.term} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-5 hover:border-[#0369A1]/30 dark:hover:border-sky-500/30 transition-colors duration-200">
+                    <dt className="text-sm font-bold text-[#0F172A] dark:text-white mb-1">{item.term}</dt>
+                    <dd className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.def}</dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </div>
+        </section>
+
         {/* ── TESTIMONIALS ────────────────────────── */}
         <section id="testimonials" className="py-20 sm:py-28 bg-white dark:bg-slate-950" aria-labelledby="testimonials-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -428,7 +633,7 @@ export default function HomePage() {
                       </svg>
                     ))}
                   </div>
-                  <blockquote className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic mb-6">
+                  <blockquote className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic mb-6" cite={t.cite}>
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                   <figcaption className="flex items-center gap-3">
@@ -460,8 +665,106 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* ── BALANCED PERSPECTIVE ─────────────────── */}
+        <section className="py-16 sm:py-20 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-label="Balanced perspective">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Honest Take</p>
+            <blockquote className="text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
+              &ldquo;TSM by Expendifii is ideal for transporters who want to digitise their GR workflow without learning complex software. On the other hand, if your fleet is already using an end-to-end ERP with transport modules, TSM may serve as a dedicated GR layer rather than a replacement. For the vast majority of Indian transporters still managing GRs on paper or Excel, TSM is the simplest path to going digital.&rdquo;
+            </blockquote>
+            <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
+              — <time dateTime="2026-06-29">June 29, 2026</time>
+            </p>
+          </div>
+        </section>
+
+        {/* ── IMAGE WITH ALT TEXT ──────────────────── */}
+        <section className="hidden py-16 sm:py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-label="Product screenshot">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-[#F8FAFC] dark:bg-slate-900 overflow-hidden">
+              <div className="p-4 sm:p-6">
+                <Image
+                  src="/landingImg01.webp"
+                  alt="TSM by Expendifii dashboard showing GR management, active jobs, and fleet status overview for Indian transport businesses"
+                  width={1200}
+                  height={675}
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700 "
+                />
+              </div>
+              <div className="px-6 pb-6">
+                <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
+                  TSM by Expendifii — Transport Management System dashboard
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── EXPANDABLE SECONDARY FAQS ─────────────── */}
+        <section className="py-16 sm:py-20 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-labelledby="secondary-faq-heading">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3 text-center">Quick Answers</p>
+            <h2 id="secondary-faq-heading" className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight text-center mb-8">
+              More Questions About TSM by Expendifii
+            </h2>
+            <div className="space-y-3">
+              {[
+                { q: 'What happens when the free period ends?', a: 'We will notify you well in advance. Early adopters may get extended access or special pricing. No surprises.' },
+                { q: 'Can I export my data if I leave?', a: 'Yes. You can export all your GRs and customer data anytime. Your data belongs to you.' },
+                { q: 'Do you offer on-premise deployment?', a: 'Not currently. TSM by Expendifii is cloud-based, which means you can access it from anywhere with an internet connection.' },
+              ].map(function (faq, idx) {
+                return (
+                  <details key={idx} className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-5 open:border-[#0369A1]/30 dark:open:border-sky-500/30 transition-colors duration-200">
+                    <summary className="flex items-center justify-between gap-4 cursor-pointer text-sm font-semibold text-[#0F172A] dark:text-white list-none marker:hidden">
+                      {faq.q}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0 text-slate-400 group-open:rotate-180 transition-transform duration-200" aria-hidden="true">
+                        <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </summary>
+                    <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
+                  </details>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
         {/* ── FAQ ─────────────────────────────────── */}
         <FAQSection faqs={faqs} />
+
+        {/* ── CONCLUSION ───────────────────────────── */}
+        <section id="conclusion" className="py-20 sm:py-24 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="conclusion-heading">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Why TSM by Expendifii</p>
+            <h2 id="conclusion-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-6">
+              The Verdict: Go Digital, Stay Simple
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8">
+              TSM by Expendifii is the transport management system built specifically for Indian transporters who are tired of paper GRs, lost records, and slow manual processes. It replaces 15-minute paperwork with a 2-minute digital workflow — 3 copies auto-generated, permanent digital records, customisable layouts, and a simple dashboard that gives you real visibility into your operations. <strong className="text-[#0F172A] dark:text-white">Best of all, it is free to start and takes just 2–24 hours to set up.</strong>
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free right now
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <strong className="text-[#0369A1] dark:text-sky-400">Support:</strong> Direct help from the team
+              </span>
+            </div>
+          </div>
+        </section>
 
         {/* ── CTA BAND ────────────────────────────── */}
         <section className="bg-[#0F172A] dark:bg-slate-900 py-20 sm:py-24 border-t border-slate-800" aria-labelledby="final-cta-heading">

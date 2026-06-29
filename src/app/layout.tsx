@@ -35,17 +35,23 @@ export const metadata: Metadata = {
   title: "TMS by Expendifii",
   description:
     "Advanced Transport Management System for modern logistics and fleet tracking.",
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
     apple: "/logo.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
   },
   openGraph: {
     title: "TMS by Expendifii",
     description:
       "Advanced Transport Management System for modern logistics and fleet tracking.",
     url: "https://tsm.expendifii.com",
-    siteName: "Expendifii TMS",
+    siteName: "TSM by Expendifii",
     images: [
       {
         url: "/og-image.png",
@@ -77,6 +83,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <meta name="theme-color" content="#0284c7" />
+        <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+        <link rel="preconnect" href="https://us.i.posthog.com" />
+        <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
+        <link rel="preconnect" href="https://us-assets.i.posthog.com" />
+      </head>
       <body
         className="h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50"
         suppressHydrationWarning

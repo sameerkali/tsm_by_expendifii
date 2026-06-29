@@ -1,0 +1,16 @@
+{
+  "name": "TMS by Expendifii",
+  "short_name": "Expendifii TMS",
+  "description": "Advanced Transport Management System for modern logistics and fleet tracking.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

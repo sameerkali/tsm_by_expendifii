@@ -119,3 +119,7 @@ AI answer engines (ChatGPT, Perplexity, Google AI Overviews) extract content bas
 | 5 | Phase 6 + 7 — performance and extras |
 
 Once Phases 1–4 are done, re-run the audit — most of the 🟠/🟡 AEO and GEO warnings should clear automatically since they're driven by the same handful of structural additions (FAQ schema, Organization schema, tables/lists, dates).
+
+
+
+add that as well : "Organization schema (JSON-LD)" :
