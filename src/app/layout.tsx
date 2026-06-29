@@ -30,6 +30,10 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+export const viewport = {
+  themeColor: "#0284c7",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://tsm.expendifii.com"),
   title: "TMS by Expendifii",
@@ -83,13 +87,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <meta name="theme-color" content="#0284c7" />
-        <link rel="dns-prefetch" href="https://us.i.posthog.com" />
-        <link rel="preconnect" href="https://us.i.posthog.com" />
-        <link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
-        <link rel="preconnect" href="https://us-assets.i.posthog.com" />
-      </head>
       <body
         className="h-full bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50"
         suppressHydrationWarning

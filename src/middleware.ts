@@ -88,6 +88,6 @@ export const config = {
      * - google verification html files (e.g. googlec380e86b30f31d8b.html)
      * - static image files (webp, png, jpg, jpeg, svg, gif)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|robots\\.txt|sitemap\\.xml|manifest\\.webmanifest|google.*\\.html|.*\\.(?:webp|png|jpg|jpeg|svg|gif)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|robots\\.txt|sitemap\\.xml|manifest\\.webmanifest|ingest|google.*\\.html|.*\\.(?:webp|png|jpg|jpeg|svg|gif)$).*)',
   ],
 };
