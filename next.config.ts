@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/auth.md",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           {
