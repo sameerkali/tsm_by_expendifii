@@ -47,7 +47,7 @@ export default function NotFound() {
 
         {/* Branding Footer */}
         <div className="pt-12 text-[10px] text-slate-400 font-mono uppercase tracking-[0.3em]">
-          TMS by Expendifii — System Integrity Check
+          TSM by Expendifii — System Integrity Check
         </div>
       </div>
     </div>

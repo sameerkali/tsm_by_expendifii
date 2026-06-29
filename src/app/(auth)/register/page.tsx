@@ -2,7 +2,7 @@ import { RegisterForm } from '@/components/auth/RegisterForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Register Company | TMS by Expendifii',
+  title: 'Register Company | TSM by Expendifii',
   description: 'Create your company account for TMS',
 };
 

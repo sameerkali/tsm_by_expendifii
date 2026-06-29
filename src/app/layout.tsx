@@ -36,7 +36,7 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tsm.expendifii.com"),
-  title: "TMS by Expendifii",
+  title: "TSM by Expendifii",
   description:
     "Advanced Transport Management System for modern logistics and fleet tracking.",
   manifest: "/manifest.webmanifest",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     "max-image-preview": "large",
   },
   openGraph: {
-    title: "TMS by Expendifii",
+    title: "TSM by Expendifii",
     description:
       "Advanced Transport Management System for modern logistics and fleet tracking.",
     url: "https://tsm.expendifii.com",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TMS by Expendifii",
+    title: "TSM by Expendifii",
     description:
       "Advanced Transport Management System for modern logistics and fleet tracking.",
     images: ["/og-image.png"],

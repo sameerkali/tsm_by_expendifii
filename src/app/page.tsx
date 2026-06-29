@@ -317,6 +317,14 @@ export default function HomePage() {
               ))}
             </div>
 
+            {/* Key-value stats */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Platform:</strong> TSM by Expendifii</span>
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Type:</strong> Transport Management System</span>
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Users:</strong> Transporters across India</span>
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours</span>
+            </div>
+
             {/* Live Demo nudge */}
             <p className="mt-5 text-center text-sm text-slate-500 dark:text-slate-400">
               Not ready to sign up?{' '}
@@ -460,6 +468,13 @@ export default function HomePage() {
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
               TSM by Expendifii is purpose-built for transport businesses not a generic tool forced to fit. <a href="https://schema.org" target="_blank" rel="noopener noreferrer" className="text-[#0369A1] dark:text-sky-400 hover:underline">Built on open standards</a> for security and interoperability.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+              <span><strong className="text-[#0369A1] dark:text-sky-400">GR creation:</strong> &lt;2 min</span>
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Copies:</strong> 3 auto-generated</span>
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours</span>
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free to start</span>
+              <span><strong className="text-[#0369A1] dark:text-sky-400">Platform:</strong> Web-based</span>
+            </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
@@ -680,7 +695,7 @@ export default function HomePage() {
         </section>
 
         {/* ── IMAGE WITH ALT TEXT ──────────────────── */}
-        <section className="hidden py-16 sm:py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-label="Product screenshot">
+        <section className="py-16 sm:py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-label="Product screenshot">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-[#F8FAFC] dark:bg-slate-900 overflow-hidden">
               <div className="p-4 sm:p-6">
@@ -689,7 +704,9 @@ export default function HomePage() {
                   alt="TSM by Expendifii dashboard showing GR management, active jobs, and fleet status overview for Indian transport businesses"
                   width={1200}
                   height={675}
-                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700 "
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700"
                 />
               </div>
               <div className="px-6 pb-6">
