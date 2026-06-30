@@ -62,12 +62,12 @@ export function ImportDataSection() {
 
   const handleDownloadTemplate = () => {
     const link = document.createElement('a');
-    link.href = '/demo_data_migration_tsm.csv';
-    link.setAttribute('download', 'tsm_data_migration_template.csv');
+    link.href = '/demo_data_migration_tsm.xlsx';
+    link.setAttribute('download', 'tsm_data_migration_template.xlsx');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast.success('Template CSV file downloaded.');
+    toast.success('Template Excel file downloaded.');
   };
 
   const handleUpload = async () => {
@@ -170,7 +170,7 @@ export function ImportDataSection() {
           onClick={handleDownloadTemplate}
           className="flex items-center gap-1 text-xs font-black text-sky-600 dark:text-sky-400 hover:opacity-80 uppercase tracking-wider"
         >
-          <Download size={14} /> Download CSV Template
+          <Download size={14} /> Download Excel Template
         </button>
       </div>
 
@@ -180,7 +180,7 @@ export function ImportDataSection() {
           <div className="p-6 bg-slate-50 dark:bg-slate-800/30 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4 lg:col-span-1">
             <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200">Instructions</h3>
             <ol className="text-xs text-slate-500 dark:text-slate-400 space-y-3 list-decimal list-inside leading-relaxed font-medium">
-              <li>Download the CSV Migration template.</li>
+              <li>Download the Excel Migration template.</li>
               <li>Add your existing Goods Receipts (GRs) and Customer records to the file.</li>
               <li>Ensure headers remain unmodified.</li>
               <li>Fields like <strong className="text-slate-700 dark:text-slate-300">From City, To City, Pricing Type,</strong> and <strong className="text-slate-700 dark:text-slate-300">Freight Amount</strong> are required.</li>
