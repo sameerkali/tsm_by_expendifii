@@ -1612,7 +1612,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   />
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
-                  <Field label="Weight (kg)" error={fieldErrors.weight}>
+                  <Field label="Weight (kg)" required error={fieldErrors.weight}>
                     <input
                       type="number"
                       min={0}
@@ -1622,7 +1622,21 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       onChange={set("weight")}
                       onBlur={blur("weight")}
                       onKeyDown={(e) => {
-                        if (e.key === "-" || e.key === "e") e.preventDefault();
+                        if (e.key === "-" || e.key === "e") {
+                          e.preventDefault();
+                        } else if (e.key === "ArrowUp") {
+                          e.preventDefault();
+                          const currentVal = parseFloat(form.weight) || 0;
+                          const newVal = (currentVal + 1).toFixed(2);
+                          const displayVal = parseFloat(newVal).toString();
+                          handleFieldChange("weight", displayVal);
+                        } else if (e.key === "ArrowDown") {
+                          e.preventDefault();
+                          const currentVal = parseFloat(form.weight) || 0;
+                          const newVal = Math.max(0, currentVal - 1).toFixed(2);
+                          const displayVal = parseFloat(newVal).toString();
+                          handleFieldChange("weight", displayVal);
+                        }
                       }}
                       onInput={(e) => {
                         if (e.currentTarget.value.length > 7)
@@ -1638,7 +1652,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       )}
                     />
                   </Field>
-                  <Field label="Box Count" error={fieldErrors.boxCount}>
+                  <Field label="Box Count" required error={fieldErrors.boxCount}>
                     <input
                       type="number"
                       min={0}
@@ -1722,7 +1736,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                   </Field>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Field label="Rate (₹)" error={fieldErrors.rate}>
+                  <Field label="Rate (₹)" required error={fieldErrors.rate}>
                     <input
                       type="number"
                       min={0}
@@ -1905,7 +1919,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
             type="submit"
             disabled={isSubmitDisabled}
             onClick={handleSubmit}
-            className="h-12 px-10 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-bold text-sm tracking-tight transition-all active:scale-95 shadow-lg shadow-sky-500/25 disabled:opacity-50 flex items-center gap-2"
+            className="h-12 px-10 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-bold text-sm tracking-tight transition-all active:scale-95 shadow-lg shadow-sky-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {isSaving && <Loader2 size={15} className="animate-spin" />}
             {isSaving ? "Saving..." : isEditing ? "Save Changes" : "Create GR"}

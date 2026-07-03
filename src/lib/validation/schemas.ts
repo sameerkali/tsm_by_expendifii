@@ -235,7 +235,7 @@ export const driverNameSchema: FieldSchema = {
 export const grWeightSchema: FieldSchema = {
   type: 'number',
   label: 'Weight',
-  required: false,
+  required: true,
   min: 0,
   max: 9999999,
   precision: 2,
@@ -244,7 +244,7 @@ export const grWeightSchema: FieldSchema = {
 export const grQuantitySchema: FieldSchema = {
   type: 'number',
   label: 'Quantity',
-  required: false,
+  required: true,
   min: 0,
   max: 9999999,
   integer: true,
@@ -253,7 +253,7 @@ export const grQuantitySchema: FieldSchema = {
 export const grRateSchema: FieldSchema = {
   type: 'number',
   label: 'Rate',
-  required: false,
+  required: true,
   min: 0,
   max: 9999999,
   precision: 2,
