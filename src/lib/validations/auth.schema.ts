@@ -134,7 +134,7 @@ export const RegisterSchema = z.object({
         bankName: safeStringOptional('Bank Name', 80),
         accountHolder: z
           .string()
-          .max(80, 'Account Holder cannot exceed 80 characters')
+          .max(30, 'Account Holder cannot exceed 30 characters')
           .optional()
           .or(z.literal('')),
         accountNumber: z
