@@ -63,7 +63,8 @@ export function ActivateForm() {
             </div>
             <input
               {...register('couponCode')}
-              placeholder="Coupon Code (e.g. TMS-XXXXXXX)"
+              placeholder="Coupon Code (e.g. TMS-RBOQVJ-MR5BVA5R)"
+              maxLength={19}
               className="w-full uppercase bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
             />
             {errors.couponCode && (
