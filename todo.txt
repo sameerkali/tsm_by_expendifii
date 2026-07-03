@@ -105,3 +105,36 @@ move Honest Take section in diffrent as well
 image in hero secion with title "TSM by Expendifii — Transport Management System dashboard" move that as well
 remveo The Verdict: Go Digital, Stay Simple and add somewhere else 
 remveo Ready to leave the paper behind? section and add somewhere else 
+
+
+
+
+
+
+old robot file :
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /gr
+Disallow: /customers
+Disallow: /settings
+Disallow: /printing
+
+User-Agent: Googlebot
+User-Agent: GPTBot
+User-Agent: ClaudeBot
+User-Agent: PerplexityBot
+User-Agent: Google-Extended
+User-Agent: CCBot
+Allow: /
+
+User-Agent: AhrefsBot
+User-Agent: SemrushBot
+User-Agent: MJ12bot
+User-Agent: DataForSeoBot
+User-Agent: BLEXBot
+Disallow: /
+
+Host: https://tsm.expendifii.com
+Sitemap: https://tsm.expendifii.com/sitemap.xml
