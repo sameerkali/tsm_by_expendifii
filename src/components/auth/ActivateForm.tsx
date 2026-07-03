@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ActivateSchema, type ActivateInput } from '@/lib/validations/auth.schema';
@@ -9,7 +10,19 @@ import { Ticket, Loader2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export function ActivateForm() {
+  const [showPopup, setShowPopup] = useState(true);
   const { activate, isActivating } = useAuth();
+
+  useEffect(() => {
+    if (showPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showPopup]);
   const {
     register,
     handleSubmit,
@@ -86,6 +99,38 @@ export function ActivateForm() {
           Sign in to your account
         </Link>
       </div>
+
+      {showPopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800 p-6 sm:p-8 flex flex-col items-center text-center animate-in zoom-in-95 duration-200">
+            <div className="h-12 w-12 rounded-full bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center mb-4 text-[#0369A1] dark:text-sky-400">
+              <Ticket size={24} />
+            </div>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
+              Activation Coupon Required
+            </h2>
+            <div className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 space-y-3">
+              <p>
+                Your account has been created successfully! To activate your account and get full dashboard access, you need an activation coupon code.
+              </p>
+              <p>
+                This coupon code is provided by the administrator. Please contact the admin or reach out via our{' '}
+                <Link href="/contact" className="font-bold text-[#0369A1] dark:text-sky-400 hover:underline">
+                  Contact Page
+                </Link>{' '}
+                to request your code.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowPopup(false)}
+              className="w-full bg-[#0369A1] hover:bg-sky-600 text-white font-bold py-3.5 px-4 rounded-xl transition-all shadow-md shadow-sky-500/10 cursor-pointer"
+            >
+              Okay, I understand
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

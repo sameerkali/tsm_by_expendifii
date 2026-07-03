@@ -1,12 +1,16 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const PUBLIC_PATHS = [
+// Auth-flow pages: if already authenticated, redirect to dashboard
+const AUTH_PATHS = [
   '/login',
   '/register',
-  '/activate',
   '/forgot-password',
-  // Public landing site routes — no auth required
+];
+
+// Always-accessible pages: no redirect regardless of auth state
+const INFO_PATHS = [
+  '/activate',
   '/about',
   '/contact',
   '/security',
@@ -25,6 +29,7 @@ const PUBLIC_PATHS = [
   '/gr-management',
   '/lorry-receipt-software',
 ];
+
 const COOKIE_NAME = process.env.COOKIE_NAME || 'token';
 const GUEST_COOKIE_NAME = 'tms_guest';
 
@@ -54,10 +59,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Public paths — allow unauthenticated, redirect authenticated users to dashboard
-  // (/activate is exempt from redirect so inactive accounts can use it after login)
-  if (PUBLIC_PATHS.some((path) => pathname.startsWith(path))) {
-    if ((token || isGuest) && !pathname.startsWith('/activate')) {
+  // Info pages — always accessible regardless of auth state
+  if (INFO_PATHS.some((path) => pathname.startsWith(path))) {
+    return NextResponse.next();
+  }
+
+  // Auth-flow pages — redirect authenticated users to dashboard
+  if (AUTH_PATHS.some((path) => pathname.startsWith(path))) {
+    if (token || isGuest) {
       // Account was deactivated — clear the httpOnly cookie and let the user
       // through to /login instead of redirecting back to the dashboard loop.
       if (pathname === '/login' && request.nextUrl.searchParams.get('reason') === 'deactivated') {

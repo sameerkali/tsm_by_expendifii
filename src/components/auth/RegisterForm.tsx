@@ -460,6 +460,25 @@ export function RegisterForm() {
     resolver: zodResolver(RegisterSchema),
   });
 
+  // Watch required fields to disable button until filled
+  const watchedName = watch('name');
+  const watchedEmail = watch('email');
+  const watchedPhone = watch('phone');
+  const watchedPassword = watch('password');
+  const watchedCompanyName = watch('company.companyName');
+  const watchedGstin = watch('company.gstin');
+  const watchedPan = watch('company.pan');
+
+  const allRequiredFilled = Boolean(
+    watchedName?.trim() &&
+    watchedEmail?.trim() &&
+    watchedPhone?.trim() &&
+    watchedPassword?.trim() &&
+    watchedCompanyName?.trim() &&
+    watchedGstin?.trim() &&
+    watchedPan?.trim()
+  );
+
   const onSubmit = (data: RegisterInput) => {
     if (!agreed) {
       setAgreedError(true);
@@ -822,7 +841,7 @@ export function RegisterForm() {
         <div className="pt-6">
           <button
             type="submit"
-            disabled={isRegistering || !agreed}
+            disabled={isRegistering || !agreed || !allRequiredFilled}
             suppressHydrationWarning
             className="w-full group relative overflow-hidden bg-sky-700 dark:bg-sky-600 text-white py-4 font-bold transition-all hover:bg-sky-800 dark:hover:bg-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >

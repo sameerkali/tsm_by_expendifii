@@ -7,6 +7,7 @@ import { Sidebar } from './Sidebar';
 import { Topbar } from './TopBar';
 import { Spinner } from '../ui';
 import { DeactivatedAccountModal } from '../auth/DeactivatedAccountModal';
+import { InactiveAccountModal } from '../auth/InactiveAccountModal';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
@@ -14,6 +15,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
   const { isAuthenticated, isLoading, user, isGuest } = useSession();
+
+  // Show blocking modal when authenticated but account is INACTIVE (no coupons)
+  const isInactiveAccount = !isLoading && isAuthenticated && !isGuest && user && (
+    user.accountStatus === 'INACTIVE' || !user.coupons || user.coupons.length === 0
+  );
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -103,6 +109,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       </div>
     </div>
       <DeactivatedAccountModal />
+      <InactiveAccountModal isVisible={!!isInactiveAccount} />
     </>
   );
 }
