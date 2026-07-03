@@ -10,20 +10,52 @@ import apiClient from '@/lib/api/client';
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [form, setForm] = useState({ name: '', email: '', company: '', phone: '', message: '' });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = (): boolean => {
+    const e: Record<string, string> = {};
+
+    const name = form.name.trim();
+    if (name && name.length > 30) {
+      e.name = 'Name cannot exceed 30 characters';
+    }
+
+    const email = form.email.trim();
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      e.email = 'Please enter a valid email address';
+    }
+
+    const company = form.company.trim();
+    if (company && company.length > 30) {
+      e.company = 'Company name cannot exceed 30 characters';
+    }
+
+    const phone = form.phone.trim();
+    if (phone && !/^\d{10}$/.test(phone)) {
+      e.phone = 'Contact number must be exactly 10 digits';
+    }
+
+    const message = form.message.trim();
+    if (message && message.length > 500) {
+      e.message = 'Message cannot exceed 500 characters';
+    }
+
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const sanitize = {
+    name: (v: string) => v.slice(0, 30),
+    email: (v: string) => v.slice(0, 254),
+    company: (v: string) => v.slice(0, 30),
+    phone: (v: string) => v.replace(/\D/g, '').slice(0, 10),
+    message: (v: string) => v.slice(0, 500),
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (
-      !form.name.trim() &&
-      !form.email.trim() &&
-      !form.phone.trim() &&
-      !form.company.trim() &&
-      !form.message.trim()
-    ) {
-      toast.error('Please fill in at least one field.');
-      return;
-    }
+
+    if (!validate()) return;
 
     try {
       setStatus('loading');
@@ -163,10 +195,11 @@ export default function ContactPage() {
                         type="text"
                         autoComplete="name"
                         value={form.name}
-                        onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
+                        onChange={(e) => setForm((p) => ({ ...p, name: sanitize.name(e.target.value) }))}
                         placeholder="Rajiv Mehta"
                         className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150"
                       />
+                      {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
                     </div>
                     <div>
                       <label htmlFor="contact-email" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
@@ -177,10 +210,11 @@ export default function ContactPage() {
                         type="email"
                         autoComplete="email"
                         value={form.email}
-                        onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+                        onChange={(e) => setForm((p) => ({ ...p, email: sanitize.email(e.target.value) }))}
                         placeholder="rajiv@company.com"
                         className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150"
                       />
+                      {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                     </div>
                   </div>
 
@@ -194,10 +228,11 @@ export default function ContactPage() {
                         type="text"
                         autoComplete="organization"
                         value={form.company}
-                        onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
+                        onChange={(e) => setForm((p) => ({ ...p, company: sanitize.company(e.target.value) }))}
                         placeholder="FastMove Logistics Pvt. Ltd."
                         className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150"
                       />
+                      {errors.company && <p className="text-xs text-red-500 mt-1">{errors.company}</p>}
                     </div>
                     <div>
                       <label htmlFor="contact-phone" className="block text-sm font-medium text-[#0F172A] dark:text-white mb-1.5">
@@ -208,10 +243,11 @@ export default function ContactPage() {
                         type="tel"
                         autoComplete="tel"
                         value={form.phone}
-                        onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
-                        placeholder="+91 98765 43210"
+                        onChange={(e) => setForm((p) => ({ ...p, phone: sanitize.phone(e.target.value) }))}
+                        placeholder="9876543210"
                         className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150"
                       />
+                      {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
                     </div>
                   </div>
 
@@ -223,10 +259,11 @@ export default function ContactPage() {
                       id="contact-message"
                       rows={5}
                       value={form.message}
-                      onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
+                      onChange={(e) => setForm((p) => ({ ...p, message: sanitize.message(e.target.value) }))}
                       placeholder="Tell us about your fleet size, current setup, or what you'd like to see in a demo..."
                       className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0369A1]/40 focus:border-[#0369A1] transition-all duration-150 resize-none"
                     />
+                    {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message}</p>}
                   </div>
 
                   <button
