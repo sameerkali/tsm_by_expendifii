@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ActivateSchema, type ActivateInput } from '@/lib/validations/auth.schema';
@@ -11,7 +12,12 @@ import Link from 'next/link';
 
 export function ActivateForm() {
   const [showPopup, setShowPopup] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const { activate, isActivating } = useAuth();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (showPopup) {
@@ -101,7 +107,7 @@ export function ActivateForm() {
         </Link>
       </div>
 
-      {showPopup && (
+      {mounted && showPopup && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800 p-6 sm:p-8 flex flex-col items-center text-center animate-in zoom-in-95 duration-200">
             <div className="h-12 w-12 rounded-full bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center mb-4 text-[#0369A1] dark:text-sky-400">
@@ -131,7 +137,7 @@ export function ActivateForm() {
             </button>
           </div>
         </div>
-      )}
+      , document.body)}
     </div>
   );
 }
