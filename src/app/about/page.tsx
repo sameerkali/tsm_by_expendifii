@@ -66,6 +66,9 @@ export default function AboutPage() {
               Built by a transporter&apos;s son, for transporters
             </h1>
             <div className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed space-y-4 text-left sm:text-center">
+              <p className="font-medium text-[#0369A1] dark:text-sky-400">
+                TSM by Expendifii replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters. TSM is the modern transport management system that thousands of logistics businesses trust for their daily operations.
+              </p>
               <p>
                 My father and relatives have been in the transport business for years. Growing up, I watched them fill paper GRs by hand — 20+ fields, three copies, every single trip. I watched records get lost, misplaced, soaked in rain. I watched them hire people just to manage paperwork that a good system should handle automatically.
               </p>

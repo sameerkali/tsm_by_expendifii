@@ -17,8 +17,8 @@ export default function Navbar() {
           {/* Nav links */}
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {[
-              { label: 'Features', href: '/#features' },
-              { label: 'How it Works', href: '/#how-it-works' },
+              { label: 'Features', href: '/features' },
+              { label: 'Why Choose TSM', href: '/why-tsm' },
               { label: 'Live Demo', href: '/live-demo' },
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },

@@ -195,24 +195,6 @@ const features = [
     title: 'Analytics Dashboard',
     description: 'Get visibility into your trips, volumes, and operations in a simple dashboard designed for transport owners, not accountants.',
   },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 18H12.01M8 21H16C17.1046 21 18 20.1046 18 19V5C18 3.89543 17.1046 3 16 3H8C6.89543 3 6 3.89543 6 5V19C6 20.1046 6.89543 21 8 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Driver App (Soon)',
-    description: 'Give drivers their own GR copy digitally. No more lost paper slips.',
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-      </svg>
-    ),
-    title: 'Smart Billing',
-    description: 'Auto-generate invoices from GR data. GST-compliant, fast, and accurate.',
-  },
 ];
 
 const comparisonRows = [
@@ -246,6 +228,105 @@ const testimonials = [
     initials: 'RS',
     cite: 'https://www.linkedin.com/in/ravi-sharma',
   },
+];
+
+const seoKeywords = [
+  {
+    category: "Primary Commercial Keywords",
+    keywords: ["transport management system", "transport management software", "transport software", "transport software india", "transport ERP", "transport ERP software", "logistics software", "logistics management software", "logistics ERP", "fleet management software", "fleet management system", "freight management software", "trucking software", "trucking management software", "road transport software", "cargo management software", "shipment management software", "dispatch management software", "delivery management software"]
+  },
+  {
+    category: "GR / LR Keywords",
+    keywords: ["GR software", "GR management software", "GR creation software", "GR generator", "online GR software", "digital GR software", "transport GR software", "lorry receipt software", "LR software", "LR management software", "LR generation software", "online LR software", "LR tracking software", "digital LR software", "goods receipt software", "transport receipt software", "consignment note software", "e-GR software", "electronic GR software"]
+  },
+  {
+    category: "Transport Company Keywords",
+    keywords: ["software for transporters", "software for transport company", "software for transport business", "software for logistics company", "software for fleet owners", "software for truck operators", "transport business software", "transport office software", "transport booking software", "transport agency software", "truck owner software", "fleet owner software"]
+  },
+  {
+    category: "Logistics Keywords",
+    keywords: ["logistics software", "logistics management software", "logistics automation", "digital logistics platform", "logistics ERP software", "logistics solution", "logistics solutions india", "logistics tracking software", "logistics business software", "warehouse logistics software", "road logistics software", "freight logistics software", "supply chain software", "supply chain management software"]
+  },
+  {
+    category: "Fleet Management",
+    keywords: ["fleet software", "fleet management system", "fleet management software", "vehicle management software", "truck management software", "fleet tracking software", "vehicle tracking software", "fleet operations software", "truck fleet software", "fleet maintenance software", "fleet scheduling software", "driver management software"]
+  },
+  {
+    category: "Dispatch & Booking",
+    keywords: ["dispatch software", "dispatch management software", "truck dispatch software", "transport dispatch software", "load dispatch software", "booking management software", "transport booking software", "trip booking software", "load booking software", "vehicle dispatch software"]
+  },
+  {
+    category: "Trip Management",
+    keywords: ["trip management software", "trip sheet software", "trip tracking software", "trip planning software", "trip expense software", "trip settlement software", "trip management system"]
+  },
+  {
+    category: "Billing & Accounting",
+    keywords: ["transport billing software", "freight billing software", "invoice software for transporters", "transport invoice software", "GST billing software transport", "transport accounting software", "truck accounting software"]
+  },
+  {
+    category: "Freight",
+    keywords: ["freight software", "freight management software", "freight booking software", "freight tracking software", "freight ERP", "road freight software", "freight forwarding software"]
+  },
+  {
+    category: "Truck",
+    keywords: ["truck management software", "truck booking software", "truck dispatch software", "truck tracking software", "truck fleet management", "truck operator software", "truck logistics software", "truck ERP"]
+  },
+  {
+    category: "Delivery",
+    keywords: ["delivery management software", "delivery tracking software", "delivery planning software", "proof of delivery software", "POD software", "last mile delivery software"]
+  },
+  {
+    category: "Driver Management",
+    keywords: ["driver management software", "driver attendance software", "driver expense software", "driver payroll software", "driver tracking software"]
+  },
+  {
+    category: "Expense Management",
+    keywords: ["transport expense software", "fuel management software", "diesel management software", "toll management software", "FASTag management software", "vehicle expense software"]
+  },
+  {
+    category: "Vehicle Management",
+    keywords: ["vehicle management software", "vehicle maintenance software", "vehicle tracking software", "RC management software", "insurance tracking software", "permit management software"]
+  },
+  {
+    category: "Tracking",
+    keywords: ["shipment tracking software", "truck tracking software", "consignment tracking software", "load tracking software", "GPS fleet software"]
+  },
+  {
+    category: "Automation",
+    keywords: ["transport automation software", "logistics automation software", "digital transport management", "paperless transport software", "transport workflow automation", "transport digitization"]
+  },
+  {
+    category: "Business",
+    keywords: ["transport business automation", "transport office management", "transport company software", "transport operations software", "transport workflow software", "transport CRM"]
+  },
+  {
+    category: "Indian Search Keywords",
+    keywords: ["GR banane ka software", "LR software India", "lorry receipt software india", "transport software india", "transport management software india", "best transport software india", "best logistics software india", "truck management software india", "transport ERP india"]
+  },
+  {
+    category: "Feature-Based Keywords",
+    keywords: ["cloud transport software", "online transport software", "mobile transport software", "transport software with GST", "transport software with invoice", "transport software with GPS", "transport software with WhatsApp", "transport software with SMS", "transport software with reports", "transport software with analytics"]
+  },
+  {
+    category: "Problem-Based Keywords",
+    keywords: ["replace excel for transport business", "paperless GR software", "digital lorry receipt", "transport office automation", "manage transport business online", "transport management app", "transport business digitization"]
+  },
+  {
+    category: "Comparison Keywords",
+    keywords: ["best transport management software", "best logistics software", "best fleet management software", "best transport ERP", "top transport software india", "transport ERP vs excel", "transport software comparison"]
+  },
+  {
+    category: "Local SEO Keywords",
+    keywords: ["transport software Delhi", "transport software Mumbai", "transport software Bangalore", "transport software Chennai", "transport software Hyderabad", "transport software Pune", "transport software Ahmedabad", "transport software Kolkata"]
+  },
+  {
+    category: "High-Intent Long-Tail Keywords",
+    keywords: ["best transport management software for transporters", "best GR software for transport company", "software to generate lorry receipt", "digital GR software for transport business", "cloud transport management software", "GST transport billing software", "trip management software for transporters", "fleet management software for truck owners", "transport office management software", "transport ERP for logistics company", "online transport booking software", "paperless transport management software", "transport software with trip tracking", "transport software with driver management", "transport software with billing", "transport software with GR creation"]
+  },
+  {
+    category: "Dedicated SEO Landing Pages",
+    keywords: ["Transport Management Software", "GR Software", "Lorry Receipt Software", "LR Software", "Logistics Management Software", "Fleet Management Software", "Transport ERP", "Freight Management Software", "Trip Management Software", "Transport Billing Software", "Driver Management Software", "Vehicle Management Software", "Dispatch Management Software", "Transport CRM", "Truck Management Software", "Logistics Software India", "Transport Software India", "Digital Transport Management", "Transport Business Automation", "Paperless Transport Office"]
+  }
 ];
 
 export default function HomePage() {
@@ -292,8 +373,8 @@ export default function HomePage() {
               </span>
             </h1>
 
-            <p id="hero-summary" className="mt-6 text-center text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              TSM by Expendifii replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters. TSM is the modern transport management system that thousands of logistics businesses trust for their daily operations.
+            <p id="hero-summary" className="mt-6 text-center text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              Replace manual paperwork, lost receipts, and slow Excel sheets with NCR&apos;s fastest digital GR generator. Auto-fill customer details, customize print layouts, and manage active jobs from one simple dashboard.
             </p>
 
             {/* CTAs */}
@@ -345,60 +426,64 @@ export default function HomePage() {
               </Link>
             </p>
 
-            {/* Dashboard preview card */}
-            <div className="mt-14 mx-auto max-w-4xl">
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl shadow-slate-200/60 dark:shadow-slate-900/60 overflow-hidden">
+            {/* Actual TSM dashboard interface */}
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-xl overflow-hidden mt-10">
                 {/* Fake browser chrome */}
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800">
-                  <span className="h-3 w-3 rounded-full bg-red-400" aria-hidden="true" />
-                  <span className="h-3 w-3 rounded-full bg-amber-400" aria-hidden="true" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-400" aria-hidden="true" />
-                  <div className="ml-4 flex-1 rounded-md bg-slate-200/70 dark:bg-slate-700 px-3 py-1 text-xs text-slate-500 dark:text-slate-400 max-w-xs">
+                <div className="flex items-center gap-1.5 px-4 py-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" aria-hidden="true" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-amber-400" aria-hidden="true" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                  <div className="ml-4 flex-1 rounded bg-slate-200 dark:bg-slate-800 px-3 py-0.5 text-[10px] text-slate-500 dark:text-slate-400 max-w-xs">
                     tsm.expendifii.com/dashboard
                   </div>
                 </div>
                 {/* Dashboard preview */}
-                <div className="p-4 sm:p-6 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 min-h-[220px]">
+                <div className="p-3 sm:p-5 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 min-h-[300px]">
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                     {[
-                      { label: 'Active Jobs', value: '48', trend: '+12%', up: true },
-                      { label: 'Vehicles Live', value: '31', trend: '100%', up: true },
-                      { label: 'Invoices Due', value: '₹2.4L', trend: '-8%', up: false },
-                      { label: 'On-time Rate', value: '94%', trend: '+3%', up: true },
+                      { label: 'Active Jobs', value: '48', trend: '+12% this week', up: true },
+                      { label: 'Vehicles Live', value: '31', trend: '100% utilisation', up: true },
+                      { label: 'Invoices Due', value: '₹2.4L', trend: '-8% reduction', up: false },
+                      { label: 'On-time Rate', value: '94%', trend: '+3% improvement', up: true },
                     ].map((stat) => (
-                      <div key={stat.label} className="rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 px-3 py-3 shadow-sm">
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
+                      <div key={stat.label} className="rounded-xl bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 px-3 py-3 shadow-sm">
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
                         <p className="text-xl font-bold text-[#0F172A] dark:text-white">{stat.value}</p>
-                        <p className={`text-xs font-medium ${stat.up ? 'text-emerald-600' : 'text-red-500'}`}>{stat.trend}</p>
+                        <p className={`text-[10px] font-semibold mt-1 ${stat.up ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'}`}>{stat.trend}</p>
                       </div>
                     ))}
                   </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="col-span-2 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 px-4 py-3 shadow-sm">
-                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3">Recent Jobs</p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div className="md:col-span-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 px-4 py-3 shadow-sm">
+                      <p className="text-xs font-bold text-slate-700 dark:text-white mb-3">Live Transit Jobs</p>
                       {[
-                        { id: 'JB-1042', route: 'Mumbai → Pune', status: 'In Transit', color: 'bg-blue-500' },
-                        { id: 'JB-1041', route: 'Nashik → Nagpur', status: 'Delivered', color: 'bg-emerald-500' },
-                        { id: 'JB-1040', route: 'Pune → Kolhapur', status: 'Pending', color: 'bg-amber-400' },
+                        { id: 'JB-1042', route: 'Delhi → Pune', status: 'In Transit', color: 'bg-blue-500', eta: '2 hrs left' },
+                        { id: 'JB-1041', route: 'Ghaziabad → Noida', status: 'Delivered', color: 'bg-emerald-500', eta: 'Completed' },
+                        { id: 'JB-1040', route: 'Faridabad → Hapur', status: 'Pending Dispatch', color: 'bg-amber-400', eta: 'Today' },
                       ].map((job) => (
-                        <div key={job.id} className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-600 last:border-0">
-                          <div className="flex items-center gap-2">
+                        <div key={job.id} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+                          <div className="flex items-center gap-2.5">
                             <span className={`h-2 w-2 rounded-full ${job.color}`} aria-hidden="true" />
-                            <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{job.id}</span>
-                            <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">{job.route}</span>
+                            <div>
+                              <p className="text-[10px] font-semibold text-slate-700 dark:text-white">{job.id}</p>
+                              <p className="text-[9px] text-slate-500 dark:text-slate-400">{job.route}</p>
+                            </div>
                           </div>
-                          <span className="text-xs text-slate-500 dark:text-slate-400">{job.status}</span>
+                          <div className="text-right">
+                            <span className="text-[10px] font-medium text-slate-700 dark:text-slate-200">{job.status}</span>
+                            <p className="text-[8px] text-slate-400 mt-0.5">{job.eta}</p>
+                          </div>
                         </div>
                       ))}
                     </div>
-                    <div className="rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 px-3 py-3 shadow-sm">
+                    <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 px-3 py-3 shadow-sm">
                       <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3">Fleet Status</p>
                       {[
                         { label: 'Active', count: 31, color: 'bg-emerald-500' },
                         { label: 'Idle', count: 8, color: 'bg-amber-400' },
                         { label: 'Service', count: 3, color: 'bg-red-400' },
                       ].map((s) => (
-                        <div key={s.label} className="flex items-center justify-between py-1.5">
+                        <div key={s.label} className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800 last:border-0">
                           <div className="flex items-center gap-1.5">
                             <span className={`h-2 w-2 rounded-full ${s.color}`} aria-hidden="true" />
                             <span className="text-xs text-slate-600 dark:text-slate-300">{s.label}</span>
@@ -411,65 +496,10 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-3">Actual TSM dashboard interface</p>
-            </div>
           </div>
         </section>
 
-        {/* ── KEY TAKEAWAYS / TL;DR ────────────────── */}
-        <section id="key-takeaways" className="py-12 sm:py-16 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="tldr-heading">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-sky-200 dark:border-sky-500/20 bg-sky-50 dark:bg-sky-950/20 p-6 sm:p-8">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Key Takeaways</p>
-              <h2 id="tldr-heading" className="sr-only">Key Takeaways about TSM by Expendifii</h2>
-              <ul className="space-y-3">
-                {[
-                  'TSM by Expendifii cuts GR creation time from 15 minutes to under 2 minutes — 3 copies auto-generated.',
-                  'No paper, no Excel, no hired data-entry staff. One platform handles your entire GR workflow.',
-                  'Free to start right now. Up and running in 2–24 hours. Designed for Indian transporters of all sizes.',
-                  'Your data is stored securely — no more lost records from rain, rats, or fire.',
-                  'Customisable GR layout, batch management, analytics dashboard, and smart billing — everything a transporter needs.',
-                ].map(function (point) {
-                  return (
-                    <li key={point} className="flex items-start gap-3 text-sm sm:text-base text-slate-700 dark:text-slate-300">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0 text-emerald-500" aria-hidden="true">
-                        <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <span>{point}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* ── TABLE OF CONTENTS ────────────────────── */}
-        <nav className="py-8 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-label="Table of Contents">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">On this page</p>
-            <ol className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              {[
-                { href: '#features', label: 'Features' },
-                { href: '#how-it-works', label: 'How TSM Works' },
-                { href: '#how-tsm-works-steps', label: 'Step-by-Step' },
-                { href: '#testimonials', label: 'Testimonials' },
-                { href: '#glossary', label: 'Logistics Glossary' },
-                { href: '#faq', label: 'FAQ' },
-                { href: '#conclusion', label: 'Conclusion' },
-              ].map(function (link) {
-                return (
-                  <li key={link.href}>
-                    <a href={link.href} className="text-slate-600 dark:text-slate-400 hover:text-[#0369A1] dark:hover:text-sky-400 transition-colors font-medium">
-                      {link.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-        </nav>
-
-
+        {/* ── CORE FEATURES ───────────────────────── */}
         <section id="features" className="py-20 sm:py-28 bg-white dark:bg-slate-950" aria-labelledby="features-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
@@ -478,16 +508,10 @@ export default function HomePage() {
                 Everything a transporter actually needs.<br className="hidden sm:block" /> Nothing they don&apos;t.
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              TSM by Expendifii is purpose-built for transport businesses not a generic tool forced to fit. <a href="https://schema.org" target="_blank" rel="noopener noreferrer" className="text-[#0369A1] dark:text-sky-400 hover:underline">Built on open standards</a> for security and interoperability.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
-              <span><strong className="text-[#0369A1] dark:text-sky-400">GR creation:</strong> &lt;2 min</span>
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Copies:</strong> 3 auto-generated</span>
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours</span>
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free to start</span>
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Platform:</strong> Web-based</span>
+                TSM by Expendifii is purpose-built for transport businesses not a generic tool forced to fit. Built on open standards for security and interoperability.
+              </p>
             </div>
-            </div>
+            
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
                 <div
@@ -501,6 +525,12 @@ export default function HomePage() {
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{f.description}</p>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link href="/features" className="inline-flex items-center gap-2 text-sm font-bold text-[#0369A1] dark:text-sky-400 hover:underline">
+                Explore all capabilities and layouts &rarr;
+              </Link>
             </div>
           </div>
         </section>
@@ -545,10 +575,25 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── PRODUCT TEASER ──────────────────────── */}
+        <section className="py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+              Explore TSM Dashboard Cockpit
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
+              Track active transit orders, fleet status yards, and invoicing records inside a beautifully designed user interface.
+            </p>
+            <Link href="/product" className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-sky-600 dark:hover:bg-sky-500 transition-all duration-200 cursor-pointer">
+              View Product Dashboard &rarr;
+            </Link>
+          </div>
+        </section>
+
         {/* ── MANUAL vs TSM COMPARISON ─────────────── */}
         <section
           id="how-it-works"
-          className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800"
+          className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800"
           aria-labelledby="comparison-heading"
         >
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -558,7 +603,7 @@ export default function HomePage() {
                 Paper GRs cost you more than you think <br className="hidden sm:block" /> in time, money, and stress
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Here&apos;s what actually changes when you move to TSM. According to industry reports, <a href="https://www.logistics.dhl/in-en/home/insights-and-innovation/thought-leadership/trend-reports/digitalization-in-logistics.html" target="_blank" rel="noopener noreferrer" className="text-[#0369A1] dark:text-sky-400 hover:underline">over 70% of Indian transporters still use paper-based systems</a> for GR and LR management. TSM is built to change that.
+                Here&apos;s what actually changes when you move to TSM. Over 70% of Indian transporters still use paper-based systems for GR and LR management. TSM is built to change that.
               </p>
             </div>
 
@@ -590,213 +635,174 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="mt-8 flex justify-center">
+            <div className="mt-8 flex justify-center gap-4">
               <Link
-                href="/register"
-                id="comparison-cta"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-[#0F172A] dark:hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
+                href="/why-tsm"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] transition-all"
               >
-                Switch to TSM today
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                Why Transporters Pick TSM &rarr;
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ── LOGISTICS GLOSSARY ───────────────────── */}
-        <section id="glossary" className="py-20 sm:py-28 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="glossary-heading">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Quick Reference</p>
-              <h2 id="glossary-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Common Logistics Terms — Explained
-              </h2>
-              <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                TSM by Expendifii handles all these documents and processes. Here is what they mean.
-              </p>
-            </div>
-            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                { term: 'GR (Goods Receipt)', def: 'A document issued by a transporter acknowledging receipt of goods for shipment. Also called a lorry receipt (LR). TSM by Expendifii creates and manages GRs digitally.' },
-                { term: 'POD (Proof of Delivery)', def: 'A signed document confirming goods were delivered to the consignee. Essential for closing the shipping cycle and releasing payments.' },
-                { term: 'LR (Lorry Receipt)', def: 'Same as GR — used interchangeably in the Indian transport industry. A legal document of goods handed over for transport.' },
-                { term: 'E-way Bill', def: 'A digital document required for inter-state goods movement under GST. TSM helps you manage the data alongside your GR.' },
-                { term: 'Consigner (Consignor)', def: 'The person or business sending the goods. One of the three parties on every GR (alongside transporter and consignee).' },
-                { term: 'GRN (Goods Received Note)', def: 'A document created by the consignee upon receiving goods, confirming quantity and condition match the GR.' },
-              ].map(function (item) {
-                return (
-                  <div key={item.term} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-5 hover:border-[#0369A1]/30 dark:hover:border-sky-500/30 transition-colors duration-200">
-                    <dt className="text-sm font-bold text-[#0F172A] dark:text-white mb-1">{item.term}</dt>
-                    <dd className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.def}</dd>
-                  </div>
-                );
-              })}
-            </dl>
-          </div>
-        </section>
-
         {/* ── TESTIMONIALS ────────────────────────── */}
-        <section id="testimonials" className="py-20 sm:py-28 bg-white dark:bg-slate-950" aria-labelledby="testimonials-heading">
+        <section id="testimonials" className="py-20 sm:py-28 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="testimonials-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Customer Stories</p>
+              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Real Feedback</p>
               <h2 id="testimonials-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Trusted by logistics teams across India
+                What transporters say about TSM
               </h2>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {testimonials.map((t) => (
-                <figure
+                <div
                   key={t.name}
-                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-6 hover:shadow-lg hover:shadow-slate-200/60 dark:hover:shadow-slate-900 hover:border-[#0369A1]/30 dark:hover:border-sky-500/30 transition-all duration-200"
+                  className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-6 hover:border-[#0369A1]/35 dark:hover:border-sky-500/35 transition-all duration-205"
                 >
-                  <div className="flex gap-1 mb-4" aria-label="5 stars">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <blockquote className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic mb-6" cite={t.cite}>
+                  <svg className="mb-4 text-[#0369A1]/40 dark:text-sky-500/30" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                  <blockquote className="text-sm sm:text-base text-slate-700 dark:text-slate-350 leading-relaxed mb-6 italic">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
-                  <figcaption className="flex items-center gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0F172A] dark:bg-[#0369A1] text-white text-xs font-bold">
                       {t.initials}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-[#0F172A] dark:text-white">{t.name}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{t.role}</p>
+                      <p className="text-xs font-bold text-[#0F172A] dark:text-white">{t.name}</p>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{t.role}</p>
                     </div>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-
-            {/* Stats band */}
-            <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { value: '2–24h', label: 'Up and running' },
-                { value: '3 Copies', label: 'Auto-generated per GR' },
-                { value: '20+ Fields', label: 'Supported & customisable' },
-                { value: '₹0', label: 'Free to start right now' },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900">
-                  <p className="text-3xl font-bold text-[#0369A1] dark:text-sky-400 mb-1">{stat.value}</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── BALANCED PERSPECTIVE ─────────────────── */}
-        <section className="py-16 sm:py-20 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-label="Balanced perspective">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Honest Take</p>
-            <blockquote className="text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
-              &ldquo;TSM by Expendifii is ideal for transporters who want to digitise their GR workflow without learning complex software. On the other hand, if your fleet is already using an end-to-end ERP with transport modules, TSM may serve as a dedicated GR layer rather than a replacement. For the vast majority of Indian transporters still managing GRs on paper or Excel, TSM is the simplest path to going digital.&rdquo;
-            </blockquote>
-            <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
-              — <time dateTime="2026-06-29">June 29, 2026</time>
+        {/* ── PRICING PREVIEW ─────────────────────── */}
+        <section className="py-20 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Simple Pricing</p>
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-4">100% Free For Early Transporters</h2>
+            <p className="text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed mb-6 text-sm sm:text-base">
+              NCR transporters who sign up this month get full access to GR creation, customer directories, and dashboards for ₹0. No hidden contracts.
             </p>
-          </div>
-        </section>
-
-        {/* ── IMAGE WITH ALT TEXT ──────────────────── */}
-        <section className="py-16 sm:py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-label="Product screenshot">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-[#F8FAFC] dark:bg-slate-900 overflow-hidden">
-              <div className="p-4 sm:p-6">
-                <Image
-                  src="/landingImg01.webp"
-                  alt="TSM by Expendifii dashboard showing GR management, active jobs, and fleet status overview for Indian transport businesses"
-                  width={1200}
-                  height={675}
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700"
-                />
-              </div>
-              <div className="px-6 pb-6">
-                <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
-                  TSM by Expendifii — Transport Management System dashboard
-                </p>
-              </div>
-            </div>
+            <Link href="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sky-650 transition-colors">
+              Claim Free Access Now
+            </Link>
           </div>
         </section>
 
         {/* ── FAQ ─────────────────────────────────── */}
         <FAQSection faqs={faqs} />
 
-        {/* ── CONCLUSION ───────────────────────────── */}
-        <section id="conclusion" className="py-20 sm:py-24 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="conclusion-heading">
+        {/* ── FINAL CTA ───────────────────────────── */}
+        <section className="bg-[#0F172A] dark:bg-slate-900 py-16 sm:py-20 border-t border-slate-800" aria-labelledby="final-cta-heading">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Why TSM by Expendifii</p>
-            <h2 id="conclusion-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-6">
-              The Verdict: Go Digital, Stay Simple
+            <h2 id="final-cta-heading" className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4">
+              Digitise Your Transport Business Today
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8">
-              TSM by Expendifii is the transport management system built specifically for Indian transporters who are tired of paper GRs, lost records, and slow manual processes. It replaces 15-minute paperwork with a 2-minute digital workflow — 3 copies auto-generated, permanent digital records, customisable layouts, and a simple dashboard that gives you real visibility into your operations. <strong className="text-[#0F172A] dark:text-white">Best of all, it is free to start and takes just 2–24 hours to set up.</strong>
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free right now
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <strong className="text-[#0369A1] dark:text-sky-400">Support:</strong> Direct help from the team
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* ── CTA BAND ────────────────────────────── */}
-        <section className="bg-[#0F172A] dark:bg-slate-900 py-20 sm:py-24 border-t border-slate-800" aria-labelledby="final-cta-heading">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 id="final-cta-heading" className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              Ready to leave the paper behind?
-            </h2>
-            <p className="text-lg text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-              Join transporters across NCR who are creating GRs in minutes not hours.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/register"
                 id="bottom-cta-primary"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-7 py-4 text-sm font-semibold text-white shadow-lg hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-sky-600 transition-colors cursor-pointer"
               >
-                Get Started Free
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                Sign Up Free
               </Link>
               <Link
                 href="/live-demo"
                 id="bottom-cta-demo"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-7 py-4 text-sm font-semibold text-slate-300 hover:border-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-300 hover:border-white transition-colors cursor-pointer"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" fill="currentColor" />
-                </svg>
-                See a live demo no signup
+                Try Free Demo
               </Link>
             </div>
+            <p className="text-xs text-slate-500 mt-6">
+              NCR Transport Management System (TSM) by Expendifii
+            </p>
+          </div>
+        </section>
+
+        {/* ── SEO LOGISTICS & TRANSPORT DIRECTORY ─── */}
+        <section className="bg-slate-50/50 dark:bg-slate-900/10 border-t border-slate-200/50 dark:border-slate-800/50 py-4 sm:py-6" aria-labelledby="directory-heading">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <details className="group">
+              <summary className="flex items-center justify-between cursor-pointer list-none marker:hidden text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-350 transition-colors select-none">
+                <span id="directory-heading" className="flex items-center gap-2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-[#0369A1] dark:text-sky-400" aria-hidden="true">
+                    <path d="M19 11H5M19 11L12 4M19 11L12 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Logistics & Transport Solutions Directory
+                </span>
+                <span className="flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-medium normal-case group-open:hidden">
+                  Expand Index
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span className="hidden group-open:flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-medium normal-case">
+                  Collapse Index
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M18 15L12 9L6 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </summary>
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
+                {seoKeywords.map((item) => (
+                  <div key={item.category} className="space-y-2">
+                    <h4 className="text-xs font-bold text-slate-700 dark:text-slate-350">{item.category}</h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.keywords.map((kw) => {
+                        let href = "";
+                        const kwLower = kw.toLowerCase();
+                        if (kwLower.includes("lorry receipt") || kwLower.includes("lr")) {
+                          href = "/lorry-receipt-software";
+                        } else if (kwLower.includes("gr")) {
+                          href = "/gr-management";
+                        } else if (kwLower.includes("tms") || kwLower.includes("transport management system") || kwLower.includes("transport management software")) {
+                          href = "/transport-management-system";
+                        } else if (kwLower.includes("automation")) {
+                          href = "/transport-business-automation";
+                        } else if (kwLower.includes("digital")) {
+                          href = "/digital-transport-management";
+                        } else if (kwLower.includes("glossary")) {
+                          href = "/logistics-glossary";
+                        } else if (kwLower.includes("feature")) {
+                          href = "/features";
+                        } else if (kwLower.includes("product") || kwLower.includes("dashboard")) {
+                          href = "/product";
+                        }
+
+                        if (href) {
+                          return (
+                            <Link
+                              key={kw}
+                              href={href}
+                              className="inline-block bg-sky-50/50 hover:bg-sky-50 dark:bg-slate-900/60 dark:hover:bg-slate-900 text-[10px] text-[#0369A1] dark:text-sky-400 px-2 py-0.5 rounded border border-sky-100/50 dark:border-slate-800/50 transition-colors"
+                            >
+                              {kw}
+                            </Link>
+                          );
+                        }
+
+                        return (
+                          <span
+                            key={kw}
+                            className="inline-block bg-slate-100 dark:bg-slate-900/45 text-[10px] text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded border border-slate-200/20 dark:border-slate-800/20"
+                          >
+                            {kw}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </details>
           </div>
         </section>
       </main>

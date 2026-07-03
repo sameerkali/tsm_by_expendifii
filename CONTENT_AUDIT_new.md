@@ -235,7 +235,7 @@
 ### Metadata
 * **Title:** Privacy Policy — TSM by Expendifii
 * **Description:** How TSM collects, uses, and protects your personal and operational data.
-* **Last Updated:** May 2025
+* **Last Updated:** May 2026
 
 ### Full Document
 
@@ -276,7 +276,7 @@
 ### Metadata
 * **Title:** Terms & Conditions — TSM by Expendifii
 * **Description:** The terms governing your use of TSM by Expendifii.
-* **Last Updated:** May 2025
+* **Last Updated:** May 2026
 
 ### Full Document
 
@@ -311,7 +311,7 @@
 ### Metadata
 * **Title:** User Agreement — TSM by Expendifii
 * **Description:** The TSM User Agreement governing roles, responsibilities, and acceptable conduct on the platform.
-* **Last Updated:** May 2025
+* **Last Updated:** May 2026
 
 ### Full Document
 

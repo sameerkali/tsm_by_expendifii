@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://tsm.expendifii.com/privacy-policy' },
 };
 
-const lastUpdated = 'May 2025';
+const lastUpdated = 'May 2026';
 
 export default function PrivacyPolicyPage() {
   return (

@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-slate-200 dark:border-slate-800 bg-[#0F172A] dark:bg-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-slate-700 dark:border-slate-800">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 pb-10 border-b border-slate-700 dark:border-slate-800">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
@@ -37,11 +37,32 @@ export default function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">Product</h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'Features', href: '/#features' },
-                { label: 'How it Works', href: '/#how-it-works' },
-                { label: 'Why TSM?', href: '/why-tsm' },
+                { label: 'Features', href: '/features' },
+                { label: 'Overview', href: '/product' },
+                { label: 'Why Choose TSM', href: '/why-tsm' },
                 { label: 'Live Demo', href: '/live-demo' },
                 { label: 'Sign In', href: '/login' },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors duration-150 cursor-pointer">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">Resources</h3>
+            <ul className="space-y-2.5">
+              {[
+                { label: 'Lorry Receipt Software', href: '/lorry-receipt-software' },
+                { label: 'GR Management', href: '/gr-management' },
+                { label: 'What is a TMS?', href: '/transport-management-system' },
+                { label: 'Digital vs Paper', href: '/digital-transport-management' },
+                { label: 'Logistics Glossary', href: '/logistics-glossary' },
+                { label: 'Transport Automation', href: '/transport-business-automation' },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors duration-150 cursor-pointer">

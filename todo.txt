@@ -103,4 +103,5 @@ On this page section in the hero section we needto remvoe it from here and add i
 move this in saperate page as well "Common Logistics Terms — Explained" section 
 move Honest Take section in diffrent as well 
 image in hero secion with title "TSM by Expendifii — Transport Management System dashboard" move that as well
-
+remveo The Verdict: Go Digital, Stay Simple and add somewhere else 
+remveo Ready to leave the paper behind? section and add somewhere else 

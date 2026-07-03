@@ -148,6 +148,34 @@ export default function WhyTsmPage() {
           </div>
         </section>
 
+        {/* Key Takeaways summary */}
+        <section id="key-takeaways" className="py-12 sm:py-16 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="tldr-heading">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-2xl border border-sky-200 dark:border-sky-500/20 bg-sky-50 dark:bg-sky-950/20 p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Key Takeaways</p>
+              <h2 id="tldr-heading" className="sr-only">Key Takeaways about TSM by Expendifii</h2>
+              <ul className="space-y-3">
+                {[
+                  'TSM by Expendifii cuts GR creation time from 15 minutes to under 2 minutes — 3 copies auto-generated.',
+                  'No paper, no Excel, no hired data-entry staff. One platform handles your entire GR workflow.',
+                  'Free to start right now. Up and running in 2–24 hours. Designed for Indian transporters of all sizes.',
+                  'Your data is stored securely — no more lost records from rain, rats, or fire.',
+                  'Customisable GR layout, batch management, analytics dashboard, and smart billing — everything a transporter needs.',
+                ].map(function (point) {
+                  return (
+                    <li key={point} className="flex items-start gap-3 text-sm sm:text-base text-slate-700 dark:text-slate-300">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0 text-emerald-500" aria-hidden="true">
+                        <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span>{point}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </section>
+
         {/* Why us differentiators */}
         <section className="py-20 sm:py-28 bg-white dark:bg-slate-950" aria-labelledby="differentiators-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -224,6 +252,39 @@ export default function WhyTsmPage() {
             <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Arun K., CEO   KPL Transport
             </p>
+          </div>
+        </section>
+
+        {/* ── CONCLUSION / THE VERDICT ──────────────── */}
+        <section id="conclusion" className="py-20 sm:py-24 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="conclusion-heading">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Why TSM by Expendifii</p>
+            <h2 id="conclusion-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-6">
+              The Verdict: Go Digital, Stay Simple
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8">
+              TSM by Expendifii is the transport management system built specifically for Indian transporters who are tired of paper GRs, lost records, and slow manual processes. It replaces 15-minute paperwork with a 2-minute digital workflow — 3 copies auto-generated, permanent digital records, customisable layouts, and a simple dashboard that gives you real visibility into your operations. <strong className="text-[#0F172A] dark:text-white">Best of all, it is free to start and takes just 2–24 hours to set up.</strong>
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free right now
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <strong className="text-[#0369A1] dark:text-sky-400">Support:</strong> Direct help from the team
+              </span>
+            </div>
           </div>
         </section>
 

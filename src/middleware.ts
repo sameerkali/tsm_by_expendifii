@@ -16,6 +16,14 @@ const PUBLIC_PATHS = [
   '/cookie-policy',
   '/why-tsm',
   '/live-demo',
+  '/features',
+  '/product',
+  '/transport-management-system',
+  '/logistics-glossary',
+  '/digital-transport-management',
+  '/transport-business-automation',
+  '/gr-management',
+  '/lorry-receipt-software',
 ];
 const COOKIE_NAME = process.env.COOKIE_NAME || 'token';
 const GUEST_COOKIE_NAME = 'tms_guest';
