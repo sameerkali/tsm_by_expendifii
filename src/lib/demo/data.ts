@@ -3,6 +3,8 @@ import type { GR } from '@/types/gr';
 import { BillingType, GRStatus, PaymentStatus, PricingType } from '@/types/gr';
 import type { PaginatedGRResponse, GetGRsParams } from '@/lib/api/gr.api';
 import type { CustomerListParams } from '@/lib/api/customer.api';
+import type { DashboardData } from '@/lib/api/dashboard.api';
+import type { ApiResponse } from '@/types/api';
 
 const createdAt = '2026-05-01T10:00:00.000Z';
 const userId = 'guest-user';
@@ -155,4 +157,98 @@ export function getDemoCustomerById(id: string): CustomerResponse {
     throw { success: false, message: 'Demo customer not found.' };
   }
   return { success: true, data: customer };
+}
+
+export function getDemoDashboardResponse(): ApiResponse<DashboardData> {
+  const grs = {
+    total: demoGRs.length,
+    booked: demoGRs.filter((gr) => gr.status === GRStatus.BOOKED).length,
+    inTransit: demoGRs.filter((gr) => gr.status === GRStatus.IN_TRANSIT).length,
+    delivered: demoGRs.filter((gr) => gr.status === GRStatus.DELIVERED).length,
+  };
+
+  const paidRevenue = demoGRs
+    .filter((gr) => gr.paymentStatus === PaymentStatus.PAID)
+    .reduce((sum, gr) => sum + (gr.freightAmount ?? 0), 0);
+
+  const pendingRevenue = demoGRs
+    .filter((gr) => gr.paymentStatus === PaymentStatus.PENDING)
+    .reduce((sum, gr) => sum + (gr.freightAmount ?? 0), 0);
+
+  const totalRevenue = paidRevenue + pendingRevenue;
+
+  const revenue = {
+    total: totalRevenue,
+    pending: pendingRevenue,
+    paid: paidRevenue,
+  };
+
+  const payment = {
+    pending: pendingRevenue,
+    paid: paidRevenue,
+  };
+
+  // Customers count by GR count
+  const customerMap: Record<string, { grCount: number; revenue: number; name: string; phone: string }> = {};
+
+  demoCustomers.forEach((c) => {
+    customerMap[c.name] = { grCount: 0, revenue: 0, name: c.name, phone: c.phone };
+  });
+
+  demoGRs.forEach((gr) => {
+    const name = gr.consignor;
+    if (!customerMap[name]) {
+      customerMap[name] = { grCount: 0, revenue: 0, name, phone: gr.customer?.phone || gr.driverMobile || '' };
+    }
+    customerMap[name].grCount += 1;
+    customerMap[name].revenue += gr.freightAmount ?? 0;
+  });
+
+  const customerList = Object.values(customerMap);
+
+  const topCustomersByGRCount = [...customerList]
+    .sort((a, b) => b.grCount - a.grCount)
+    .slice(0, 5)
+    .map((c, idx) => ({
+      grCount: c.grCount,
+      customerId: `demo-cust-gr-${idx}`,
+      name: c.name,
+      phone: c.phone,
+    }));
+
+  const topCustomersByRevenue = [...customerList]
+    .sort((a, b) => b.revenue - a.revenue)
+    .slice(0, 5)
+    .map((c, idx) => ({
+      revenue: c.revenue,
+      customerId: `demo-cust-rev-${idx}`,
+      name: c.name,
+      phone: c.phone,
+    }));
+
+  const recentGRs = demoGRs
+    .slice(0, 5)
+    .map((gr) => ({
+      grNumber: gr.grNumber,
+      bookingDate: gr.bookingDate,
+      fromCity: gr.fromCity,
+      toCity: gr.toCity,
+      freightAmount: gr.freightAmount ?? 0,
+      paymentStatus: gr.paymentStatus,
+      status: gr.status,
+      grId: gr.id,
+    }));
+
+  return {
+    success: true,
+    data: {
+      grs,
+      revenue,
+      payment,
+      totalCustomers: demoCustomers.length,
+      topCustomersByGRCount,
+      topCustomersByRevenue,
+      recentGRs,
+    },
+  };
 }

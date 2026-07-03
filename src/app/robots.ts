@@ -9,35 +9,40 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: [
-          '/',
-          '/about',
-          '/contact',
-          '/why-tsm',
-          '/live-demo',
-          '/security',
-          '/privacy-policy',
-          '/terms-and-conditions',
-          '/user-agreement',
-          '/cookie-policy',
-          '/login',
-          '/register',
-          '/activate',
-          '/forgot-password',
-        ],
+        allow: '/',
         disallow: [
           '/api/',
           '/dashboard',
           '/gr',
-          '/gr/',
           '/customers',
-          '/customers/',
           '/settings',
           '/printing',
         ],
+      },
+      {
+        userAgent: [
+          'Googlebot',
+          'GPTBot',
+          'ClaudeBot',
+          'PerplexityBot',
+          'Google-Extended',
+          'CCBot',
+        ],
+        allow: '/',
+      },
+      {
+        userAgent: [
+          'AhrefsBot',
+          'SemrushBot',
+          'MJ12bot',
+          'DataForSeoBot',
+          'BLEXBot',
+        ],
+        disallow: '/',
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
   };
 }
+

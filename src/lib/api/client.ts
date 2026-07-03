@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ApiError } from '@/types/api';
+import { isGuestModeClient } from '@/lib/demo/guest';
 
 const apiClient = axios.create({
   // Route all requests through the Next.js proxy (/api/proxy/* → Railway).
@@ -63,8 +64,10 @@ apiClient.interceptors.response.use(
           window.dispatchEvent(new CustomEvent('account-deactivated', { detail: { message } }));
         } else {
           console.warn('API returned 401 Unauthorized for', requestUrl);
-          localStorage.removeItem('profile');
-          window.location.href = '/login';
+          if (!isGuestModeClient()) {
+            localStorage.removeItem('profile');
+            window.location.href = '/login';
+          }
         }
       }
     }

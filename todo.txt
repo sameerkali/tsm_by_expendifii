@@ -81,3 +81,22 @@ partner onboarding system :
 
 total 130,000/-
 budget 70,000/-
+
+
+
+
+
+
+
+
+
+
+
+
+// UI on landing page chages 
+under heading we have this text "TSM by Expendifii replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters. TSM is the modern transport management system that thousands of logistics businesses trust for their daily operations."
+in home page dont show it in hero section 
+
+Key Takeaways no need to show it in hero section we need to move that anywhere in saperate page but remove from herer 
+
+On this page section in the hero section we needto remvoe it from here and add it somehwhrere ele 
