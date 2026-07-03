@@ -112,7 +112,7 @@ export default function WhyTsmPage() {
               <span className="text-[#0369A1] dark:text-sky-400">works like you do</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-              Most transport software in India was built years ago — slow, ugly, and painful to use. TSM was built in 2025 by a software engineer who grew up watching transporters struggle with paper and Excel. It&apos;s fast, clean, and built around how you actually work.
+              Most transport software in India was built years ago slow, ugly, and painful to use. TSM was built in 2025 by a software engineer who grew up watching transporters struggle with paper and Excel. It&apos;s fast, clean, and built around how you actually work.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
