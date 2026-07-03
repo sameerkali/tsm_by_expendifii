@@ -42,6 +42,7 @@ import {
   customerAddressSchema,
   customerCitySchema,
   pincodeSchema,
+  stateSchema,
   driverNameSchema,
   grInvoiceNumberSchema,
   grInsuranceAmountSchema,
@@ -153,6 +154,7 @@ const GR_FIELD_SCHEMAS: Partial<Record<keyof FormState, FieldSchema>> = {
   consignorGST: gstinSchema,
   consignorAddress: customerAddressSchema,
   consignorCity: customerCitySchema,
+  consignorState: stateSchema,
   consignorPincode: pincodeSchema,
   consignee: grConsigneeSchema,
   consigneeGST: gstinSchema,
@@ -259,7 +261,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>(
     {},
   );
-  const [showMoreDetails, setShowMoreDetails] = useState(false);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -281,6 +282,12 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   const exactMatchExists = customers.some(
     (c) => c.name.toLowerCase() === form.consignor.trim().toLowerCase(),
   );
+
+  const isNewCustomer =
+    !isEditing &&
+    !customerId &&
+    form.consignor.trim().length > 0 &&
+    !exactMatchExists;
 
   // Reset on open/close
   useEffect(() => {
@@ -389,7 +396,13 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
       field === "consignor" ||
       field === "fromCity" ||
       field === "toCity" ||
-      field === "freightAmount";
+      field === "freightAmount" ||
+      (isNewCustomer && (
+        field === "consignorAddress" ||
+        field === "consignorCity" ||
+        field === "consignorState" ||
+        field === "consignorPincode"
+      ));
     if (
       isMandatory &&
       (!value || (typeof value === "string" && !value.trim()))
@@ -681,11 +694,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     !form.freightAmount ||
     parseFloat(form.freightAmount) <= 0 ||
     isSaving;
-  const isNewCustomer =
-    !isEditing &&
-    !customerId &&
-    form.consignor.trim().length > 0 &&
-    !exactMatchExists;
 
   // ── Pincode autofill for isNewCustomer address block ───────────────────────────
   const [grManualMode, setGrManualMode] = React.useState(false);
@@ -940,34 +948,19 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                 {/* Additional New Customer Fields */}
                 {isNewCustomer && (
                   <div className="pt-2">
-                    {!showMoreDetails ? (
-                      <button
-                        type="button"
-                        onClick={() => setShowMoreDetails(true)}
-                        className="text-xs font-bold text-sky-600 hover:text-sky-700 transition-colors"
-                      >
-                        + Add Full Address (Optional)
-                      </button>
-                    ) : (
-                      <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <p className="text-xs font-bold text-slate-500">
-                            Additional Details
-                          </p>
-                          <button
-                            type="button"
-                            onClick={() => setShowMoreDetails(false)}
-                            className="text-xs text-slate-400 hover:text-slate-600"
-                          >
-                            Hide
-                          </button>
-                        </div>
+                    <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-xs font-bold text-slate-500">
+                          Additional Details
+                        </p>
+                      </div>
 
-                        {/* Full street address (always plain) */}
-                        <Field
-                          label="Address"
-                          error={fieldErrors.consignorAddress}
-                        >
+                      {/* Full street address (always plain) */}
+                      <Field
+                        label="Address"
+                        required
+                        error={fieldErrors.consignorAddress}
+                      >
                           <input
                             placeholder="Street address"
                             value={form.consignorAddress}
@@ -1000,6 +993,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                             <div className="grid grid-cols-2 gap-4">
                               <Field
                                 label="Pincode"
+                                required
                                 error={fieldErrors.consignorPincode}
                               >
                                 <input
@@ -1025,6 +1019,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                               </Field>
                               <Field
                                 label="City"
+                                required
                                 error={fieldErrors.consignorCity}
                               >
                                 <input
@@ -1042,6 +1037,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                               </Field>
                               <Field
                                 label="State"
+                                required
                                 error={fieldErrors.consignorState}
                               >
                                 <input
@@ -1064,6 +1060,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                             {/* Pincode trigger */}
                             <Field
                               label="Pincode"
+                              required
                               error={fieldErrors.consignorPincode}
                             >
                               <div className="relative">
@@ -1136,6 +1133,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                               <div ref={grLocalityRef} className="relative">
                                 <Field
                                   label="City / Locality"
+                                  required
                                   error={fieldErrors.consignorCity}
                                 >
                                   <div className="relative">
@@ -1255,7 +1253,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                               </div>
 
                               {/* State — locked when autofilled */}
-                              <Field label="State">
+                              <Field label="State" required error={fieldErrors.consignorState}>
                                 {grPincodeStatus === "success" &&
                                 grStateLocked ? (
                                   <div
@@ -1300,7 +1298,6 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                           </>
                         )}
                       </div>
-                    )}
                   </div>
                 )}
 

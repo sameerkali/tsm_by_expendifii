@@ -34,6 +34,8 @@ import {
 } from "@/lib/validation/schemas";
 import type { FieldSchema } from "@/lib/validation/fieldSchema";
 import { usePincodeAutofill } from "@/hooks/usePincodeAutofill";
+import { toast } from "sonner";
+import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from "@/lib/demo/guest";
 
 interface CustomerFormPanelProps {
   isOpen: boolean;
@@ -367,6 +369,11 @@ export function CustomerFormPanel({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isGuestModeClient()) {
+      toast.error(DEMO_READ_ONLY_MESSAGE);
+      return;
+    }
 
     if (!validateAll()) return;
 

@@ -13,11 +13,13 @@ import { carouselApi, CarouselSlide } from '@/lib/api/carousel.api';
 import { CAROUSEL_KEYS } from '@/config/query-keys';
 import { dashboardApi } from '@/lib/api/dashboard.api';
 import { AnalyticsDashboard } from '@/components/dashboard/AnalyticsDashboard';
+import { isGuestModeClient } from '@/lib/demo/guest';
+import { getDemoDashboardResponse } from '@/lib/demo/data';
 
 const MOCK_SLIDES: CarouselSlide[] = [
   {
     id: 'mock-1',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+    image: '/landingImg01.webp',
     title: 'Integrated Logistics Command',
     description: 'Track real-time tonnage, analyze operational efficiency, and coordinate dispatch schedules from a unified digital workspace.',
     order: 0,
@@ -25,7 +27,7 @@ const MOCK_SLIDES: CarouselSlide[] = [
   },
   {
     id: 'mock-2',
-    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80',
+    image: '/landingImg02.webp',
     title: 'Automated Operations Hub',
     description: 'Optimize workflow throughput, generate gate passes instantly, and sync trip records seamlessly with domestic terminals.',
     order: 1,
@@ -33,7 +35,7 @@ const MOCK_SLIDES: CarouselSlide[] = [
   },
   {
     id: 'mock-3',
-    image: 'https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1200&q=80',
+    image: '/landingImg03.webp',
     title: 'Enterprise Analytics Suite',
     description: 'Gain deeper insights into customer metrics, monitor MTD revenue growth, and identify bottleneck patterns with AI-driven charts.',
     order: 2,
@@ -49,6 +51,8 @@ export function DashboardClient() {
     retry: 1,
   });
 
+  const isGuest = isGuestModeClient();
+
   // Fetch dashboard stats from the API
   const {
     data: dashboardResponse,
@@ -56,9 +60,9 @@ export function DashboardClient() {
     isError: isDashboardError,
     refetch: refetchDashboard
   } = useQuery({
-    queryKey: ['dashboard', 'analytics'],
-    queryFn: () => dashboardApi.getDashboardData(),
-    retry: 1,
+    queryKey: ['dashboard', 'analytics', { guest: isGuest }],
+    queryFn: () => isGuest ? getDemoDashboardResponse() : dashboardApi.getDashboardData(),
+    retry: isGuest ? 0 : 1,
   });
 
   const slides = apiResponse?.data && apiResponse.data.length > 0 ? apiResponse.data : MOCK_SLIDES;

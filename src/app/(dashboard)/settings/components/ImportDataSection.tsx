@@ -6,6 +6,7 @@ import { Button } from '@/components/ui';
 import { toast } from 'sonner';
 import apiClient from '@/lib/api/client';
 import * as XLSX from 'xlsx';
+import { isGuestModeClient, DEMO_READ_ONLY_MESSAGE } from '@/lib/demo/guest';
 
 interface ImportResult {
   imported: { grs: number; customers: number };
@@ -71,6 +72,10 @@ export function ImportDataSection() {
   };
 
   const handleUpload = async () => {
+    if (isGuestModeClient()) {
+      toast.error(DEMO_READ_ONLY_MESSAGE);
+      return;
+    }
     if (!file) return;
 
     try {
@@ -194,17 +199,34 @@ export function ImportDataSection() {
               onDragEnter={handleDrag}
               onDragOver={handleDrag}
               onDragLeave={handleDrag}
-                       onKeyDown={(e) => {
-               if (e.key === 'Enter' || e.key === ' ') {
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                 fileInputRef.current?.click();
+                  if (isGuestModeClient()) {
+                    toast.error(DEMO_READ_ONLY_MESSAGE);
+                    return;
+                  }
+                  fileInputRef.current?.click();
                 }
               }}
               role="button"
               tabIndex={0}
               aria-label="Upload CSV or XLSX file"
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
+              onDrop={(e) => {
+                if (isGuestModeClient()) {
+                  e.preventDefault();
+                  toast.error(DEMO_READ_ONLY_MESSAGE);
+                  return;
+                }
+                handleDrop(e);
+              }}
+              onClick={() => {
+                if (isGuestModeClient()) {
+                  toast.error(DEMO_READ_ONLY_MESSAGE);
+                  return;
+                }
+                fileInputRef.current?.click();
+              }}
               className={`border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center gap-3 transition-colors cursor-pointer group min-h-[160px] ${
                 dragActive
                   ? 'border-sky-500 bg-sky-50/20 dark:bg-sky-500/5'

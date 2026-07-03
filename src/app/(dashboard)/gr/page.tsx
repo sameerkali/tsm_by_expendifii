@@ -114,19 +114,11 @@ export default function GRListPage() {
   const showGuestNotice = () => toast.info(DEMO_READ_ONLY_MESSAGE);
 
   const openNew = () => {
-    if (isGuest) {
-      showGuestNotice();
-      return;
-    }
     setEditData(null);
     setPanelOpen(true);
   };
 
   const openEdit = (row: GR) => {
-    if (isGuest) {
-      showGuestNotice();
-      return;
-    }
     setEditData(row);
     setPanelOpen(true);
   };

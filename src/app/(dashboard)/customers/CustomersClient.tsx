@@ -36,10 +36,6 @@ export function CustomersClient() {
   const pagination = response?.pagination;
 
   const openNew = () => {
-    if (isGuest) {
-      toast.info(DEMO_READ_ONLY_MESSAGE);
-      return;
-    }
     setPanelOpen(true);
   };
 

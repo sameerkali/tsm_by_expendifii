@@ -13,9 +13,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
-  const { isAuthenticated, isLoading, user, coupon } = useSession();
+  const { isAuthenticated, isLoading, user, isGuest } = useSession();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, []);
 
@@ -86,7 +87,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           isDesktopExpanded={isDesktopExpanded}
           setIsDesktopExpanded={setIsDesktopExpanded}
           user={user}
-          isGuest={false}
+          isGuest={isGuest}
         />
 
         {/* Page Content */}

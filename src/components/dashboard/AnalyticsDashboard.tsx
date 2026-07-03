@@ -450,52 +450,54 @@ export function AnalyticsDashboard({ data, isLoading, isError, refetch }: Analyt
                 </div>
 
                 {/* Donut graphic */}
-                <div className="flex justify-center items-center h-40 relative">
-                  <svg className="w-32 h-32 transform -rotate-90">
-                    <circle
-                      cx="64"
-                      cy="64"
-                      r="48"
-                      className="fill-none stroke-slate-100 dark:stroke-slate-800"
-                      strokeWidth="12"
-                    />
-                    
-                    {/* Render status segments */}
-                    {donutData.map((seg) => {
-                      const percent = (seg.count / totalSegments) * 100;
-                      const strokeDash = (percent / 100) * (2 * Math.PI * 48);
+                <div className="flex justify-center items-center h-40 relative shrink-0">
+                  <svg viewBox="0 0 128 128" className="w-32 h-32 overflow-visible">
+                    <g transform="rotate(-90 64 64)">
+                      <circle
+                        cx="64"
+                        cy="64"
+                        r="48"
+                        className="fill-none stroke-slate-100 dark:stroke-slate-800"
+                        strokeWidth="12"
+                      />
                       
-                      // Calculate segment accumulation offset
-                      const currentOffset = ((100 - percent - accumulatedPercent) / 100) * (2 * Math.PI * 48);
-                      accumulatedPercent += percent;
+                      {/* Render status segments */}
+                      {donutData.map((seg) => {
+                        const percent = (seg.count / totalSegments) * 100;
+                        const strokeDash = (percent / 100) * (2 * Math.PI * 48);
+                        
+                        // Calculate segment accumulation offset
+                        const currentOffset = ((100 - percent - accumulatedPercent) / 100) * (2 * Math.PI * 48);
+                        accumulatedPercent += percent;
 
-                      return (
-                        <Tooltip.Root key={seg.label} delayDuration={100}>
-                          <Tooltip.Trigger asChild>
-                            <circle
-                              cx="64"
-                              cy="64"
-                              r="48"
-                              className={cn("fill-none cursor-pointer transition-all hover:stroke-[14px]", seg.color)}
-                              strokeWidth="12"
-                              strokeDasharray={`${strokeDash} ${2 * Math.PI * 48}`}
-                              strokeDashoffset={currentOffset}
-                            />
-                          </Tooltip.Trigger>
-                          <Tooltip.Portal>
-                            <Tooltip.Content
-                              side="right"
-                              className="bg-slate-950/95 text-white border border-slate-800 px-3 py-2 rounded-md shadow-lg z-[200] text-xs font-semibold"
-                            >
-                              <div className="flex items-center gap-2">
-                                <span className={cn("w-2 h-2 rounded-full", seg.bg)} />
-                                <span>{seg.label}: {seg.count} ({percent.toFixed(0)}%)</span>
-                              </div>
-                            </Tooltip.Content>
-                          </Tooltip.Portal>
-                        </Tooltip.Root>
-                      );
-                    })}
+                        return (
+                          <Tooltip.Root key={seg.label} delayDuration={100}>
+                            <Tooltip.Trigger asChild>
+                              <circle
+                                cx="64"
+                                cy="64"
+                                r="48"
+                                className={cn("fill-none cursor-pointer transition-all hover:stroke-[14px]", seg.color)}
+                                strokeWidth="12"
+                                strokeDasharray={`${strokeDash} ${2 * Math.PI * 48}`}
+                                strokeDashoffset={currentOffset}
+                              />
+                            </Tooltip.Trigger>
+                            <Tooltip.Portal>
+                              <Tooltip.Content
+                                side="right"
+                                className="bg-slate-950/95 text-white border border-slate-800 px-3 py-2 rounded-md shadow-lg z-[200] text-xs font-semibold"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className={cn("w-2 h-2 rounded-full", seg.bg)} />
+                                  <span>{seg.label}: {seg.count} ({percent.toFixed(0)}%)</span>
+                                </div>
+                              </Tooltip.Content>
+                            </Tooltip.Portal>
+                          </Tooltip.Root>
+                        );
+                      })}
+                    </g>
                   </svg>
 
                   <div className="absolute flex flex-col items-center justify-center">
