@@ -38,7 +38,7 @@ const nextConfig: NextConfig = {
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us.i.posthog.com https://us-assets.i.posthog.com https://va.vercel-scripts.com/; " +
               "style-src 'self' 'unsafe-inline'; " +
               "img-src 'self' data: blob: https://us.i.posthog.com https://res.cloudinary.com; " +
-              "connect-src 'self' https://app.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com https://va.vercel-scripts.com/ https://api.postalpincode.in; " +
+              "connect-src 'self' https://app.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com https://va.vercel-scripts.com/ https://api.postalpincode.in https://api.cloudinary.com; " +
               "font-src 'self'; " +
               "frame-ancestors 'none'; " +
               "base-uri 'self'; " +
