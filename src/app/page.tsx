@@ -45,6 +45,18 @@ const faqs = [
     q: 'Is TSM suitable for small fleets with just 1-2 trucks?',
     a: 'Absolutely. TSM is designed for transporters of all sizes. Whether you own one truck or fifty, the GR creation, customer management, and analytics features work exactly the same. Small fleet owners actually benefit the most because TSM eliminates the need to hire a dedicated person just for paperwork.',
   },
+   {
+    q: 'What happens when the free period ends?',
+    a: 'We will notify you well in advance. Early adopters may get extended access or special pricing. No surprises.',
+  },
+   {
+    q: 'Can I export my data if I leave?',
+    a: 'Yes. You can export all your GRs and customer data anytime. Your data belongs to you.'
+  },
+     {
+    q: 'Do you offer on-premise deployment?',
+    a: 'Not currently. TSM by Expendifii is cloud-based, which means you can access it from anywhere with an internet connection.'
+  },
 ];
 
 const jsonLd = {
@@ -714,35 +726,6 @@ export default function HomePage() {
                   TSM by Expendifii — Transport Management System dashboard
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── EXPANDABLE SECONDARY FAQS ─────────────── */}
-        <section className="py-16 sm:py-20 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-labelledby="secondary-faq-heading">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3 text-center">Quick Answers</p>
-            <h2 id="secondary-faq-heading" className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight text-center mb-8">
-              More Questions About TSM by Expendifii
-            </h2>
-            <div className="space-y-3">
-              {[
-                { q: 'What happens when the free period ends?', a: 'We will notify you well in advance. Early adopters may get extended access or special pricing. No surprises.' },
-                { q: 'Can I export my data if I leave?', a: 'Yes. You can export all your GRs and customer data anytime. Your data belongs to you.' },
-                { q: 'Do you offer on-premise deployment?', a: 'Not currently. TSM by Expendifii is cloud-based, which means you can access it from anywhere with an internet connection.' },
-              ].map(function (faq, idx) {
-                return (
-                  <details key={idx} className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-5 open:border-[#0369A1]/30 dark:open:border-sky-500/30 transition-colors duration-200">
-                    <summary className="flex items-center justify-between gap-4 cursor-pointer text-sm font-semibold text-[#0F172A] dark:text-white list-none marker:hidden">
-                      {faq.q}
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0 text-slate-400 group-open:rotate-180 transition-transform duration-200" aria-hidden="true">
-                        <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </summary>
-                    <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
-                  </details>
-                );
-              })}
             </div>
           </div>
         </section>

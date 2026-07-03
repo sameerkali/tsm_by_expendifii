@@ -100,3 +100,7 @@ in home page dont show it in hero section
 Key Takeaways no need to show it in hero section we need to move that anywhere in saperate page but remove from herer 
 
 On this page section in the hero section we needto remvoe it from here and add it somehwhrere ele 
+move this in saperate page as well "Common Logistics Terms — Explained" section 
+move Honest Take section in diffrent as well 
+image in hero secion with title "TSM by Expendifii — Transport Management System dashboard" move that as well
+
