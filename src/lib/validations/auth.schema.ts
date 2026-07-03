@@ -165,15 +165,8 @@ export const ActivateSchema = z.object({
   couponCode: z
     .string()
     .min(1, 'Coupon code is required')
-    .transform((v) => v.toUpperCase().trim())
-    .pipe(
-      z
-        .string()
-        .regex(
-          /^TMS-[A-Z]{6}-[A-Z0-9]{8}$/,
-          'Invalid format — expected TMS-XXXXXX-XXXXXXXX'
-        )
-    ),
+    .max(30, 'Coupon code cannot exceed 30 characters')
+    .transform((v) => v.toUpperCase().trim()),
 });
 
 export type LoginInput = z.infer<typeof LoginSchema>;

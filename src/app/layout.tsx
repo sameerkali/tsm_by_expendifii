@@ -36,9 +36,22 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tsm.expendifii.com"),
-  title: "TSM by Expendifii",
+  title: {
+    default: "TSM by Expendifii",
+    template: "%s | TSM by Expendifii",
+  },
   description:
-    "Advanced Transport Management System for modern logistics and fleet tracking.",
+    "Modern transport management for Indian logistics and fleet tracking.",
+  keywords: [
+    "transport management system",
+    "transport management software",
+    "GR software",
+    "lorry receipt software",
+    "logistics software India",
+    "fleet management system",
+    "TSM by Expendifii",
+  ],
+  authors: [{ name: "Expendifii", url: "https://tsm.expendifii.com/about" }],
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/logo.png",
@@ -50,10 +63,16 @@ export const metadata: Metadata = {
     follow: true,
     "max-image-preview": "large",
   },
+  alternates: {
+    canonical: "https://tsm.expendifii.com",
+    languages: {
+      en: "https://tsm.expendifii.com",
+    },
+  },
   openGraph: {
-    title: "TSM by Expendifii",
+    title: "TSM by Expendifii — Transport OS",
     description:
-      "Advanced Transport Management System for modern logistics and fleet tracking.",
+      "Create, print, and manage lorry receipts in minutes. Built for Indian transporters.",
     url: "https://tsm.expendifii.com",
     siteName: "TSM by Expendifii",
     images: [
@@ -61,7 +80,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TMS Dashboard Preview",
+        alt: "TSM Dashboard Preview",
       },
     ],
     locale: "en_US",
@@ -69,10 +88,15 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TSM by Expendifii",
+    title: "TSM by Expendifii — Transport Management System for Indian Logistics",
     description:
-      "Advanced Transport Management System for modern logistics and fleet tracking.",
+      "Create, print, and manage lorry receipts in minutes. TSM is the modern transport management system built for Indian transporters — no paper, no spreadsheets.",
     images: ["/og-image.png"],
+    site: "@expendifii",
+    creator: "@expendifii",
+  },
+  other: {
+    "format-detection": "telephone=no",
   },
 };
 

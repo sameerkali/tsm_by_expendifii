@@ -8,8 +8,48 @@ import FAQSection from '@/components/landing/FAQSection';
 export const metadata: Metadata = {
   title: 'TSM by Expendifii Transport Management System',
   description:
-    'Stop creating GRs on paper. TSM is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
+    'Create, print, and manage lorry receipts in minutes. TSM is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
+  keywords: [
+    'transport management system',
+    'transport management software',
+    'GR software',
+    'lorry receipt software',
+    'logistics software India',
+    'fleet management system',
+    'TSM by Expendifii',
+    'online GR generator',
+    'digital lorry receipt',
+    'NCR transport software',
+  ],
+  authors: [{ name: 'Expendifii' }],
   alternates: { canonical: 'https://tsm.expendifii.com' },
+  openGraph: {
+    title: 'TSM by Expendifii — Transport OS',
+    description:
+      'Create, print, and manage lorry receipts in minutes. Built for Indian transporters.',
+    url: 'https://tsm.expendifii.com',
+    siteName: 'TSM by Expendifii',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'TSM Dashboard Preview',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title:
+      'TSM by Expendifii — Transport Management System for Indian Logistics',
+    description:
+      'Create, print, and manage lorry receipts in minutes. TSM is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
+    images: ['/og-image.png'],
+    site: '@expendifii',
+    creator: '@expendifii',
+  },
 };
 
 const faqs = [
