@@ -82,8 +82,7 @@ export const RegisterSchema = z.object({
   phone: phone10('Phone'),
   referral: z
     .string()
-    .max(7, 'Referral code cannot exceed 7 characters')
-    .regex(/^[a-zA-Z0-9-]*$/, 'Referral code can only contain letters, numbers, and hyphens')
+    .max(10, 'Referral code cannot exceed 10 characters')
     .optional()
     .or(z.literal('')),
   company: z.object({
@@ -133,7 +132,11 @@ export const RegisterSchema = z.object({
     bankDetails: z
       .object({
         bankName: safeStringOptional('Bank Name', 80),
-        accountHolder: safeStringOptional('Account Holder', 80),
+        accountHolder: z
+          .string()
+          .max(80, 'Account Holder cannot exceed 80 characters')
+          .optional()
+          .or(z.literal('')),
         accountNumber: z
           .string()
           .regex(/^\d{9,18}$/, 'Account number must be 9-18 digits')

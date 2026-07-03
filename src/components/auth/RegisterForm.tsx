@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterInput } from '@/lib/validations/auth.schema';
 import { useAuth } from '@/hooks/useAuth';
 import { usePincodeAutofill } from '@/hooks/usePincodeAutofill';
+import banks from '@/data/banks.json';
 import {
   User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff,
   MapPin, Hash, Briefcase, Landmark, ChevronDown, Gift, CheckCircle2,
@@ -103,6 +104,86 @@ function LocalityCombobox({ options, value, onChange, disabled, placeholder }: L
       {open && filtered.length === 0 && query && (
         <div className="absolute z-50 mt-1 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg px-4 py-3 text-sm text-slate-400">
           No results for &ldquo;{query}&rdquo;
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Bank Combobox ───────────────────────────────────────────────────────
+
+interface BankComboboxProps {
+  value: string;
+  onChange: (val: string) => void;
+}
+
+function BankCombobox({ value, onChange }: BankComboboxProps) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const filtered = query
+    ? banks.filter((b) => b.toLowerCase().includes(query.toLowerCase()))
+    : banks;
+
+  useEffect(() => {
+    function handleOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        setQuery('');
+      }
+    }
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, []);
+
+  const handleSelect = (name: string) => {
+    onChange(name);
+    setQuery('');
+    setOpen(false);
+  };
+
+  return (
+    <div ref={containerRef} className="relative">
+      <div className="relative group">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors pointer-events-none">
+          <Landmark size={18} />
+        </div>
+        <input
+          type="text"
+          value={open ? query : value}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setOpen(true)}
+          onClick={() => setOpen(true)}
+          placeholder="Search & select your bank"
+          autoComplete="off"
+          className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+        />
+      </div>
+
+      {open && filtered.length > 0 && (
+        <div className="absolute z-50 mt-1 w-full max-h-52 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg animate-in fade-in slide-in-from-top-1 duration-150">
+          {filtered.map((name) => (
+            <button
+              key={name}
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => handleSelect(name)}
+              className={`w-full text-left px-4 py-2.5 text-sm transition-colors
+                ${value === name
+                  ? 'bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 font-medium'
+                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {open && filtered.length === 0 && query && (
+        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg px-4 py-3 text-sm text-slate-400">
+          No banks match &ldquo;{query}&rdquo;
         </div>
       )}
     </div>
@@ -607,7 +688,7 @@ export function RegisterForm() {
               <input
                 {...register('referral')}
                 placeholder="Referral Code (Optional)"
-                maxLength={7}
+                maxLength={10}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 uppercase"
               />
               {errors.referral && (
@@ -725,15 +806,10 @@ export function RegisterForm() {
           <h2 className="text-lg font-bold text-slate-800 dark:text-slate-200 border-b pb-2">Bank Details</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <Landmark size={18} />
-              </div>
-              <input
-                {...register('company.bankDetails.bankName')}
-                placeholder="Bank Name"
-                maxLength={80}
-                className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
+            <div>
+              <BankCombobox
+                value={watch('company.bankDetails.bankName') ?? ''}
+                onChange={(val) => setValue('company.bankDetails.bankName', val)}
               />
               {errors.company?.bankDetails?.bankName && (
                 <p className="text-xs text-red-500 mt-1">{errors.company.bankDetails.bankName.message}</p>
