@@ -7,7 +7,7 @@ const apiClient = axios.create({
   // This makes every request same-origin so httpOnly cookies work correctly.
   baseURL: '/api/proxy',
   withCredentials: true,
-  timeout: 15_000,
+  timeout: 30_000,
   headers: {
     'Content-Type': 'application/json',
   },

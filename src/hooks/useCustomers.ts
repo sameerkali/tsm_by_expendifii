@@ -89,32 +89,25 @@ export function useDeleteCustomer() {
 /** Download GR PDF for a customer by date range. */
 export function useDownloadCustomerGrPdf() {
   return useMutation({
-    mutationFn: ({ customerId, from, to }: { customerId: string; from: string; to?: string }) => {
+    mutationFn: async ({ customerId, from, to, customerName }: { customerId: string; from: string; to?: string; customerName?: string }) => {
       if (isGuestModeClient()) throw { success: false, message: 'Guest demo uses static data. Sign in to download GR statements.' };
-      return customerApi.downloadGrPdf(customerId, from, to);
+      const blob = await customerApi.downloadGrPdf(customerId, from, to);
+      return { blob, customerName, from, to };
     },
-    onSuccess: (blob) => {
+    onSuccess: ({ blob, customerName, from, to }) => {
       const url = window.URL.createObjectURL(blob);
-      const isChrome = navigator.userAgent.includes('Chrome') && navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Edg');
+      const link = document.createElement('a');
+      link.href = url;
+      
+      const safeName = customerName ? customerName.replace(/[^a-zA-Z0-9]/g, '_') : 'Customer';
+      const range = to ? `${from}_to_${to}` : `up_to_${from}`;
+      link.download = `GR_Statement_${safeName}_${range}.pdf`;
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
-      if (isChrome) {
-        // Chrome: Use window.open - it works and doesn't block
-        const opened = window.open(url, '_blank');
-        if (!opened) {
-          toast.error('Popup blocked. Please allow popups to open the GR PDF.');
-        }
-      } else {
-        // Non-Chrome: Use a temporary download link (popover-safe)
-        const link = document.createElement('a');
-        link.href = url;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-
-      // Revoke the object URL after a delay to ensure it opened
+      // Revoke the object URL after a delay to ensure it downloaded
       setTimeout(() => window.URL.revokeObjectURL(url), 1000);
     },
     onError: (error: unknown) => {

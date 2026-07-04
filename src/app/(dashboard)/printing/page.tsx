@@ -36,7 +36,7 @@ function PrintModal({
     }
     
     downloadMutation.mutate(
-      { customerId: customer.id, from: fromDate, to: toDate || undefined },
+      { customerId: customer.id, from: fromDate, to: toDate || undefined, customerName: customer.name },
       {
         onSuccess: () => {
           onClose();

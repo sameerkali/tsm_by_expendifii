@@ -68,10 +68,18 @@ async function handleProxy(request: NextRequest, pathSegments?: string[]) {
     });
 
     const responseHeaders = new Headers();
+    const STRIP_RESPONSE_HEADERS = [
+      'content-encoding',
+      'content-length',
+      'transfer-encoding',
+      'connection',
+      'keep-alive'
+    ];
     backendResponse.headers.forEach((value, key) => {
-      // Avoid transferring content-encoding if it's compressed,
-      // since NextJS fetch might decompress it or the server might decompress it.
-      if (key.toLowerCase() !== 'content-encoding') {
+      // Avoid transferring content-encoding, content-length, transfer-encoding, etc.
+      // because Next.js fetch might decompress it or change transfer encoding,
+      // and we want Next.js to recalculate the correct headers.
+      if (!STRIP_RESPONSE_HEADERS.includes(key.toLowerCase())) {
         responseHeaders.set(key, value);
       }
     });
