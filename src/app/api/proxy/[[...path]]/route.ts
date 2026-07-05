@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 //backend base url
+// const BACKEND_URL = 'http://localhost:5544';
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://tsm-backend-mu.vercel.app';
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ path?: string[] }> }) {
