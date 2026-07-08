@@ -97,7 +97,7 @@ export function ActivateForm() {
         </button>
       </form>
 
-      <div className="pt-4 text-center text-sm text-slate-500">
+      {/* <div className="pt-4 text-center text-sm text-slate-500">
         Already active?{' '}
         <Link 
           href="/login" 
@@ -105,7 +105,7 @@ export function ActivateForm() {
         >
           Sign in to your account
         </Link>
-      </div>
+      </div> */}
 
       {mounted && showPopup && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
