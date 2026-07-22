@@ -1,25 +1,26 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSession } from '@/hooks/useSession';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './TopBar';
 import { Spinner } from '../ui';
 import { DeactivatedAccountModal } from '../auth/DeactivatedAccountModal';
-import { InactiveAccountModal } from '../auth/InactiveAccountModal';
+import { ActivationBanner } from '../auth/ActivationBanner';
+import { ActivationImageModal } from '../auth/ActivationImageModal';
+import { OPEN_ACTIVATION_MODAL_EVENT } from '@/lib/activation-modal';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const [isDesktopExpanded, setIsDesktopExpanded] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isActivationModalOpen, setIsActivationModalOpen] = useState(false);
   const pathname = usePathname();
   const { isAuthenticated, isLoading, user, isGuest } = useSession();
 
-  // Show blocking modal when authenticated but account is INACTIVE (no coupons)
-  const isInactiveAccount = !isLoading && isAuthenticated && !isGuest && user && (
-    user.accountStatus === 'INACTIVE' || !user.coupons || user.coupons.length === 0
-  );
+  // Show activation banner when authenticated but account is INACTIVE
+  const showActivationBanner = !isLoading && isAuthenticated && !isGuest && user?.accountStatus === 'INACTIVE';
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -37,6 +38,21 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       window.location.href = '/login';
     }
   }, [isLoading, isAuthenticated]);
+
+  // Listen for custom event to open activation modal (from deep children)
+  useEffect(() => {
+    const handler = () => setIsActivationModalOpen(true);
+    window.addEventListener(OPEN_ACTIVATION_MODAL_EVENT, handler);
+    return () => window.removeEventListener(OPEN_ACTIVATION_MODAL_EVENT, handler);
+  }, []);
+
+  const handleOpenActivation = useCallback(() => {
+    setIsActivationModalOpen(true);
+  }, []);
+
+  const handleCloseActivation = useCallback(() => {
+    setIsActivationModalOpen(false);
+  }, []);
 
   // Close mobile sidebar on route change
   useEffect(() => {
@@ -82,6 +98,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         isMobileOpen={isMobileOpen}
         isDesktopExpanded={isDesktopExpanded}
         coupons={user?.coupons ?? []}
+        onActivateClick={handleOpenActivation}
       />
 
       {/* ── Main Content ── */}
@@ -97,19 +114,23 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         />
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-5 md:p-8 custom-scrollbar relative">
+        <main className="flex-1 overflow-y-auto custom-scrollbar relative flex flex-col">
           {/* Ambient blobs */}
           <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-sky-500/[0.04] dark:bg-sky-500/[0.02] blur-[120px] rounded-full -z-10 pointer-events-none" />
           <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-500/[0.04] dark:bg-blue-500/[0.02] blur-[100px] rounded-full -z-10 pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-400">
-            {children}
+          {showActivationBanner && <ActivationBanner onClick={handleOpenActivation} />}
+
+          <div className="flex-1 p-5 md:p-8">
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-400">
+              {children}
+            </div>
           </div>
         </main>
       </div>
     </div>
       <DeactivatedAccountModal />
-      <InactiveAccountModal isVisible={!!isInactiveAccount} />
+      <ActivationImageModal isOpen={isActivationModalOpen} onClose={handleCloseActivation} />
     </>
   );
 }

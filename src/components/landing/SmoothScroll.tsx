@@ -16,8 +16,7 @@ export default function SmoothScroll() {
       '/customers',
       '/printing',
       '/login',
-      '/register',
-      '/activate'
+      '/register'
     ];
     const shouldBypass = bypassRoutes.some((route) => pathname.startsWith(route));
 

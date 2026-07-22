@@ -10,7 +10,6 @@ const AUTH_PATHS = [
 
 // Always-accessible pages: no redirect regardless of auth state
 const INFO_PATHS = [
-  '/activate',
   '/about',
   '/contact',
   '/security',

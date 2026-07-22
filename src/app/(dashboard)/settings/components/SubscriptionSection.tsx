@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
+import { openActivationModal } from '@/lib/activation-modal';
 
 type Coupon = {
   _id: string;
@@ -107,7 +108,9 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
             </button>
           )}
           <button
-            onClick={() => router.push('/activate')}
+            onClick={() => {
+              openActivationModal();
+            }}
             className="px-4 py-2 bg-sky-700 dark:bg-sky-600 hover:bg-sky-800 dark:hover:bg-sky-500 text-white text-xs font-semibold rounded-lg transition-all active:scale-95 cursor-pointer"
           >
             Activate Coupon

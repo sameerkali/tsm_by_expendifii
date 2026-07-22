@@ -53,12 +53,11 @@ export function useAuth() {
       }
 
       if (accountStatus === "INACTIVE") {
-        toast.info("Account is inactive. Enter your coupon code to activate.");
-        window.location.href = "/activate";
+        toast.info("Account is inactive. Click the activation banner to enter your coupon code.");
       } else {
         toast.success("Welcome back!");
-        window.location.href = "/gr";
       }
+      window.location.href = "/gr";
     },
     onError: (error: unknown) => {
       toast.error(
@@ -78,7 +77,7 @@ export function useAuth() {
       toast.success(
         res.message || "Account created! Activate with your coupon code.",
       );
-      window.location.href = "/activate";
+      window.location.href = "/gr";
     },
     onError: (error: unknown) => {
       console.warn("[useAuth] Register failed:", error);

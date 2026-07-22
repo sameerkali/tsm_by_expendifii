@@ -9,6 +9,7 @@ import {
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
 import { LogoutModal } from './LogoutModal';
+import { openActivationModal } from '@/lib/activation-modal';
 
 const NAV_ITEMS = [
   { label: 'GR', icon: Files, href: '/gr' },
@@ -23,12 +24,14 @@ interface SidebarProps {
   isMobileOpen: boolean;
   isDesktopExpanded: boolean;
   coupons: Coupon[] | null;
+  onActivateClick?: () => void;
 }
 
 export function Sidebar({
   isMobileOpen,
   isDesktopExpanded,
-  coupons
+  coupons,
+  onActivateClick
 }: SidebarProps) {
   const pathname = usePathname();
   const showLabel = isMobileOpen || isDesktopExpanded;
@@ -102,7 +105,13 @@ export function Sidebar({
                 <div className="px-2.5 py-2.5 bg-red-50 dark:bg-red-950/30 rounded-xl border border-red-200 dark:border-red-800/50 space-y-1.5">
                   <p className="text-[10px] font-black text-red-500 dark:text-red-400 text-center uppercase tracking-wider">⚠ No active plan</p>
                   <div className="flex flex-col gap-1">
-                    <Link href="/activate" className="text-[10px] font-bold text-[#0369A1] dark:text-sky-400 hover:underline text-center">Activate Account →</Link>
+                    <button
+                      type="button"
+                      onClick={onActivateClick ?? openActivationModal}
+                      className="text-[10px] font-bold text-[#0369A1] dark:text-sky-400 hover:underline text-center cursor-pointer"
+                    >
+                      Activate Account →
+                    </button>
                     <Link href="/contact" className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:underline text-center">Contact Admin</Link>
                   </div>
                 </div>
@@ -146,7 +155,13 @@ export function Sidebar({
                 <div className="px-2.5 py-2.5 bg-red-50 dark:bg-red-950/30 rounded-xl border border-red-200 dark:border-red-800/50 space-y-1.5">
                   <p className="text-[10px] font-black text-red-500 dark:text-red-400 text-center uppercase tracking-wider">⚠ No active plan</p>
                   <div className="flex flex-col gap-1">
-                    <Link href="/activate" className="text-[10px] font-bold text-[#0369A1] dark:text-sky-400 hover:underline text-center">Activate Account →</Link>
+                    <button
+                      type="button"
+                      onClick={onActivateClick ?? openActivationModal}
+                      className="text-[10px] font-bold text-[#0369A1] dark:text-sky-400 hover:underline text-center cursor-pointer"
+                    >
+                      Activate Account →
+                    </button>
                     <Link href="/contact" className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:underline text-center">Contact Admin</Link>
                   </div>
                 </div>
