@@ -61,6 +61,7 @@ export function ActivationImageModal({ isOpen, onClose }: ActivationImageModalPr
     });
   };
 
+
   if (!mounted || !isOpen) return null;
 
   return createPortal(
