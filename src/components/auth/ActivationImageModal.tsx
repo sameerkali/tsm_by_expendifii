@@ -65,7 +65,7 @@ export function ActivationImageModal({ isOpen, onClose }: ActivationImageModalPr
 
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" onClick={onClose} />
 
       <div className="relative w-full max-w-2xl bg-white dark:bg-slate-950 rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-h-[90vh] animate-in zoom-in-95 fade-in duration-200">
         {/* ── Image Side ── */}
@@ -76,7 +76,7 @@ export function ActivationImageModal({ isOpen, onClose }: ActivationImageModalPr
             </div>
           )}
           <img
-            src={DEMO_IMAGE}
+            src={'/landingImg01.webp'}
             alt=""
             onLoad={() => setImageLoaded(true)}
             className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -93,8 +93,7 @@ export function ActivationImageModal({ isOpen, onClose }: ActivationImageModalPr
           {/* Header with close */}
           <div className="flex items-center justify-between px-6 pt-5 pb-2">
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Ready to activate</span>
+              <span className="" />
             </div>
             <button
               type="button"

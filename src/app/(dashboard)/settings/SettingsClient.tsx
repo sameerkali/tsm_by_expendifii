@@ -35,7 +35,7 @@ export function SettingsClient() {
   // Force a fresh profile fetch on mount so admin-side changes (coupon activation,
   // account updates, etc.) are reflected immediately without requiring re-login.
   useEffect(() => {
-    refetchProfile();
+    refetchProfile({ cancelRefetch: true });
   }, [refetchProfile]);
 
   // Query deletion status - only call if user profile has deletionRequest
