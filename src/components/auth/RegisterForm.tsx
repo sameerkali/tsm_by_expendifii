@@ -14,27 +14,27 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-// ─── Locality Combobox ───────────────────────────────────────────────────────
+// ─── Generic Combobox ─────────────────────────────────────────────────────────
 
-interface LocalityComboboxProps {
+interface ComboboxProps {
   options: string[];
   value: string;
   onChange: (val: string) => void;
   disabled?: boolean;
   placeholder?: string;
+  icon?: React.ComponentType<{ size?: number; className?: string }>;
+  noMatchText?: string;
 }
 
-function LocalityCombobox({ options, value, onChange, disabled, placeholder }: LocalityComboboxProps) {
+function Combobox({ options, value, onChange, disabled, placeholder, icon: Icon = MapPin, noMatchText = 'No results' }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const filtered = query
     ? options.filter((o) => o.toLowerCase().includes(query.toLowerCase()))
     : options;
 
-  // Close on outside click
   useEffect(() => {
     function handleOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -56,10 +56,9 @@ function LocalityCombobox({ options, value, onChange, disabled, placeholder }: L
     <div ref={containerRef} className="relative">
       <div className="relative group">
         <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors pointer-events-none">
-          <MapPin size={18} />
+          <Icon size={18} />
         </div>
         <input
-          ref={inputRef}
           type="text"
           value={open ? query : value}
           onChange={(e) => setQuery(e.target.value)}
@@ -74,91 +73,9 @@ function LocalityCombobox({ options, value, onChange, disabled, placeholder }: L
               : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 focus:border-sky-500 cursor-pointer'
             }`}
         />
-        {/* Right icon: search when open, chevron otherwise */}
         <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
           {open ? <Search size={15} /> : <ChevronDown size={15} />}
         </div>
-      </div>
-
-      {/* Dropdown list */}
-      {open && filtered.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full max-h-52 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg animate-in fade-in slide-in-from-top-1 duration-150">
-          {filtered.map((name) => (
-            <button
-              key={name}
-              type="button"
-              onMouseDown={(e) => e.preventDefault()} // prevent input blur before click
-              onClick={() => handleSelect(name)}
-              className={`w-full text-left px-4 py-2.5 text-sm transition-colors
-                ${value === name
-                  ? 'bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 font-medium'
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
-                }`}
-            >
-              {name}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {open && filtered.length === 0 && query && (
-        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg px-4 py-3 text-sm text-slate-400">
-          No results for &ldquo;{query}&rdquo;
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Bank Combobox ───────────────────────────────────────────────────────
-
-interface BankComboboxProps {
-  value: string;
-  onChange: (val: string) => void;
-}
-
-function BankCombobox({ value, onChange }: BankComboboxProps) {
-  const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const filtered = query
-    ? banks.filter((b) => b.toLowerCase().includes(query.toLowerCase()))
-    : banks;
-
-  useEffect(() => {
-    function handleOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-        setQuery('');
-      }
-    }
-    document.addEventListener('mousedown', handleOutside);
-    return () => document.removeEventListener('mousedown', handleOutside);
-  }, []);
-
-  const handleSelect = (name: string) => {
-    onChange(name);
-    setQuery('');
-    setOpen(false);
-  };
-
-  return (
-    <div ref={containerRef} className="relative">
-      <div className="relative group">
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors pointer-events-none">
-          <Landmark size={18} />
-        </div>
-        <input
-          type="text"
-          value={open ? query : value}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setOpen(true)}
-          onClick={() => setOpen(true)}
-          placeholder="Search & select your bank"
-          autoComplete="off"
-          className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
-        />
       </div>
 
       {open && filtered.length > 0 && (
@@ -183,11 +100,19 @@ function BankCombobox({ value, onChange }: BankComboboxProps) {
 
       {open && filtered.length === 0 && query && (
         <div className="absolute z-50 mt-1 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg px-4 py-3 text-sm text-slate-400">
-          No banks match &ldquo;{query}&rdquo;
+          {noMatchText} for &ldquo;{query}&rdquo;
         </div>
       )}
     </div>
   );
+}
+
+function LocalityCombobox(props: Omit<ComboboxProps, 'icon' | 'noMatchText'>) {
+  return <Combobox {...props} icon={MapPin} noMatchText="No results" />;
+}
+
+function BankCombobox({ value, onChange }: { value: string; onChange: (val: string) => void }) {
+  return <Combobox options={banks} value={value} onChange={onChange} placeholder="Search & select your bank" icon={Landmark} noMatchText="No banks match" />;
 }
 
 // ─── Address Block ────────────────────────────────────────────────────────────
