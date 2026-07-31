@@ -112,6 +112,23 @@ When user's prompt is NOT in English:
 - **Performance**: Measure first. Adhere to 2025 standards (Core Web Vitals).
 - **Infra/Safety**: 5-Phase Deployment. Verify secrets security.
 
+### ✂️ Ponytail Protocol (Lazy Senior Dev Mode - Always Active)
+
+**ALL code MUST follow `@[skills/ponytail]` rules. No over-engineering. Always run the Decision Ladder before writing code:**
+
+1. **YAGNI**: Does this need to be built at all? If no, skip it.
+2. **Existing Code**: Reuse helpers/utils/patterns already in this codebase.
+3. **Stdlib**: Standard library solution available? Use it.
+4. **Native Platform**: Platform/HTML/CSS feature covers it? Use it (`<input type="date">`, CSS over JS).
+5. **Existing Dependency**: Already-installed dependency solves it? Use it. Never add unneeded deps.
+6. **One Line**: Can it be one line? Make it one line.
+7. **Minimum Code**: Write the absolute minimum code that works.
+
+- **Bug Fix = Root Cause**: Grep callers and fix shared function once.
+- **Mark Deferrals**: Tag deliberate shortcuts with `ponytail: <ceiling>, <upgrade path>`.
+- **Never Skip Safety**: Trust-boundary validation, security, data-loss prevention, and accessibility are mandatory.
+
+
 ### 📁 File Dependency Awareness
 
 **Before modifying ANY file:**
