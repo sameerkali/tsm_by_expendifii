@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
+import { usePlanStatus } from '@/hooks/usePlanStatus';
 import { LogoutModal } from './LogoutModal';
 import { openActivationModal } from '@/lib/activation-modal';
 
@@ -37,6 +38,7 @@ export function Sidebar({
   const showLabel = isMobileOpen || isDesktopExpanded;
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const { logout, isLoggingOut } = useAuth();
+  const { isPlanActive, totalDaysLeft, progressPercentage } = usePlanStatus(coupons);
 
   return (
     <aside className={cn(
@@ -101,7 +103,7 @@ export function Sidebar({
         {showLabel && (
           <div>
             {(() => {
-              if (!coupons || coupons.length === 0) return (
+              if (!isPlanActive) return (
                 <div className="px-2.5 py-2.5 bg-red-50 dark:bg-red-950/30 rounded-xl border border-red-200 dark:border-red-800/50 space-y-1.5">
                   <p className="text-[10px] font-black text-red-500 dark:text-red-400 text-center uppercase tracking-wider">⚠ No active plan</p>
                   <div className="flex flex-col gap-1">
@@ -117,57 +119,7 @@ export function Sidebar({
                 </div>
               );
 
-              const today = new Date();
-              const now = today.getTime();
-
-              const getDaysLeft = (expiresAt: string) => {
-                const expDate = new Date(expiresAt);
-                const diffTime = expDate.getTime() - now;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return diffDays > 0 ? diffDays : 0;
-              };
-
-              let totalDaysLeft = 0;
-              let totalDuration = 0;
-              let hasActiveOrScheduled = false;
-
-              coupons.forEach((coupon) => {
-                if (!coupon.isActive || !coupon.isUsed) return;
-                if (!coupon.startDate || !coupon.expiresAt) return;
-
-                const startTime = new Date(coupon.startDate).getTime();
-                const expiresTime = new Date(coupon.expiresAt).getTime();
-
-                if (expiresTime <= now) return;
-
-                if (startTime <= now && expiresTime > now) {
-                  totalDaysLeft += getDaysLeft(coupon.expiresAt);
-                  totalDuration += coupon.durationDays;
-                  hasActiveOrScheduled = true;
-                } else if (startTime > now) {
-                  totalDaysLeft += coupon.durationDays;
-                  totalDuration += coupon.durationDays;
-                  hasActiveOrScheduled = true;
-                }
-              });
-
-              if (!hasActiveOrScheduled) return (
-                <div className="px-2.5 py-2.5 bg-red-50 dark:bg-red-950/30 rounded-xl border border-red-200 dark:border-red-800/50 space-y-1.5">
-                  <p className="text-[10px] font-black text-red-500 dark:text-red-400 text-center uppercase tracking-wider">⚠ No active plan</p>
-                  <div className="flex flex-col gap-1">
-                    <button
-                      type="button"
-                      onClick={onActivateClick ?? openActivationModal}
-                      className="text-[10px] font-bold text-[#0369A1] dark:text-sky-400 hover:underline text-center cursor-pointer"
-                    >
-                      Activate Account →
-                    </button>
-                    <Link href="/contact" className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:underline text-center">Contact Admin</Link>
-                  </div>
-                </div>
-              );
-
-              const pct = totalDuration > 0 ? (totalDaysLeft / totalDuration) * 100 : 0;
+              const pct = progressPercentage;
 
               const color = pct <= 20
                 ? { text: 'text-red-500', bg: 'bg-red-500', bar: 'bg-red-100 dark:bg-red-900/30', border: 'border-red-200 dark:border-red-800/50' }

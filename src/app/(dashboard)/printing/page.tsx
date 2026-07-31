@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { getApiErrorMessage } from '@/lib/api/errors';
 import { useCustomers, useDownloadCustomerGrPdf } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
-import { Pagination, type PageSizeOption } from '@/components/shared/Pagination';
+import { Pagination, usePageSizePreference, type PageSizeOption } from '@/components/shared/Pagination';
 import type { Customer } from '@/types/customer';
 
 function PrintModal({ 
@@ -124,7 +124,7 @@ export default function PrintingPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearch = useDebounce(searchTerm, 500);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState<PageSizeOption>(10);
+  const [limit, setLimit] = usePageSizePreference(10);
   const [activeCustomer, setActiveCustomer] = useState<Customer | null>(null);
 
   const { data: response, isLoading, isError, error } = useCustomers({

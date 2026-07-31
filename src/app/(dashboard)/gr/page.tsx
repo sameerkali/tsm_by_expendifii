@@ -19,6 +19,7 @@ import { GRFormPanel } from "@/components/gr/GRFormPanel";
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
 import {
   Pagination,
+  usePageSizePreference,
   type PageSizeOption,
 } from "@/components/shared/Pagination";
 import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from "@/lib/demo/guest";
@@ -68,7 +69,7 @@ export default function GRListPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("All");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState<PageSizeOption>(10);
+  const [limit, setLimit] = usePageSizePreference(10);
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   const deleteGR = useDeleteGR();

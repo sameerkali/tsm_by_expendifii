@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { CustomerFormPanel } from '@/components/customers/CustomerFormPanel';
-import { Pagination, type PageSizeOption } from '@/components/shared/Pagination';
+import { Pagination, usePageSizePreference, type PageSizeOption } from '@/components/shared/Pagination';
 import { DEMO_READ_ONLY_MESSAGE, isGuestModeClient } from '@/lib/demo/guest';
 import { useCustomers } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -23,7 +23,7 @@ export function CustomersClient() {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearch = useDebounce(searchTerm, 500);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState<PageSizeOption>(10);
+  const [limit, setLimit] = usePageSizePreference(10);
 
   // Fetch customers
   const { data: response, isLoading, isError, error } = useCustomers({

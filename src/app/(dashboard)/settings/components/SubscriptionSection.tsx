@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
 import { openActivationModal } from '@/lib/activation-modal';
+import { usePlanStatus } from '@/hooks/usePlanStatus';
 
 type Coupon = {
   _id: string;
@@ -32,30 +33,7 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
   const [showDetails, setShowDetails] = useState(false);
   const router = useRouter();
   const now = new Date().getTime();
-
-  // Helper to calculate total active subscription days
-  const calculateTotalActiveDays = () => {
-    if (!user?.coupons) return 0;
-    let total = 0;
-    user.coupons.forEach((coupon) => {
-      if (!coupon.isActive || !coupon.isUsed) return;
-      if (!coupon.startDate || !coupon.expiresAt) return;
-
-      const startTime = new Date(coupon.startDate).getTime();
-      const expiresTime = new Date(coupon.expiresAt).getTime();
-
-      if (expiresTime <= now) return;
-
-      if (startTime <= now && expiresTime > now) {
-        total += Math.max(0, getDaysLeft(coupon.expiresAt));
-      } else if (startTime > now) {
-        total += coupon.durationDays;
-      }
-    });
-    return total;
-  };
-
-  const totalActiveDays = calculateTotalActiveDays();
+  const { totalDaysLeft: totalActiveDays, activeCoupons } = usePlanStatus(user?.coupons as any);
 
   const getActiveAndScheduledCoupons = () => {
     if (!user?.coupons) return [];

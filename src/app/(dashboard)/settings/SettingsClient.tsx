@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useSession } from "@/hooks/useSession";
+import { usePlanStatus } from "@/hooks/usePlanStatus";
 import { usePreferences } from "@/providers/PreferencesProvider";
 import { cloudinaryApi } from "@/lib/api/cloudinary.api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -227,13 +228,7 @@ export function SettingsClient() {
     }
   };
 
-  const getDaysLeft = (expiresAt: string) => {
-    const today = new Date();
-    const expDate = new Date(expiresAt);
-    const diffTime = expDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays > 0 ? diffDays : 0;
-  };
+  const { isPlanActive, getDaysLeft } = usePlanStatus();
 
   // Define Mobile Settings Options using React Heroicons
   const settingsItems = useMemo(() => {
@@ -460,7 +455,12 @@ export function SettingsClient() {
                 {user?.name ? user.name.charAt(0).toUpperCase() : <UserIcon className="w-8 h-8 text-white" />}
               </div>
             )}
-            <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900 shadow-sm" />
+            <span
+              className={cn(
+                "absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white dark:border-slate-900 shadow-sm",
+                isPlanActive ? "bg-emerald-500" : "bg-red-500",
+              )}
+            />
           </div>
 
           <div className="space-y-1">
@@ -468,9 +468,13 @@ export function SettingsClient() {
               <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 {user?.name || "Business Account"}
               </h2>
-              {user?.company?.companyName && (
+              {isPlanActive ? (
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-sky-500/10 dark:bg-sky-500/20 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-400/30">
                   <CheckBadgeIcon className="w-3.5 h-3.5" /> Verified
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-red-500/10 dark:bg-red-500/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/30">
+                  ⚠ No active plan
                 </span>
               )}
             </div>

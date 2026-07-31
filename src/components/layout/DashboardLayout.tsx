@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSession } from '@/hooks/useSession';
+import { usePlanStatus } from '@/hooks/usePlanStatus';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './TopBar';
 import { Spinner } from '../ui';
@@ -18,22 +19,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isActivationModalOpen, setIsActivationModalOpen] = useState(false);
   const pathname = usePathname();
   const { isAuthenticated, isLoading, user, isGuest } = useSession();
+  const { isPlanActive } = usePlanStatus();
 
-  // Mirror the sidebar's coupon-based logic for showing activation banner
-  const hasActiveOrScheduledPlan = (() => {
-    if (!user?.coupons || user.coupons.length === 0) return false;
-    const now = Date.now();
-    return user.coupons.some((coupon) => {
-      if (!coupon.isActive || !coupon.isUsed) return false;
-      if (!coupon.startDate || !coupon.expiresAt) return false;
-      const expiresTime = new Date(coupon.expiresAt).getTime();
-      if (expiresTime <= now) return false;
-      const startTime = new Date(coupon.startDate).getTime();
-      return (startTime <= now && expiresTime > now) || startTime > now;
-    });
-  })();
-
-  const showActivationBanner = !isLoading && isAuthenticated && !isGuest && !hasActiveOrScheduledPlan;
+  const showActivationBanner = !isLoading && isAuthenticated && !isGuest && !isPlanActive;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
