@@ -43,9 +43,7 @@ export interface DashboardData {
 }
 
 export const dashboardApi = {
-  getDashboardData: async (): Promise<ApiResponse<DashboardData>> => {
-    return apiClient.get('/auth/dashboard');
-  },
+  getDashboardData: () => apiClient.get<ApiResponse<DashboardData>>('/auth/dashboard'),
 };
 
 export default dashboardApi;

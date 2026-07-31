@@ -25,45 +25,14 @@ export interface SingleGRResponse {
 }
 
 export const grApi = {
-  getAll: async (params?: GetGRsParams): Promise<PaginatedGRResponse> => {
-    const query = new URLSearchParams();
-    if (params?.status) query.set('status', params.status);
-    if (params?.search) query.set('search', params.search);
-    if (params?.page) query.set('page', String(params.page));
-    if (params?.limit) query.set('limit', String(params.limit));
-    const qs = query.toString();
-    return apiClient.get(`/gr${qs ? `?${qs}` : ''}`) as any;
-  },
-
-  getById: async (id: string): Promise<SingleGRResponse> => {
-    return apiClient.get(`/gr/${id}`) as any;
-  },
-
-  create: async (data: CreateGRInput): Promise<SingleGRResponse> => {
-    return apiClient.post('/gr', data) as any;
-  },
-
-  update: async (id: string, data: UpdateGRInput): Promise<SingleGRResponse> => {
-    return apiClient.patch(`/gr/${id}`, data) as any;
-  },
-
-  updateStatus: async (id: string, status: GRStatus): Promise<SingleGRResponse> => {
-    return apiClient.patch(`/gr/${id}/status`, { status }) as any;
-  },
-
-  delete: async (id: string): Promise<{ success: boolean; message: string }> => {
-    return apiClient.delete(`/gr/${id}`) as any;
-  },
-
-  duplicate: async (id: string): Promise<SingleGRResponse> => {
-    return apiClient.post(`/gr/${id}/duplicate`, {}) as any;
-  },
-
-  downloadPdf: async (id: string): Promise<Blob> => {
-    return apiClient.get(`/gr/${id}/pdf`, {
-      responseType: 'blob',
-    }) as any;
-  },
+  getAll: (params?: GetGRsParams) => apiClient.get<PaginatedGRResponse>('/gr', { params }),
+  getById: (id: string) => apiClient.get<SingleGRResponse>(`/gr/${id}`),
+  create: (data: CreateGRInput) => apiClient.post<SingleGRResponse>('/gr', data),
+  update: (id: string, data: UpdateGRInput) => apiClient.patch<SingleGRResponse>(`/gr/${id}`, data),
+  updateStatus: (id: string, status: GRStatus) => apiClient.patch<SingleGRResponse>(`/gr/${id}/status`, { status }),
+  delete: (id: string) => apiClient.delete<{ success: boolean; message: string }>(`/gr/${id}`),
+  duplicate: (id: string) => apiClient.post<SingleGRResponse>(`/gr/${id}/duplicate`, {}),
+  downloadPdf: (id: string) => apiClient.get<Blob>(`/gr/${id}/pdf`, { responseType: 'blob' }),
 };
 
 export default grApi;

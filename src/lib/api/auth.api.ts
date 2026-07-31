@@ -1,14 +1,14 @@
 import apiClient from './client';
-import { ApiResponse } from '@/types/api';
-import { AuthResponse, CompanyAddress, CompanyBankDetails, ProfileData, User } from '@/types/session';
-import { LoginInput, RegisterInput, ActivateInput } from '@/lib/validations/auth.schema';
+import type { ApiResponse } from '@/types/api';
+import type { AuthResponse, CompanyAddress, CompanyBankDetails, ProfileData, User } from '@/types/session';
+import type { LoginInput, RegisterInput, ActivateInput } from '@/lib/validations/auth.schema';
 
 type EditableCompanyFields = Pick<
   User['company'],
   'companyName' | 'gstin' | 'pan' | 'phone' | 'email' | 'contactPerson' | 'logoUrl'
 >;
 
-type UpdateProfileInput = Partial<Pick<User, 'name' | 'phone' | 'email'>> & {
+export type UpdateProfileInput = Partial<Pick<User, 'name' | 'phone' | 'email'>> & {
   password?: string;
   company?: Partial<EditableCompanyFields> & {
     address?: Partial<CompanyAddress>;
@@ -17,100 +17,16 @@ type UpdateProfileInput = Partial<Pick<User, 'name' | 'phone' | 'email'>> & {
 };
 
 export const authApi = {
-  /**
-   * Registers a new company account. Returns user data.
-   * Backend sets an httpOnly cookie AND may return a token in the response body.
-   * We log the full response to find exactly where the token lives.
-   */
-  register: async (data: RegisterInput): Promise<ApiResponse<User & { token?: string }>> => {
-    const response = await apiClient.post('/auth/register', data);
-
-    // LOG: Full register response — find where the token is
-    console.group('[AUTH] Register Response');
-    console.log('Full response:', JSON.stringify(response, null, 2));
-    console.log('response.data (user object):', (response as any)?.data);
-    console.log('response.token (top-level?):', (response as any)?.token);
-    console.groupEnd();
-
-    return response as any;
-  },
-
-  /**
-   * Activates account using coupon code.
-   */
-  activate: async (data: ActivateInput): Promise<ApiResponse<{ accountStatus: string; startDate: string; endDate: string; durationDays: number }>> => {
-    // Relying on httpOnly cookie being forwarded by the proxy.
-    const response = await apiClient.post('/auth/activate', data);
-
-    // LOG: Activate response
-    console.group('[AUTH] Activate Response');
-    console.log('Full response:', JSON.stringify(response, null, 2));
-    console.groupEnd();
-
-    return response as any;
-  },
-
-  /**
-   * Login user — backend sets httpOnly cookie.
-   */
-  login: async (data: LoginInput): Promise<ApiResponse<AuthResponse>> => {
-    const response = await apiClient.post('/auth/login', data);
-
-    // LOG: Full login response
-    console.group('[AUTH] Login Response');
-    console.log('Full response:', JSON.stringify(response, null, 2));
-    console.log('accountStatus:', (response as any)?.data?.accountStatus);
-    console.groupEnd();
-
-    return response as any;
-  },
-
-  /**
-   * Logout user and clears cookies.
-   */
-  logout: async (): Promise<ApiResponse<void>> => {
-    console.log('[AUTH] Logout called');
-    return apiClient.post('/auth/logout') as any;
-  },
-
-  /**
-   * Returns current user profile including coupon details.
-   */
-  getProfile: async (): Promise<ApiResponse<ProfileData>> => {
-    const response = await apiClient.get('/auth/profile');
-    return response as any;
-  },
-
-  /**
-   * Updates user profile fields.
-   */
-  updateProfile: async (data: UpdateProfileInput): Promise<ApiResponse<User>> => {
-    return apiClient.patch('/auth/profile', data) as any;
-  },
-
-  /**
-   * Submits a request to delete the account.
-   */
-  requestDeletion: async (): Promise<ApiResponse<any>> => {
-    return apiClient.post('/settings/request-deletion') as any;
-  },
-
-  /**
-   * Fetches the current deletion request status.
-   */
-  getDeletionStatus: async (): Promise<ApiResponse<any>> => {
-    return apiClient.get('/settings/deletion-status') as any;
-  },
-  // Request password reset (send OTP)
-  requestPasswordReset: async (email: string): Promise<ApiResponse<any>> => {
-    return apiClient.post('/auth/forgot-password', { email }) as any;
-  },
-
-  // Reset password using OTP
-  resetPassword: async (payload: { email: string; otp: string; newPassword: string }): Promise<ApiResponse<any>> => {
-    return apiClient.post('/auth/reset-password', payload) as any;
-  },
-
+  register: (data: RegisterInput) => apiClient.post<ApiResponse<User & { token?: string }>>('/auth/register', data),
+  activate: (data: ActivateInput) => apiClient.post<ApiResponse<{ accountStatus: string; startDate: string; endDate: string; durationDays: number }>>('/auth/activate', data),
+  login: (data: LoginInput) => apiClient.post<ApiResponse<AuthResponse>>('/auth/login', data),
+  logout: () => apiClient.post<ApiResponse<void>>('/auth/logout'),
+  getProfile: () => apiClient.get<ApiResponse<ProfileData>>('/auth/profile'),
+  updateProfile: (data: UpdateProfileInput) => apiClient.patch<ApiResponse<User>>('/auth/profile', data),
+  requestDeletion: () => apiClient.post<ApiResponse<unknown>>('/settings/request-deletion'),
+  getDeletionStatus: () => apiClient.get<ApiResponse<unknown>>('/settings/deletion-status'),
+  requestPasswordReset: (email: string) => apiClient.post<ApiResponse<unknown>>('/auth/forgot-password', { email }),
+  resetPassword: (payload: { email: string; otp: string; newPassword: string }) => apiClient.post<ApiResponse<unknown>>('/auth/reset-password', payload),
 };
 
 export default authApi;

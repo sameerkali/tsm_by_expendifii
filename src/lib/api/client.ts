@@ -1,10 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { ApiError } from '@/types/api';
 import { isGuestModeClient } from '@/lib/demo/guest';
 
-const apiClient = axios.create({
-  // Route all requests through the Next.js proxy (/api/proxy/* → Railway).
-  // This makes every request same-origin so httpOnly cookies work correctly.
+const axiosInstance = axios.create({
   baseURL: '/api/proxy',
   withCredentials: true,
   timeout: 30_000,
@@ -13,9 +11,6 @@ const apiClient = axios.create({
   },
 });
 
-
-// Auth endpoints that intentionally return 4xx — must NEVER trigger a redirect.
-// A 401 here means wrong password; a 409 means duplicate email, etc.
 const AUTH_ENDPOINTS = [
   '/auth/login',
   '/auth/register',
@@ -26,19 +21,14 @@ const AUTH_ENDPOINTS = [
   '/auth/logout',
 ];
 
-apiClient.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response.data,
   async (error) => {
     const requestUrl: string = error.config?.url ?? '';
     const isAuthEndpoint = AUTH_ENDPOINTS.some((path) => requestUrl.includes(path));
 
-    // Normalise all errors into a consistent ApiError shape.
-    // Backend uses both `message` and `error` as keys — check both.
     let responseData = error.response?.data ?? {};
 
-    // Handle Blob error responses (e.g. for PDF downloads that fail).
-    // Check the response content-type header instead of Blob.type, because
-    // Safari strips the MIME from the Blob's type property cross-origin.
     const isBlob = typeof window !== 'undefined' && responseData instanceof Blob;
     if (isBlob && (error.response?.headers?.['content-type'] ?? '').includes('application/json')) {
       try {
@@ -49,17 +39,10 @@ apiClient.interceptors.response.use(
       }
     }
 
-    // Only redirect to login on 401 for protected routes (session expiry).
-    // Auth endpoints must surface their errors back to the form.
     if (error.response?.status === 401 && !isAuthEndpoint) {
       if (typeof window !== 'undefined') {
         const message = responseData.message ?? responseData.error ?? '';
-        // Account deactivated by admin — show modal instead of redirecting to login.
-        // The modal displays the error and forces logout, which clears the cookie first
-        // to prevent the middleware from redirecting back into an infinite loop.
         if (/account (not found|inactive|deactivated)/i.test(message)) {
-          // Fire-and-forget: clear the httpOnly cookie server-side so the middleware
-          // doesn't redirect back from /login after we show the modal.
           fetch('/api/proxy/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
           window.dispatchEvent(new CustomEvent('account-deactivated', { detail: { message } }));
         } else {
@@ -91,5 +74,13 @@ apiClient.interceptors.response.use(
     return Promise.reject(apiError);
   },
 );
+
+export const apiClient = {
+  get: <T>(url: string, config?: AxiosRequestConfig) => axiosInstance.get<unknown, T>(url, config),
+  post: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) => axiosInstance.post<unknown, T>(url, data, config),
+  put: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) => axiosInstance.put<unknown, T>(url, data, config),
+  patch: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) => axiosInstance.patch<unknown, T>(url, data, config),
+  delete: <T>(url: string, config?: AxiosRequestConfig) => axiosInstance.delete<unknown, T>(url, config),
+};
 
 export default apiClient;
