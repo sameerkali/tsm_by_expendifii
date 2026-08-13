@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSession } from '@/hooks/useSession';
 import { usePlanStatus } from '@/hooks/usePlanStatus';
+import { useFeatureFlags } from '@/hooks/useFeatureFlags';
+import { SIDEBAR_NAV_CONFIG } from '@/config/feature-flags';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './TopBar';
 import { Spinner } from '../ui';
@@ -18,8 +20,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isActivationModalOpen, setIsActivationModalOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { isAuthenticated, isLoading, user, isGuest } = useSession();
   const { isPlanActive } = usePlanStatus();
+  const { isEnabled, isLoading: isFlagsLoading } = useFeatureFlags();
+  const hasAnyEnabledTab = isGuest || SIDEBAR_NAV_CONFIG.some((item) => isEnabled(item.key));
 
   const showActivationBanner = !isLoading && isAuthenticated && !isGuest && !isPlanActive;
 
@@ -39,6 +44,30 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       window.location.href = '/login';
     }
   }, [isLoading, isAuthenticated]);
+
+  // Defense in depth: hiding a sidebar tab doesn't stop direct URL navigation
+  // to its route, so re-check the current route's flag here too. The
+  // corresponding API calls are also gated server-side (requireFeatureFlag),
+  // so this only affects UX — it can never be the sole access control.
+  //
+  // Uses router.replace (client-side, no page reload) rather than
+  // window.location.href — a hard reload here re-triggers the profile fetch
+  // every time, and combined with /gr being hardcoded elsewhere as the
+  // post-login landing route (useAuth.ts, middleware.ts), a full reload can
+  // ping-pong between routes and exhaust the backend's rate limiter. The
+  // fallback target is the first still-enabled tab (not a hardcoded route,
+  // which could itself be disabled) and redirect is skipped entirely if
+  // nothing is enabled — a fixed target that's also disabled would loop.
+  useEffect(() => {
+    if (isLoading || isFlagsLoading || !isAuthenticated || isGuest) return;
+    const matchedItem = SIDEBAR_NAV_CONFIG.find(
+      (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
+    );
+    if (!matchedItem || isEnabled(matchedItem.key)) return;
+
+    const fallback = SIDEBAR_NAV_CONFIG.find((item) => isEnabled(item.key) && item.href !== pathname);
+    if (fallback) router.replace(fallback.href);
+  }, [pathname, isLoading, isFlagsLoading, isAuthenticated, isGuest, isEnabled, router]);
 
   // Listen for custom event to open activation modal (from deep children)
   useEffect(() => {
@@ -124,7 +153,16 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
           <div className="flex-1 p-5 md:p-8">
             <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-400">
-              {children}
+              {!isFlagsLoading && !hasAnyEnabledTab ? (
+                <div className="flex flex-col items-center justify-center text-center py-24 gap-2">
+                  <p className="text-lg font-bold text-slate-900 dark:text-white">No features enabled</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm">
+                    Your account doesn&apos;t have access to any modules right now. Contact your administrator.
+                  </p>
+                </div>
+              ) : (
+                children
+              )}
             </div>
           </div>
         </main>

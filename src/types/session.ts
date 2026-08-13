@@ -55,6 +55,7 @@ export interface User {
   coupons: Coupon[];
   referralCode?: string;
   referredBy?: string | null;
+  flags?: Record<string, boolean>;
   _count?: {
     coupons: number;
     customers: number;
