@@ -125,7 +125,7 @@ export function ImportDataSection() {
 
       // POST file to Backend Settings Import API
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response = await apiClient.post<any, any>('/settings/import', formData, {
+      const response = await apiClient.post<any>('/settings/import', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -14,39 +14,13 @@ export interface CustomerListParams {
 }
 
 export const customerApi = {
-  getAll: async (params?: CustomerListParams): Promise<CustomerListResponse> => {
-    const query = new URLSearchParams();
-    if (params?.search) query.set('search', params.search);
-    if (params?.page) query.set('page', String(params.page));
-    if (params?.limit) query.set('limit', String(params.limit));
-    const qs = query.toString();
-    return apiClient.get(`/customers${qs ? `?${qs}` : ''}`) as any;
-  },
-
-  getById: async (id: string): Promise<CustomerResponse> => {
-    return apiClient.get(`/customers/${id}`) as any;
-  },
-
-  create: async (data: CreateCustomerInput): Promise<CustomerResponse> => {
-    return apiClient.post('/customers', data) as any;
-  },
-
-  update: async (id: string, data: UpdateCustomerInput): Promise<CustomerResponse> => {
-    return apiClient.put(`/customers/${id}`, data) as any;
-  },
-
-  delete: async (id: string): Promise<CustomerDeleteResponse> => {
-    return apiClient.delete(`/customers/${id}`) as any;
-  },
-
-  downloadGrPdf: async (customerId: string, from: string, to?: string): Promise<Blob> => {
-    const query = new URLSearchParams();
-    query.set('from', from);
-    if (to) query.set('to', to);
-    return apiClient.get(`/gr/customer/${customerId}/download?${query.toString()}`, {
-      responseType: 'blob',
-    }) as any;
-  },
+  getAll: (params?: CustomerListParams) => apiClient.get<CustomerListResponse>('/customers', { params }),
+  getById: (id: string) => apiClient.get<CustomerResponse>(`/customers/${id}`),
+  create: (data: CreateCustomerInput) => apiClient.post<CustomerResponse>('/customers', data),
+  update: (id: string, data: UpdateCustomerInput) => apiClient.put<CustomerResponse>(`/customers/${id}`, data),
+  delete: (id: string) => apiClient.delete<CustomerDeleteResponse>(`/customers/${id}`),
+  downloadGrPdf: (customerId: string, from: string, to?: string) =>
+    apiClient.get<Blob>(`/gr/customer/${customerId}/download`, { params: { from, to }, responseType: 'blob' }),
 };
 
 export default customerApi;

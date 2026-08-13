@@ -97,25 +97,21 @@ function customerToForm(c: Customer): FormState {
 }
 
 function formToPayload(form: FormState): CreateCustomerInput {
+  const clean = (v?: unknown) => (v != null && String(v).trim()) || undefined;
   const payload: CreateCustomerInput = {
-    name: String(form.name).trim(),
-    phone: String(form.phone).trim(),
+    name: form.name.trim(),
+    phone: form.phone.trim(),
+    email: clean(form.email),
+    gstin: clean(form.gstin),
+    address: clean(form.address),
+    city: clean(form.city),
+    state: clean(form.state),
+    pricingType: (form.pricingType || undefined) as PricingType,
   };
-  if (form.email != null && String(form.email).trim())
-    payload.email = String(form.email).trim();
-  if (form.gstin != null && String(form.gstin).trim())
-    payload.gstin = String(form.gstin).trim();
-  if (form.address != null && String(form.address).trim())
-    payload.address = String(form.address).trim();
-  if (form.city != null && String(form.city).trim())
-    payload.city = String(form.city).trim();
-  if (form.state != null && String(form.state).trim())
-    payload.state = String(form.state).trim();
-  if (form.pincode != null && String(form.pincode).trim() !== "")
-    payload.pincode = Number(form.pincode);
-  if (form.pricingType) payload.pricingType = form.pricingType as PricingType;
-  if (form.defaultRate != null && String(form.defaultRate).trim() !== "")
-    payload.defaultRate = parseFloat(String(form.defaultRate));
+  const pin = Number(form.pincode);
+  if (pin) payload.pincode = pin;
+  const rate = parseFloat(form.defaultRate);
+  if (!isNaN(rate)) payload.defaultRate = rate;
   return payload;
 }
 

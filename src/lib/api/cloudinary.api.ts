@@ -30,9 +30,7 @@ function validateLogoFile(file: File) {
 }
 
 export const cloudinaryApi = {
-  getUploadSignature: async (): Promise<CloudinarySignatureResponse> => {
-    return apiClient.get('/cloudinary/signature') as unknown as CloudinarySignatureResponse;
-  },
+  getUploadSignature: () => apiClient.get<CloudinarySignatureResponse>('/cloudinary/signature'),
 
   uploadCompanyLogo: async (file: File): Promise<string> => {
     validateLogoFile(file);

@@ -24,3 +24,8 @@ export const CAROUSEL_KEYS = {
   list: () => [...CAROUSEL_KEYS.all, 'list'] as const,
 };
 
+export const DEMO_KEYS = {
+  all: ['demo'] as const,
+  message: () => [...DEMO_KEYS.all, 'message'] as const,
+};
+

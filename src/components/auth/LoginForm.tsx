@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, type LoginInput } from "@/lib/validations/auth.schema";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import posthog from "posthog-js";
@@ -13,8 +12,6 @@ import { enterGuestMode } from "@/lib/demo/guest";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-
-  const router = useRouter();
 
   const { login, isLoggingIn } = useAuth();
 

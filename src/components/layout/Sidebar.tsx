@@ -2,23 +2,14 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  LayoutDashboard, Users as UsersIcon, Files, Printer, Settings,
-  LogOut, ChevronRight
-} from 'lucide-react';
+import { LogOut, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useAuth } from '@/hooks/useAuth';
 import { usePlanStatus } from '@/hooks/usePlanStatus';
+import { useFeatureFlags } from '@/hooks/useFeatureFlags';
+import { SIDEBAR_NAV_CONFIG } from '@/config/feature-flags';
 import { LogoutModal } from './LogoutModal';
 import { openActivationModal } from '@/lib/activation-modal';
-
-const NAV_ITEMS = [
-  { label: 'GR', icon: Files, href: '/gr' },
-  { label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
-  { label: 'Customers', icon: UsersIcon, href: '/customers' },
-  { label: 'Printing', icon: Printer, href: '/printing' },
-  { label: 'Settings', icon: Settings, href: '/settings' },
-];
 import { Coupon } from '@/types/session';
 
 interface SidebarProps {
@@ -39,6 +30,8 @@ export function Sidebar({
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const { logout, isLoggingOut } = useAuth();
   const { isPlanActive, totalDaysLeft, progressPercentage } = usePlanStatus(coupons);
+  const { isEnabled } = useFeatureFlags();
+  const navItems = SIDEBAR_NAV_CONFIG.filter((item) => isEnabled(item.key));
 
   return (
     <aside className={cn(
@@ -66,7 +59,7 @@ export function Sidebar({
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto custom-scrollbar">
-        {NAV_ITEMS.map((item) => {
+        {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
