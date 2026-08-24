@@ -146,8 +146,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto custom-scrollbar relative flex flex-col">
           {/* Ambient blobs */}
-          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-sky-500/[0.04] dark:bg-sky-500/[0.02] blur-[120px] rounded-full -z-10 pointer-events-none" />
-          <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-blue-500/[0.04] dark:bg-blue-500/[0.02] blur-[100px] rounded-full -z-10 pointer-events-none" />
+          <div className="absolute top-1/4 right-1/4 w-100 h-100 bg-sky-500/4 dark:bg-sky-500/2 blur-[120px] rounded-full -z-10 pointer-events-none" />
+          <div className="absolute bottom-1/4 left-1/4 w-75 h-75 bg-blue-500/4 dark:bg-blue-500/2 blur-[100px] rounded-full -z-10 pointer-events-none" />
 
           {showActivationBanner && <ActivationBanner onClick={handleOpenActivation} />}
 

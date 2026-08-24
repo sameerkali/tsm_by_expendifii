@@ -136,18 +136,29 @@ const jsonLd = {
       '@type': 'Organization',
       '@id': 'https://tsm.expendifii.com/#organization',
       name: 'TSM by Expendifii',
+      alternateName: ['TSM', 'Expendifii TSM'],
       url: 'https://tsm.expendifii.com',
       logo: 'https://tsm.expendifii.com/logo.png',
       founder: { '@type': 'Person', name: 'Sameer Faridi' },
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer support',
+        email: 'hello@expendifii.com',
         url: 'https://tsm.expendifii.com/contact',
+        availableLanguage: ['English', 'Hindi'],
       },
       sameAs: [
         'https://github.com/expendifii',
         'https://www.linkedin.com/company/expendifii',
       ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://tsm.expendifii.com/#website',
+      name: 'TSM by Expendifii',
+      url: 'https://tsm.expendifii.com',
+      publisher: { '@id': 'https://tsm.expendifii.com/#organization' },
+      inLanguage: 'en',
     },
     {
       '@type': 'BreadcrumbList',
@@ -772,12 +783,12 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <details className="group">
               <summary className="flex items-center justify-between cursor-pointer list-none marker:hidden text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-350 transition-colors select-none">
-                <span id="directory-heading" className="flex items-center gap-2">
+                <h2 id="directory-heading" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-[#0369A1] dark:text-sky-400" aria-hidden="true">
                     <path d="M19 11H5M19 11L12 4M19 11L12 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   Logistics & Transport Solutions Directory
-                </span>
+                </h2>
                 <span className="flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-medium normal-case group-open:hidden">
                   Expand Index
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -794,7 +805,7 @@ export default function HomePage() {
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
                 {seoKeywords.map((item) => (
                   <div key={item.category} className="space-y-2">
-                    <h4 className="text-xs font-bold text-slate-700 dark:text-slate-350">{item.category}</h4>
+                    <h3 className="text-xs font-bold text-slate-700 dark:text-slate-350">{item.category}</h3>
                     <div className="flex flex-wrap gap-1.5">
                       {item.keywords.map((kw) => {
                         let href = "";
