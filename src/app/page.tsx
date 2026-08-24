@@ -405,19 +405,13 @@ export default function HomePage() {
           <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 via-[#F8FAFC]/40 dark:via-slate-950/40 to-[#F8FAFC] dark:to-slate-950" />
 
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
-            {/* Badge */}
-            <div className="flex justify-center mb-6">
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#0369A1]/30 dark:border-sky-500/30 bg-[#0369A1]/8 dark:bg-sky-500/10 px-4 py-1.5 text-xs font-semibold text-[#0369A1] dark:text-sky-400 uppercase tracking-wider">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#0369A1] dark:bg-sky-400 animate-pulse" aria-hidden="true" />
-                Now live for transporters in NCR
-              </span>
-            </div>
+            
 
             {/* Headline */}
-            <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0F172A] dark:text-white max-w-4xl mx-auto leading-[1.12]">
+            <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-[1.12]">
               Stop managing transport{' '}
               <span className="relative">
-                <span className="text-[#0369A1] dark:text-sky-400">manually.</span>
+                <span className="text-sky-700 dark:text-sky-400">manually.</span>
                 <svg className="absolute -bottom-1 left-0 w-full" height="6" viewBox="0 0 200 6" fill="none" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M0 5C50 1 150 1 200 5" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" />
                 </svg>
@@ -433,7 +427,7 @@ export default function HomePage() {
               <Link
                 href="/register"
                 id="hero-cta-primary"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-[#0369A1] dark:hover:bg-sky-500 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-sky-700 dark:hover:bg-sky-500 transition-all duration-200 cursor-pointer"
               >
                 Get Started It&apos;s Free
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -443,7 +437,7 @@ export default function HomePage() {
               <Link
                 href="/why-tsm"
                 id="hero-cta-secondary"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-[#0369A1] dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-sky-700 dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
               >
                 See how it works →
               </Link>
@@ -462,20 +456,23 @@ export default function HomePage() {
             </div>
 
             {/* Key-value stats */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Platform:</strong> TSM by Expendifii</span>
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Type:</strong> Transport Management System</span>
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Users:</strong> Transporters across India</span>
-              <span><strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours</span>
-            </div>
+            <p className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">
+              <strong className="text-sky-700 dark:text-sky-400">Platform:</strong> TSM by Expendifii &middot;{' '}
+              <strong className="text-sky-700 dark:text-sky-400">Type:</strong> Transport Management System &middot;{' '}
+              <strong className="text-sky-700 dark:text-sky-400">Users:</strong> Transporters across India &middot;{' '}
+              <strong className="text-sky-700 dark:text-sky-400">Setup:</strong> 2–24 hours
+            </p>
 
             {/* Live Demo nudge */}
-            <p className="mt-5 text-center text-sm text-slate-500 dark:text-slate-400">
-              Not ready to sign up?{' '}
-              <Link href="/live-demo" className="font-semibold text-[#0369A1] dark:text-sky-400 hover:underline cursor-pointer">
+            <div className="mt-5 flex flex-col items-center gap-2">
+              <p className="text-sm text-slate-500 dark:text-slate-400">Not ready to sign up?</p>
+              <Link
+                href="/live-demo"
+                className="inline-flex items-center gap-1.5 rounded-full border border-sky-700/30 dark:border-sky-500/30 bg-sky-700/5 dark:bg-sky-500/10 px-4 py-1.5 text-sm font-semibold text-sky-700 dark:text-sky-400 hover:bg-sky-700/10 dark:hover:bg-sky-500/20 transition-colors cursor-pointer"
+              >
                 Try the live demo no account needed →
               </Link>
-            </p>
+            </div>
 
             {/* Actual TSM dashboard interface */}
               <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-xl overflow-hidden mt-10">
@@ -484,7 +481,7 @@ export default function HomePage() {
                   <span className="h-2.5 w-2.5 rounded-full bg-red-400" aria-hidden="true" />
                   <span className="h-2.5 w-2.5 rounded-full bg-amber-400" aria-hidden="true" />
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                  <div className="ml-4 flex-1 rounded bg-slate-200 dark:bg-slate-800 px-3 py-0.5 text-[10px] text-slate-500 dark:text-slate-400 max-w-xs">
+                  <div className="ml-4 flex-1 rounded bg-slate-200 dark:bg-slate-800 px-3 py-0.5 text-xs text-slate-500 dark:text-slate-400 max-w-xs">
                     tsm.expendifii.com/dashboard
                   </div>
                 </div>
@@ -498,9 +495,9 @@ export default function HomePage() {
                       { label: 'On-time Rate', value: '94%', trend: '+3% improvement', up: true },
                     ].map((stat) => (
                       <div key={stat.label} className="rounded-xl bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 px-3 py-3 shadow-sm">
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
-                        <p className="text-xl font-bold text-[#0F172A] dark:text-white">{stat.value}</p>
-                        <p className={`text-[10px] font-semibold mt-1 ${stat.up ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'}`}>{stat.trend}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
+                        <p className="text-xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
+                        <p className={`text-xs font-semibold mt-1 ${stat.up ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'}`}>{stat.trend}</p>
                       </div>
                     ))}
                   </div>
@@ -516,13 +513,13 @@ export default function HomePage() {
                           <div className="flex items-center gap-2.5">
                             <span className={`h-2 w-2 rounded-full ${job.color}`} aria-hidden="true" />
                             <div>
-                              <p className="text-[10px] font-semibold text-slate-700 dark:text-white">{job.id}</p>
-                              <p className="text-[9px] text-slate-500 dark:text-slate-400">{job.route}</p>
+                              <p className="text-xs font-semibold text-slate-700 dark:text-white">{job.id}</p>
+                              <p className="text-xs text-slate-500 dark:text-slate-400">{job.route}</p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="text-[10px] font-medium text-slate-700 dark:text-slate-200">{job.status}</span>
-                            <p className="text-[8px] text-slate-400 mt-0.5">{job.eta}</p>
+                            <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{job.status}</span>
+                            <p className="text-xs text-slate-400 mt-0.5">{job.eta}</p>
                           </div>
                         </div>
                       ))}
@@ -546,7 +543,6 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-3">Actual TSM dashboard interface</p>
           </div>
         </section>
 
@@ -554,8 +550,8 @@ export default function HomePage() {
         <section id="features" className="py-20 sm:py-28 bg-white dark:bg-slate-950" aria-labelledby="features-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Platform Capabilities</p>
-              <h2 id="features-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Capabilities</p>
+              <h2 id="features-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Everything a transporter actually needs.<br className="hidden sm:block" /> Nothing they don&apos;t.
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
@@ -572,14 +568,14 @@ export default function HomePage() {
                   <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#0F172A] dark:bg-[#0369A1]/20 text-white dark:text-sky-400 group-hover:bg-[#0369A1] dark:group-hover:bg-[#0369A1]/40 transition-colors duration-200">
                     {f.icon}
                   </div>
-                  <h3 className="text-base font-semibold text-[#0F172A] dark:text-white mb-2">{f.title}</h3>
+                  <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">{f.title}</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{f.description}</p>
                 </div>
               ))}
             </div>
 
             <div className="mt-12 text-center">
-              <Link href="/features" className="inline-flex items-center gap-2 text-sm font-bold text-[#0369A1] dark:text-sky-400 hover:underline">
+              <Link href="/features" className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 dark:text-sky-400 hover:underline">
                 Explore all capabilities and layouts &rarr;
               </Link>
             </div>
@@ -590,15 +586,15 @@ export default function HomePage() {
         <section id="how-tsm-works-steps" className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-labelledby="steps-heading">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Simple Process</p>
-              <h2 id="steps-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                How TSM Works in <span className="text-[#0369A1] dark:text-sky-400">4 Simple Steps</span>
+              <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Simple Process</p>
+              <h2 id="steps-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+                How TSM Works in <span className="text-sky-700 dark:text-sky-400">4 Simple Steps</span>
               </h2>
               <p id="how-it-works-summary" className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
                 From paper chaos to digital control. Here is exactly how TSM by Expendifii transforms your GR workflow.
               </p>
             </div>
-            <ol className="space-y-6">
+            <ol className="space-y-4">
               {[
                 { step: '1', title: 'Create Your Account', desc: 'Sign up in under 60 seconds. No credit card required. Add your company name, GST, and basic details — we guide you through it.' },
                 { step: '2', title: 'Add Your Customers', desc: 'Enter your regular consigners and consignees once. TSM remembers them so you never retype the same information. Manage your customer list from a clean dashboard.' },
@@ -609,7 +605,7 @@ export default function HomePage() {
                   <li key={s.step} className="flex items-start gap-5 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-sm hover:shadow-md transition-shadow duration-200">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0369A1] text-white text-lg font-bold">{s.step}</span>
                     <div>
-                      <h3 className="text-lg font-semibold text-[#0F172A] dark:text-white mb-1">{s.title}</h3>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-1">{s.title}</h3>
                       <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{s.desc}</p>
                     </div>
                   </li>
@@ -618,9 +614,9 @@ export default function HomePage() {
             </ol>
             <div className="mt-10 text-center">
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                <strong className="text-[#0369A1] dark:text-sky-400">Setup time:</strong> 2–24 hours &middot;{' '}
-                <strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free right now &middot;{' '}
-                <strong className="text-[#0369A1] dark:text-sky-400">No training needed:</strong> Most users get it in a day
+                <strong className="text-sky-700 dark:text-sky-400">Setup time:</strong> 2–24 hours &middot;{' '}
+                <strong className="text-sky-700 dark:text-sky-400">Pricing:</strong> Free right now &middot;{' '}
+                <strong className="text-sky-700 dark:text-sky-400">No training needed:</strong> Most users get it in a day
               </p>
             </div>
           </div>
@@ -649,8 +645,8 @@ export default function HomePage() {
         >
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Before vs After</p>
-              <h2 id="comparison-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Before vs After</p>
+              <h2 id="comparison-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Paper GRs cost you more than you think <br className="hidden sm:block" /> in time, money, and stress
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
@@ -669,14 +665,14 @@ export default function HomePage() {
                   key={row.label}
                   className={`grid grid-cols-3 border-b border-slate-100 dark:border-slate-800 last:border-0 ${i % 2 === 0 ? 'bg-white dark:bg-slate-950' : 'bg-slate-50/50 dark:bg-slate-900/50'}`}
                 >
-                  <div className="px-6 py-4 text-sm font-medium text-[#0F172A] dark:text-slate-200">{row.label}</div>
+                  <div className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-200">{row.label}</div>
                   <div className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 border-l border-slate-100 dark:border-slate-800 flex items-center gap-2">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0 text-red-400" aria-hidden="true">
                       <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                     {row.manual}
                   </div>
-                  <div className="px-6 py-4 text-sm font-medium text-[#0369A1] dark:text-sky-400 border-l border-[#0369A1]/20 bg-[#0369A1]/5 dark:bg-sky-500/5 flex items-center gap-2">
+                  <div className="px-6 py-4 text-sm font-medium text-sky-700 dark:text-sky-400 border-l border-[#0369A1]/20 bg-[#0369A1]/5 dark:bg-sky-500/5 flex items-center gap-2">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0 text-emerald-500" aria-hidden="true">
                       <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -689,7 +685,7 @@ export default function HomePage() {
             <div className="mt-8 flex justify-center gap-4">
               <Link
                 href="/why-tsm"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] transition-all"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] transition-all"
               >
                 Why Transporters Pick TSM &rarr;
               </Link>
@@ -701,8 +697,8 @@ export default function HomePage() {
         <section id="testimonials" className="py-20 sm:py-28 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="testimonials-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Real Feedback</p>
-              <h2 id="testimonials-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Real Feedback</p>
+              <h2 id="testimonials-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
                 What transporters say about TSM
               </h2>
             </div>
@@ -712,10 +708,10 @@ export default function HomePage() {
                   key={t.name}
                   className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-6 hover:border-[#0369A1]/35 dark:hover:border-sky-500/35 transition-all duration-205"
                 >
-                  <svg className="mb-4 text-[#0369A1]/40 dark:text-sky-500/30" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <svg className="mb-4 text-sky-700/40 dark:text-sky-500/30" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                   </svg>
-                  <blockquote className="text-sm sm:text-base text-slate-700 dark:text-slate-350 leading-relaxed mb-6 italic">
+                  <blockquote className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed mb-6 italic">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                   <div className="flex items-center gap-3">
@@ -723,8 +719,8 @@ export default function HomePage() {
                       {t.initials}
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-[#0F172A] dark:text-white">{t.name}</p>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{t.role}</p>
+                      <p className="text-xs font-bold text-slate-900 dark:text-white">{t.name}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t.role}</p>
                     </div>
                   </div>
                 </div>
@@ -736,12 +732,12 @@ export default function HomePage() {
         {/* ── PRICING PREVIEW ─────────────────────── */}
         <section className="py-20 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Simple Pricing</p>
+            <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Simple Pricing</p>
             <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-4">100% Free For Early Transporters</h2>
-            <p className="text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed mb-6 text-sm sm:text-base">
+            <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed mb-6 text-sm sm:text-base">
               NCR transporters who sign up this month get full access to GR creation, customer directories, and dashboards for ₹0. No hidden contracts.
             </p>
-            <Link href="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sky-650 transition-colors">
+            <Link href="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sky-600 transition-colors">
               Claim Free Access Now
             </Link>
           </div>
@@ -782,20 +778,20 @@ export default function HomePage() {
         <section className="bg-slate-50/50 dark:bg-slate-900/10 border-t border-slate-200/50 dark:border-slate-800/50 py-4 sm:py-6" aria-labelledby="directory-heading">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <details className="group">
-              <summary className="flex items-center justify-between cursor-pointer list-none marker:hidden text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-350 transition-colors select-none">
-                <h2 id="directory-heading" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-[#0369A1] dark:text-sky-400" aria-hidden="true">
+              <summary className="flex items-center justify-between cursor-pointer list-none marker:hidden text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors select-none">
+                <h2 id="directory-heading" className="flex items-center gap-2 text-xs font-bold normal-case tracking-wide">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-sky-700 dark:text-sky-400" aria-hidden="true">
                     <path d="M19 11H5M19 11L12 4M19 11L12 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   Logistics & Transport Solutions Directory
                 </h2>
-                <span className="flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-medium normal-case group-open:hidden">
+                <span className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium normal-case group-open:hidden">
                   Expand Index
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
-                <span className="hidden group-open:flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 font-medium normal-case">
+                <span className="hidden group-open:flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium normal-case">
                   Collapse Index
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M18 15L12 9L6 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -805,7 +801,7 @@ export default function HomePage() {
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
                 {seoKeywords.map((item) => (
                   <div key={item.category} className="space-y-2">
-                    <h3 className="text-xs font-bold text-slate-700 dark:text-slate-350">{item.category}</h3>
+                    <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300">{item.category}</h3>
                     <div className="flex flex-wrap gap-1.5">
                       {item.keywords.map((kw) => {
                         let href = "";
@@ -833,7 +829,7 @@ export default function HomePage() {
                             <Link
                               key={kw}
                               href={href}
-                              className="inline-block bg-sky-50/50 hover:bg-sky-50 dark:bg-slate-900/60 dark:hover:bg-slate-900 text-[10px] text-[#0369A1] dark:text-sky-400 px-2 py-0.5 rounded border border-sky-100/50 dark:border-slate-800/50 transition-colors"
+                              className="inline-block bg-sky-50/50 hover:bg-sky-50 dark:bg-slate-900/60 dark:hover:bg-slate-900 text-xs text-sky-700 dark:text-sky-400 px-2 py-0.5 rounded border border-sky-100/50 dark:border-slate-800/50 transition-colors"
                             >
                               {kw}
                             </Link>
@@ -843,7 +839,7 @@ export default function HomePage() {
                         return (
                           <span
                             key={kw}
-                            className="inline-block bg-slate-100 dark:bg-slate-900/45 text-[10px] text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded border border-slate-200/20 dark:border-slate-800/20"
+                            className="inline-block bg-slate-100 dark:bg-slate-900/45 text-xs text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded border border-slate-200/20 dark:border-slate-800/20"
                           >
                             {kw}
                           </span>
