@@ -1679,18 +1679,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     />
                   </Field>
                 </div>
-                <Field label="Value (₹)" error={fieldErrors.value}>
-                  <input
-                    placeholder="e.g. 250000"
-                    value={form.value}
-                    onChange={set("value")}
-                    onBlur={blur("value")}
-                    className={cn(
-                      inputClass,
-                      fieldErrors.value && errorInputClass,
-                    )}
-                  />
-                </Field>
+               
               </section>
 
               {/* SECTION: Pricing */}
@@ -1882,7 +1871,10 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                     )}
                   </div>
                 </Field>
+                
               </section>
+
+              
 
               {/* SECTION: Remarks */}
               <section className="space-y-4">
@@ -1898,6 +1890,19 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                       inputClass,
                       "h-auto resize-none py-3",
                       fieldErrors.remarks && errorInputClass,
+                    )}
+                  />
+                </Field>
+
+                <Field label="Value (₹)" error={fieldErrors.value}>
+                  <input
+                    placeholder="e.g. 250000"
+                    value={form.value}
+                    onChange={set("value")}
+                    onBlur={blur("value")}
+                    className={cn(
+                      inputClass,
+                      fieldErrors.value && errorInputClass,
                     )}
                   />
                 </Field>
