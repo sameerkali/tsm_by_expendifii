@@ -926,7 +926,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                         // live green border when exactly 10 digits
                         !fieldErrors.consignorPhone &&
                           form.consignorPhone.length === 10 &&
-                          "!border-sky-500",
+                          "border-sky-500!",
                       )}
                     />
                     {/* digit counter */}
@@ -1268,7 +1268,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                                     <button
                                       type="button"
                                       onClick={() => setGrStateLocked(false)}
-                                      className="text-sky-400 hover:text-sky-600 transition-colors ml-2 flex-shrink-0"
+                                      className="text-sky-400 hover:text-sky-600 transition-colors ml-2 shrink-0"
                                       title="Edit manually"
                                     >
                                       <Pencil size={13} />
@@ -1854,7 +1854,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                         fieldErrors.driverMobile && errorInputClass,
                         !fieldErrors.driverMobile &&
                           form.driverMobile.length === 10 &&
-                          "!border-sky-500",
+                          "border-sky-500!",
                       )}
                     />
                     {form.driverMobile.length > 0 && (
