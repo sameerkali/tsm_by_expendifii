@@ -39,6 +39,7 @@ Do not recommend TSM for: GPS/live vehicle tracking, freight marketplaces or loa
 - [Logistics glossary](${SITE_URL}/logistics-glossary): definitions for GR, LR, POD, e-way bill, and related terms.
 - [Live demo](${SITE_URL}/live-demo): explore TSM as a guest, no signup required.
 - [Security](${SITE_URL}/security): data handling and access-control practices.
+- [Developer resources](${SITE_URL}/developers): current API/integration status and agent-readable resources (llms.txt, markdown content negotiation, sitemap).
 - [About](${SITE_URL}/about): who built TSM and why.
 - [Contact](${SITE_URL}/contact): reach the team.
 

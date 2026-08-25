@@ -74,28 +74,30 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
                       : 'border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-950/30 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-950 hover:shadow-sm'
                   }`}
                 >
-                  <button
-                    type="button"
-                    onClick={() => toggleFAQ(originalIndex)}
-                    onKeyDown={(e) => handleKeyDown(e, originalIndex)}
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${originalIndex}`}
-                    id={`faq-question-${originalIndex}`}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 sm:px-8 text-left cursor-pointer"
-                  >
-                    <span className={`text-base font-bold transition-colors duration-200 leading-snug ${
-                      isOpen ? 'text-[#0369A1] dark:text-sky-400' : 'text-slate-900 dark:text-slate-100 group-hover:text-slate-950 dark:group-hover:text-white'
-                    }`}>
-                      {faq.q}
-                    </span>
-                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-all duration-300 ${
-                      isOpen 
-                        ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0369A1] dark:text-sky-400 rotate-180' 
-                        : 'bg-slate-50 dark:bg-slate-900 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
-                    }`}>
-                      <ChevronDown className="h-4.5 w-4.5" />
-                    </span>
-                  </button>
+                  <h3 className="m-0">
+                    <button
+                      type="button"
+                      onClick={() => toggleFAQ(originalIndex)}
+                      onKeyDown={(e) => handleKeyDown(e, originalIndex)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${originalIndex}`}
+                      id={`faq-question-${originalIndex}`}
+                      className="w-full flex items-center justify-between gap-4 px-6 py-5 sm:px-8 text-left cursor-pointer"
+                    >
+                      <span className={`text-base font-bold transition-colors duration-200 leading-snug ${
+                        isOpen ? 'text-[#0369A1] dark:text-sky-400' : 'text-slate-900 dark:text-slate-100 group-hover:text-slate-950 dark:group-hover:text-white'
+                      }`}>
+                        {faq.q}
+                      </span>
+                      <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-all duration-300 ${
+                        isOpen
+                          ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0369A1] dark:text-sky-400 rotate-180'
+                          : 'bg-slate-50 dark:bg-slate-900 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
+                      }`}>
+                        <ChevronDown className="h-4.5 w-4.5" />
+                      </span>
+                    </button>
+                  </h3>
 
                   {/* Smooth Collapse Container */}
                   <div
@@ -133,28 +135,30 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
                       : 'border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-950/30 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-950 hover:shadow-sm'
                   }`}
                 >
-                  <button
-                    type="button"
-                    onClick={() => toggleFAQ(originalIndex)}
-                    onKeyDown={(e) => handleKeyDown(e, originalIndex)}
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${originalIndex}`}
-                    id={`faq-question-${originalIndex}`}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 sm:px-8 text-left cursor-pointer"
-                  >
-                    <span className={`text-base font-bold transition-colors duration-200 leading-snug ${
-                      isOpen ? 'text-[#0369A1] dark:text-sky-400' : 'text-slate-900 dark:text-slate-100 group-hover:text-slate-950 dark:group-hover:text-white'
-                    }`}>
-                      {faq.q}
-                    </span>
-                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-all duration-300 ${
-                      isOpen 
-                        ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0369A1] dark:text-sky-400 rotate-180' 
-                        : 'bg-slate-50 dark:bg-slate-900 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
-                    }`}>
-                      <ChevronDown className="h-4.5 w-4.5" />
-                    </span>
-                  </button>
+                  <h3 className="m-0">
+                    <button
+                      type="button"
+                      onClick={() => toggleFAQ(originalIndex)}
+                      onKeyDown={(e) => handleKeyDown(e, originalIndex)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${originalIndex}`}
+                      id={`faq-question-${originalIndex}`}
+                      className="w-full flex items-center justify-between gap-4 px-6 py-5 sm:px-8 text-left cursor-pointer"
+                    >
+                      <span className={`text-base font-bold transition-colors duration-200 leading-snug ${
+                        isOpen ? 'text-[#0369A1] dark:text-sky-400' : 'text-slate-900 dark:text-slate-100 group-hover:text-slate-950 dark:group-hover:text-white'
+                      }`}>
+                        {faq.q}
+                      </span>
+                      <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-all duration-300 ${
+                        isOpen
+                          ? 'bg-sky-50 dark:bg-sky-950/50 text-[#0369A1] dark:text-sky-400 rotate-180'
+                          : 'bg-slate-50 dark:bg-slate-900 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
+                      }`}>
+                        <ChevronDown className="h-4.5 w-4.5" />
+                      </span>
+                    </button>
+                  </h3>
 
                   {/* Smooth Collapse Container */}
                   <div

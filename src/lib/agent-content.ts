@@ -85,6 +85,11 @@ const PAGE_SUMMARIES: Record<string, PageSummary> = {
     description:
       'Learn how TSM keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
   },
+  '/developers': {
+    title: 'Developer Resources — TSM by Expendifii',
+    description:
+      'Developer and integration resources for TSM by Expendifii: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
+  },
   '/privacy-policy': {
     title: 'Privacy Policy — TSM by Expendifii',
     description: 'How TSM collects, uses, and protects your personal and operational data.',
@@ -149,6 +154,7 @@ Transporters, fleet owners, and logistics dispatchers in India managing 1 to 50+
 - Features: ${SITE_URL}/features
 - Product tour: ${SITE_URL}/product
 - Contact: ${SITE_URL}/contact
+- Developer resources: ${SITE_URL}/developers
 - Full site map: ${SITE_URL}/sitemap.xml
 - Agent instructions: ${SITE_URL}/llms.txt
 `;

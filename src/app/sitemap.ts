@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/transport-business-automation', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/gr-management', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/lorry-receipt-software', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/developers', changeFrequency: 'monthly', priority: 0.6 },
     { path: '/security', changeFrequency: 'monthly', priority: 0.6 },
     { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.3 },
     { path: '/terms-and-conditions', changeFrequency: 'yearly', priority: 0.3 },

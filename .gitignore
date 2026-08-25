@@ -46,3 +46,6 @@ projects
 
 # unlighthouse report output
 .unlighthouse
+
+# playwright-cli generated debug snapshots/logs (not config, that's in .playwright/)
+.playwright-cli/
