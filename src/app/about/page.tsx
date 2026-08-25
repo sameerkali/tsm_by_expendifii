@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'About — TSM by Expendifii',
+  title: 'About — Bilty Pro',
   description:
-    'TSM was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
-  alternates: { canonical: 'https://tsm.expendifii.com/about' },
+    'Bilty Pro was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
+  alternates: { canonical: 'https://biltypro.com/about' },
 };
 
 const values = [
@@ -19,7 +19,7 @@ const values = [
       </svg>
     ),
     title: 'Transparency',
-    description: 'No hidden fees, no surprises. You always know what TSM does with your data, what the pricing is, and what\'s coming next.',
+    description: 'No hidden fees, no surprises. You always know what Bilty Pro does with your data, what the pricing is, and what\'s coming next.',
   },
   {
     icon: (
@@ -39,7 +39,7 @@ const values = [
       </svg>
     ),
     title: 'Easiness',
-    description: 'If a transporter who\'s never used software before can use TSM comfortably within one day — we\'ve done our job right.',
+    description: 'If a transporter who\'s never used software before can use Bilty Pro comfortably within one day — we\'ve done our job right.',
   },
 ];
 
@@ -67,22 +67,22 @@ export default function AboutPage() {
             </h1>
             <div className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed space-y-4 text-left sm:text-center">
               <p className="font-medium text-[#0369A1] dark:text-sky-400">
-                TSM by Expendifii replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters. TSM is the modern transport management system that thousands of logistics businesses trust for their daily operations.
+                Bilty Pro replaces paper GRs, Excel sheets, and hired data-entry staff with one fast, simple, and trustworthy platform built specifically for Indian transporters. Bilty Pro is the modern transport management system that thousands of logistics businesses trust for their daily operations.
               </p>
               <p>
                 My father and relatives have been in the transport business for years. Growing up, I watched them fill paper GRs by hand — 20+ fields, three copies, every single trip. I watched records get lost, misplaced, soaked in rain. I watched them hire people just to manage paperwork that a good system should handle automatically.
               </p>
               <p>
-                I&apos;m a software engineer. I knew the tools to fix this existed. So in 2025, I built TSM.
+                I&apos;m a software engineer. I knew the tools to fix this existed. So in 2025, I built Bilty Pro.
               </p>
               <p>
                 Not as a generic logistics platform. Not as a repurposed project management tool. As something built specifically for how Indian transporters actually work — from the GR format to the three-copy print to the way customers and drivers are managed on the ground.
               </p>
               <p>
-                TSM is still early. We&apos;re onboarding our first transporters, listening hard, and improving fast. If you&apos;re a transporter willing to help shape what this becomes — we&apos;d love to have you.
+                Bilty Pro is still early. We&apos;re onboarding our first transporters, listening hard, and improving fast. If you&apos;re a transporter willing to help shape what this becomes — we&apos;d love to have you.
               </p>
               <p className="font-semibold text-slate-800 dark:text-slate-200 pt-2 text-center">
-                — Sameer Faridi, Founder, TSM by Expendifii
+                — Sameer Faridi, Founder, Bilty Pro
               </p>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
                   We believe every transporter — whether you run 5 vehicles or 500 — deserves a system that&apos;s fast, honest, and actually built for your work. Not a spreadsheet. Not a paper file. Not software from 2008.
                 </p>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                  TSM exists to give every transport business the same operational clarity that used to require a full admin team.
+                  Bilty Pro exists to give every transport business the same operational clarity that used to require a full admin team.
                 </p>
               </div>
               <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-8">

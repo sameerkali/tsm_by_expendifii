@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Goods Receipt (GR) Management & 3-Copy Print — TSM',
+  title: 'Goods Receipt (GR) Management & 3-Copy Print — Bilty Pro',
   description:
-    'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. TSM auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
-  alternates: { canonical: 'https://tsm.expendifii.com/gr-management' },
+    'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. Bilty Pro auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
+  alternates: { canonical: 'https://biltypro.com/gr-management' },
 };
 
 export default function GRManagementPage() {
@@ -57,7 +57,7 @@ export default function GRManagementPage() {
                   Customizable Lorry Receipt Layouts
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Every transport agency operates differently. TSM by Expendifii does not lock you into a rigid template. You can configure which inputs are mandatory, add custom headers, toggle tax columns, and set default terms and conditions for your printed receipts.
+                  Every transport agency operates differently. Bilty Pro does not lock you into a rigid template. You can configure which inputs are mandatory, add custom headers, toggle tax columns, and set default terms and conditions for your printed receipts.
                 </p>
               </div>
 
@@ -66,7 +66,7 @@ export default function GRManagementPage() {
                   Permanent Search Archive
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Never dig through rows of dusty folders to find an old shipment record. TSM securely backs up every transaction. Filter and query historical receipts instantly by GR Number, Date Range, Shipped Destination, or Shipped Vehicle.
+                  Never dig through rows of dusty folders to find an old shipment record. Bilty Pro securely backs up every transaction. Filter and query historical receipts instantly by GR Number, Date Range, Shipped Destination, or Shipped Vehicle.
                 </p>
               </div>
 
@@ -74,7 +74,7 @@ export default function GRManagementPage() {
 
             <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Ready to modernise your GR workflow?</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Start using TSM by Expendifii completely free today.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Start using Bilty Pro completely free today.</p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Get Started Free

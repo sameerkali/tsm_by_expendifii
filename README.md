@@ -1,8 +1,8 @@
-# TSM by Expendifii — Transport Management System
+# Bilty Pro — Transport Management System
 
 > **Modern Transport OS built for Indian Logistics & Transporters — No Paper, No Spreadsheets.**
 
-TSM (Transport Management System) by **Expendifii** is a comprehensive, cloud-native platform designed to digitize, automate, and streamline end-to-end transport business operations.
+**Bilty Pro** is a comprehensive, cloud-native Transport Management System designed to digitize, automate, and streamline end-to-end transport business operations.
 
 ---
 
@@ -17,7 +17,7 @@ Traditional Indian transport and logistics businesses rely heavily on physical p
 
 ### 💡 The Solution
 
-**TSM replaces legacy paper workflows with a digital-first Transport OS**:
+**Bilty Pro replaces legacy paper workflows with a digital-first Transport OS**:
 - Create and issue digital Lorry Receipts (GR / LR) in seconds.
 - Maintain a single source of truth for customers, routes, and freight histories.
 - Print professional, compliant receipts and invoices directly from the dashboard.
@@ -109,4 +109,4 @@ src/
 
 ## 📜 License
 
-Private & Confidential — **Expendifii** © All rights reserved.
+Private & Confidential — **Bilty Pro** © All rights reserved.

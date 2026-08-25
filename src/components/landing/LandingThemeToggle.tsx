@@ -23,7 +23,7 @@ export default function LandingThemeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = (localStorage.getItem('tms-theme') as Theme) || 'system';
+    const stored = (localStorage.getItem('bp-theme') as Theme) || 'system';
     setTheme(stored);
     setMounted(true);
   }, []);
@@ -31,7 +31,7 @@ export default function LandingThemeToggle() {
   const cycle = () => {
     const next: Theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
     setTheme(next);
-    localStorage.setItem('tms-theme', next);
+    localStorage.setItem('bp-theme', next);
     applyTheme(next);
   };
 

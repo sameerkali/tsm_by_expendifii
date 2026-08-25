@@ -84,7 +84,7 @@ export function ActivationImageModal({ isOpen, onClose }: ActivationImageModalPr
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           <div className="absolute bottom-4 left-4 right-4">
-            <p className="text-xs font-semibold text-white/80 uppercase tracking-wider">TSM Platform</p>
+            <p className="text-xs font-semibold text-white/80 uppercase tracking-wider">Bilty Pro Platform</p>
             <p className="text-lg font-bold text-white leading-tight mt-0.5">Activate Your<br />Account</p>
           </div>
         </div>

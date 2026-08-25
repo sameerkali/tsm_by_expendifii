@@ -1,7 +1,7 @@
 import { defineUnlighthouseConfig } from 'unlighthouse/config';
 
 export default defineUnlighthouseConfig({
-  site: 'https://tsm.expendifii.com',
+  site: 'https://biltypro.com',
   scanner: {
     // Auth-gated app shell (see src/middleware.ts PROTECTED_PATHS / AUTH_PATHS)
     // — these redirect an unauthenticated crawler to /login, so scanning

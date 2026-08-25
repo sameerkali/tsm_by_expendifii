@@ -4,9 +4,9 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Security — TSM by Expendifii',
-  description: 'Learn how TSM keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
-  alternates: { canonical: 'https://tsm.expendifii.com/security' },
+  title: 'Security — Bilty Pro',
+  description: 'Learn how Bilty Pro keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
+  alternates: { canonical: 'https://biltypro.com/security' },
 };
 
 const practices = [
@@ -24,15 +24,15 @@ const practices = [
   },
   {
     title: 'Your Data is Yours',
-    body: 'We do not sell, share, or use your operational data for anything beyond running TSM for you. It belongs to you — and you can export it or request deletion at any time.',
+    body: 'We do not sell, share, or use your operational data for anything beyond running Bilty Pro for you. It belongs to you — and you can export it or request deletion at any time.',
   },
   {
     title: 'Secure Credentials',
-    body: 'Passwords are hashed and never stored in plain text. We recommend using a strong, unique password for your TSM account.',
+    body: 'Passwords are hashed and never stored in plain text. We recommend using a strong, unique password for your Bilty Pro account.',
   },
   {
     title: 'Ongoing Improvements',
-    body: 'TSM is actively developed. Security updates and patches are applied as a priority — not an afterthought.',
+    body: 'Bilty Pro is actively developed. Security updates and patches are applied as a priority — not an afterthought.',
   },
 ];
 
@@ -49,7 +49,7 @@ export default function SecurityPage() {
             <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Security</p>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-4">Your data. Always safe.</h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              Paper GRs can burn, get soaked, or go missing. Your data in TSM won&apos;t. Here&apos;s exactly how we protect it — no technical jargon.
+              Paper GRs can burn, get soaked, or go missing. Your data in Bilty Pro won&apos;t. Here&apos;s exactly how we protect it — no technical jargon.
             </p>
           </div>
         </section>
@@ -80,13 +80,13 @@ export default function SecurityPage() {
           <div className="mx-auto max-w-2xl px-4 text-center">
             <h2 className="text-2xl font-bold text-[#0F172A] dark:text-white mb-3">Found a security issue?</h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              We take every report seriously. If you discover a vulnerability, please email us at <a href="mailto:expendifiii@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">expendifiii@gmail.com</a> with the subject line &ldquo;Security Issue&rdquo; and we&apos;ll respond as quickly as possible.
+              We take every report seriously. If you discover a vulnerability, please email us at <a href="mailto:hello@biltypro.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">hello@biltypro.com</a> with the subject line &ldquo;Security Issue&rdquo; and we&apos;ll respond as quickly as possible.
             </p>
             <a
-              href="mailto:expendifiii@gmail.com"
+              href="mailto:hello@biltypro.com"
               className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0369A1] dark:hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
             >
-              expendifiii@gmail.com
+              hello@biltypro.com
             </a>
           </div>
         </section>

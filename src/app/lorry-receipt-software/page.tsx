@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Lorry Receipt (LR) Software for Indian Transporters — TSM',
+  title: 'Lorry Receipt (LR) Software for Indian Transporters — Bilty Pro',
   description:
     'Generate clean, professional, and compliant Lorry Receipts (LR/GR) digitally. Free software for Indian transport owners to customise layouts and print 3 copies.',
-  alternates: { canonical: 'https://tsm.expendifii.com/lorry-receipt-software' },
+  alternates: { canonical: 'https://biltypro.com/lorry-receipt-software' },
 };
 
 export default function LorryReceiptSoftwarePage() {
@@ -43,7 +43,7 @@ export default function LorryReceiptSoftwarePage() {
                   Why Use Lorry Receipt Software?
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Managing lorry receipts (LR/GR) on physical paper carbon books is slow, prone to spelling errors, and highly vulnerable to damage or misplacement. TSM Lorry Receipt Software provides a clean, single-screen creator to build LRs instantly.
+                  Managing lorry receipts (LR/GR) on physical paper carbon books is slow, prone to spelling errors, and highly vulnerable to damage or misplacement. Bilty Pro Lorry Receipt Software provides a clean, single-screen creator to build LRs instantly.
                 </p>
               </div>
 
@@ -61,7 +61,7 @@ export default function LorryReceiptSoftwarePage() {
                   Custom Terms & Conditions
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Configure specific carriage conditions, default weight structures, custom headers, and logo tags. Once saved, TSM stores these preferences to auto-generate every subsequent lorry receipt exactly the way you want.
+                  Configure specific carriage conditions, default weight structures, custom headers, and logo tags. Once saved, Bilty Pro stores these preferences to auto-generate every subsequent lorry receipt exactly the way you want.
                 </p>
               </div>
 

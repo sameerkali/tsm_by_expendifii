@@ -43,7 +43,7 @@ const PROTECTED_PATHS = [
 ];
 
 const COOKIE_NAME = process.env.COOKIE_NAME || 'token';
-const GUEST_COOKIE_NAME = 'tms_guest';
+const GUEST_COOKIE_NAME = 'bp_guest';
 
 const MARKDOWN_HEADERS = {
   'Content-Type': 'text/markdown; charset=utf-8',

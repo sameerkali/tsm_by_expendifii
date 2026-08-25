@@ -48,10 +48,7 @@ export function Sidebar({
         {showLabel && (
           <div>
             <span className="ml-3 text-xl font-black tracking-tighter text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
-              TSM<span className="text-[#0369A1] dark:text-sky-400">_</span>
-            </span>
-            <span className="ml-3 text-[10px] font-bold tracking-tight text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
-              By Expendifii
+              Bilty<span className="text-[#0369A1] dark:text-sky-400"> Pro</span>
             </span>
           </div>
         )}
@@ -160,7 +157,7 @@ export function Sidebar({
       {!isDesktopExpanded && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-90 pointer-events-none select-none hidden lg:block">
           <span className="text-2xl font-black text-slate-200 dark:text-slate-800 tracking-[0.5em] italic whitespace-nowrap">
-            TSM
+            BP
           </span>
         </div>
       )}

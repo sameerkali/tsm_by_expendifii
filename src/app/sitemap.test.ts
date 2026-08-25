@@ -4,7 +4,7 @@ import sitemap from './sitemap';
 describe('sitemap.xml', () => {
   it('includes the developers page', () => {
     const routes = sitemap();
-    const developers = routes.find((r) => r.url === 'https://tsm.expendifii.com/developers');
+    const developers = routes.find((r) => r.url === 'https://biltypro.com/developers');
     expect(developers).toBeDefined();
   });
 });

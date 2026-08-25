@@ -1,7 +1,7 @@
 import type { Coupon, User } from '@/types/session';
 
-export const GUEST_COOKIE = 'tms_guest';
-export const GUEST_STORAGE_KEY = 'tms_guest_mode';
+export const GUEST_COOKIE = 'bp_guest';
+export const GUEST_STORAGE_KEY = 'bp_guest_mode';
 
 const guestCookie = `${GUEST_COOKIE}=1; path=/; max-age=28800; SameSite=Lax`;
 const expiredGuestCookie = `${GUEST_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
@@ -38,7 +38,7 @@ export const guestCoupon: Coupon = {
 
 export const guestUser: User = {
   id: 'guest-user',
-  email: 'guest@expendifii.demo',
+  email: 'guest@biltypro.demo',
   name: 'Guest Demo',
   phone: '9999999999',
   role: 'GUEST',
@@ -47,11 +47,11 @@ export const guestUser: User = {
   isDeleted: false,
   createdAt: '2026-05-01T00:00:00.000Z',
   company: {
-    companyName: 'Expendifii Demo Transport',
+    companyName: 'Bilty Pro Demo Transport',
     gstin: '27ABCDE1234F1Z5',
     pan: 'ABCDE1234F',
     phone: '9999999999',
-    email: 'demo@expendifii.com',
+    email: 'demo@biltypro.com',
     contactPerson: 'Guest Demo',
     grCounter: 13,
     address: {
@@ -63,7 +63,7 @@ export const guestUser: User = {
     },
     bankDetails: {
       bankName: 'Demo Bank',
-      accountHolder: 'Expendifii Demo Transport',
+      accountHolder: 'Bilty Pro Demo Transport',
       accountNumber: '000000000000',
       ifscCode: 'DEMO0000001',
     },

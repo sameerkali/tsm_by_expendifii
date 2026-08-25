@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'What is a Transport Management System (TMS)? — TSM',
+  title: 'What is a Transport Management System (TMS)? — Bilty Pro',
   description:
-    'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how TSM by Expendifii provides a simplified digital GR creator for Indian transporters.',
-  alternates: { canonical: 'https://tsm.expendifii.com/transport-management-system' },
+    'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how Bilty Pro provides a simplified digital GR creator for Indian transporters.',
+  alternates: { canonical: 'https://biltypro.com/transport-management-system' },
 };
 
 export default function TMSOverviewPage() {
@@ -64,10 +64,10 @@ export default function TMSOverviewPage() {
 
               <div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  How TSM by Expendifii Fits In
+                  How Bilty Pro Fits In
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Most enterprise-grade TMS platforms are highly complex, require months of onboarding, and charge steep fees. <strong>TSM by Expendifii</strong> takes a different path. We focus purely on what Indian transporters use most: fast Goods Receipt (GR) generation, 3-copy layouts matching standard layouts, and simple analytics. It is free to start, and takes just 2–24 hours to set up.
+                  Most enterprise-grade TMS platforms are highly complex, require months of onboarding, and charge steep fees. <strong>Bilty Pro</strong> takes a different path. We focus purely on what Indian transporters use most: fast Goods Receipt (GR) generation, 3-copy layouts matching standard layouts, and simple analytics. It is free to start, and takes just 2–24 hours to set up.
                 </p>
               </div>
 
@@ -89,7 +89,7 @@ export default function TMSOverviewPage() {
             <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
               <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
               <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
-              <Link href="/why-tsm" className="hover:text-[#0369A1] transition-colors">Why Choose TSM</Link>
+              <Link href="/why-tsm" className="hover:text-[#0369A1] transition-colors">Why Choose Bilty Pro</Link>
               <Link href="/logistics-glossary" className="hover:text-[#0369A1] transition-colors">Logistics Glossary</Link>
             </div>
 
