@@ -40,7 +40,7 @@ export function CookiePolicyModal({ isOpen, onClose }: CookiePolicyModalProps) {
             Cookie Policy
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
-            How Bilty Pro uses cookies for session management and analytics on our platform.
+            How BiltyOne uses cookies for session management and analytics on our platform.
           </p>
         </div>
       </div>
@@ -52,7 +52,7 @@ export function CookiePolicyModal({ isOpen, onClose }: CookiePolicyModalProps) {
             1. What Are Cookies
           </h2>
           <p>
-            Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. Bilty Pro uses only first-party cookies — we do not place third-party advertising or tracking cookies on your device.
+            Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. BiltyOne uses only first-party cookies — we do not place third-party advertising or tracking cookies on your device.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export function CookiePolicyModal({ isOpen, onClose }: CookiePolicyModalProps) {
               <strong>Necessary Cookies</strong> — Required for the platform to function. These enable secure sign-in, session management, and CSRF protection. They cannot be disabled.
             </li>
             <li>
-              <strong>Analytics Cookies</strong> — Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve Bilty Pro.
+              <strong>Analytics Cookies</strong> — Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve BiltyOne.
             </li>
           </ul>
         </div>
@@ -88,11 +88,11 @@ export function CookiePolicyModal({ isOpen, onClose }: CookiePolicyModalProps) {
             4. Managing Your Preferences
           </h2>
           <p>
-            When you first visit Bilty Pro, a banner will appear asking for your consent to analytics cookies. You can change your preference at any time in{' '}
+            When you first visit BiltyOne, a banner will appear asking for your consent to analytics cookies. You can change your preference at any time in{' '}
             <strong>Settings → Cookie Preferences</strong>.
           </p>
           <p>
-            You can also control or delete cookies through your browser settings. Note that disabling necessary cookies will prevent you from logging in to Bilty Pro.
+            You can also control or delete cookies through your browser settings. Note that disabling necessary cookies will prevent you from logging in to BiltyOne.
           </p>
         </div>
 

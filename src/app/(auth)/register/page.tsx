@@ -2,8 +2,8 @@ import { RegisterForm } from '@/components/auth/RegisterForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Register Company | Bilty Pro',
-  description: 'Create your company account for Bilty Pro',
+  title: 'Register Company | BiltyOne',
+  description: 'Create your company account for BiltyOne',
 };
 
 export default function RegisterPage() {

@@ -7,10 +7,10 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            
+          <Link href="/" className="flex items-center gap-2 group">
+            <img src="/brand/logo-mark.svg" alt="" className="h-6 w-6" />
             <span className="text-[15px] tracking-tight text-[#0F172A] dark:text-white" style={{ fontWeight: 700 }}>
-              Bilty <span className="text-[#0369A1] dark:text-sky-400">Pro</span>
+              Bilty<span className="text-[#0369A1] dark:text-sky-400">One</span>
             </span>
           </Link>
 
@@ -18,7 +18,7 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {[
               { label: 'Features', href: '/features' },
-              { label: 'Why Choose Bilty Pro', href: '/why-tsm' },
+              { label: 'Why Choose BiltyOne', href: '/why-tsm' },
               { label: 'Live Demo', href: '/live-demo' },
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },

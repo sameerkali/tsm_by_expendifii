@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
             value: "tsm.expendifii.com",
           },
         ],
-        destination: "https://biltypro.com/:path*",
+        destination: "https://biltyone.com/:path*",
         permanent: true,
       },
     ];

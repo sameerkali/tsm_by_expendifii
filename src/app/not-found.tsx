@@ -47,7 +47,7 @@ export default function NotFound() {
 
         {/* Branding Footer */}
         <div className="pt-12 text-[10px] text-slate-400 font-mono uppercase tracking-[0.3em]">
-          Bilty Pro, System Integrity Check
+          BiltyOne, System Integrity Check
         </div>
       </div>
     </div>

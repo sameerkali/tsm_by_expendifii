@@ -5,10 +5,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Bilty Pro Features — Modern Transport Management System',
+  title: 'BiltyOne Features — Modern Transport Management System',
   description:
-    'Explore the powerful features of Bilty Pro: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
-  alternates: { canonical: 'https://biltypro.com/features' },
+    'Explore the powerful features of BiltyOne: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
+  alternates: { canonical: 'https://biltyone.com/features' },
 };
 
 const featureDetails = [
@@ -68,7 +68,7 @@ export default function FeaturesPage() {
               Features built to streamline your <span className="text-[#0369A1] dark:text-sky-400">transport operations</span>
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              Bilty Pro replaces manual paperwork, lost physical logs, and error-prone Excel sheets with a unified, lightweight, and modern transport management suite.
+              BiltyOne replaces manual paperwork, lost physical logs, and error-prone Excel sheets with a unified, lightweight, and modern transport management suite.
             </p>
           </div>
         </section>
@@ -97,7 +97,7 @@ export default function FeaturesPage() {
               <div className="p-4 sm:p-6">
                 <Image
                   src="/landingImg01.webp"
-                  alt="Bilty Pro dashboard showing GR management, active jobs, and fleet status overview for Indian transport businesses"
+                  alt="BiltyOne dashboard showing GR management, active jobs, and fleet status overview for Indian transport businesses"
                   width={1200}
                   height={675}
                   priority
@@ -107,7 +107,7 @@ export default function FeaturesPage() {
               </div>
               <div className="px-6 pb-6">
                 <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
-                  Bilty Pro — Transport Management System dashboard
+                  BiltyOne — Transport Management System dashboard
                 </p>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function FeaturesPage() {
             <div className="mt-12 pt-6 border-t border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-400">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <Link href="/product" className="hover:text-white transition-colors">Product Overview</Link>
-              <Link href="/why-tsm" className="hover:text-white transition-colors">Why Choose Bilty Pro</Link>
+              <Link href="/why-tsm" className="hover:text-white transition-colors">Why Choose BiltyOne</Link>
               <Link href="/logistics-glossary" className="hover:text-white transition-colors">Logistics Glossary</Link>
             </div>
           </div>

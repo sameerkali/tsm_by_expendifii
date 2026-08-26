@@ -7,7 +7,7 @@ describe('GET /llms.txt', () => {
     expect(response.headers.get('Content-Type')).toContain('text/plain');
 
     const body = await response.text();
-    expect(body).toContain('https://biltypro.com/developers');
+    expect(body).toContain('https://biltyone.com/developers');
     expect(body).toContain('Developer resources');
   });
 });

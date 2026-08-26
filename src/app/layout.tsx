@@ -35,10 +35,10 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://biltypro.com"),
+  metadataBase: new URL("https://biltyone.com"),
   title: {
-    default: "Bilty Pro",
-    template: "%s | Bilty Pro",
+    default: "BiltyOne",
+    template: "%s | BiltyOne",
   },
   description:
     "Modern transport management for Indian logistics and fleet tracking.",
@@ -49,14 +49,14 @@ export const metadata: Metadata = {
     "lorry receipt software",
     "logistics software India",
     "fleet management system",
-    "Bilty Pro",
+    "BiltyOne",
   ],
-  authors: [{ name: "Bilty Pro", url: "https://biltypro.com/about" }],
+  authors: [{ name: "BiltyOne", url: "https://biltyone.com/about" }],
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    shortcut: "/favicon-32.png",
+    apple: "/apple-icon.png",
   },
   robots: {
     index: true,
@@ -64,23 +64,23 @@ export const metadata: Metadata = {
     "max-image-preview": "large",
   },
   alternates: {
-    canonical: "https://biltypro.com",
+    canonical: "https://biltyone.com",
     languages: {
-      en: "https://biltypro.com",
+      en: "https://biltyone.com",
     },
   },
   openGraph: {
-    title: "Bilty Pro — Transport OS",
+    title: "BiltyOne — Transport OS",
     description:
       "Create, print, and manage lorry receipts in minutes. Built for Indian transporters.",
-    url: "https://biltypro.com",
-    siteName: "Bilty Pro",
+    url: "https://biltyone.com",
+    siteName: "BiltyOne",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Bilty Pro Dashboard Preview",
+        alt: "BiltyOne Dashboard Preview",
       },
     ],
     locale: "en_US",
@@ -88,9 +88,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bilty Pro — Transport Management System for Indian Logistics",
+    title: "BiltyOne — Transport Management System for Indian Logistics",
     description:
-      "Create, print, and manage lorry receipts in minutes. Bilty Pro is the modern transport management system built for Indian transporters — no paper, no spreadsheets.",
+      "Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters — no paper, no spreadsheets.",
     images: ["/og-image.png"],
   },
   other: {
