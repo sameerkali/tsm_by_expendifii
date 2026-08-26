@@ -6,7 +6,7 @@ import Footer from '@/components/landing/Footer';
 import FAQSection from '@/components/landing/FAQSection';
 
 export const metadata: Metadata = {
-  title: 'BiltyOne Transport Management System',
+  title: 'Bilty Transport Management System',
   description:
     'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
   keywords: [
