@@ -13,7 +13,6 @@ import {
   Copy,
 } from "lucide-react";
 import { toast } from "sonner";
-import posthog from "posthog-js";
 import { cn } from "@/lib/utils/cn";
 import { GRFormPanel } from "@/components/gr/GRFormPanel";
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
@@ -128,7 +127,6 @@ export default function GRListPage() {
     if (!deleteTarget) return;
     deleteGR.mutate(deleteTarget.id, {
       onSuccess: () => {
-        posthog.capture("gr_deleted", { gr_number: deleteTarget.grNumber });
         setDeleteTarget(null);
       },
     });
@@ -141,10 +139,6 @@ export default function GRListPage() {
     }
     duplicateGR.mutate(row.id, {
       onSuccess: (res) => {
-        posthog.capture("gr_duplicated", {
-          source_gr_number: row.grNumber,
-          new_gr_id: res.data.id,
-        });
         setHighlightedId(res.data.id);
       },
     });
@@ -383,12 +377,7 @@ export default function GRListPage() {
                                   ? toast.info(
                                       "Guest demo uses static data. Sign in to generate PDFs.",
                                     )
-                                  : printGR.mutate(row.id, {
-                                      onSuccess: () =>
-                                        posthog.capture("gr_pdf_downloaded", {
-                                          gr_number: row.grNumber,
-                                        }),
-                                    })
+                                  : printGR.mutate(row.id)
                               }
                               disabled={printGR.isPending}
                               title="Print"

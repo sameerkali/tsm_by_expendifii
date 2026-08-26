@@ -3,7 +3,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import posthog from "posthog-js";
 import authApi from "@/lib/api/auth.api";
 import { getApiErrorMessage } from "@/lib/api/errors";
 import {
@@ -46,12 +45,6 @@ export function useAuth() {
       // Refetch profile so useSession picks up the authenticated user
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
 
-      const email = res.data?.user?.email;
-      if (email) {
-        posthog.identify(email, { email });
-        posthog.capture("user_signed_in", { email });
-      }
-
       if (accountStatus === "INACTIVE") {
         toast.info("Account is inactive. Click the activation banner to enter your coupon code.");
       } else {
@@ -72,8 +65,7 @@ export function useAuth() {
 
   const registerMutation = useMutation({
     mutationFn: (data: RegisterInput) => authApi.register(data),
-    onSuccess: (res, variables) => {
-      posthog.capture("user_registered", { email: variables.email });
+    onSuccess: (res) => {
       toast.success(
         res.message || "Account created! Activate with your coupon code.",
       );
@@ -103,7 +95,6 @@ export function useAuth() {
       queryClient.clear();
 
       const durationDays = res.data?.durationDays;
-      posthog.capture("account_activated", { duration_days: durationDays });
       const msg = durationDays
         ? `Account activated! Valid for ${durationDays} days.`
         : "Account activated successfully!";
@@ -144,7 +135,6 @@ export function useAuth() {
       return authApi.updateProfile(data);
     },
     onSuccess: () => {
-      posthog.capture("company_profile_updated");
       toast.success("Profile updated successfully.");
       queryClient.invalidateQueries({ queryKey: COMPANY_KEYS.profile() });
     },
@@ -167,8 +157,6 @@ export function useAuth() {
       return authApi.logout();
     },
     onSuccess: () => {
-      posthog.capture("user_signed_out");
-      posthog.reset();
       if (typeof window !== "undefined") {
         localStorage.removeItem("profile");
         exitGuestMode();

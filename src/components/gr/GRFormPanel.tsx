@@ -10,7 +10,6 @@ import {
   Search,
   Pencil,
 } from "lucide-react";
-import posthog from "posthog-js";
 import { cn } from "@/lib/utils/cn";
 import { useCreateGR, useUpdateGR } from "@/hooks/useGR";
 import { useCustomers, useCreateCustomer } from "@/hooks/useCustomers";
@@ -658,27 +657,13 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
         { id: editData.id, data: payload },
         {
           onSuccess: () => {
-            posthog.capture("gr_updated", {
-              gr_number: editData.grNumber,
-              from_city: payload.fromCity,
-              to_city: payload.toCity,
-              freight_amount: payload.freightAmount,
-              status: payload.status,
-            });
             onClose();
           },
         },
       );
     } else {
       createGR.mutate(payload, {
-        onSuccess: (res) => {
-          posthog.capture("gr_created", {
-            gr_number: res.data?.grNumber,
-            from_city: payload.fromCity,
-            to_city: payload.toCity,
-            freight_amount: payload.freightAmount,
-            pricing_type: payload.pricingType,
-          });
+        onSuccess: () => {
           onClose();
         },
       });

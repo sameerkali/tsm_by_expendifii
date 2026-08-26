@@ -484,7 +484,7 @@ export default function HomePage() {
               />
               <div className="hero-float mx-auto max-w-5xl">
                 <Image
-                  src="/dashboard_img_herosection.webp"
+                  src="/dashboard_img_herosection_straight.webp"
                   alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
                   width={1536}
                   height={1024}

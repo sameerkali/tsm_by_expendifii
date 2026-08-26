@@ -7,7 +7,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import posthog from "posthog-js";
 import { enterGuestMode } from "@/lib/demo/guest";
 
 export function LoginForm() {
@@ -31,7 +30,6 @@ export function LoginForm() {
   };
 
   const handleGuestAccess = () => {
-    posthog.capture("guest_mode_entered");
     enterGuestMode();
     window.location.href = "/gr";
   };

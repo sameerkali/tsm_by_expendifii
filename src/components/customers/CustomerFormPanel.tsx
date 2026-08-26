@@ -10,7 +10,6 @@ import {
   Search,
   Pencil,
 } from "lucide-react";
-import posthog from "posthog-js";
 import { cn } from "@/lib/utils/cn";
 import { useCreateCustomer, useUpdateCustomer } from "@/hooks/useCustomers";
 import { getApiFieldErrors } from "@/lib/api/errors";
@@ -397,9 +396,6 @@ export function CustomerFormPanel({
         { id: editData.id, data: payload },
         {
           onSuccess: () => {
-            posthog.capture("customer_updated", {
-              customer_name: payload.name,
-            });
             onClose();
           },
           onError,
@@ -408,7 +404,6 @@ export function CustomerFormPanel({
     } else {
       createMutation.mutate(payload, {
         onSuccess: () => {
-          posthog.capture("customer_created", { customer_name: payload.name });
           onClose();
         },
         onError,

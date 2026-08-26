@@ -44,7 +44,7 @@ Traditional Indian transport and logistics businesses rely heavily on physical p
 | **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/) + [Lucide Icons](https://lucide.dev/) |
 | **State & Data Fetching** | [TanStack React Query v5](https://tanstack.com/query) + [Axios](https://axios-http.com/) |
 | **Form Handling** | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) |
-| **Analytics & Telemetry** | PostHog + Vercel Analytics & Speed Insights |
+| **Analytics & Telemetry** | Vercel Analytics & Speed Insights |
 | **Smooth Scroll & UX** | Lenis Scroll + Sonner Toast Notifications |
 
 ---
