@@ -121,7 +121,7 @@ export default function ContactPage() {
                       </svg>
                     ),
                     label: 'Email',
-                    value: 'hello@biltypro.com',
+                    value: 'work.sameerfaridi@gmail.com',
                     href: 'mailto:work.sameerfaridi@gmail.com',
                   },
                   {

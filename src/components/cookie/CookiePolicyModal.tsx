@@ -114,10 +114,10 @@ export function CookiePolicyModal({ isOpen, onClose }: CookiePolicyModalProps) {
           <p>
             For questions about how we use cookies, email us at{' '}
             <a 
-              href="mailto:hello@biltypro.com" 
+              href="mailto:work.sameerfaridi@gmail.com" 
               className="text-[#0369A1] dark:text-sky-400 hover:underline font-semibold"
             >
-              hello@biltypro.com
+              work.sameerfaridi@gmail.com
             </a>
             .
           </p>

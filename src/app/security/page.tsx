@@ -80,13 +80,13 @@ export default function SecurityPage() {
           <div className="mx-auto max-w-2xl px-4 text-center">
             <h2 className="text-2xl font-bold text-[#0F172A] dark:text-white mb-3">Found a security issue?</h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              We take every report seriously. If you discover a vulnerability, please email us at <a href="mailto:hello@biltypro.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">hello@biltypro.com</a> with the subject line &ldquo;Security Issue&rdquo; and we&apos;ll respond as quickly as possible.
+              We take every report seriously. If you discover a vulnerability, please email us at <a href="mailto:work.sameerfaridi@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">work.sameerfaridi@gmail.com</a> with the subject line &ldquo;Security Issue&rdquo; and we&apos;ll respond as quickly as possible.
             </p>
             <a
-              href="mailto:hello@biltypro.com"
+              href="mailto:work.sameerfaridi@gmail.com"
               className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0369A1] dark:hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
             >
-              hello@biltypro.com
+              work.sameerfaridi@gmail.com
             </a>
           </div>
         </section>

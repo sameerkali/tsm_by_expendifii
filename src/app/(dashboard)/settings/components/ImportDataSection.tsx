@@ -64,7 +64,7 @@ export function ImportDataSection() {
   const handleDownloadTemplate = () => {
     const link = document.createElement('a');
     link.href = '/demo_data_migration_bilty_pro.xlsx';
-    link.setAttribute('download', 'tsm_data_migration_template.xlsx');
+    link.setAttribute('download', 'bilty_pro_data_migration_template.xlsx');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

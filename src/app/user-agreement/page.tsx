@@ -39,7 +39,7 @@ export default function UserAgreementPage() {
             </ul>
 
             <h2>3. Your Credentials</h2>
-            <p>You are responsible for your login credentials. Do not share your password. If you suspect unauthorised access, contact us immediately at <a href="mailto:hello@biltypro.com">hello@biltypro.com</a>.</p>
+            <p>You are responsible for your login credentials. Do not share your password. If you suspect unauthorised access, contact us immediately at <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.</p>
 
             <h2>4. Accurate Data</h2>
             <p>You agree to submit accurate and honest data. Bilty Pro is a record-keeping system — incorrect data defeats its purpose and may create legal or operational problems for your business.</p>
@@ -51,7 +51,7 @@ export default function UserAgreementPage() {
             <p>All data you create in Bilty Pro belongs to you. We process it only to provide the service.</p>
 
             <h2>7. Suspension</h2>
-            <p>We reserve the right to suspend accounts that violate this agreement. If you believe a suspension was made in error, contact us at <a href="mailto:hello@biltypro.com">hello@biltypro.com</a>.</p>
+            <p>We reserve the right to suspend accounts that violate this agreement. If you believe a suspension was made in error, contact us at <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.</p>
 
             <h2>8. Refer &amp; Earn</h2>
             <p>If you refer a fellow transporter and they purchase a paid plan, both of you receive 15 extra days free. Referral rewards are applied automatically.</p>
@@ -63,7 +63,7 @@ export default function UserAgreementPage() {
             <p>We&apos;ll notify you at least 14 days before making material changes to this agreement.</p>
 
             <h2>11. Contact</h2>
-            <p>Questions about this agreement? Email us at <a href="mailto:hello@biltypro.com">hello@biltypro.com</a>.</p>
+            <p>Questions about this agreement? Email us at <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.</p>
           </div>
         </section>
       </main>

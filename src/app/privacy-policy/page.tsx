@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
 
             <h2>5. Data Retention</h2>
             <p>
-              Your data is retained as long as your account is active. You may request deletion at any time by emailing <a href="mailto:hello@biltypro.com">hello@biltypro.com</a> or <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>. Requests are processed within 7 business days.
+              Your data is retained as long as your account is active. You may request deletion at any time by emailing <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a> or <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>. Requests are processed within 7 business days.
             </p>
 
             <h2>6. Your Rights</h2>
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
 
             <h2>10. Contact</h2>
             <p>
-              For privacy-related questions, email us at <a href="mailto:hello@biltypro.com">hello@biltypro.com</a>.
+              For privacy-related questions, email us at <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.
             </p>
           </div>
         </section>

@@ -76,8 +76,8 @@ export default function DevelopersPage() {
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
               We&apos;re evaluating public API and webhook access for transport businesses that want to connect Bilty Pro to
               their own tools. If that&apos;s something your business needs, tell us at{' '}
-              <a href="mailto:hello@biltypro.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
-                hello@biltypro.com
+              <a href="mailto:work.sameerfaridi@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
+                work.sameerfaridi@gmail.com
               </a>{' '}
               — it directly shapes what we prioritise next.
             </p>
@@ -116,7 +116,7 @@ export default function DevelopersPage() {
           <div className="mx-auto max-w-2xl px-4 text-center">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Have an integration need?</h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              Email <a href="mailto:hello@biltypro.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">hello@biltypro.com</a> with what you&apos;re trying to build, or use the{' '}
+              Email <a href="mailto:work.sameerfaridi@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">work.sameerfaridi@gmail.com</a> with what you&apos;re trying to build, or use the{' '}
               <Link href="/contact" className="text-[#0369A1] dark:text-sky-400 hover:underline">contact form</Link>.
             </p>
           </div>

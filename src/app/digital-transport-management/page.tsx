@@ -84,7 +84,7 @@ export default function ComparisonPage() {
             
             <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Ready to transition your transport business?</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Bilty Pro is free to start and takes under 2–24 hours to set up.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Bilty Pro is free to start and takes 2–24 hours to set up.</p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Create Free Account

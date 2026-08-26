@@ -69,7 +69,7 @@ export default function CookiePolicyPage() {
             <h2>6. Contact</h2>
             <p>
               For questions about how we use cookies, email us at{' '}
-              <a href="mailto:hello@biltypro.com">hello@biltypro.com</a>.
+              <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.
             </p>
 
           </div>

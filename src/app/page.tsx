@@ -141,7 +141,7 @@ export const jsonLd = {
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer support',
-        email: 'hello@biltypro.com',
+        email: 'work.sameerfaridi@gmail.com',
         url: 'https://biltypro.com/contact',
         availableLanguage: ['English', 'Hindi'],
       },

@@ -61,7 +61,7 @@ export default function TermsPage() {
             <p>Material changes will be communicated at least 14 days in advance.</p>
 
             <h2>12. Contact</h2>
-            <p>For questions about these terms, email us at <a href="mailto:hello@biltypro.com">hello@biltypro.com</a>.</p>
+            <p>For questions about these terms, email us at <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.</p>
           </div>
         </section>
       </main>
