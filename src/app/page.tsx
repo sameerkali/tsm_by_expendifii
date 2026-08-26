@@ -6,9 +6,9 @@ import Footer from '@/components/landing/Footer';
 import FAQSection from '@/components/landing/FAQSection';
 
 export const metadata: Metadata = {
-  title: 'Bilty Pro Transport Management System',
+  title: 'BiltyOne Transport Management System',
   description:
-    'Create, print, and manage lorry receipts in minutes. Bilty Pro is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
+    'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
   keywords: [
     'transport management system',
     'transport management software',
@@ -16,25 +16,25 @@ export const metadata: Metadata = {
     'lorry receipt software',
     'logistics software India',
     'fleet management system',
-    'Bilty Pro',
+    'BiltyOne',
     'online GR generator',
     'digital lorry receipt',
     'NCR transport software',
   ],
-  authors: [{ name: 'Bilty Pro' }],
-  alternates: { canonical: 'https://biltypro.com' },
+  authors: [{ name: 'BiltyOne' }],
+  alternates: { canonical: 'https://biltyone.com' },
   openGraph: {
-    title: 'Bilty Pro — Transport OS',
+    title: 'BiltyOne — Transport OS',
     description:
       'Create, print, and manage lorry receipts in minutes. Built for Indian transporters.',
-    url: 'https://biltypro.com',
-    siteName: 'Bilty Pro',
+    url: 'https://biltyone.com',
+    siteName: 'BiltyOne',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Bilty Pro Dashboard Preview',
+        alt: 'BiltyOne Dashboard Preview',
       },
     ],
     locale: 'en_US',
@@ -43,9 +43,9 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title:
-      'Bilty Pro — Transport Management System for Indian Logistics',
+      'BiltyOne — Transport Management System for Indian Logistics',
     description:
-      'Create, print, and manage lorry receipts in minutes. Bilty Pro is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
+      'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
     images: ['/og-image.png'],
   },
 };
@@ -57,19 +57,19 @@ const faqs = [
   },
   {
     q: "We've been doing this on paper for years. Is it hard to switch?",
-    a: 'Not at all. Bilty Pro was designed for transporters, not software people. If you can fill a paper GR, you can use Bilty Pro. Most users are comfortable within a day.',
+    a: 'Not at all. BiltyOne was designed for transporters, not software people. If you can fill a paper GR, you can use BiltyOne. Most users are comfortable within a day.',
   },
   {
     q: 'Can we customise what appears on the printed GR?',
-    a: 'Yes. You choose which fields appear on print. Every transport business is different Bilty Pro works around your format, not a fixed template.',
+    a: 'Yes. You choose which fields appear on print. Every transport business is different BiltyOne works around your format, not a fixed template.',
   },
   {
     q: 'What happens to our data if something goes wrong?',
     a: 'Your data is stored securely on our servers not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
   },
   {
-    q: 'Is Bilty Pro free?',
-    a: 'Yes Bilty Pro is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service but we\'ll always give you fair notice before anything changes.',
+    q: 'Is BiltyOne free?',
+    a: 'Yes BiltyOne is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service but we\'ll always give you fair notice before anything changes.',
   },
   {
     q: 'Do you have a referral programme?',
@@ -77,11 +77,11 @@ const faqs = [
   },
   {
     q: 'What is a Transport Management System (TMS)?',
-    a: 'A Transport Management System (TMS) is software that helps logistics companies plan, execute, and optimise the movement of goods. Bilty Pro focuses specifically on GR creation, printing, and record-keeping for Indian transporters — no complex modules you don\'t need.',
+    a: 'A Transport Management System (TMS) is software that helps logistics companies plan, execute, and optimise the movement of goods. BiltyOne focuses specifically on GR creation, printing, and record-keeping for Indian transporters — no complex modules you don\'t need.',
   },
   {
-    q: 'Is Bilty Pro suitable for small fleets with just 1-2 trucks?',
-    a: 'Absolutely. Bilty Pro is designed for transporters of all sizes. Whether you own one truck or fifty, the GR creation, customer management, and analytics features work exactly the same. Small fleet owners actually benefit the most because Bilty Pro eliminates the need to hire a dedicated person just for paperwork.',
+    q: 'Is BiltyOne suitable for small fleets with just 1-2 trucks?',
+    a: 'Absolutely. BiltyOne is designed for transporters of all sizes. Whether you own one truck or fifty, the GR creation, customer management, and analytics features work exactly the same. Small fleet owners actually benefit the most because BiltyOne eliminates the need to hire a dedicated person just for paperwork.',
   },
    {
     q: 'What happens when the free period ends?',
@@ -93,7 +93,7 @@ const faqs = [
   },
      {
     q: 'Do you offer on-premise deployment?',
-    a: 'Not currently. Bilty Pro is cloud-based, which means you can access it from anywhere with an internet connection.'
+    a: 'Not currently. BiltyOne is cloud-based, which means you can access it from anywhere with an internet connection.'
   },
 ];
 
@@ -102,47 +102,47 @@ export const jsonLd = {
   '@graph': [
     {
       '@type': 'WebPage',
-      '@id': 'https://biltypro.com',
-      url: 'https://biltypro.com',
-      name: 'Bilty Pro Transport Management System',
+      '@id': 'https://biltyone.com',
+      url: 'https://biltyone.com',
+      name: 'BiltyOne Transport Management System',
       description:
-        'Stop creating GRs on paper. Bilty Pro is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
+        'Stop creating GRs on paper. BiltyOne is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
       inLanguage: 'en',
       dateModified: '2026-06-29',
-      isPartOf: { '@id': 'https://biltypro.com/#website' },
-      breadcrumb: { '@id': 'https://biltypro.com/#breadcrumb' },
+      isPartOf: { '@id': 'https://biltyone.com/#website' },
+      breadcrumb: { '@id': 'https://biltyone.com/#breadcrumb' },
       speakable: {
         '@type': 'SpeakableSpecification',
         cssSelector: ['#hero-summary', '#key-takeaways', '#how-it-works-summary'],
       },
-      mainEntity: { '@id': 'https://biltypro.com/#softwareapplication' },
+      mainEntity: { '@id': 'https://biltyone.com/#softwareapplication' },
     },
     {
       '@type': 'SoftwareApplication',
-      '@id': 'https://biltypro.com/#softwareapplication',
-      name: 'Bilty Pro',
+      '@id': 'https://biltyone.com/#softwareapplication',
+      name: 'BiltyOne',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       description:
-        'Stop creating GRs on paper. Bilty Pro is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
-      url: 'https://biltypro.com',
+        'Stop creating GRs on paper. BiltyOne is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
+      url: 'https://biltyone.com',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
       dateModified: '2026-06-29',
-      author: { '@id': 'https://biltypro.com/#author' },
+      author: { '@id': 'https://biltyone.com/#author' },
     },
     {
       '@type': 'Organization',
-      '@id': 'https://biltypro.com/#organization',
-      name: 'Bilty Pro',
-      alternateName: ['BiltyPro', 'Bilty Pro TMS'],
-      url: 'https://biltypro.com',
-      logo: 'https://biltypro.com/logo.png',
+      '@id': 'https://biltyone.com/#organization',
+      name: 'BiltyOne',
+      alternateName: ['BiltyOne', 'BiltyOne TMS'],
+      url: 'https://biltyone.com',
+      logo: 'https://biltyone.com/logo.png',
       founder: { '@type': 'Person', name: 'Sameer Faridi' },
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer support',
         email: 'work.sameerfaridi@gmail.com',
-        url: 'https://biltypro.com/contact',
+        url: 'https://biltyone.com/contact',
         availableLanguage: ['English', 'Hindi'],
       },
       address: {
@@ -156,22 +156,22 @@ export const jsonLd = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://biltypro.com/#website',
-      name: 'Bilty Pro',
-      url: 'https://biltypro.com',
-      publisher: { '@id': 'https://biltypro.com/#organization' },
+      '@id': 'https://biltyone.com/#website',
+      name: 'BiltyOne',
+      url: 'https://biltyone.com',
+      publisher: { '@id': 'https://biltyone.com/#organization' },
       inLanguage: 'en',
     },
     {
       '@type': 'BreadcrumbList',
-      '@id': 'https://biltypro.com/#breadcrumb',
+      '@id': 'https://biltyone.com/#breadcrumb',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biltypro.com' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biltyone.com' },
       ],
     },
     {
       '@type': 'FAQPage',
-      '@id': 'https://biltypro.com/#faq',
+      '@id': 'https://biltyone.com/#faq',
       mainEntity: faqs.map(function (f) {
         return {
           '@type': 'Question',
@@ -182,16 +182,16 @@ export const jsonLd = {
     },
     {
       '@type': 'Person',
-      '@id': 'https://biltypro.com/#author',
+      '@id': 'https://biltyone.com/#author',
       name: 'Sameer Faridi',
       jobTitle: 'Founder & CEO',
       sameAs: 'https://www.linkedin.com/in/sameerfaridi',
-      description: 'Founder of Bilty Pro, building transport management software for Indian logistics.',
+      description: 'Founder of BiltyOne, building transport management software for Indian logistics.',
     },
   ],
 };
 
-const brandName = 'Bilty Pro';
+const brandName = 'BiltyOne';
 
 const features = [
   {
@@ -219,7 +219,7 @@ const features = [
       </svg>
     ),
     title: 'Customisable GR Layout',
-    description: 'Show more fields or fewer your choice. Every transporter works differently. Bilty Pro adapts to you, not the other way around.',
+    description: 'Show more fields or fewer your choice. Every transporter works differently. BiltyOne adapts to you, not the other way around.',
   },
   {
     icon: (
@@ -255,20 +255,20 @@ const comparisonRows = [
   { label: 'Storing records', manual: 'Paper files lost to rats, water, or fire', tsm: 'Permanent digital records, accessible anywhere' },
   { label: 'Finding old GRs', manual: 'Search through stacks of paper', tsm: 'Search by name, date, or GR number instantly' },
   { label: 'GR layout control', manual: 'Fixed printed format, no flexibility', tsm: 'Customise which fields appear on print' },
-  { label: 'Hiring staff', manual: 'Pay someone just to manage paper GRs', tsm: 'One person can handle everything in Bilty Pro' },
-  { label: 'Using Excel', manual: 'Complex, slow, breaks easily', tsm: 'Not a solution Bilty Pro is' },
+  { label: 'Hiring staff', manual: 'Pay someone just to manage paper GRs', tsm: 'One person can handle everything in BiltyOne' },
+  { label: 'Using Excel', manual: 'Complex, slow, breaks easily', tsm: 'Not a solution BiltyOne is' },
 ];
 
 const testimonials = [
   {
-    quote: 'Pehle ek GR banane mein 15 minute lagte the. Bilty Pro mein 2 minute mein ho jaata hai. Aur teen copy ek dum ready.',
+    quote: 'Pehle ek GR banane mein 15 minute lagte the. BiltyOne mein 2 minute mein ho jaata hai. Aur teen copy ek dum ready.',
     name: 'Nazim Faridi',
     role: 'Owner, Faridi Tempo Transport, Delhi',
     initials: 'NF',
     cite: 'https://www.linkedin.com/in/nazim-faridi',
   },
   {
-    quote: 'Humara saara record paper mein tha. Ek baar baarish mein sab bheeg gaya. Ab Bilty Pro mein sab safe hai, kabhi nahi jaayega.',
+    quote: 'Humara saara record paper mein tha. Ek baar baarish mein sab bheeg gaya. Ab BiltyOne mein sab safe hai, kabhi nahi jaayega.',
     name: 'Faisal Ali',
     role: 'Owner, Ali Roadlines, NCR',
     initials: 'FA',
@@ -459,7 +459,7 @@ export default function HomePage() {
 
             {/* Key-value stats */}
             <p className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">
-              <strong className="text-sky-700 dark:text-sky-400">Platform:</strong> Bilty Pro &middot;{' '}
+              <strong className="text-sky-700 dark:text-sky-400">Platform:</strong> BiltyOne &middot;{' '}
               <strong className="text-sky-700 dark:text-sky-400">Type:</strong> Transport Management System &middot;{' '}
               <strong className="text-sky-700 dark:text-sky-400">Users:</strong> Transporters across India &middot;{' '}
               <strong className="text-sky-700 dark:text-sky-400">Setup:</strong> 2–24 hours
@@ -476,7 +476,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Actual Bilty Pro dashboard interface */}
+            {/* Actual BiltyOne dashboard interface */}
               <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-xl overflow-hidden mt-10">
                 {/* Fake browser chrome */}
                 <div className="flex items-center gap-1.5 px-4 py-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
@@ -484,7 +484,7 @@ export default function HomePage() {
                   <span className="h-2.5 w-2.5 rounded-full bg-amber-400" aria-hidden="true" />
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden="true" />
                   <div className="ml-4 flex-1 rounded bg-slate-200 dark:bg-slate-800 px-3 py-0.5 text-xs text-slate-500 dark:text-slate-400 max-w-xs">
-                    biltypro.com/dashboard
+                    biltyone.com/dashboard
                   </div>
                 </div>
                 {/* Dashboard preview */}
@@ -557,7 +557,7 @@ export default function HomePage() {
                 Everything a transporter actually needs.<br className="hidden sm:block" /> Nothing they don&apos;t.
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Bilty Pro is purpose-built for transport businesses not a generic tool forced to fit. Built on open standards for security and interoperability.
+                BiltyOne is purpose-built for transport businesses not a generic tool forced to fit. Built on open standards for security and interoperability.
               </p>
             </div>
             
@@ -584,23 +584,23 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── HOW Bilty Pro WORKS IN 4 STEPS ────────────── */}
+        {/* ── HOW BiltyOne WORKS IN 4 STEPS ────────────── */}
         <section id="how-tsm-works-steps" className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-labelledby="steps-heading">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Simple Process</p>
               <h2 id="steps-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
-                How Bilty Pro Works in <span className="text-sky-700 dark:text-sky-400">4 Simple Steps</span>
+                How BiltyOne Works in <span className="text-sky-700 dark:text-sky-400">4 Simple Steps</span>
               </h2>
               <p id="how-it-works-summary" className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                From paper chaos to digital control. Here is exactly how Bilty Pro transforms your GR workflow.
+                From paper chaos to digital control. Here is exactly how BiltyOne transforms your GR workflow.
               </p>
             </div>
             <ol className="space-y-4">
               {[
                 { step: '1', title: 'Create Your Account', desc: 'Sign up in under 60 seconds. No credit card required. Add your company name, GST, and basic details — we guide you through it.' },
-                { step: '2', title: 'Add Your Customers', desc: 'Enter your regular consigners and consignees once. Bilty Pro remembers them so you never retype the same information. Manage your customer list from a clean dashboard.' },
-                { step: '3', title: 'Create a GR in Minutes', desc: 'Select the customer, fill in shipment details (origin, destination, vehicle number, charges), and hit submit. Bilty Pro generates all three copies — Driver, Consigner, Consignee — instantly.' },
+                { step: '2', title: 'Add Your Customers', desc: 'Enter your regular consigners and consignees once. BiltyOne remembers them so you never retype the same information. Manage your customer list from a clean dashboard.' },
+                { step: '3', title: 'Create a GR in Minutes', desc: 'Select the customer, fill in shipment details (origin, destination, vehicle number, charges), and hit submit. BiltyOne generates all three copies — Driver, Consigner, Consignee — instantly.' },
                 { step: '4', title: 'Print, Track & Analyse', desc: 'Print your GRs immediately or access them anytime from the dashboard. Search by name, date, or GR number. Get analytics on your trip volumes, active jobs, and billing status.' },
               ].map(function (s) {
                 return (
@@ -628,7 +628,7 @@ export default function HomePage() {
         <section className="py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-              Explore Bilty Pro Dashboard Cockpit
+              Explore BiltyOne Dashboard Cockpit
             </h2>
             <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
               Track active transit orders, fleet status yards, and invoicing records inside a beautifully designed user interface.
@@ -639,7 +639,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── MANUAL vs Bilty Pro COMPARISON ─────────────── */}
+        {/* ── MANUAL vs BiltyOne COMPARISON ─────────────── */}
         <section
           id="how-it-works"
           className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800"
@@ -652,7 +652,7 @@ export default function HomePage() {
                 Paper GRs cost you more than you think <br className="hidden sm:block" /> in time, money, and stress
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Here&apos;s what actually changes when you move to Bilty Pro. Over 70% of Indian transporters still use paper-based systems for GR and LR management. Bilty Pro is built to change that.
+                Here&apos;s what actually changes when you move to BiltyOne. Over 70% of Indian transporters still use paper-based systems for GR and LR management. BiltyOne is built to change that.
               </p>
             </div>
 
@@ -660,7 +660,7 @@ export default function HomePage() {
               <div className="grid grid-cols-3 bg-[#0F172A] dark:bg-slate-800 text-white text-sm font-semibold">
                 <div className="px-6 py-4 text-slate-300">Pain Point</div>
                 <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-300">Manual (Today)</div>
-                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20 text-white">With Bilty Pro ✓</div>
+                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20 text-white">With BiltyOne ✓</div>
               </div>
               {comparisonRows.map((row, i) => (
                 <div
@@ -689,7 +689,7 @@ export default function HomePage() {
                 href="/why-tsm"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] transition-all"
               >
-                Why Transporters Pick Bilty Pro &rarr;
+                Why Transporters Pick BiltyOne &rarr;
               </Link>
             </div>
           </div>
@@ -701,7 +701,7 @@ export default function HomePage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Real Feedback</p>
               <h2 id="testimonials-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
-                What transporters say about Bilty Pro
+                What transporters say about BiltyOne
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -771,7 +771,7 @@ export default function HomePage() {
               </Link>
             </div>
             <p className="text-xs text-slate-500 mt-6">
-              Bilty Pro — NCR Transport Management System
+              BiltyOne — NCR Transport Management System
             </p>
           </div>
         </section>

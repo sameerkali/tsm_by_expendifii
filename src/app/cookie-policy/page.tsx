@@ -3,9 +3,9 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy — Bilty Pro',
-  description: 'How Bilty Pro uses cookies for session management and analytics on our platform.',
-  alternates: { canonical: 'https://biltypro.com/cookie-policy' },
+  title: 'Cookie Policy — BiltyOne',
+  description: 'How BiltyOne uses cookies for session management and analytics on our platform.',
+  alternates: { canonical: 'https://biltyone.com/cookie-policy' },
 };
 
 const lastUpdated = 'June 2025';
@@ -33,7 +33,7 @@ export default function CookiePolicyPage() {
 
             <h2>1. What Are Cookies</h2>
             <p>
-              Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. Bilty Pro uses only first-party cookies — we do not place third-party advertising or tracking cookies on your device.
+              Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. BiltyOne uses only first-party cookies — we do not place third-party advertising or tracking cookies on your device.
             </p>
 
             <h2>2. Cookies We Use</h2>
@@ -43,7 +43,7 @@ export default function CookiePolicyPage() {
                 <strong>Necessary Cookies</strong> — Required for the platform to function. These enable secure sign-in, session management, and CSRF protection. They cannot be disabled.
               </li>
               <li>
-                <strong>Analytics Cookies</strong> — Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve Bilty Pro.
+                <strong>Analytics Cookies</strong> — Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve BiltyOne.
               </li>
             </ul>
 
@@ -54,11 +54,11 @@ export default function CookiePolicyPage() {
 
             <h2>4. Managing Your Preferences</h2>
             <p>
-              When you first visit Bilty Pro, a banner will appear asking for your consent to analytics cookies. You can change your preference at any time in{' '}
+              When you first visit BiltyOne, a banner will appear asking for your consent to analytics cookies. You can change your preference at any time in{' '}
               <strong>Settings → Cookie Preferences</strong>.
             </p>
             <p>
-              You can also control or delete cookies through your browser settings. Note that disabling necessary cookies will prevent you from logging in to Bilty Pro.
+              You can also control or delete cookies through your browser settings. Note that disabling necessary cookies will prevent you from logging in to BiltyOne.
             </p>
 
             <h2>5. Changes to This Policy</h2>

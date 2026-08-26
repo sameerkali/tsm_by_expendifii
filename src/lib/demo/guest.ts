@@ -38,7 +38,7 @@ export const guestCoupon: Coupon = {
 
 export const guestUser: User = {
   id: 'guest-user',
-  email: 'guest@biltypro.demo',
+  email: 'guest@biltyone.demo',
   name: 'Guest Demo',
   phone: '9999999999',
   role: 'GUEST',
@@ -47,11 +47,11 @@ export const guestUser: User = {
   isDeleted: false,
   createdAt: '2026-05-01T00:00:00.000Z',
   company: {
-    companyName: 'Bilty Pro Demo Transport',
+    companyName: 'BiltyOne Demo Transport',
     gstin: '27ABCDE1234F1Z5',
     pan: 'ABCDE1234F',
     phone: '9999999999',
-    email: 'demo@biltypro.com',
+    email: 'demo@biltyone.com',
     contactPerson: 'Guest Demo',
     grCounter: 13,
     address: {
@@ -63,7 +63,7 @@ export const guestUser: User = {
     },
     bankDetails: {
       bankName: 'Demo Bank',
-      accountHolder: 'Bilty Pro Demo Transport',
+      accountHolder: 'BiltyOne Demo Transport',
       accountNumber: '000000000000',
       ifscCode: 'DEMO0000001',
     },

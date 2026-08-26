@@ -4,9 +4,9 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Security — Bilty Pro',
-  description: 'Learn how Bilty Pro keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
-  alternates: { canonical: 'https://biltypro.com/security' },
+  title: 'Security — BiltyOne',
+  description: 'Learn how BiltyOne keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
+  alternates: { canonical: 'https://biltyone.com/security' },
 };
 
 const practices = [
@@ -24,15 +24,15 @@ const practices = [
   },
   {
     title: 'Your Data is Yours',
-    body: 'We do not sell, share, or use your operational data for anything beyond running Bilty Pro for you. It belongs to you — and you can export it or request deletion at any time.',
+    body: 'We do not sell, share, or use your operational data for anything beyond running BiltyOne for you. It belongs to you — and you can export it or request deletion at any time.',
   },
   {
     title: 'Secure Credentials',
-    body: 'Passwords are hashed and never stored in plain text. We recommend using a strong, unique password for your Bilty Pro account.',
+    body: 'Passwords are hashed and never stored in plain text. We recommend using a strong, unique password for your BiltyOne account.',
   },
   {
     title: 'Ongoing Improvements',
-    body: 'Bilty Pro is actively developed. Security updates and patches are applied as a priority — not an afterthought.',
+    body: 'BiltyOne is actively developed. Security updates and patches are applied as a priority — not an afterthought.',
   },
 ];
 
@@ -49,7 +49,7 @@ export default function SecurityPage() {
             <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Security</p>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-4">Your data. Always safe.</h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              Paper GRs can burn, get soaked, or go missing. Your data in Bilty Pro won&apos;t. Here&apos;s exactly how we protect it — no technical jargon.
+              Paper GRs can burn, get soaked, or go missing. Your data in BiltyOne won&apos;t. Here&apos;s exactly how we protect it — no technical jargon.
             </p>
           </div>
         </section>

@@ -156,7 +156,7 @@ export default function ContactPage() {
               <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-[#F8FAFC] dark:bg-slate-900 p-5">
                 <p className="text-sm font-semibold text-[#0F172A] dark:text-white mb-2">Looking for support?</p>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-                  Existing customers can access priority support directly from within their Bilty Pro dashboard.
+                  Existing customers can access priority support directly from within their BiltyOne dashboard.
                 </p>
                 <Link href="/login" className="text-sm font-semibold text-[#0369A1] dark:text-sky-400 hover:underline cursor-pointer">
                   Sign in to your account &rarr;

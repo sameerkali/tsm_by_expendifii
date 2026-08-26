@@ -7,7 +7,7 @@
  * matching entry here too.
  */
 
-export const SITE_URL = 'https://biltypro.com';
+export const SITE_URL = 'https://biltyone.com';
 
 interface PageSummary {
   title: string;
@@ -21,99 +21,99 @@ interface PageSummary {
  */
 const PAGE_SUMMARIES: Record<string, PageSummary> = {
   '/why-tsm': {
-    title: 'Why Bilty Pro? Built for Indian Transporters',
+    title: 'Why BiltyOne? Built for Indian Transporters',
     description:
-      'See why transporters across NCR choose Bilty Pro — a fast, modern GR management system built for how Indian transport businesses actually work.',
+      'See why transporters across NCR choose BiltyOne — a fast, modern GR management system built for how Indian transport businesses actually work.',
   },
   '/live-demo': {
-    title: 'Live Demo — Bilty Pro',
+    title: 'Live Demo — BiltyOne',
     description:
-      'Try Bilty Pro as a guest, no signup required. Explore GR creation, customer management, and the dashboard with sample data.',
+      'Try BiltyOne as a guest, no signup required. Explore GR creation, customer management, and the dashboard with sample data.',
   },
   '/about': {
-    title: 'About — Bilty Pro',
+    title: 'About — BiltyOne',
     description:
-      'Bilty Pro was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
+      'BiltyOne was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
   },
   '/contact': {
-    title: 'Contact — Bilty Pro',
+    title: 'Contact — BiltyOne',
     description:
-      "Get in touch with the Bilty Pro team for demos, partnerships, or general inquiries. We respond within one business day.",
+      "Get in touch with the BiltyOne team for demos, partnerships, or general inquiries. We respond within one business day.",
   },
   '/features': {
-    title: 'Bilty Pro Features — Modern Transport Management System',
+    title: 'BiltyOne Features — Modern Transport Management System',
     description:
-      'Explore the powerful features of Bilty Pro: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
+      'Explore the powerful features of BiltyOne: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
   },
   '/product': {
-    title: 'Product Overview — Bilty Pro',
+    title: 'Product Overview — BiltyOne',
     description:
-      'Take a detailed tour of Bilty Pro: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
+      'Take a detailed tour of BiltyOne: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
   },
   '/transport-management-system': {
-    title: 'What is a Transport Management System (TMS)? — Bilty Pro',
+    title: 'What is a Transport Management System (TMS)? — BiltyOne',
     description:
-      'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how Bilty Pro provides a simplified digital GR creator for Indian transporters.',
+      'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how BiltyOne provides a simplified digital GR creator for Indian transporters.',
   },
   '/logistics-glossary': {
-    title: 'Indian Logistics & Transport Glossary — Bilty Pro',
+    title: 'Indian Logistics & Transport Glossary — BiltyOne',
     description:
       'A quick reference guide for Indian transport operators: definitions and explanations for GR, LR, POD, E-Way Bill, Consignor, Freight, Fleet, and TMS.',
   },
   '/digital-transport-management': {
-    title: 'Digital Transport Management vs Paper & Excel — Bilty Pro',
+    title: 'Digital Transport Management vs Paper & Excel — BiltyOne',
     description:
-      'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how Bilty Pro automates lorry receipts securely.',
+      'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how BiltyOne automates lorry receipts securely.',
   },
   '/transport-business-automation': {
-    title: 'Transport Business Automation: Save Hours Daily — Bilty Pro',
+    title: 'Transport Business Automation: Save Hours Daily — BiltyOne',
     description:
-      'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with Bilty Pro.',
+      'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with BiltyOne.',
   },
   '/gr-management': {
-    title: 'Goods Receipt (GR) Management & 3-Copy Print — Bilty Pro',
+    title: 'Goods Receipt (GR) Management & 3-Copy Print — BiltyOne',
     description:
-      'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. Bilty Pro auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
+      'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. BiltyOne auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
   },
   '/lorry-receipt-software': {
-    title: 'Lorry Receipt (LR) Software for Indian Transporters — Bilty Pro',
+    title: 'Lorry Receipt (LR) Software for Indian Transporters — BiltyOne',
     description:
       'Generate clean, professional, and compliant Lorry Receipts (LR/GR) digitally. Free software for Indian transport owners to customise layouts and print 3 copies.',
   },
   '/security': {
-    title: 'Security — Bilty Pro',
+    title: 'Security — BiltyOne',
     description:
-      'Learn how Bilty Pro keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
+      'Learn how BiltyOne keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
   },
   '/developers': {
-    title: 'Developer Resources — Bilty Pro',
+    title: 'Developer Resources — BiltyOne',
     description:
-      'Developer and integration resources for Bilty Pro: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
+      'Developer and integration resources for BiltyOne: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
   },
   '/privacy-policy': {
-    title: 'Privacy Policy — Bilty Pro',
-    description: 'How Bilty Pro collects, uses, and protects your personal and operational data.',
+    title: 'Privacy Policy — BiltyOne',
+    description: 'How BiltyOne collects, uses, and protects your personal and operational data.',
   },
   '/terms-and-conditions': {
-    title: 'Terms & Conditions — Bilty Pro',
-    description: 'The terms governing your use of Bilty Pro.',
+    title: 'Terms & Conditions — BiltyOne',
+    description: 'The terms governing your use of BiltyOne.',
   },
   '/user-agreement': {
-    title: 'User Agreement — Bilty Pro',
+    title: 'User Agreement — BiltyOne',
     description:
-      'The Bilty Pro User Agreement governing roles, responsibilities, and acceptable conduct on the platform.',
+      'The BiltyOne User Agreement governing roles, responsibilities, and acceptable conduct on the platform.',
   },
   '/cookie-policy': {
-    title: 'Cookie Policy — Bilty Pro',
-    description: 'How Bilty Pro uses cookies for session management and analytics on our platform.',
+    title: 'Cookie Policy — BiltyOne',
+    description: 'How BiltyOne uses cookies for session management and analytics on our platform.',
   },
 };
 
-const HOMEPAGE_MARKDOWN = `# Bilty Pro — Transport Management System
+const HOMEPAGE_MARKDOWN = `# BiltyOne — Transport Management System
 
-> Stop managing transport manually. Bilty Pro is the modern transport management system built for Indian transporters — create, print, and manage lorry receipts (GR/LR) in minutes. No paper, no spreadsheets.
+> Stop managing transport manually. BiltyOne is the modern transport management system built for Indian transporters — create, print, and manage lorry receipts (GR/LR) in minutes. No paper, no spreadsheets.
 
-## What Bilty Pro does
+## What BiltyOne does
 
 - **GR Creation in Seconds** — create a complete lorry receipt with all required fields in under a minute.
 - **Print-Ready GR (3 Copies)** — generate the Driver, Consigner, and Consignee copies in one click.
@@ -125,13 +125,13 @@ const HOMEPAGE_MARKDOWN = `# Bilty Pro — Transport Management System
 ## How it works (4 steps)
 
 1. **Create your account** — sign up in under 60 seconds, no credit card required.
-2. **Add your customers** — enter consigners and consignees once; Bilty Pro remembers them.
+2. **Add your customers** — enter consigners and consignees once; BiltyOne remembers them.
 3. **Create a GR in minutes** — select the customer, fill in shipment details, submit. All three copies generate instantly.
 4. **Print, track & analyse** — print immediately or find any GR later by name, date, or number.
 
-## Manual vs. Bilty Pro
+## Manual vs. BiltyOne
 
-| | Manual / Excel | Bilty Pro |
+| | Manual / Excel | BiltyOne |
 |---|---|---|
 | Creating a GR | Fill 20+ fields by hand, make 3 paper copies | Done in under a minute, 3 copies auto-generated |
 | Storing records | Paper files lost to rats, water, or fire | Permanent digital records, accessible anywhere |
@@ -140,7 +140,7 @@ const HOMEPAGE_MARKDOWN = `# Bilty Pro — Transport Management System
 
 ## Pricing
 
-Bilty Pro is currently free while we onboard the first cohort of transporters and gather feedback. Existing users get fair advance notice before any pricing changes.
+BiltyOne is currently free while we onboard the first cohort of transporters and gather feedback. Existing users get fair advance notice before any pricing changes.
 
 ## Who it's for
 
@@ -150,7 +150,7 @@ Transporters, fleet owners, and logistics dispatchers in India managing 1 to 50+
 
 - Sign up: ${SITE_URL}/register
 - Free demo (no signup): ${SITE_URL}/live-demo
-- Why Bilty Pro: ${SITE_URL}/why-tsm
+- Why BiltyOne: ${SITE_URL}/why-tsm
 - Features: ${SITE_URL}/features
 - Product tour: ${SITE_URL}/product
 - Contact: ${SITE_URL}/contact
@@ -166,7 +166,7 @@ function buildSummaryMarkdown(pathname: string, page: PageSummary): string {
 
 Full page (HTML): ${SITE_URL}${pathname}
 
-## More from Bilty Pro
+## More from BiltyOne
 
 - Home: ${SITE_URL}/
 - Site map: ${SITE_URL}/sitemap.xml
@@ -176,7 +176,7 @@ Full page (HTML): ${SITE_URL}${pathname}
 
 export const NOT_FOUND_MARKDOWN = `# 404 — Page not found
 
-> This path does not exist on Bilty Pro. It was never assigned, or it has been removed.
+> This path does not exist on BiltyOne. It was never assigned, or it has been removed.
 
 ## Find what you're looking for
 

@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Product Overview — Bilty Pro',
+  title: 'Product Overview — BiltyOne',
   description:
-    'Take a detailed tour of Bilty Pro: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
-  alternates: { canonical: 'https://biltypro.com/product' },
+    'Take a detailed tour of BiltyOne: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
+  alternates: { canonical: 'https://biltyone.com/product' },
 };
 
 export default function ProductPage() {
@@ -28,7 +28,7 @@ export default function ProductPage() {
               A complete cockpit for your <span className="text-[#0369A1] dark:text-sky-400">transport business</span>
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              Bilty Pro provides a visual, real-time control panel to run your daily operations, track jobs, monitor vehicle statuses, and watch invoices without manual record books.
+              BiltyOne provides a visual, real-time control panel to run your daily operations, track jobs, monitor vehicle statuses, and watch invoices without manual record books.
             </p>
           </div>
         </section>
@@ -46,7 +46,7 @@ export default function ProductPage() {
                 <span className="h-3 w-3 rounded-full bg-amber-400" aria-hidden="true" />
                 <span className="h-3 w-3 rounded-full bg-emerald-400" aria-hidden="true" />
                 <div className="ml-4 flex-1 rounded-md bg-slate-200/70 dark:bg-slate-700 px-3 py-1 text-xs text-slate-500 dark:text-slate-400 max-w-xs">
-                  biltypro.com/dashboard
+                  biltyone.com/dashboard
                 </div>
               </div>
               {/* Dashboard preview */}
@@ -110,7 +110,7 @@ export default function ProductPage() {
                 </div>
               </div>
             </div>
-            <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">Actual Bilty Pro dashboard visual representation</p>
+            <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">Actual BiltyOne dashboard visual representation</p>
           </div>
         </section>
 
@@ -148,7 +148,7 @@ export default function ProductPage() {
             <div className="mt-12 pt-6 border-t border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-400">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <Link href="/features" className="hover:text-white transition-colors">Features list</Link>
-              <Link href="/why-tsm" className="hover:text-white transition-colors">Why Choose Bilty Pro</Link>
+              <Link href="/why-tsm" className="hover:text-white transition-colors">Why Choose BiltyOne</Link>
               <Link href="/logistics-glossary" className="hover:text-white transition-colors">Logistics Glossary</Link>
             </div>
           </div>

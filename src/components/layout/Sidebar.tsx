@@ -44,11 +44,12 @@ export function Sidebar({
       isDesktopExpanded ? "lg:translate-x-0 lg:w-72" : "lg:translate-x-0 lg:w-20",
     )}>
       {/* Logo */}
-      <div className="h-20 flex items-center px-5 border-b border-slate-100 dark:border-slate-800 overflow-hidden shrink-0">
+      <div className="h-20 flex items-center px-5 border-b border-slate-100 dark:border-slate-800 overflow-hidden shrink-0 gap-3">
+        <img src="/brand/logo-mark.svg" alt="" className="h-8 w-8 shrink-0" />
         {showLabel && (
           <div>
-            <span className="ml-3 text-xl font-black tracking-tighter text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
-              Bilty<span className="text-[#0369A1] dark:text-sky-400"> Pro</span>
+            <span className="text-xl font-black tracking-tighter text-slate-900 dark:text-white animate-in fade-in slide-in-from-left-2 duration-200 whitespace-nowrap">
+              Bilty<span className="text-[#0369A1] dark:text-sky-400">One</span>
             </span>
           </div>
         )}

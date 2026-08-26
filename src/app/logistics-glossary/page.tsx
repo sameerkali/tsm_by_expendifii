@@ -4,16 +4,16 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Indian Logistics & Transport Glossary — Bilty Pro',
+  title: 'Indian Logistics & Transport Glossary — BiltyOne',
   description:
     'A quick reference guide for Indian transport operators: definitions and explanations for GR, LR, POD, E-Way Bill, Consignor, Freight, Fleet, and TMS.',
-  alternates: { canonical: 'https://biltypro.com/logistics-glossary' },
+  alternates: { canonical: 'https://biltyone.com/logistics-glossary' },
 };
 
 const glossaryTerms = [
   {
     term: 'GR (Goods Receipt)',
-    def: 'A legal document issued by a transporter acknowledging receipt of goods for shipment. It serves as an official contract of carriage, detailing terms, freight rates, and party names. Bilty Pro creates and manages GRs digitally.',
+    def: 'A legal document issued by a transporter acknowledging receipt of goods for shipment. It serves as an official contract of carriage, detailing terms, freight rates, and party names. BiltyOne creates and manages GRs digitally.',
   },
   {
     term: 'LR (Lorry Receipt)',
@@ -25,7 +25,7 @@ const glossaryTerms = [
   },
   {
     term: 'E-way Bill',
-    def: 'An electronic document required under the GST regime for the movement of goods worth over ₹50,000 between states or within a state. Bilty Pro allows you to save the E-way bill details alongside your GR record for seamless auditing.',
+    def: 'An electronic document required under the GST regime for the movement of goods worth over ₹50,000 between states or within a state. BiltyOne allows you to save the E-way bill details alongside your GR record for seamless auditing.',
   },
   {
     term: 'Consignor (Consigner)',
@@ -37,7 +37,7 @@ const glossaryTerms = [
   },
   {
     term: 'Freight',
-    def: 'The charge or cost paid to a transporter for moving goods from one destination to another. Freight calculations in Bilty Pro support box rates, weight rates, or flat trip rates.',
+    def: 'The charge or cost paid to a transporter for moving goods from one destination to another. Freight calculations in BiltyOne support box rates, weight rates, or flat trip rates.',
   },
   {
     term: 'Dispatch / Transit',
@@ -92,7 +92,7 @@ export default function GlossaryPage() {
               <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
               <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
               <Link href="/product" className="hover:text-[#0369A1] transition-colors">Product</Link>
-              <Link href="/why-tsm" className="hover:text-[#0369A1] transition-colors">Why Choose Bilty Pro</Link>
+              <Link href="/why-tsm" className="hover:text-[#0369A1] transition-colors">Why Choose BiltyOne</Link>
             </div>
           </div>
         </section>

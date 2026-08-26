@@ -3,9 +3,9 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Bilty Pro',
-  description: 'How Bilty Pro collects, uses, and protects your personal and operational data.',
-  alternates: { canonical: 'https://biltypro.com/privacy-policy' },
+  title: 'Privacy Policy — BiltyOne',
+  description: 'How BiltyOne collects, uses, and protects your personal and operational data.',
+  alternates: { canonical: 'https://biltyone.com/privacy-policy' },
 };
 
 const lastUpdated = 'May 2026';
@@ -29,20 +29,20 @@ export default function PrivacyPolicyPage() {
           <div className="mx-auto max-w-3xl px-4 sm:px-6 prose prose-slate dark:prose-invert prose-sm sm:prose-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             <h2>1. Introduction</h2>
             <p>
-              Bilty Pro (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is a Transport Management System available at biltypro.com. This Privacy Policy explains how we collect, use, and protect your information. Bilty Pro is currently an unregistered business operating in India.
+              BiltyOne (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is a Transport Management System available at biltyone.com. This Privacy Policy explains how we collect, use, and protect your information. BiltyOne is currently an unregistered business operating in India.
             </p>
 
             <h2>2. Information We Collect</h2>
             <p>We collect the following information:</p>
             <ul>
               <li><strong>Account data:</strong> Your name, email address, and company name when you register.</li>
-              <li><strong>Operational data:</strong> GRs, customer records, and other data you create within Bilty Pro.</li>
+              <li><strong>Operational data:</strong> GRs, customer records, and other data you create within BiltyOne.</li>
               <li><strong>Usage data:</strong> Basic log data including IP address, browser type, and timestamps for security purposes.</li>
             </ul>
 
             <h2>3. How We Use Your Information</h2>
             <ul>
-              <li>To provide and run the Bilty Pro platform.</li>
+              <li>To provide and run the BiltyOne platform.</li>
               <li>To help you create, manage, and print GRs and related records.</li>
               <li>To send essential communications account alerts, product updates.</li>
               <li>To improve the product based on how it&apos;s used.</li>
