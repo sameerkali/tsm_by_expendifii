@@ -476,75 +476,23 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Actual BiltyOne dashboard interface */}
-              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-xl overflow-hidden mt-10">
-                {/* Fake browser chrome */}
-                <div className="flex items-center gap-1.5 px-4 py-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" aria-hidden="true" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber-400" aria-hidden="true" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                  <div className="ml-4 flex-1 rounded bg-slate-200 dark:bg-slate-800 px-3 py-0.5 text-xs text-slate-500 dark:text-slate-400 max-w-xs">
-                    biltyone.com/dashboard
-                  </div>
-                </div>
-                {/* Dashboard preview */}
-                <div className="p-3 sm:p-5 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 min-h-[300px]">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                    {[
-                      { label: 'Active Jobs', value: '48', trend: '+12% this week', up: true },
-                      { label: 'Vehicles Live', value: '31', trend: '100% utilisation', up: true },
-                      { label: 'Invoices Due', value: '₹2.4L', trend: '-8% reduction', up: false },
-                      { label: 'On-time Rate', value: '94%', trend: '+3% improvement', up: true },
-                    ].map((stat) => (
-                      <div key={stat.label} className="rounded-xl bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 px-3 py-3 shadow-sm">
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
-                        <p className="text-xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
-                        <p className={`text-xs font-semibold mt-1 ${stat.up ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'}`}>{stat.trend}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div className="md:col-span-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 px-4 py-3 shadow-sm">
-                      <p className="text-xs font-bold text-slate-700 dark:text-white mb-3">Live Transit Jobs</p>
-                      {[
-                        { id: 'JB-1042', route: 'Delhi → Pune', status: 'In Transit', color: 'bg-blue-500', eta: '2 hrs left' },
-                        { id: 'JB-1041', route: 'Ghaziabad → Noida', status: 'Delivered', color: 'bg-emerald-500', eta: 'Completed' },
-                        { id: 'JB-1040', route: 'Faridabad → Hapur', status: 'Pending Dispatch', color: 'bg-amber-400', eta: 'Today' },
-                      ].map((job) => (
-                        <div key={job.id} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                          <div className="flex items-center gap-2.5">
-                            <span className={`h-2 w-2 rounded-full ${job.color}`} aria-hidden="true" />
-                            <div>
-                              <p className="text-xs font-semibold text-slate-700 dark:text-white">{job.id}</p>
-                              <p className="text-xs text-slate-500 dark:text-slate-400">{job.route}</p>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{job.status}</span>
-                            <p className="text-xs text-slate-400 mt-0.5">{job.eta}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 px-3 py-3 shadow-sm">
-                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3">Fleet Status</p>
-                      {[
-                        { label: 'Active', count: 31, color: 'bg-emerald-500' },
-                        { label: 'Idle', count: 8, color: 'bg-amber-400' },
-                        { label: 'Service', count: 3, color: 'bg-red-400' },
-                      ].map((s) => (
-                        <div key={s.label} className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800 last:border-0">
-                          <div className="flex items-center gap-1.5">
-                            <span className={`h-2 w-2 rounded-full ${s.color}`} aria-hidden="true" />
-                            <span className="text-xs text-slate-600 dark:text-slate-300">{s.label}</span>
-                          </div>
-                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">{s.count}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+            {/* Product preview */}
+            <div className="relative mt-14 sm:mt-20">
+              <div
+                aria-hidden="true"
+                className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400/25 dark:bg-sky-500/15 blur-[110px]"
+              />
+              <div className="hero-float mx-auto max-w-5xl">
+                <Image
+                  src="/dashboard_img_herosection.webp"
+                  alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
+                  width={1536}
+                  height={1024}
+                  priority
+                  className="h-auto w-full"
+                />
               </div>
+            </div>
           </div>
         </section>
 
