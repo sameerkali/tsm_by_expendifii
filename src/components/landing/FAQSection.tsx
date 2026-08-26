@@ -54,7 +54,7 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
             Clear answers for <span className="text-[#0369A1] dark:text-sky-400">busy transporters.</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
-            Have questions about TSM by Expendifii? Here are the detailed answers to help you digitise your transport operations.
+            Have questions about Bilty Pro? Here are the detailed answers to help you digitise your transport operations.
           </p>
         </div>
 

@@ -72,8 +72,8 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
 
   // On mount: read saved prefs and apply them
   useEffect(() => {
-    const rawTheme = localStorage.getItem('tms-theme');
-    const rawSize = localStorage.getItem('tms-font-size');
+    const rawTheme = localStorage.getItem('bp-theme');
+    const rawSize = localStorage.getItem('bp-font-size');
     
     const savedTheme: Theme = isValidTheme(rawTheme) ? rawTheme : 'system';
     const savedSize: FontSize = isValidFontSize(rawSize) ? rawSize : 'md';
@@ -104,14 +104,14 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     const resolved = resolve(t);
     setThemeState(t);
     setResolvedTheme(resolved);
-    localStorage.setItem('tms-theme', t);
+    localStorage.setItem('bp-theme', t);
     // Apply immediately — no React re-render needed for the DOM mutation
     applyDarkClass(resolved);
   }, []);
 
   const setFontSize = useCallback((s: FontSize) => {
     setFontSizeState(s);
-    localStorage.setItem('tms-font-size', s);
+    localStorage.setItem('bp-font-size', s);
     applyFontSize(s);
   }, []);
 

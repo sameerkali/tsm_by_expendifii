@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Digital Transport Management vs Paper & Excel — TSM',
+  title: 'Digital Transport Management vs Paper & Excel — Bilty Pro',
   description:
-    'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how TSM by Expendifii automates lorry receipts securely.',
-  alternates: { canonical: 'https://tsm.expendifii.com/digital-transport-management' },
+    'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how Bilty Pro automates lorry receipts securely.',
+  alternates: { canonical: 'https://biltypro.com/digital-transport-management' },
 };
 
 export default function ComparisonPage() {
@@ -68,10 +68,10 @@ export default function ComparisonPage() {
 
               <div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  3. The Modern Solution: Digital Transport Management (TSM)
+                  3. The Modern Solution: Digital Transport Management (Bilty Pro)
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base mb-4">
-                  TSM by Expendifii combines the speed of digital tools with the familiarity of transport layouts. It replaces manual paperwork with a 2-minute digital workflow.
+                  Bilty Pro combines the speed of digital tools with the familiarity of transport layouts. It replaces manual paperwork with a 2-minute digital workflow.
                 </p>
                 <div className="bg-emerald-50 dark:bg-emerald-950/20 border-l-4 border-emerald-500 p-4 rounded-r-xl">
                   <p className="text-xs sm:text-sm text-emerald-800 dark:text-emerald-300 font-medium">
@@ -84,13 +84,13 @@ export default function ComparisonPage() {
             
             <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Ready to transition your transport business?</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">TSM is free to start and takes under 2–24 hours to set up.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Bilty Pro is free to start and takes 2–24 hours to set up.</p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Create Free Account
                 </Link>
                 <Link href="/why-tsm" className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Why Choose TSM
+                  Why Choose Bilty Pro
                 </Link>
               </div>
             </div>

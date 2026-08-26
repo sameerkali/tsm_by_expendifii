@@ -10,7 +10,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group">
             
             <span className="text-[15px] tracking-tight text-[#0F172A] dark:text-white" style={{ fontWeight: 700 }}>
-              TSM <span className="text-[#0369A1] dark:text-sky-400">by Expendifii</span>
+              Bilty <span className="text-[#0369A1] dark:text-sky-400">Pro</span>
             </span>
           </Link>
 
@@ -18,7 +18,7 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {[
               { label: 'Features', href: '/features' },
-              { label: 'Why Choose TSM', href: '/why-tsm' },
+              { label: 'Why Choose Bilty Pro', href: '/why-tsm' },
               { label: 'Live Demo', href: '/live-demo' },
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },

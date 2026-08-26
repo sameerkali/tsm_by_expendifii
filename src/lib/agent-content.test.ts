@@ -9,7 +9,7 @@ describe('developer resources page markdown negotiation', () => {
   it('renders a markdown summary carrying the brand name', () => {
     const markdown = getMarkdownForPath('/developers');
     expect(markdown).not.toBeNull();
-    expect(markdown).toContain('Developer Resources — TSM by Expendifii');
+    expect(markdown).toContain('Developer Resources — Bilty Pro');
     expect(markdown).toContain(`${SITE_URL}/developers`);
   });
 

@@ -7,7 +7,7 @@
  * matching entry here too.
  */
 
-export const SITE_URL = 'https://tsm.expendifii.com';
+export const SITE_URL = 'https://biltypro.com';
 
 interface PageSummary {
   title: string;
@@ -21,99 +21,99 @@ interface PageSummary {
  */
 const PAGE_SUMMARIES: Record<string, PageSummary> = {
   '/why-tsm': {
-    title: 'Why TSM by Expendifii? Built for Indian Transporters',
+    title: 'Why Bilty Pro? Built for Indian Transporters',
     description:
-      'See why transporters across NCR choose TSM — a fast, modern GR management system built for how Indian transport businesses actually work.',
+      'See why transporters across NCR choose Bilty Pro — a fast, modern GR management system built for how Indian transport businesses actually work.',
   },
   '/live-demo': {
-    title: 'Live Demo — TSM by Expendifii',
+    title: 'Live Demo — Bilty Pro',
     description:
-      'Try TSM by Expendifii as a guest, no signup required. Explore GR creation, customer management, and the dashboard with sample data.',
+      'Try Bilty Pro as a guest, no signup required. Explore GR creation, customer management, and the dashboard with sample data.',
   },
   '/about': {
-    title: 'About — TSM by Expendifii',
+    title: 'About — Bilty Pro',
     description:
-      'TSM was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
+      'Bilty Pro was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
   },
   '/contact': {
-    title: 'Contact — TSM by Expendifii',
+    title: 'Contact — Bilty Pro',
     description:
-      "Get in touch with the TSM team for demos, partnerships, or general inquiries. We respond within one business day.",
+      "Get in touch with the Bilty Pro team for demos, partnerships, or general inquiries. We respond within one business day.",
   },
   '/features': {
-    title: 'TSM Features — Modern Transport Management System',
+    title: 'Bilty Pro Features — Modern Transport Management System',
     description:
-      'Explore the powerful features of TSM by Expendifii: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
+      'Explore the powerful features of Bilty Pro: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
   },
   '/product': {
-    title: 'Product Overview — TSM by Expendifii',
+    title: 'Product Overview — Bilty Pro',
     description:
-      'Take a detailed tour of TSM by Expendifii: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
+      'Take a detailed tour of Bilty Pro: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
   },
   '/transport-management-system': {
-    title: 'What is a Transport Management System (TMS)? — TSM',
+    title: 'What is a Transport Management System (TMS)? — Bilty Pro',
     description:
-      'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how TSM by Expendifii provides a simplified digital GR creator for Indian transporters.',
+      'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how Bilty Pro provides a simplified digital GR creator for Indian transporters.',
   },
   '/logistics-glossary': {
-    title: 'Indian Logistics & Transport Glossary — TSM by Expendifii',
+    title: 'Indian Logistics & Transport Glossary — Bilty Pro',
     description:
       'A quick reference guide for Indian transport operators: definitions and explanations for GR, LR, POD, E-Way Bill, Consignor, Freight, Fleet, and TMS.',
   },
   '/digital-transport-management': {
-    title: 'Digital Transport Management vs Paper & Excel — TSM',
+    title: 'Digital Transport Management vs Paper & Excel — Bilty Pro',
     description:
-      'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how TSM by Expendifii automates lorry receipts securely.',
+      'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how Bilty Pro automates lorry receipts securely.',
   },
   '/transport-business-automation': {
-    title: 'Transport Business Automation: Save Hours Daily — TSM',
+    title: 'Transport Business Automation: Save Hours Daily — Bilty Pro',
     description:
-      'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with TSM.',
+      'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with Bilty Pro.',
   },
   '/gr-management': {
-    title: 'Goods Receipt (GR) Management & 3-Copy Print — TSM',
+    title: 'Goods Receipt (GR) Management & 3-Copy Print — Bilty Pro',
     description:
-      'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. TSM auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
+      'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. Bilty Pro auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
   },
   '/lorry-receipt-software': {
-    title: 'Lorry Receipt (LR) Software for Indian Transporters — TSM',
+    title: 'Lorry Receipt (LR) Software for Indian Transporters — Bilty Pro',
     description:
       'Generate clean, professional, and compliant Lorry Receipts (LR/GR) digitally. Free software for Indian transport owners to customise layouts and print 3 copies.',
   },
   '/security': {
-    title: 'Security — TSM by Expendifii',
+    title: 'Security — Bilty Pro',
     description:
-      'Learn how TSM keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
+      'Learn how Bilty Pro keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
   },
   '/developers': {
-    title: 'Developer Resources — TSM by Expendifii',
+    title: 'Developer Resources — Bilty Pro',
     description:
-      'Developer and integration resources for TSM by Expendifii: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
+      'Developer and integration resources for Bilty Pro: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
   },
   '/privacy-policy': {
-    title: 'Privacy Policy — TSM by Expendifii',
-    description: 'How TSM collects, uses, and protects your personal and operational data.',
+    title: 'Privacy Policy — Bilty Pro',
+    description: 'How Bilty Pro collects, uses, and protects your personal and operational data.',
   },
   '/terms-and-conditions': {
-    title: 'Terms & Conditions — TSM by Expendifii',
-    description: 'The terms governing your use of TSM by Expendifii.',
+    title: 'Terms & Conditions — Bilty Pro',
+    description: 'The terms governing your use of Bilty Pro.',
   },
   '/user-agreement': {
-    title: 'User Agreement — TSM by Expendifii',
+    title: 'User Agreement — Bilty Pro',
     description:
-      'The TSM User Agreement governing roles, responsibilities, and acceptable conduct on the platform.',
+      'The Bilty Pro User Agreement governing roles, responsibilities, and acceptable conduct on the platform.',
   },
   '/cookie-policy': {
-    title: 'Cookie Policy — TSM by Expendifii',
-    description: 'How TSM uses cookies for session management and analytics on our platform.',
+    title: 'Cookie Policy — Bilty Pro',
+    description: 'How Bilty Pro uses cookies for session management and analytics on our platform.',
   },
 };
 
-const HOMEPAGE_MARKDOWN = `# TSM by Expendifii — Transport Management System
+const HOMEPAGE_MARKDOWN = `# Bilty Pro — Transport Management System
 
-> Stop managing transport manually. TSM is the modern transport management system built for Indian transporters — create, print, and manage lorry receipts (GR/LR) in minutes. No paper, no spreadsheets.
+> Stop managing transport manually. Bilty Pro is the modern transport management system built for Indian transporters — create, print, and manage lorry receipts (GR/LR) in minutes. No paper, no spreadsheets.
 
-## What TSM does
+## What Bilty Pro does
 
 - **GR Creation in Seconds** — create a complete lorry receipt with all required fields in under a minute.
 - **Print-Ready GR (3 Copies)** — generate the Driver, Consigner, and Consignee copies in one click.
@@ -125,13 +125,13 @@ const HOMEPAGE_MARKDOWN = `# TSM by Expendifii — Transport Management System
 ## How it works (4 steps)
 
 1. **Create your account** — sign up in under 60 seconds, no credit card required.
-2. **Add your customers** — enter consigners and consignees once; TSM remembers them.
+2. **Add your customers** — enter consigners and consignees once; Bilty Pro remembers them.
 3. **Create a GR in minutes** — select the customer, fill in shipment details, submit. All three copies generate instantly.
 4. **Print, track & analyse** — print immediately or find any GR later by name, date, or number.
 
-## Manual vs. TSM
+## Manual vs. Bilty Pro
 
-| | Manual / Excel | TSM |
+| | Manual / Excel | Bilty Pro |
 |---|---|---|
 | Creating a GR | Fill 20+ fields by hand, make 3 paper copies | Done in under a minute, 3 copies auto-generated |
 | Storing records | Paper files lost to rats, water, or fire | Permanent digital records, accessible anywhere |
@@ -140,7 +140,7 @@ const HOMEPAGE_MARKDOWN = `# TSM by Expendifii — Transport Management System
 
 ## Pricing
 
-TSM is currently free while we onboard the first cohort of transporters and gather feedback. Existing users get fair advance notice before any pricing changes.
+Bilty Pro is currently free while we onboard the first cohort of transporters and gather feedback. Existing users get fair advance notice before any pricing changes.
 
 ## Who it's for
 
@@ -150,7 +150,7 @@ Transporters, fleet owners, and logistics dispatchers in India managing 1 to 50+
 
 - Sign up: ${SITE_URL}/register
 - Free demo (no signup): ${SITE_URL}/live-demo
-- Why TSM: ${SITE_URL}/why-tsm
+- Why Bilty Pro: ${SITE_URL}/why-tsm
 - Features: ${SITE_URL}/features
 - Product tour: ${SITE_URL}/product
 - Contact: ${SITE_URL}/contact
@@ -166,7 +166,7 @@ function buildSummaryMarkdown(pathname: string, page: PageSummary): string {
 
 Full page (HTML): ${SITE_URL}${pathname}
 
-## More from TSM by Expendifii
+## More from Bilty Pro
 
 - Home: ${SITE_URL}/
 - Site map: ${SITE_URL}/sitemap.xml
@@ -176,7 +176,7 @@ Full page (HTML): ${SITE_URL}${pathname}
 
 export const NOT_FOUND_MARKDOWN = `# 404 — Page not found
 
-> This path does not exist on TSM by Expendifii. It was never assigned, or it has been removed.
+> This path does not exist on Bilty Pro. It was never assigned, or it has been removed.
 
 ## Find what you're looking for
 

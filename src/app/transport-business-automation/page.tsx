@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Transport Business Automation: Save Hours Daily — TSM',
+  title: 'Transport Business Automation: Save Hours Daily — Bilty Pro',
   description:
-    'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with TSM.',
-  alternates: { canonical: 'https://tsm.expendifii.com/transport-business-automation' },
+    'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with Bilty Pro.',
+  alternates: { canonical: 'https://biltypro.com/transport-business-automation' },
 };
 
 export default function AutomationOverviewPage() {
@@ -52,7 +52,7 @@ export default function AutomationOverviewPage() {
                   Reducing Operations Costs
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Growing transport fleets often require hiring additional administrative staff just to keep up with physical GR filings and customer billing requests. TSM by Expendifii automates the generation of lorry receipts and makes them digitally searchable in seconds. Transporters can double their active fleet without hiring more office staff, directly saving on operational overheads.
+                  Growing transport fleets often require hiring additional administrative staff just to keep up with physical GR filings and customer billing requests. Bilty Pro automates the generation of lorry receipts and makes them digitally searchable in seconds. Transporters can double their active fleet without hiring more office staff, directly saving on operational overheads.
                 </p>
               </div>
 
@@ -69,7 +69,7 @@ export default function AutomationOverviewPage() {
 
             <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Automate your transport business today</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">TSM is free to start. Setting up takes just 2–24 hours.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Bilty Pro is free to start. Setting up takes just 2–24 hours.</p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Get Started Free

@@ -4,10 +4,10 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Why TSM by Expendifii? Built for Indian Transporters',
+  title: 'Why Bilty Pro? Built for Indian Transporters',
   description:
-    'See why transporters across NCR choose TSM — a fast, modern GR management system built for how Indian transport businesses actually work.',
-  alternates: { canonical: 'https://tsm.expendifii.com/why-tsm' },
+    'See why transporters across NCR choose Bilty Pro — a fast, modern GR management system built for how Indian transport businesses actually work.',
+  alternates: { canonical: 'https://biltypro.com/why-tsm' },
 };
 
 const differentiators = [
@@ -29,7 +29,7 @@ const differentiators = [
       </svg>
     ),
     title: 'Faster than any alternative',
-    body: 'Our competitors run on old PHP and WordPress. Pages load slowly, interfaces are cluttered, and basic tasks take too many clicks. TSM is built on modern technology — it\'s noticeably faster from the first click.',
+    body: 'Our competitors run on old PHP and WordPress. Pages load slowly, interfaces are cluttered, and basic tasks take too many clicks. Bilty Pro is built on modern technology — it\'s noticeably faster from the first click.',
   },
   {
     icon: (
@@ -38,7 +38,7 @@ const differentiators = [
       </svg>
     ),
     title: 'Customise your GR the way you want',
-    body: 'Different transporters show different fields. Some want less, some want more. In TSM, you control exactly what appears on your printed GR — no developer needed.',
+    body: 'Different transporters show different fields. Some want less, some want more. In Bilty Pro, you control exactly what appears on your printed GR — no developer needed.',
   },
   {
     icon: (
@@ -47,7 +47,7 @@ const differentiators = [
       </svg>
     ),
     title: 'No more paper records that disappear',
-    body: 'A paper GR can be lost to water, fire, rats, or just misplacement. In TSM, every GR is stored permanently and searchable by name, number, or date — always.',
+    body: 'A paper GR can be lost to water, fire, rats, or just misplacement. In Bilty Pro, every GR is stored permanently and searchable by name, number, or date — always.',
   },
   {
     icon: (
@@ -56,7 +56,7 @@ const differentiators = [
       </svg>
     ),
     title: 'Replacing a data-entry person shouldn\'t cost more than one',
-    body: 'Many transporters hire someone just to manage GR paperwork. TSM eliminates that cost — one person can manage everything in the time it used to take three.',
+    body: 'Many transporters hire someone just to manage GR paperwork. Bilty Pro eliminates that cost — one person can manage everything in the time it used to take three.',
   },
   {
     icon: (
@@ -65,7 +65,7 @@ const differentiators = [
       </svg>
     ),
     title: 'We\'re building with you, not for you',
-    body: 'TSM is in its early stage. We\'re onboarding real transporters, listening to real feedback, and adding features based on what actually matters on the ground. Your input shapes the product.',
+    body: 'Bilty Pro is in its early stage. We\'re onboarding real transporters, listening to real feedback, and adding features based on what actually matters on the ground. Your input shapes the product.',
   },
 ];
 
@@ -105,14 +105,14 @@ export default function WhyTsmPage() {
           <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#0369A1]/30 dark:border-sky-500/30 bg-[#0369A1]/8 dark:bg-sky-500/10 px-4 py-1.5 text-xs font-semibold text-[#0369A1] dark:text-sky-400 uppercase tracking-wider mb-6">
               <span className="h-1.5 w-1.5 rounded-full bg-[#0369A1] dark:bg-sky-400 animate-pulse" aria-hidden="true" />
-              Why choose TSM?
+              Why choose Bilty Pro?
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-6 leading-[1.1]">
               The transport software that actually{' '}
               <span className="text-[#0369A1] dark:text-sky-400">works like you do</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-              Most transport software in India was built years ago slow, ugly, and painful to use. TSM was built in 2025 by a software engineer who grew up watching transporters struggle with paper and Excel. It&apos;s fast, clean, and built around how you actually work.
+              Most transport software in India was built years ago slow, ugly, and painful to use. Bilty Pro was built in 2025 by a software engineer who grew up watching transporters struggle with paper and Excel. It&apos;s fast, clean, and built around how you actually work.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -153,10 +153,10 @@ export default function WhyTsmPage() {
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-2xl border border-sky-200 dark:border-sky-500/20 bg-sky-50 dark:bg-sky-950/20 p-6 sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Key Takeaways</p>
-              <h2 id="tldr-heading" className="sr-only">Key Takeaways about TSM by Expendifii</h2>
+              <h2 id="tldr-heading" className="sr-only">Key Takeaways about Bilty Pro</h2>
               <ul className="space-y-3">
                 {[
-                  'TSM by Expendifii cuts GR creation time from 15 minutes to under 2 minutes — 3 copies auto-generated.',
+                  'Bilty Pro cuts GR creation time from 15 minutes to under 2 minutes — 3 copies auto-generated.',
                   'No paper, no Excel, no hired data-entry staff. One platform handles your entire GR workflow.',
                   'Free to start right now. Up and running in 2–24 hours. Designed for Indian transporters of all sizes.',
                   'Your data is stored securely — no more lost records from rain, rats, or fire.',
@@ -182,7 +182,7 @@ export default function WhyTsmPage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">What makes us different</p>
               <h2 id="differentiators-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                Six reasons transporters pick TSM
+                Six reasons transporters pick Bilty Pro
               </h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -202,23 +202,23 @@ export default function WhyTsmPage() {
           </div>
         </section>
 
-        {/* TSM vs Generic Tools comparison */}
+        {/* Bilty Pro vs Generic Tools comparison */}
         <section className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800" aria-labelledby="vs-heading">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Head to head</p>
               <h2 id="vs-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                TSM vs Old Software in Market
+                Bilty Pro vs Old Software in Market
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-                The existing transport software in India is outdated — built on old technology, with interfaces that feel like they&apos;re from 2008. Here&apos;s how TSM compares.
+                The existing transport software in India is outdated — built on old technology, with interfaces that feel like they&apos;re from 2008. Here&apos;s how Bilty Pro compares.
               </p>
             </div>
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-md">
               <div className="grid grid-cols-3 bg-[#0F172A] dark:bg-slate-800 text-white text-sm font-semibold">
                 <div className="px-6 py-4 text-slate-300">Feature</div>
-                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20">TSM</div>
+                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20">Bilty Pro</div>
                 <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-400">Old Market Software</div>
               </div>
               {vsComparison.map((row, i) => (
@@ -247,7 +247,7 @@ export default function WhyTsmPage() {
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
             </svg>
             <blockquote className="text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-white leading-snug mb-8">
-              &ldquo;We scaled from 20 vehicles to 80 without hiring extra admin staff. TSM handled all the complexity   transparently.&rdquo;
+              &ldquo;We scaled from 20 vehicles to 80 without hiring extra admin staff. Bilty Pro handled all the complexity   transparently.&rdquo;
             </blockquote>
             <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Arun K., CEO   KPL Transport
@@ -258,12 +258,12 @@ export default function WhyTsmPage() {
         {/* ── CONCLUSION / THE VERDICT ──────────────── */}
         <section id="conclusion" className="py-20 sm:py-24 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="conclusion-heading">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Why TSM by Expendifii</p>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Why Bilty Pro</p>
             <h2 id="conclusion-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-6">
               The Verdict: Go Digital, Stay Simple
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8">
-              TSM by Expendifii is the transport management system built specifically for Indian transporters who are tired of paper GRs, lost records, and slow manual processes. It replaces 15-minute paperwork with a 2-minute digital workflow — 3 copies auto-generated, permanent digital records, customisable layouts, and a simple dashboard that gives you real visibility into your operations. <strong className="text-[#0F172A] dark:text-white">Best of all, it is free to start and takes just 2–24 hours to set up.</strong>
+              Bilty Pro is the transport management system built specifically for Indian transporters who are tired of paper GRs, lost records, and slow manual processes. It replaces 15-minute paperwork with a 2-minute digital workflow — 3 copies auto-generated, permanent digital records, customisable layouts, and a simple dashboard that gives you real visibility into your operations. <strong className="text-[#0F172A] dark:text-white">Best of all, it is free to start and takes just 2–24 hours to set up.</strong>
             </p>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1.5">

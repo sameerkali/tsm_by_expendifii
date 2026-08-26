@@ -15,7 +15,7 @@ export default function Footer() {
                   <path d="M3 9L12 2L21 9V20C21 20.5523 20.5523 21 20 21H15V15H9V21H4C3.44772 21 3 20.5523 3 20V9Z" fill="white" />
                 </svg>
               </div>
-              <span className="text-[15px] font-bold text-white">TSM by Expendifii</span>
+              <span className="text-[15px] font-bold text-white">Bilty Pro</span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
               Replace manual workflows with an intelligent transport management dashboard built for modern logistics teams.
@@ -39,7 +39,7 @@ export default function Footer() {
               {[
                 { label: 'Features', href: '/features' },
                 { label: 'Overview', href: '/product' },
-                { label: 'Why Choose TSM', href: '/why-tsm' },
+                { label: 'Why Choose Bilty Pro', href: '/why-tsm' },
                 { label: 'Live Demo', href: '/live-demo' },
                 { label: 'Sign In', href: '/login' },
               ].map((item) => (
@@ -115,7 +115,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
           <p className="text-sm text-slate-500">
-            &copy; {year} Expendifii. All rights reserved.
+            &copy; {year} Bilty Pro. All rights reserved.
           </p>
           <p className="text-sm text-slate-500">
             Built for transparency, trust &amp; easiness.

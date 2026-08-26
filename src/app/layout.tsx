@@ -35,10 +35,10 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tsm.expendifii.com"),
+  metadataBase: new URL("https://biltypro.com"),
   title: {
-    default: "TSM by Expendifii",
-    template: "%s | TSM by Expendifii",
+    default: "Bilty Pro",
+    template: "%s | Bilty Pro",
   },
   description:
     "Modern transport management for Indian logistics and fleet tracking.",
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
     "lorry receipt software",
     "logistics software India",
     "fleet management system",
-    "TSM by Expendifii",
+    "Bilty Pro",
   ],
-  authors: [{ name: "Expendifii", url: "https://tsm.expendifii.com/about" }],
+  authors: [{ name: "Bilty Pro", url: "https://biltypro.com/about" }],
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/logo.png",
@@ -64,23 +64,23 @@ export const metadata: Metadata = {
     "max-image-preview": "large",
   },
   alternates: {
-    canonical: "https://tsm.expendifii.com",
+    canonical: "https://biltypro.com",
     languages: {
-      en: "https://tsm.expendifii.com",
+      en: "https://biltypro.com",
     },
   },
   openGraph: {
-    title: "TSM by Expendifii — Transport OS",
+    title: "Bilty Pro — Transport OS",
     description:
       "Create, print, and manage lorry receipts in minutes. Built for Indian transporters.",
-    url: "https://tsm.expendifii.com",
-    siteName: "TSM by Expendifii",
+    url: "https://biltypro.com",
+    siteName: "Bilty Pro",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TSM Dashboard Preview",
+        alt: "Bilty Pro Dashboard Preview",
       },
     ],
     locale: "en_US",
@@ -88,12 +88,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TSM by Expendifii — Transport Management System for Indian Logistics",
+    title: "Bilty Pro — Transport Management System for Indian Logistics",
     description:
-      "Create, print, and manage lorry receipts in minutes. TSM is the modern transport management system built for Indian transporters — no paper, no spreadsheets.",
+      "Create, print, and manage lorry receipts in minutes. Bilty Pro is the modern transport management system built for Indian transporters — no paper, no spreadsheets.",
     images: ["/og-image.png"],
-    site: "@expendifii",
-    creator: "@expendifii",
   },
   other: {
     "format-detection": "telephone=no",
@@ -121,11 +119,11 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(){try{
-              var t=localStorage.getItem('tms-theme')||'system';
+              var t=localStorage.getItem('bp-theme')||'system';
               var dark=(t==='dark')||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);
               if(dark){document.documentElement.classList.add('dark');}
               else{document.documentElement.classList.remove('dark');}
-              var s=localStorage.getItem('tms-font-size')||'md';
+              var s=localStorage.getItem('bp-font-size')||'md';
               var sizes={sm:'14px',md:'16px',lg:'18px',xl:'20px'};
               document.documentElement.style.fontSize=sizes[s]||'16px';
             }catch(e){}})();`,

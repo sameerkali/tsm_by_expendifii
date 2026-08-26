@@ -4,16 +4,16 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Developer Resources — TSM by Expendifii',
+  title: 'Developer Resources — Bilty Pro',
   description:
-    'Developer and integration resources for TSM by Expendifii: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
-  alternates: { canonical: 'https://tsm.expendifii.com/developers' },
+    'Developer and integration resources for Bilty Pro: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
+  alternates: { canonical: 'https://biltypro.com/developers' },
 };
 
 const resources = [
   {
     title: 'llms.txt',
-    body: 'A machine-readable summary of TSM by Expendifii for AI agents and assistants — what the product does, who it is for, and which pages to read.',
+    body: 'A machine-readable summary of Bilty Pro for AI agents and assistants — what the product does, who it is for, and which pages to read.',
     href: '/llms.txt',
     linkLabel: 'View llms.txt',
   },
@@ -25,7 +25,7 @@ const resources = [
   },
   {
     title: 'Sitemap',
-    body: 'A complete, up-to-date list of every public URL on tsm.expendifii.com in standard sitemap.xml format.',
+    body: 'A complete, up-to-date list of every public URL on biltypro.com in standard sitemap.xml format.',
     href: '/sitemap.xml',
     linkLabel: 'View sitemap.xml',
   },
@@ -49,10 +49,10 @@ export default function DevelopersPage() {
           <div className="relative mx-auto max-w-2xl px-4 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Developers</p>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-4">
-              Developer Resources — TSM by Expendifii
+              Developer Resources — Bilty Pro
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              What&apos;s available today for integrating with, or building on top of, TSM by Expendifii — and what isn&apos;t yet.
+              What&apos;s available today for integrating with, or building on top of, Bilty Pro — and what isn&apos;t yet.
             </p>
           </div>
         </section>
@@ -64,20 +64,20 @@ export default function DevelopersPage() {
               Public API status
             </h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-              TSM by Expendifii is a web application, not an API product. There is currently no public REST or GraphQL
+              Bilty Pro is a web application, not an API product. There is currently no public REST or GraphQL
               API, OpenAPI specification, or webhook system for third-party developers to call on a user&apos;s behalf.
               Every feature — GR creation, customer management, printing, analytics — is accessed through the web
               dashboard at{' '}
-              <a href="https://tsm.expendifii.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
-                tsm.expendifii.com
+              <a href="https://biltypro.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
+                biltypro.com
               </a>
               .
             </p>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              We&apos;re evaluating public API and webhook access for transport businesses that want to connect TSM to
+              We&apos;re evaluating public API and webhook access for transport businesses that want to connect Bilty Pro to
               their own tools. If that&apos;s something your business needs, tell us at{' '}
-              <a href="mailto:hello@expendifii.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
-                hello@expendifii.com
+              <a href="mailto:work.sameerfaridi@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
+                work.sameerfaridi@gmail.com
               </a>{' '}
               — it directly shapes what we prioritise next.
             </p>
@@ -91,7 +91,7 @@ export default function DevelopersPage() {
               What&apos;s available today
             </h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl">
-              TSM does publish machine-readable resources for AI agents and search crawlers to read the site
+              Bilty Pro does publish machine-readable resources for AI agents and search crawlers to read the site
               accurately — these are live now.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -116,7 +116,7 @@ export default function DevelopersPage() {
           <div className="mx-auto max-w-2xl px-4 text-center">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Have an integration need?</h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              Email <a href="mailto:hello@expendifii.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">hello@expendifii.com</a> with what you&apos;re trying to build, or use the{' '}
+              Email <a href="mailto:work.sameerfaridi@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">work.sameerfaridi@gmail.com</a> with what you&apos;re trying to build, or use the{' '}
               <Link href="/contact" className="text-[#0369A1] dark:text-sky-400 hover:underline">contact form</Link>.
             </p>
           </div>
