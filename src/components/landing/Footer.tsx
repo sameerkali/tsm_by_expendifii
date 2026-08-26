@@ -10,11 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0369A1]">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M3 9L12 2L21 9V20C21 20.5523 20.5523 21 20 21H15V15H9V21H4C3.44772 21 3 20.5523 3 20V9Z" fill="white" />
-                </svg>
-              </div>
+              <img src="/brand/logo-mark-white.svg" alt="" className="h-8 w-8" />
               <span className="text-[15px] font-bold text-white">BiltyOne</span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-xs">

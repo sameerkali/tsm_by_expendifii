@@ -771,7 +771,7 @@ export default function HomePage() {
               </Link>
             </div>
             <p className="text-xs text-slate-500 mt-6">
-              BiltyOne — NCR Transport Management System
+              BiltyOne a NCR Transport Management System
             </p>
           </div>
         </section>
