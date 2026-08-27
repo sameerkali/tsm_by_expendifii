@@ -16,9 +16,9 @@ interface ScrollImageProps {
 }
 
 /**
- * Desktop-tuned tilt/depth/scale range the image animates through as the
- * section scrolls past. Reduced on small screens so the effect stays subtle
- * on phones instead of looking exaggerated.
+ * Desktop-tuned tilt/depth/scale range the image animates through as it
+ * scrolls up through the viewport. Reduced on small screens so the effect
+ * stays subtle on phones instead of looking exaggerated.
  */
 const DESKTOP_RANGE = { rotateX: 16, translateY: 36, translateZ: -90, scale: 0.94 };
 const MOBILE_RANGE = { rotateX: 7, translateY: 18, translateZ: -40, scale: 0.96 };
@@ -37,15 +37,13 @@ export function ScrollImage({
   priority,
   sizes,
 }: ScrollImageProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    const sticky = stickyRef.current;
+    const container = containerRef.current;
     const imageEl = imageRef.current;
-    if (!section || !sticky || !imageEl) return;
+    if (!container || !imageEl) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) {
@@ -57,19 +55,15 @@ export function ScrollImage({
 
     const applyTransform = () => {
       ticking = false;
-      const sectionRect = section.getBoundingClientRect();
-      // Progress must reach 1 exactly when the sticky child un-pins (i.e. over
-      // the scrollable distance = section height minus the sticky child's own
-      // height), not over the full section height — otherwise the image keeps
-      // interpolating after it has already scrolled out of its pinned spot,
-      // and any extra section height beyond that shows as dead empty space.
-      const pinDistance = sectionRect.height - sticky.getBoundingClientRect().height;
-      const progress =
-        pinDistance > 0
-          ? Math.min(1, Math.max(0, -sectionRect.top / pinDistance))
-          : sectionRect.top <= 0
-            ? 1
-            : 0;
+      const top = container.getBoundingClientRect().top;
+      // Progress 0 = the image's top edge is just entering at the bottom of
+      // the viewport (this is the first moment it becomes visible).
+      // Progress 1 = the image's top edge has reached the top of the
+      // viewport, so the animation is fully settled exactly as it arrives.
+      const rawProgress = Math.min(1, Math.max(0, (window.innerHeight - top) / window.innerHeight));
+      // Ease out: move fast early, settle gently into place rather than
+      // travelling at a constant rate right up until it stops.
+      const progress = 1 - Math.pow(1 - rawProgress, 3);
 
       const range = window.innerWidth < 640 ? MOBILE_RANGE : DESKTOP_RANGE;
       const rotateX = lerp(range.rotateX, 0, progress);
@@ -97,12 +91,8 @@ export function ScrollImage({
   }, []);
 
   return (
-    <div ref={sectionRef} className={cn('relative pb-17.5 sm:pb-22.5', containerClassName)}>
-      <div
-        ref={stickyRef}
-        className="sticky top-16 flex items-center justify-center overflow-hidden"
-        style={{ perspective: '1200px' }}
-      >
+    <div ref={containerRef} className={cn('relative', containerClassName)}>
+      <div className="flex items-center justify-center overflow-hidden" style={{ perspective: '1200px' }}>
         <div
           ref={imageRef}
           className="w-full max-w-5xl will-change-transform transform-gpu transform-3d"
