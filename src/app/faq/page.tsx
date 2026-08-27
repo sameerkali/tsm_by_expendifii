@@ -76,7 +76,7 @@ export default function FAQPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Navbar />
-      <main id="main-content" className="pt-16" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <main id="main-content" className="pt-20" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         <FAQSection faqs={faqs} />
       </main>
       <Footer />

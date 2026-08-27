@@ -14,7 +14,7 @@ export default function GRManagementPage() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="pt-16" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <main id="main-content" className="pt-20" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         
         {/* Hero */}
         <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">

@@ -235,7 +235,7 @@ export default function HomePage() {
       />
       <Navbar />
 
-      <main id="main-content" className="pt-16" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <main id="main-content" className="pt-20" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
         {/* ── HERO ────────────────────────────────── */}
         <section
