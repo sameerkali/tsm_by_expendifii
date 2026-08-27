@@ -19,7 +19,7 @@ export default function Navbar() {
   };
 
   const linkClassName =
-    'relative z-10 px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-full transition-colors duration-150 cursor-pointer';
+    'relative z-10 px-5 py-3 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-full transition-colors duration-150 cursor-pointer';
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4 sm:px-6 lg:px-8">
