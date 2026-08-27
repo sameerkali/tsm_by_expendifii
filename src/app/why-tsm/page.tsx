@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
+import { Card } from '@/components/landing/Card';
 
 export const metadata: Metadata = {
   title: 'Why BiltyOne? Built for Indian Transporters',
@@ -13,60 +14,34 @@ export const metadata: Metadata = {
 
 const differentiators = [
   {
-    emoji: null,
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 22C12 22 3 16 3 9C3 7.14348 3.7375 5.36301 5.05025 4.05025C6.36301 2.7375 8.14348 2 10 2H14C15.8565 2 17.637 2.7375 18.9497 4.05025C20.2625 5.36301 21 7.14348 21 9C21 16 12 22 12 22Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    id: '01',
     title: 'Built for Indian transport, not adapted for it',
-    body: 'GR workflows, three-copy printing, Indian address formats: all native. Not an afterthought, not a workaround.',
+    description: 'GR workflows, three-copy printing, Indian address formats: all native. Not an afterthought, not a workaround.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-      </svg>
-    ),
+    id: '02',
     title: 'Faster than any alternative',
-    body: 'Our competitors run on old PHP and WordPress. Pages load slowly, interfaces are cluttered, and basic tasks take too many clicks. BiltyOne is built on modern technology, so it\'s noticeably faster from the first click.',
+    description: 'Our competitors run on old PHP and WordPress. Pages load slowly, interfaces are cluttered, and basic tasks take too many clicks. BiltyOne is built on modern technology, so it\'s noticeably faster from the first click.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V12M18.4142 6.58579L12.5 12.5L9 11.5L10 8L15.9142 2.08579C16.6953 1.30474 17.9616 1.30474 18.7426 2.08579L20.9142 4.25736C21.6953 5.03841 21.6953 6.30474 20.9142 7.08579L18.4142 6.58579Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-      </svg>
-    ),
+    id: '03',
     title: 'Customise your GR the way you want',
-    body: 'Different transporters show different fields. Some want less, some want more. In BiltyOne, you control exactly what appears on your printed GR, with no developer needed.',
+    description: 'Different transporters show different fields. Some want less, some want more. In BiltyOne, you control exactly what appears on your printed GR, with no developer needed.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-      </svg>
-    ),
+    id: '04',
     title: 'No more paper records that disappear',
-    body: 'A paper GR can be lost to water, fire, rats, or just misplacement. In BiltyOne, every GR is stored permanently and searchable by name, number, or date, always.',
+    description: 'A paper GR can be lost to water, fire, rats, or just misplacement. In BiltyOne, every GR is stored permanently and searchable by name, number, or date, always.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M17 21V19C17 17.8954 16.1046 17 15 17H9C7.89543 17 7 17.8954 7 19V21M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-      </svg>
-    ),
+    id: '05',
     title: 'Replacing a data-entry person shouldn\'t cost more than one',
-    body: 'Many transporters hire someone just to manage GR paperwork. BiltyOne eliminates that cost: one person can manage everything in the time it used to take three.',
+    description: 'Many transporters hire someone just to manage GR paperwork. BiltyOne eliminates that cost: one person can manage everything in the time it used to take three.',
   },
   {
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    id: '06',
     title: 'We\'re building with you, not for you',
-    body: 'BiltyOne is in its early stage. We\'re onboarding real transporters, listening to real feedback, and adding features based on what actually matters on the ground. Your input shapes the product.',
+    description: 'BiltyOne is in its early stage. We\'re onboarding real transporters, listening to real feedback, and adding features based on what actually matters on the ground. Your input shapes the product.',
   },
 ];
 
@@ -185,18 +160,9 @@ export default function WhyTsmPage() {
                 Six reasons transporters pick BiltyOne
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {differentiators.map((d) => (
-                <div
-                  key={d.title}
-                  className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-7 hover:border-[#0369A1]/40 dark:hover:border-sky-500/40 hover:bg-white dark:hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-200/60 dark:hover:shadow-slate-900/60 transition-all duration-200"
-                >
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#0F172A] dark:bg-[#0369A1]/20 text-white dark:text-sky-400 group-hover:bg-[#0369A1] dark:group-hover:bg-[#0369A1]/40 transition-colors duration-200">
-                    {d.icon}
-                  </div>
-                  <h3 className="text-base font-semibold text-[#0F172A] dark:text-white mb-2">{d.title}</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{d.body}</p>
-                </div>
+                <Card key={d.id} id={d.id} title={d.title} description={d.description} />
               ))}
             </div>
           </div>

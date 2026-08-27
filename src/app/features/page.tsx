@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
+import { Card } from '@/components/landing/Card';
 
 export const metadata: Metadata = {
   title: 'Features | Modern Transport Management System',
@@ -14,40 +15,24 @@ export const metadata: Metadata = {
 
 const featureDetails = [
   {
+    id: '01',
     title: 'Instant Digital GR Creation',
     description: 'Create goods receipts and lorry receipts in under 2 minutes. Auto-fill recurring consignor and consignee details, and calculate freight rates dynamically.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#0369A1] dark:text-sky-400" aria-hidden="true">
-        <path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
   },
   {
+    id: '02',
     title: 'Customisable Lorry Receipt Print layouts',
     description: 'Choose which fields to show on printouts. Support for standard three-copy layouts (Driver, Consignor, Consignee) that match your existing formats.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#0369A1] dark:text-sky-400" aria-hidden="true">
-        <path d="M6 9V2H18V9M6 18H4C2.89543 18 2 17.1046 2 16V11C2 9.89543 2.89543 9 4 9H20C21.1046 9 22 9.89543 22 11V16C22 17.1046 21.1046 18 20 18H18M6 14H18V22H6V14Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-      </svg>
-    ),
   },
   {
+    id: '03',
     title: 'Permanent Search & Records Archive',
     description: 'Every GR is stored securely on the cloud. Instantly search and retrieve historic shipments by GR number, date, consignor name, or vehicle number.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#0369A1] dark:text-sky-400" aria-hidden="true">
-        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
   },
   {
+    id: '04',
     title: 'Transporter Analytics Dashboard',
     description: 'Get real-time visibility into active jobs, pending invoices, vehicle locations, and fleet on-time performance metrics in one simple screen.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-[#0369A1] dark:text-sky-400" aria-hidden="true">
-        <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
   },
 ];
 
@@ -77,15 +62,9 @@ export default function FeaturesPage() {
         {/* Feature Grid */}
         <section className="py-20 bg-white dark:bg-slate-950">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featureDetails.map((feat) => (
-                <div key={feat.title} className="p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900/40 hover:border-[#0369A1]/30 dark:hover:border-sky-500/30 transition-all duration-300">
-                  <div className="h-12 w-12 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center mb-6">
-                    {feat.icon}
-                  </div>
-                  <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{feat.title}</h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">{feat.description}</p>
-                </div>
+                <Card key={feat.id} id={feat.id} title={feat.title} description={feat.description} />
               ))}
             </div>
           </div>

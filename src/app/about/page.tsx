@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { Card } from '@/components/landing/Card';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -12,32 +13,17 @@ export const metadata: Metadata = {
 
 const values = [
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" strokeWidth="1.75" />
-        <path d="M12 4V2M12 22V20M4 12H2M22 12H20M6.34315 6.34315L4.92893 4.92893M19.0711 19.0711L17.6569 17.6569M6.34315 17.6569L4.92893 19.0711M19.0711 4.92893L17.6569 6.34315" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-      </svg>
-    ),
+    id: '01',
     title: 'Transparency',
     description: 'No hidden fees, no surprises. You always know what BiltyOne does with your data, what the pricing is, and what\'s coming next.',
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 22C12 22 3 16 3 9C3 7.14348 3.7375 5.36301 5.05025 4.05025C6.36301 2.7375 8.14348 2 10 2H14C15.8565 2 17.637 2.7375 18.9497 4.05025C20.2625 5.36301 21 7.14348 21 9C21 16 12 22 12 22Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    id: '02',
     title: 'Trust',
     description: 'Your data is yours. We don\'t sell it, we don\'t share it, and we\'ve built the platform to keep it secure. See our Security page for full details.',
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M14.5 2H6C5.44772 2 5 2.44772 5 3V21C5 21.5523 5.44772 22 6 22H18C18.5523 22 19 21.5523 19 21V6.5L14.5 2Z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        <path d="M14 2V7H19M9 12H15M9 16H15M9 8H10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-      </svg>
-    ),
+    id: '03',
     title: 'Easiness',
     description: 'If a transporter who\'s never used software before can use BiltyOne comfortably within one day, we\'ve done our job right.',
   },
@@ -112,7 +98,7 @@ export default function AboutPage() {
                     { num: 'Now', label: 'Onboarding first transporters across NCR, building with real feedback' },
                     { num: 'Next', label: 'Driver app, invoicing, analytics, and pan-India expansion' },
                   ].map((milestone) => (
-                    <div key={milestone.num} className="flex items-start gap-4">
+                    <div key={milestone.label} className="flex items-start gap-4">
                       <div className="shrink-0 w-16 text-sm font-bold text-[#0369A1] dark:text-sky-400">{milestone.num}</div>
                       <div className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pt-0.5">{milestone.label}</div>
                     </div>
@@ -132,15 +118,9 @@ export default function AboutPage() {
                 Three values that guide every decision
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {values.map((v) => (
-                <div key={v.title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-7 hover:shadow-lg hover:shadow-slate-200/60 dark:hover:shadow-slate-900 hover:border-[#0369A1]/30 dark:hover:border-sky-500/30 transition-all duration-200">
-                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#0F172A] dark:bg-[#0369A1]/20 text-white dark:text-sky-400">
-                    {v.icon}
-                  </div>
-                  <h3 className="text-base font-semibold text-[#0F172A] dark:text-white mb-2">{v.title}</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{v.description}</p>
-                </div>
+                <Card key={v.id} id={v.id} title={v.title} description={v.description} />
               ))}
             </div>
           </div>
