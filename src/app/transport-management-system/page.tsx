@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export const metadata: Metadata = {
-  title: 'What is a Transport Management System (TMS)? — BiltyOne',
+  title: 'What is a Transport Management System (TMS)?',
   description:
     'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how BiltyOne provides a simplified digital GR creator for Indian transporters.',
   alternates: { canonical: 'https://biltyone.com/transport-management-system' },
@@ -77,9 +78,9 @@ export default function TMSOverviewPage() {
               <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Want to see a simplified TMS in action?</h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Test the live demo - no sign-up or credit card required.</p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/live-demo" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
+                <LiveDemoLink className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Launch Live Demo
-                </Link>
+                </LiveDemoLink>
                 <Link href="/register" className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Sign Up Free
                 </Link>

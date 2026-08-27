@@ -174,7 +174,7 @@ export function ActivationImageModal({ isOpen, onClose }: ActivationImageModalPr
                     className="font-semibold text-[#0369A1] dark:text-sky-400 hover:underline transition-colors"
                     onClick={onClose}
                   >
-                    Contact your admin &rarr;
+                    Contact your admin
                   </Link>
                 </p>
               </div>

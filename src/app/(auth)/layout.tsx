@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export default function AuthLayout({
   children,
@@ -28,13 +29,10 @@ export default function AuthLayout({
         <Link
           href="/"
           id="auth-back-to-home"
-          className="absolute top-5 left-5 z-30 inline-flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 backdrop-blur px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-white transition-all duration-150 shadow-sm cursor-pointer"
+          className="absolute top-5 left-5 z-30 inline-flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-150 cursor-pointer"
           aria-label="Back to home page"
         >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          Back to home
+          <ArrowLeft size={20} />
         </Link>
 
         <div className="min-h-full flex flex-col items-center justify-center p-8">

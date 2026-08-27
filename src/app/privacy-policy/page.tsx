@@ -3,7 +3,7 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — BiltyOne',
+  title: 'Privacy Policy',
   description: 'How BiltyOne collects, uses, and protects your personal and operational data.',
   alternates: { canonical: 'https://biltyone.com/privacy-policy' },
 };

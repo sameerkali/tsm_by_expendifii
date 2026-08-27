@@ -23,111 +23,111 @@ const PAGE_SUMMARIES: Record<string, PageSummary> = {
   '/why-tsm': {
     title: 'Why BiltyOne? Built for Indian Transporters',
     description:
-      'See why transporters across NCR choose BiltyOne — a fast, modern GR management system built for how Indian transport businesses actually work.',
+      'See why transporters across NCR choose BiltyOne, a fast, modern GR management system built for how Indian transport businesses actually work.',
   },
   '/live-demo': {
-    title: 'Live Demo — BiltyOne',
+    title: 'Live Demo | BiltyOne',
     description:
       'Try BiltyOne as a guest, no signup required. Explore GR creation, customer management, and the dashboard with sample data.',
   },
   '/about': {
-    title: 'About — BiltyOne',
+    title: 'About | BiltyOne',
     description:
       'BiltyOne was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
   },
   '/contact': {
-    title: 'Contact — BiltyOne',
+    title: 'Contact | BiltyOne',
     description:
       "Get in touch with the BiltyOne team for demos, partnerships, or general inquiries. We respond within one business day.",
   },
   '/features': {
-    title: 'BiltyOne Features — Modern Transport Management System',
+    title: 'BiltyOne Features | Modern Transport Management System',
     description:
       'Explore the powerful features of BiltyOne: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
   },
   '/product': {
-    title: 'Product Overview — BiltyOne',
+    title: 'Product Overview | BiltyOne',
     description:
       'Take a detailed tour of BiltyOne: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
   },
   '/transport-management-system': {
-    title: 'What is a Transport Management System (TMS)? — BiltyOne',
+    title: 'What is a Transport Management System (TMS)? | BiltyOne',
     description:
       'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how BiltyOne provides a simplified digital GR creator for Indian transporters.',
   },
   '/logistics-glossary': {
-    title: 'Indian Logistics & Transport Glossary — BiltyOne',
+    title: 'Indian Logistics & Transport Glossary | BiltyOne',
     description:
       'A quick reference guide for Indian transport operators: definitions and explanations for GR, LR, POD, E-Way Bill, Consignor, Freight, Fleet, and TMS.',
   },
   '/digital-transport-management': {
-    title: 'Digital Transport Management vs Paper & Excel — BiltyOne',
+    title: 'Digital Transport Management vs Paper & Excel | BiltyOne',
     description:
       'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how BiltyOne automates lorry receipts securely.',
   },
   '/transport-business-automation': {
-    title: 'Transport Business Automation: Save Hours Daily — BiltyOne',
+    title: 'Transport Business Automation: Save Hours Daily | BiltyOne',
     description:
       'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with BiltyOne.',
   },
   '/gr-management': {
-    title: 'Goods Receipt (GR) Management & 3-Copy Print — BiltyOne',
+    title: 'Goods Receipt (GR) Management & 3-Copy Print | BiltyOne',
     description:
       'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. BiltyOne auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
   },
   '/lorry-receipt-software': {
-    title: 'Lorry Receipt (LR) Software for Indian Transporters — BiltyOne',
+    title: 'Lorry Receipt (LR) Software for Indian Transporters | BiltyOne',
     description:
       'Generate clean, professional, and compliant Lorry Receipts (LR/GR) digitally. Free software for Indian transport owners to customise layouts and print 3 copies.',
   },
   '/security': {
-    title: 'Security — BiltyOne',
+    title: 'Security | BiltyOne',
     description:
       'Learn how BiltyOne keeps your GR records and transport data safe with encryption, access controls, and responsible data practices.',
   },
   '/developers': {
-    title: 'Developer Resources — BiltyOne',
+    title: 'Developer Resources | BiltyOne',
     description:
       'Developer and integration resources for BiltyOne: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
   },
   '/privacy-policy': {
-    title: 'Privacy Policy — BiltyOne',
+    title: 'Privacy Policy | BiltyOne',
     description: 'How BiltyOne collects, uses, and protects your personal and operational data.',
   },
   '/terms-and-conditions': {
-    title: 'Terms & Conditions — BiltyOne',
+    title: 'Terms & Conditions | BiltyOne',
     description: 'The terms governing your use of BiltyOne.',
   },
   '/user-agreement': {
-    title: 'User Agreement — BiltyOne',
+    title: 'User Agreement | BiltyOne',
     description:
       'The BiltyOne User Agreement governing roles, responsibilities, and acceptable conduct on the platform.',
   },
   '/cookie-policy': {
-    title: 'Cookie Policy — BiltyOne',
+    title: 'Cookie Policy | BiltyOne',
     description: 'How BiltyOne uses cookies for session management and analytics on our platform.',
   },
 };
 
-const HOMEPAGE_MARKDOWN = `# BiltyOne — Transport Management System
+const HOMEPAGE_MARKDOWN = `# BiltyOne: Transport Management System
 
-> Stop managing transport manually. BiltyOne is the modern transport management system built for Indian transporters — create, print, and manage lorry receipts (GR/LR) in minutes. No paper, no spreadsheets.
+> Stop managing transport manually. BiltyOne is the modern transport management system built for Indian transporters: create, print, and manage lorry receipts (GR/LR) in minutes. No paper, no spreadsheets.
 
 ## What BiltyOne does
 
-- **GR Creation in Seconds** — create a complete lorry receipt with all required fields in under a minute.
-- **Print-Ready GR (3 Copies)** — generate the Driver, Consigner, and Consignee copies in one click.
-- **Customisable GR Layout** — show more or fewer fields; every transporter's format is different.
-- **Batch GR Management** — update, track, and organise multiple GRs at once.
-- **Customer Management** — maintain a customer list with auto-fill for consigner/consignee details.
-- **Analytics Dashboard** — visibility into trips, volumes, and operations.
+- **GR Creation in Seconds:** create a complete lorry receipt with all required fields in under a minute.
+- **Print-Ready GR (3 Copies):** generate the Driver, Consigner, and Consignee copies in one click.
+- **Customisable GR Layout:** show more or fewer fields; every transporter's format is different.
+- **Batch GR Management:** update, track, and organise multiple GRs at once.
+- **Customer Management:** maintain a customer list with auto-fill for consigner/consignee details.
+- **Analytics Dashboard:** visibility into trips, volumes, and operations.
 
 ## How it works (4 steps)
 
-1. **Create your account** — sign up in under 60 seconds, no credit card required.
-2. **Add your customers** — enter consigners and consignees once; BiltyOne remembers them.
-3. **Create a GR in minutes** — select the customer, fill in shipment details, submit. All three copies generate instantly.
-4. **Print, track & analyse** — print immediately or find any GR later by name, date, or number.
+1. **Create your account:** sign up in under 60 seconds, no credit card required.
+2. **Add your customers:** enter consigners and consignees once; BiltyOne remembers them.
+3. **Create a GR in minutes:** select the customer, fill in shipment details, submit. All three copies generate instantly.
+4. **Print, track & analyse:** print immediately or find any GR later by name, date, or number.
 
 ## Manual vs. BiltyOne
 
@@ -174,7 +174,7 @@ Full page (HTML): ${SITE_URL}${pathname}
 `;
 }
 
-export const NOT_FOUND_MARKDOWN = `# 404 — Page not found
+export const NOT_FOUND_MARKDOWN = `# 404: Page not found
 
 > This path does not exist on BiltyOne. It was never assigned, or it has been removed.
 

@@ -174,7 +174,7 @@ export function CookieSettingsSection() {
         </div>
 
         {hasChanges && !isSaving && (
-          <p className="text-xs text-amber-600 dark:text-amber-400">Unsaved changes — click Save to apply.</p>
+          <p className="text-xs text-amber-600 dark:text-amber-400">Unsaved changes: click Save to apply.</p>
         )}
 
         <p className="text-xs text-slate-400 dark:text-slate-500">

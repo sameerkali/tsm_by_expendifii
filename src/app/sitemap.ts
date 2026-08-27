@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/contact', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/features', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/product', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/faq', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/transport-management-system', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/logistics-glossary', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/digital-transport-management', changeFrequency: 'monthly', priority: 0.8 },

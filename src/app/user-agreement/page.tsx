@@ -3,7 +3,7 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'User Agreement — BiltyOne',
+  title: 'User Agreement',
   description: 'The BiltyOne User Agreement governing roles, responsibilities, and acceptable conduct on the platform.',
   alternates: { canonical: 'https://biltyone.com/user-agreement' },
 };
@@ -28,21 +28,21 @@ export default function UserAgreementPage() {
         <section className="py-16 sm:py-20 bg-white dark:bg-slate-950">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 prose prose-slate dark:prose-invert prose-sm sm:prose-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             <h2>1. Purpose</h2>
-            <p>This agreement covers how individual users — across different roles — are expected to use BiltyOne responsibly.</p>
+            <p>This agreement covers how individual users, across different roles, are expected to use BiltyOne responsibly.</p>
 
             <h2>2. Roles &amp; Permissions</h2>
             <p>BiltyOne uses a role-based access model. Your role determines what data you can view and what actions you can take:</p>
             <ul>
-              <li><strong>Admin:</strong> Full access — create GRs, manage customers, manage users, access all records.</li>
+              <li><strong>Admin:</strong> Full access: create GRs, manage customers, manage users, access all records.</li>
               <li><strong>Dispatcher:</strong> Create and manage GRs, view customer records.</li>
-              <li><strong>Viewer:</strong> Read-only access to records — no creation or editing.</li>
+              <li><strong>Viewer:</strong> Read-only access to records, with no creation or editing.</li>
             </ul>
 
             <h2>3. Your Credentials</h2>
             <p>You are responsible for your login credentials. Do not share your password. If you suspect unauthorised access, contact us immediately at <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.</p>
 
             <h2>4. Accurate Data</h2>
-            <p>You agree to submit accurate and honest data. BiltyOne is a record-keeping system — incorrect data defeats its purpose and may create legal or operational problems for your business.</p>
+            <p>You agree to submit accurate and honest data. BiltyOne is a record-keeping system, and incorrect data defeats its purpose and may create legal or operational problems for your business.</p>
 
             <h2>5. Prohibited Conduct</h2>
             <p>You must not attempt to access other accounts, inject malicious code, scrape data, or use BiltyOne in any way that could harm other users or the platform.</p>
@@ -53,11 +53,11 @@ export default function UserAgreementPage() {
             <h2>7. Suspension</h2>
             <p>We reserve the right to suspend accounts that violate this agreement. If you believe a suspension was made in error, contact us at <a href="mailto:work.sameerfaridi@gmail.com">work.sameerfaridi@gmail.com</a>.</p>
 
-            <h2>8. Refer &amp; Earn</h2>
-            <p>If you refer a fellow transporter and they purchase a paid plan, both of you receive 15 extra days free. Referral rewards are applied automatically.</p>
+            <h2>8. Refer &amp; Earn (Optional)</h2>
+            <p>Participation in the referral programme is entirely optional. If you choose to refer a fellow transporter and they purchase a paid plan, both of you receive 15 extra days free. Referral rewards are applied automatically.</p>
 
             <h2>9. Feedback</h2>
-            <p>Any feedback or suggestions you share with us may be used to improve BiltyOne — we won&apos;t owe you compensation for it, but we will genuinely listen.</p>
+            <p>Any feedback or suggestions you share with us may be used to improve BiltyOne. We won&apos;t owe you compensation for it, but we will genuinely listen.</p>
 
             <h2>10. Updates</h2>
             <p>We&apos;ll notify you at least 14 days before making material changes to this agreement.</p>

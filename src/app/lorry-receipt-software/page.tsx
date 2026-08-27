@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export const metadata: Metadata = {
-  title: 'Lorry Receipt (LR) Software for Indian Transporters — BiltyOne',
+  title: 'Lorry Receipt (LR) Software for Indian Transporters',
   description:
     'Generate clean, professional, and compliant Lorry Receipts (LR/GR) digitally. Free software for Indian transport owners to customise layouts and print 3 copies.',
   alternates: { canonical: 'https://biltyone.com/lorry-receipt-software' },
@@ -74,9 +75,9 @@ export default function LorryReceiptSoftwarePage() {
                 <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Get Started Free
                 </Link>
-                <Link href="/live-demo" className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
+                <LiveDemoLink className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Launch Live Demo
-                </Link>
+                </LiveDemoLink>
               </div>
             </div>
 

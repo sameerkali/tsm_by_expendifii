@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export const metadata: Metadata = {
   title: 'Why BiltyOne? Built for Indian Transporters',
   description:
-    'See why transporters across NCR choose BiltyOne — a fast, modern GR management system built for how Indian transport businesses actually work.',
+    'See why transporters across NCR choose BiltyOne, a fast, modern GR management system built for how Indian transport businesses actually work.',
   alternates: { canonical: 'https://biltyone.com/why-tsm' },
 };
 
@@ -20,7 +21,7 @@ const differentiators = [
       </svg>
     ),
     title: 'Built for Indian transport, not adapted for it',
-    body: 'GR workflows, three-copy printing, Indian address formats — all native. Not an afterthought, not a workaround.',
+    body: 'GR workflows, three-copy printing, Indian address formats: all native. Not an afterthought, not a workaround.',
   },
   {
     icon: (
@@ -29,7 +30,7 @@ const differentiators = [
       </svg>
     ),
     title: 'Faster than any alternative',
-    body: 'Our competitors run on old PHP and WordPress. Pages load slowly, interfaces are cluttered, and basic tasks take too many clicks. BiltyOne is built on modern technology — it\'s noticeably faster from the first click.',
+    body: 'Our competitors run on old PHP and WordPress. Pages load slowly, interfaces are cluttered, and basic tasks take too many clicks. BiltyOne is built on modern technology, so it\'s noticeably faster from the first click.',
   },
   {
     icon: (
@@ -38,7 +39,7 @@ const differentiators = [
       </svg>
     ),
     title: 'Customise your GR the way you want',
-    body: 'Different transporters show different fields. Some want less, some want more. In BiltyOne, you control exactly what appears on your printed GR — no developer needed.',
+    body: 'Different transporters show different fields. Some want less, some want more. In BiltyOne, you control exactly what appears on your printed GR, with no developer needed.',
   },
   {
     icon: (
@@ -47,7 +48,7 @@ const differentiators = [
       </svg>
     ),
     title: 'No more paper records that disappear',
-    body: 'A paper GR can be lost to water, fire, rats, or just misplacement. In BiltyOne, every GR is stored permanently and searchable by name, number, or date — always.',
+    body: 'A paper GR can be lost to water, fire, rats, or just misplacement. In BiltyOne, every GR is stored permanently and searchable by name, number, or date, always.',
   },
   {
     icon: (
@@ -56,7 +57,7 @@ const differentiators = [
       </svg>
     ),
     title: 'Replacing a data-entry person shouldn\'t cost more than one',
-    body: 'Many transporters hire someone just to manage GR paperwork. BiltyOne eliminates that cost — one person can manage everything in the time it used to take three.',
+    body: 'Many transporters hire someone just to manage GR paperwork. BiltyOne eliminates that cost: one person can manage everything in the time it used to take three.',
   },
   {
     icon: (
@@ -70,7 +71,7 @@ const differentiators = [
 ];
 
 const vsComparison = [
-  { label: 'Page load speed', tsm: 'Fast — modern tech stack', generic: 'Slow — PHP/WordPress' },
+  { label: 'Page load speed', tsm: 'Fast, modern tech stack', generic: 'Slow, PHP/WordPress' },
   { label: 'UI/UX quality', tsm: 'Clean, simple, modern', generic: 'Cluttered, outdated' },
   { label: 'GR creation time', tsm: 'Under 1 minute', generic: '5–10 minutes' },
   { label: 'GR print (3 copies)', tsm: '✓ One click', generic: '✗ Manual setup' },
@@ -84,9 +85,9 @@ const vsComparison = [
 
 const proofPoints = [
   { value: '2–24H', label: 'From sign-up to your first printed GR' },
-  { value: '3 Copies', label: 'Auto-generated per GR — Driver, Consigner, Consignee' },
+  { value: '3 Copies', label: 'Auto-generated per GR: Driver, Consigner, Consignee' },
   { value: '20+ Fields', label: 'Supported per GR, all customisable' },
-  { value: '₹0', label: 'Cost right now — completely free to start' },
+  { value: '₹0', label: 'Cost right now: completely free to start' },
 ];
 
 export default function WhyTsmPage() {
@@ -125,13 +126,12 @@ export default function WhyTsmPage() {
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
-              <Link
-                href="/live-demo"
+              <LiveDemoLink
                 id="why-tsm-cta-demo"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-7 py-4 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-[#0369A1] dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
               >
-                Try live demo →
-              </Link>
+                Try live demo
+              </LiveDemoLink>
             </div>
           </div>
         </section>
@@ -156,11 +156,11 @@ export default function WhyTsmPage() {
               <h2 id="tldr-heading" className="sr-only">Key Takeaways about BiltyOne</h2>
               <ul className="space-y-3">
                 {[
-                  'BiltyOne cuts GR creation time from 15 minutes to under 2 minutes — 3 copies auto-generated.',
+                  'BiltyOne cuts GR creation time from 15 minutes to under 2 minutes, with 3 copies auto-generated.',
                   'No paper, no Excel, no hired data-entry staff. One platform handles your entire GR workflow.',
                   'Free to start right now. Up and running in 2–24 hours. Designed for Indian transporters of all sizes.',
-                  'Your data is stored securely — no more lost records from rain, rats, or fire.',
-                  'Customisable GR layout, batch management, analytics dashboard, and smart billing — everything a transporter needs.',
+                  'Your data is stored securely, so there are no more lost records from rain, rats, or fire.',
+                  'Customisable GR layout, batch management, analytics dashboard, and smart billing: everything a transporter needs.',
                 ].map(function (point) {
                   return (
                     <li key={point} className="flex items-start gap-3 text-sm sm:text-base text-slate-700 dark:text-slate-300">
@@ -211,7 +211,7 @@ export default function WhyTsmPage() {
                 BiltyOne vs Old Software in Market
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-                The existing transport software in India is outdated — built on old technology, with interfaces that feel like they&apos;re from 2008. Here&apos;s how BiltyOne compares.
+                The existing transport software in India is outdated, built on old technology, with interfaces that feel like they&apos;re from 2008. Here&apos;s how BiltyOne compares.
               </p>
             </div>
 
@@ -247,10 +247,10 @@ export default function WhyTsmPage() {
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
             </svg>
             <blockquote className="text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-white leading-snug mb-8">
-              &ldquo;We scaled from 20 vehicles to 80 without hiring extra admin staff. BiltyOne handled all the complexity   transparently.&rdquo;
+              &ldquo;We scaled from 20 vehicles to 80 without hiring extra admin staff. BiltyOne handled all the complexity, transparently.&rdquo;
             </blockquote>
             <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Arun K., CEO   KPL Transport
+              Arun K., CEO, KPL Transport
             </p>
           </div>
         </section>
@@ -262,29 +262,9 @@ export default function WhyTsmPage() {
             <h2 id="conclusion-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight mb-6">
               The Verdict: Go Digital, Stay Simple
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed mb-8">
-              BiltyOne is the transport management system built specifically for Indian transporters who are tired of paper GRs, lost records, and slow manual processes. It replaces 15-minute paperwork with a 2-minute digital workflow — 3 copies auto-generated, permanent digital records, customisable layouts, and a simple dashboard that gives you real visibility into your operations. <strong className="text-[#0F172A] dark:text-white">Best of all, it is free to start and takes just 2–24 hours to set up.</strong>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              BiltyOne is the transport management system built specifically for Indian transporters who are tired of paper GRs, lost records, and slow manual processes. It replaces 15-minute paperwork with a 2-minute digital workflow: 3 copies auto-generated, permanent digital records, customisable layouts, and a simple dashboard that gives you real visibility into your operations. <strong className="text-[#0F172A] dark:text-white">Best of all, it is free to start and takes just 2–24 hours to set up.</strong>
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <strong className="text-[#0369A1] dark:text-sky-400">Pricing:</strong> Free right now
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <strong className="text-[#0369A1] dark:text-sky-400">Setup:</strong> 2–24 hours
-              </span>
-              <span className="flex items-center gap-1.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 13L9 17L19 7" stroke="#0369A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <strong className="text-[#0369A1] dark:text-sky-400">Support:</strong> Direct help from the team
-              </span>
-            </div>
           </div>
         </section>
 
@@ -295,11 +275,10 @@ export default function WhyTsmPage() {
               Ready to see it for yourself?
             </h2>
             <p className="text-slate-400 text-lg mb-10 leading-relaxed">
-              No sales calls required. Jump straight into a live demo   no account, no credit card.
+              No sales calls required. Jump straight into a live demo: no account, no credit card.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/live-demo"
+              <LiveDemoLink
                 id="why-tsm-demo-cta"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-7 py-4 text-sm font-semibold text-white shadow-lg hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
               >
@@ -307,17 +286,17 @@ export default function WhyTsmPage() {
                   <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" fill="currentColor" />
                 </svg>
                 Launch live demo
-              </Link>
+              </LiveDemoLink>
               <Link
                 href="/register"
                 id="why-tsm-signup-cta"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-7 py-4 text-sm font-semibold text-slate-300 hover:text-white hover:border-slate-400 transition-colors duration-200 cursor-pointer"
               >
-                Create your account →
+                Create your account
               </Link>
             </div>
             <p className="mt-6 text-sm text-slate-500">
-              Have questions? <Link href="/contact" className="text-sky-400 hover:underline cursor-pointer">Talk to our team →</Link>
+              Have questions? <Link href="/contact" className="text-sky-400 hover:underline cursor-pointer">Talk to our team</Link>
             </p>
           </div>
         </section>

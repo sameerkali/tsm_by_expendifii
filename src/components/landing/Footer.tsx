@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -17,15 +18,12 @@ export default function Footer() {
               Replace manual workflows with an intelligent transport management dashboard built for modern logistics teams.
             </p>
             {/* Live demo call-out */}
-            <Link
-              href="/live-demo"
-              className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors duration-150 cursor-pointer"
-            >
+            <LiveDemoLink className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors duration-150 cursor-pointer">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" fill="currentColor" />
               </svg>
-              Try live demo no signup
-            </Link>
+              Try live demo, no signup
+            </LiveDemoLink>
           </div>
 
           {/* Product */}
@@ -36,8 +34,6 @@ export default function Footer() {
                 { label: 'Features', href: '/features' },
                 { label: 'Overview', href: '/product' },
                 { label: 'Why Choose BiltyOne', href: '/why-tsm' },
-                { label: 'Live Demo', href: '/live-demo' },
-                { label: 'Sign In', href: '/login' },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors duration-150 cursor-pointer">
@@ -45,6 +41,16 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <LiveDemoLink className="text-sm text-slate-400 hover:text-white transition-colors duration-150 cursor-pointer">
+                  Live Demo
+                </LiveDemoLink>
+              </li>
+              <li>
+                <Link href="/login" className="text-sm text-slate-400 hover:text-white transition-colors duration-150 cursor-pointer">
+                  Sign In
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -75,6 +81,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: 'About', href: '/about' },
+                { label: 'FAQ', href: '/faq' },
                 { label: 'Contact', href: '/contact' },
                 { label: 'Security', href: '/security' },
                 { label: 'Developers', href: '/developers' },

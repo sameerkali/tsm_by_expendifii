@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import LandingThemeToggle from '@/components/landing/LandingThemeToggle';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export default function Navbar() {
   return (
@@ -19,7 +20,20 @@ export default function Navbar() {
             {[
               { label: 'Features', href: '/features' },
               { label: 'Why Choose BiltyOne', href: '/why-tsm' },
-              { label: 'Live Demo', href: '/live-demo' },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-150 cursor-pointer"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <LiveDemoLink className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-150 cursor-pointer">
+              Live Demo
+            </LiveDemoLink>
+            {[
+              { label: 'FAQ', href: '/faq' },
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },
             ].map((item) => (

@@ -189,7 +189,7 @@ function AddressBlock({ register, errors, setValue, watch }: AddressBlockProps) 
         <div className="flex items-center justify-between px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-sm">
           <span className="text-xs text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
             <Pencil size={12} />
-            Manual address entry — fill all fields below
+            Manual address entry: fill all fields below
           </span>
           <button
             type="button"
@@ -323,7 +323,7 @@ function AddressBlock({ register, errors, setValue, watch }: AddressBlockProps) 
                 onClick={handleEnterManually}
                 className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium transition-colors"
               >
-                Fill manually instead →
+                Fill manually instead
               </button>
             </div>
           )}

@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BiltyOne — Transport OS",
+    title: "BiltyOne: Transport OS",
     description:
       "Create, print, and manage lorry receipts in minutes. Built for Indian transporters.",
     url: "https://biltyone.com",
@@ -88,9 +88,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BiltyOne — Transport Management System for Indian Logistics",
+    title: "BiltyOne: Transport Management System for Indian Logistics",
     description:
-      "Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters — no paper, no spreadsheets.",
+      "Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters, with no paper and no spreadsheets.",
     images: ["/og-image.png"],
   },
   other: {

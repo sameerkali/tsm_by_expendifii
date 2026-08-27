@@ -10,6 +10,7 @@ import { useFeatureFlags } from '@/hooks/useFeatureFlags';
 import { SIDEBAR_NAV_CONFIG } from '@/config/feature-flags';
 import { LogoutModal } from './LogoutModal';
 import { openActivationModal } from '@/lib/activation-modal';
+import { isGuestModeClient } from '@/lib/demo/guest';
 import { Coupon } from '@/types/session';
 
 interface SidebarProps {
@@ -32,6 +33,7 @@ export function Sidebar({
   const { isPlanActive, totalDaysLeft, progressPercentage } = usePlanStatus(coupons);
   const { isEnabled } = useFeatureFlags();
   const navItems = SIDEBAR_NAV_CONFIG.filter((item) => isEnabled(item.key));
+  const isGuest = isGuestModeClient();
 
   return (
     <aside className={cn(
@@ -91,7 +93,7 @@ export function Sidebar({
 
       {/* User card + Sign Out */}
       <div className="p-3 border-t border-slate-100 dark:border-slate-800 space-y-1 shrink-0">
-        {showLabel && (
+        {showLabel && !isGuest && (
           <div>
             {(() => {
               if (!isPlanActive) return (
@@ -103,7 +105,7 @@ export function Sidebar({
                       onClick={onActivateClick ?? openActivationModal}
                       className="text-[10px] font-bold text-[#0369A1] dark:text-sky-400 hover:underline text-center cursor-pointer"
                     >
-                      Activate Account →
+                      Activate Account
                     </button>
                     <Link href="/contact" className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:underline text-center">Contact Admin</Link>
                   </div>

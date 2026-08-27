@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { CustomersClient } from './CustomersClient';
 
 export const metadata: Metadata = {
-  title: 'Customers | TMS',
+  title: 'Customers',
   description: 'Manage your customer registry',
 };
 

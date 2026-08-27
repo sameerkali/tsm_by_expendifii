@@ -4,7 +4,7 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Digital Transport Management vs Paper & Excel — BiltyOne',
+  title: 'Digital Transport Management vs Paper & Excel',
   description:
     'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how BiltyOne automates lorry receipts securely.',
   alternates: { canonical: 'https://biltyone.com/digital-transport-management' },

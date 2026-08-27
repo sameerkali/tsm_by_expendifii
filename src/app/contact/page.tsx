@@ -159,7 +159,7 @@ export default function ContactPage() {
                   Existing customers can access priority support directly from within their BiltyOne dashboard.
                 </p>
                 <Link href="/login" className="text-sm font-semibold text-[#0369A1] dark:text-sky-400 hover:underline cursor-pointer">
-                  Sign in to your account &rarr;
+                  Sign in to your account
                 </Link>
               </div>
             </aside>

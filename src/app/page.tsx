@@ -3,12 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
-import FAQSection from '@/components/landing/FAQSection';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export const metadata: Metadata = {
   title: 'Bilty Transport Management System',
   description:
-    'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
+    'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters, with no paper and no spreadsheets.',
   keywords: [
     'transport management system',
     'transport management software',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'BiltyOne' }],
   alternates: { canonical: 'https://biltyone.com' },
   openGraph: {
-    title: 'BiltyOne — Transport OS',
+    title: 'BiltyOne: Transport OS',
     description:
       'Create, print, and manage lorry receipts in minutes. Built for Indian transporters.',
     url: 'https://biltyone.com',
@@ -43,59 +43,12 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title:
-      'BiltyOne — Transport Management System for Indian Logistics',
+      'BiltyOne: Transport Management System for Indian Logistics',
     description:
-      'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters — no paper, no spreadsheets.',
+      'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters, with no paper and no spreadsheets.',
     images: ['/og-image.png'],
   },
 };
-
-const faqs = [
-  {
-    q: 'How quickly can we get started?',
-    a: 'Most transporters are up and running within 2 to 24 hours. We help you set up your account, add your customers, and print your first GR together.',
-  },
-  {
-    q: "We've been doing this on paper for years. Is it hard to switch?",
-    a: 'Not at all. BiltyOne was designed for transporters, not software people. If you can fill a paper GR, you can use BiltyOne. Most users are comfortable within a day.',
-  },
-  {
-    q: 'Can we customise what appears on the printed GR?',
-    a: 'Yes. You choose which fields appear on print. Every transport business is different BiltyOne works around your format, not a fixed template.',
-  },
-  {
-    q: 'What happens to our data if something goes wrong?',
-    a: 'Your data is stored securely on our servers not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
-  },
-  {
-    q: 'Is BiltyOne free?',
-    a: 'Yes BiltyOne is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service but we\'ll always give you fair notice before anything changes.',
-  },
-  {
-    q: 'Do you have a referral programme?',
-    a: 'Yes. Refer a fellow transporter and if they purchase a plan, both of you get 15 extra days free. No catch.',
-  },
-  {
-    q: 'What is a Transport Management System (TMS)?',
-    a: 'A Transport Management System (TMS) is software that helps logistics companies plan, execute, and optimise the movement of goods. BiltyOne focuses specifically on GR creation, printing, and record-keeping for Indian transporters — no complex modules you don\'t need.',
-  },
-  {
-    q: 'Is BiltyOne suitable for small fleets with just 1-2 trucks?',
-    a: 'Absolutely. BiltyOne is designed for transporters of all sizes. Whether you own one truck or fifty, the GR creation, customer management, and analytics features work exactly the same. Small fleet owners actually benefit the most because BiltyOne eliminates the need to hire a dedicated person just for paperwork.',
-  },
-   {
-    q: 'What happens when the free period ends?',
-    a: 'We will notify you well in advance. Early adopters may get extended access or special pricing. No surprises.',
-  },
-   {
-    q: 'Can I export my data if I leave?',
-    a: 'Yes. You can export all your GRs and customer data anytime. Your data belongs to you.'
-  },
-     {
-    q: 'Do you offer on-premise deployment?',
-    a: 'Not currently. BiltyOne is cloud-based, which means you can access it from anywhere with an internet connection.'
-  },
-];
 
 export const jsonLd = {
   '@context': 'https://schema.org',
@@ -168,17 +121,6 @@ export const jsonLd = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biltyone.com' },
       ],
-    },
-    {
-      '@type': 'FAQPage',
-      '@id': 'https://biltyone.com/#faq',
-      mainEntity: faqs.map(function (f) {
-        return {
-          '@type': 'Question',
-          name: f.q,
-          acceptedAnswer: { '@type': 'Answer', text: f.a },
-        };
-      }),
     },
     {
       '@type': 'Person',
@@ -283,105 +225,6 @@ const testimonials = [
   },
 ];
 
-const seoKeywords = [
-  {
-    category: "Primary Commercial Keywords",
-    keywords: ["transport management system", "transport management software", "transport software", "transport software india", "transport ERP", "transport ERP software", "logistics software", "logistics management software", "logistics ERP", "fleet management software", "fleet management system", "freight management software", "trucking software", "trucking management software", "road transport software", "cargo management software", "shipment management software", "dispatch management software", "delivery management software"]
-  },
-  {
-    category: "GR / LR Keywords",
-    keywords: ["GR software", "GR management software", "GR creation software", "GR generator", "online GR software", "digital GR software", "transport GR software", "lorry receipt software", "LR software", "LR management software", "LR generation software", "online LR software", "LR tracking software", "digital LR software", "goods receipt software", "transport receipt software", "consignment note software", "e-GR software", "electronic GR software"]
-  },
-  {
-    category: "Transport Company Keywords",
-    keywords: ["software for transporters", "software for transport company", "software for transport business", "software for logistics company", "software for fleet owners", "software for truck operators", "transport business software", "transport office software", "transport booking software", "transport agency software", "truck owner software", "fleet owner software"]
-  },
-  {
-    category: "Logistics Keywords",
-    keywords: ["logistics software", "logistics management software", "logistics automation", "digital logistics platform", "logistics ERP software", "logistics solution", "logistics solutions india", "logistics tracking software", "logistics business software", "warehouse logistics software", "road logistics software", "freight logistics software", "supply chain software", "supply chain management software"]
-  },
-  {
-    category: "Fleet Management",
-    keywords: ["fleet software", "fleet management system", "fleet management software", "vehicle management software", "truck management software", "fleet tracking software", "vehicle tracking software", "fleet operations software", "truck fleet software", "fleet maintenance software", "fleet scheduling software", "driver management software"]
-  },
-  {
-    category: "Dispatch & Booking",
-    keywords: ["dispatch software", "dispatch management software", "truck dispatch software", "transport dispatch software", "load dispatch software", "booking management software", "transport booking software", "trip booking software", "load booking software", "vehicle dispatch software"]
-  },
-  {
-    category: "Trip Management",
-    keywords: ["trip management software", "trip sheet software", "trip tracking software", "trip planning software", "trip expense software", "trip settlement software", "trip management system"]
-  },
-  {
-    category: "Billing & Accounting",
-    keywords: ["transport billing software", "freight billing software", "invoice software for transporters", "transport invoice software", "GST billing software transport", "transport accounting software", "truck accounting software"]
-  },
-  {
-    category: "Freight",
-    keywords: ["freight software", "freight management software", "freight booking software", "freight tracking software", "freight ERP", "road freight software", "freight forwarding software"]
-  },
-  {
-    category: "Truck",
-    keywords: ["truck management software", "truck booking software", "truck dispatch software", "truck tracking software", "truck fleet management", "truck operator software", "truck logistics software", "truck ERP"]
-  },
-  {
-    category: "Delivery",
-    keywords: ["delivery management software", "delivery tracking software", "delivery planning software", "proof of delivery software", "POD software", "last mile delivery software"]
-  },
-  {
-    category: "Driver Management",
-    keywords: ["driver management software", "driver attendance software", "driver expense software", "driver payroll software", "driver tracking software"]
-  },
-  {
-    category: "Expense Management",
-    keywords: ["transport expense software", "fuel management software", "diesel management software", "toll management software", "FASTag management software", "vehicle expense software"]
-  },
-  {
-    category: "Vehicle Management",
-    keywords: ["vehicle management software", "vehicle maintenance software", "vehicle tracking software", "RC management software", "insurance tracking software", "permit management software"]
-  },
-  {
-    category: "Tracking",
-    keywords: ["shipment tracking software", "truck tracking software", "consignment tracking software", "load tracking software", "GPS fleet software"]
-  },
-  {
-    category: "Automation",
-    keywords: ["transport automation software", "logistics automation software", "digital transport management", "paperless transport software", "transport workflow automation", "transport digitization"]
-  },
-  {
-    category: "Business",
-    keywords: ["transport business automation", "transport office management", "transport company software", "transport operations software", "transport workflow software", "transport CRM"]
-  },
-  {
-    category: "Indian Search Keywords",
-    keywords: ["GR banane ka software", "LR software India", "lorry receipt software india", "transport software india", "transport management software india", "best transport software india", "best logistics software india", "truck management software india", "transport ERP india"]
-  },
-  {
-    category: "Feature-Based Keywords",
-    keywords: ["cloud transport software", "online transport software", "mobile transport software", "transport software with GST", "transport software with invoice", "transport software with GPS", "transport software with WhatsApp", "transport software with SMS", "transport software with reports", "transport software with analytics"]
-  },
-  {
-    category: "Problem-Based Keywords",
-    keywords: ["replace excel for transport business", "paperless GR software", "digital lorry receipt", "transport office automation", "manage transport business online", "transport management app", "transport business digitization"]
-  },
-  {
-    category: "Comparison Keywords",
-    keywords: ["best transport management software", "best logistics software", "best fleet management software", "best transport ERP", "top transport software india", "transport ERP vs excel", "transport software comparison"]
-  },
-  {
-    category: "Local SEO Keywords",
-    keywords: ["transport software Delhi", "transport software Mumbai", "transport software Bangalore", "transport software Chennai", "transport software Hyderabad", "transport software Pune", "transport software Ahmedabad", "transport software Kolkata"]
-  },
-  {
-    category: "High-Intent Long-Tail Keywords",
-    keywords: ["best transport management software for transporters", "best GR software for transport company", "software to generate lorry receipt", "digital GR software for transport business", "cloud transport management software", "GST transport billing software", "trip management software for transporters", "fleet management software for truck owners", "transport office management software", "transport ERP for logistics company", "online transport booking software", "paperless transport management software", "transport software with trip tracking", "transport software with driver management", "transport software with billing", "transport software with GR creation"]
-  },
-  {
-    category: "Dedicated SEO Landing Pages",
-    keywords: ["Transport Management Software", "GR Software", "Lorry Receipt Software", "LR Software", "Logistics Management Software", "Fleet Management Software", "Transport ERP", "Freight Management Software", "Trip Management Software", "Transport Billing Software", "Driver Management Software", "Vehicle Management Software", "Dispatch Management Software", "Transport CRM", "Truck Management Software", "Logistics Software India", "Transport Software India", "Digital Transport Management", "Transport Business Automation", "Paperless Transport Office"]
-  }
-];
-
 export default function HomePage() {
   return (
     <>
@@ -441,7 +284,7 @@ export default function HomePage() {
                 id="hero-cta-secondary"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-sky-700 dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
               >
-                See how it works →
+                See how it works
               </Link>
             </div>
 
@@ -457,24 +300,13 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* Key-value stats */}
-            <p className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">
-              <strong className="text-sky-700 dark:text-sky-400">Platform:</strong> BiltyOne &middot;{' '}
-              <strong className="text-sky-700 dark:text-sky-400">Type:</strong> Transport Management System &middot;{' '}
-              <strong className="text-sky-700 dark:text-sky-400">Users:</strong> Transporters across India &middot;{' '}
-              <strong className="text-sky-700 dark:text-sky-400">Setup:</strong> 2–24 hours
-            </p>
-
             {/* Live Demo nudge */}
-            <div className="mt-5 flex flex-col items-center gap-2">
-              <p className="text-sm text-slate-500 dark:text-slate-400">Not ready to sign up?</p>
-              <Link
-                href="/live-demo"
-                className="inline-flex items-center gap-1.5 rounded-full border border-sky-700/30 dark:border-sky-500/30 bg-sky-700/5 dark:bg-sky-500/10 px-4 py-1.5 text-sm font-semibold text-sky-700 dark:text-sky-400 hover:bg-sky-700/10 dark:hover:bg-sky-500/20 transition-colors cursor-pointer"
-              >
-                Try the live demo no account needed →
-              </Link>
-            </div>
+            <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
+              Not ready to sign up?{' '}
+              <LiveDemoLink className="font-semibold text-sky-700 dark:text-sky-400 hover:underline cursor-pointer">
+                Try the live demo, no account needed.
+              </LiveDemoLink>
+            </p>
 
             {/* Product preview */}
             <div className="relative mt-14 sm:mt-20">
@@ -526,7 +358,7 @@ export default function HomePage() {
 
             <div className="mt-12 text-center">
               <Link href="/features" className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 dark:text-sky-400 hover:underline">
-                Explore all capabilities and layouts &rarr;
+                Explore all capabilities and layouts
               </Link>
             </div>
           </div>
@@ -546,9 +378,9 @@ export default function HomePage() {
             </div>
             <ol className="space-y-4">
               {[
-                { step: '1', title: 'Create Your Account', desc: 'Sign up in under 60 seconds. No credit card required. Add your company name, GST, and basic details — we guide you through it.' },
+                { step: '1', title: 'Create Your Account', desc: 'Sign up in under 60 seconds. No credit card required. Add your company name, GST, and basic details, and we guide you through it.' },
                 { step: '2', title: 'Add Your Customers', desc: 'Enter your regular consigners and consignees once. BiltyOne remembers them so you never retype the same information. Manage your customer list from a clean dashboard.' },
-                { step: '3', title: 'Create a GR in Minutes', desc: 'Select the customer, fill in shipment details (origin, destination, vehicle number, charges), and hit submit. BiltyOne generates all three copies — Driver, Consigner, Consignee — instantly.' },
+                { step: '3', title: 'Create a GR in Minutes', desc: 'Select the customer, fill in shipment details (origin, destination, vehicle number, charges), and hit submit. BiltyOne generates all three copies (Driver, Consigner, Consignee) instantly.' },
                 { step: '4', title: 'Print, Track & Analyse', desc: 'Print your GRs immediately or access them anytime from the dashboard. Search by name, date, or GR number. Get analytics on your trip volumes, active jobs, and billing status.' },
               ].map(function (s) {
                 return (
@@ -562,28 +394,6 @@ export default function HomePage() {
                 );
               })}
             </ol>
-            <div className="mt-10 text-center">
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                <strong className="text-sky-700 dark:text-sky-400">Setup time:</strong> 2–24 hours &middot;{' '}
-                <strong className="text-sky-700 dark:text-sky-400">Pricing:</strong> Free right now &middot;{' '}
-                <strong className="text-sky-700 dark:text-sky-400">No training needed:</strong> Most users get it in a day
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── PRODUCT TEASER ──────────────────────── */}
-        <section className="py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-              Explore BiltyOne Dashboard Cockpit
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
-              Track active transit orders, fleet status yards, and invoicing records inside a beautifully designed user interface.
-            </p>
-            <Link href="/product" className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3.5 text-sm font-semibold text-white shadow-md hover:bg-sky-600 dark:hover:bg-sky-500 transition-all duration-200 cursor-pointer">
-              View Product Dashboard &rarr;
-            </Link>
           </div>
         </section>
 
@@ -637,7 +447,7 @@ export default function HomePage() {
                 href="/why-tsm"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] transition-all"
               >
-                Why Transporters Pick BiltyOne &rarr;
+                Why Transporters Pick BiltyOne
               </Link>
             </div>
           </div>
@@ -693,115 +503,24 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── FAQ ─────────────────────────────────── */}
-        <FAQSection faqs={faqs} />
-
-        {/* ── FINAL CTA ───────────────────────────── */}
-        <section className="bg-[#0F172A] dark:bg-slate-900 py-16 sm:py-20 border-t border-slate-800" aria-labelledby="final-cta-heading">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h2 id="final-cta-heading" className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-4">
-              Digitise Your Transport Business Today
+        {/* ── FAQ TEASER ──────────────────────────── */}
+        <section className="py-16 bg-[#F8FAFC] dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800/80 text-center">
+          <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">
+              Still have questions?
             </h2>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/register"
-                id="bottom-cta-primary"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-sky-600 transition-colors cursor-pointer"
-              >
-                Sign Up Free
-              </Link>
-              <Link
-                href="/live-demo"
-                id="bottom-cta-demo"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-300 hover:border-white transition-colors cursor-pointer"
-              >
-                Try Free Demo
-              </Link>
-            </div>
-            <p className="text-xs text-slate-500 mt-6">
-              BiltyOne a NCR Transport Management System
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-5">
+              Read answers to the questions transporters ask us most often.
             </p>
+            <Link
+              href="/faq"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-sky-700 dark:hover:text-sky-400 transition-all cursor-pointer"
+            >
+              Visit our FAQ page
+            </Link>
           </div>
         </section>
 
-        {/* ── SEO LOGISTICS & TRANSPORT DIRECTORY ─── */}
-        <section className="bg-slate-50/50 dark:bg-slate-900/10 border-t border-slate-200/50 dark:border-slate-800/50 py-4 sm:py-6" aria-labelledby="directory-heading">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <details className="group">
-              <summary className="flex items-center justify-between cursor-pointer list-none marker:hidden text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors select-none">
-                <h2 id="directory-heading" className="flex items-center gap-2 text-xs font-bold normal-case tracking-wide">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-sky-700 dark:text-sky-400" aria-hidden="true">
-                    <path d="M19 11H5M19 11L12 4M19 11L12 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  Logistics & Transport Solutions Directory
-                </h2>
-                <span className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium normal-case group-open:hidden">
-                  Expand Index
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <span className="hidden group-open:flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium normal-case">
-                  Collapse Index
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M18 15L12 9L6 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </summary>
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
-                {seoKeywords.map((item) => (
-                  <div key={item.category} className="space-y-2">
-                    <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300">{item.category}</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {item.keywords.map((kw) => {
-                        let href = "";
-                        const kwLower = kw.toLowerCase();
-                        if (kwLower.includes("lorry receipt") || kwLower.includes("lr")) {
-                          href = "/lorry-receipt-software";
-                        } else if (kwLower.includes("gr")) {
-                          href = "/gr-management";
-                        } else if (kwLower.includes("tms") || kwLower.includes("transport management system") || kwLower.includes("transport management software")) {
-                          href = "/transport-management-system";
-                        } else if (kwLower.includes("automation")) {
-                          href = "/transport-business-automation";
-                        } else if (kwLower.includes("digital")) {
-                          href = "/digital-transport-management";
-                        } else if (kwLower.includes("glossary")) {
-                          href = "/logistics-glossary";
-                        } else if (kwLower.includes("feature")) {
-                          href = "/features";
-                        } else if (kwLower.includes("product") || kwLower.includes("dashboard")) {
-                          href = "/product";
-                        }
-
-                        if (href) {
-                          return (
-                            <Link
-                              key={kw}
-                              href={href}
-                              className="inline-block bg-sky-50/50 hover:bg-sky-50 dark:bg-slate-900/60 dark:hover:bg-slate-900 text-xs text-sky-700 dark:text-sky-400 px-2 py-0.5 rounded border border-sky-100/50 dark:border-slate-800/50 transition-colors"
-                            >
-                              {kw}
-                            </Link>
-                          );
-                        }
-
-                        return (
-                          <span
-                            key={kw}
-                            className="inline-block bg-slate-100 dark:bg-slate-900/45 text-xs text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded border border-slate-200/20 dark:border-slate-800/20"
-                          >
-                            {kw}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </details>
-          </div>
-        </section>
       </main>
 
       <Footer />

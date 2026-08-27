@@ -255,7 +255,7 @@ export default function PrintingPage() {
                         )}
                       </td>
                       <td className="px-8 py-5">
-                        <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">{row.gstin || '—'}</span>
+                        <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">{row.gstin || '-'}</span>
                       </td>
                       <td className="px-8 py-5 text-right">
                         <button className="h-8 px-4 bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400 rounded-lg text-xs font-black tracking-widest uppercase hover:bg-sky-100 dark:hover:bg-sky-500/20 transition-colors">

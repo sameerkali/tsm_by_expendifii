@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export const metadata: Metadata = {
-  title: 'Product Overview — BiltyOne',
+  title: 'Product Overview',
   description:
     'Take a detailed tour of BiltyOne: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
   alternates: { canonical: 'https://biltyone.com/product' },
@@ -25,10 +26,10 @@ export default function ProductPage() {
           <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0F172A] dark:text-white mb-6">
-              A complete cockpit for your <span className="text-[#0369A1] dark:text-sky-400">transport business</span>
+              Everything you need to run your <span className="text-[#0369A1] dark:text-sky-400">transport business</span>
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              BiltyOne provides a visual, real-time control panel to run your daily operations, track jobs, monitor vehicle statuses, and watch invoices without manual record books.
+              BiltyOne gives you one dashboard to run daily operations, track jobs, monitor vehicle status, and keep an eye on invoices, with no more digging through manual record books.
             </p>
           </div>
         </section>
@@ -134,16 +135,15 @@ export default function ProductPage() {
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
-              <Link
-                href="/live-demo"
+              <LiveDemoLink
                 id="product-cta-demo"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-7 py-4 text-sm font-semibold text-slate-300 hover:border-sky-500 hover:text-sky-400 transition-colors duration-200 cursor-pointer"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 3L19 12L5 21V3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" fill="currentColor" />
                 </svg>
-                See a live demo no signup
-              </Link>
+                See a live demo, no signup
+              </LiveDemoLink>
             </div>
             <div className="mt-12 pt-6 border-t border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-400">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>

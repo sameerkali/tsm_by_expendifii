@@ -4,7 +4,7 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Developer Resources — BiltyOne',
+  title: 'Developer Resources',
   description:
     'Developer and integration resources for BiltyOne: agent-readable docs (llms.txt), sitemap, and the current status of API and webhook access.',
   alternates: { canonical: 'https://biltyone.com/developers' },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const resources = [
   {
     title: 'llms.txt',
-    body: 'A machine-readable summary of BiltyOne for AI agents and assistants — what the product does, who it is for, and which pages to read.',
+    body: 'A machine-readable summary of BiltyOne for AI agents and assistants: what the product does, who it is for, and which pages to read.',
     href: '/llms.txt',
     linkLabel: 'View llms.txt',
   },
@@ -49,10 +49,10 @@ export default function DevelopersPage() {
           <div className="relative mx-auto max-w-2xl px-4 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-4">Developers</p>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-white mb-4">
-              Developer Resources — BiltyOne
+              Developer Resources
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              What&apos;s available today for integrating with, or building on top of, BiltyOne — and what isn&apos;t yet.
+              What&apos;s available today for integrating with, or building on top of, BiltyOne, and what isn&apos;t yet.
             </p>
           </div>
         </section>
@@ -66,7 +66,7 @@ export default function DevelopersPage() {
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
               BiltyOne is a web application, not an API product. There is currently no public REST or GraphQL
               API, OpenAPI specification, or webhook system for third-party developers to call on a user&apos;s behalf.
-              Every feature — GR creation, customer management, printing, analytics — is accessed through the web
+              Every feature (GR creation, customer management, printing, analytics) is accessed through the web
               dashboard at{' '}
               <a href="https://biltyone.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
                 biltyone.com
@@ -78,8 +78,8 @@ export default function DevelopersPage() {
               their own tools. If that&apos;s something your business needs, tell us at{' '}
               <a href="mailto:work.sameerfaridi@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">
                 work.sameerfaridi@gmail.com
-              </a>{' '}
-              — it directly shapes what we prioritise next.
+              </a>
+              . It directly shapes what we prioritise next.
             </p>
           </div>
         </section>
@@ -92,7 +92,7 @@ export default function DevelopersPage() {
             </h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl">
               BiltyOne does publish machine-readable resources for AI agents and search crawlers to read the site
-              accurately — these are live now.
+              accurately, and these are live now.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {resources.map((r) => (
@@ -103,7 +103,7 @@ export default function DevelopersPage() {
                   <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">{r.title}</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{r.body}</p>
                   <Link href={r.href} className="text-sm font-semibold text-[#0369A1] dark:text-sky-400 hover:underline">
-                    {r.linkLabel} &rarr;
+                    {r.linkLabel}
                   </Link>
                 </div>
               ))}

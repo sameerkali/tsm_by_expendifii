@@ -4,7 +4,7 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Indian Logistics & Transport Glossary — BiltyOne',
+  title: 'Indian Logistics & Transport Glossary',
   description:
     'A quick reference guide for Indian transport operators: definitions and explanations for GR, LR, POD, E-Way Bill, Consignor, Freight, Fleet, and TMS.',
   alternates: { canonical: 'https://biltyone.com/logistics-glossary' },
@@ -17,7 +17,7 @@ const glossaryTerms = [
   },
   {
     term: 'LR (Lorry Receipt)',
-    def: 'Same as GR — used interchangeably in the Indian transport industry. It outlines the freight, consignor, consignee, and vehicle information. In manual systems, it consists of a driver copy, consigner copy, and consignee copy.',
+    def: 'Same as GR, used interchangeably in the Indian transport industry. It outlines the freight, consignor, consignee, and vehicle information. In manual systems, it consists of a driver copy, consigner copy, and consignee copy.',
   },
   {
     term: 'POD (Proof of Delivery)',
@@ -25,7 +25,7 @@ const glossaryTerms = [
   },
   {
     term: 'E-way Bill',
-    def: 'An electronic document required under the GST regime for the movement of goods worth over ₹50,000 between states or within a state. BiltyOne allows you to save the E-way bill details alongside your GR record for seamless auditing.',
+    def: 'An electronic document required under the GST regime for the movement of goods worth over ₹50,000 between states or within a state. BiltyOne allows you to save the E-way bill details alongside your GR record, so audits are quick and painless.',
   },
   {
     term: 'Consignor (Consigner)',

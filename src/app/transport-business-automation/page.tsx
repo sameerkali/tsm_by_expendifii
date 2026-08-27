@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
 export const metadata: Metadata = {
-  title: 'Transport Business Automation: Save Hours Daily — BiltyOne',
+  title: 'Transport Business Automation: Save Hours Daily',
   description:
     'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with BiltyOne.',
   alternates: { canonical: 'https://biltyone.com/transport-business-automation' },
@@ -28,7 +29,7 @@ export default function AutomationOverviewPage() {
               Transport Business Automation
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              How modern logistics tools eliminate paperwork, save on admin staffing costs, and scale operations effortlessly.
+              How modern logistics tools eliminate paperwork, save on admin staffing costs, and let you scale operations without adding headcount.
             </p>
           </div>
         </section>
@@ -74,9 +75,9 @@ export default function AutomationOverviewPage() {
                 <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Get Started Free
                 </Link>
-                <Link href="/live-demo" className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
+                <LiveDemoLink className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
                   Try Live Demo
-                </Link>
+                </LiveDemoLink>
               </div>
             </div>
 

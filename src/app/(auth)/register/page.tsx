@@ -2,7 +2,7 @@ import { RegisterForm } from '@/components/auth/RegisterForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Register Company | BiltyOne',
+  title: 'Register Company',
   description: 'Create your company account for BiltyOne',
 };
 

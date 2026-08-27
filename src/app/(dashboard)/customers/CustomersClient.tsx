@@ -173,14 +173,14 @@ export function CustomersClient() {
                         )}
                       </td>
                       <td className="px-8 py-5">
-                        <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">{row.gstin || '—'}</span>
+                        <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">{row.gstin || '-'}</span>
                       </td>
                       <td className="px-8 py-5">
-                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">{row.pricingType || '—'}</span>
+                        <span className="text-xs font-bold text-slate-600 dark:text-slate-400">{row.pricingType || '-'}</span>
                       </td>
                       <td className="px-8 py-5">
                         <span className="text-sm font-black text-slate-900 dark:text-white">
-                            {row.defaultRate ? `₹ ${row.defaultRate}` : '—'}
+                            {row.defaultRate ? `₹ ${row.defaultRate}` : '-'}
                         </span>
                       </td>
                     </tr>

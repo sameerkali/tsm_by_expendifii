@@ -342,7 +342,7 @@ export default function GRListPage() {
                             </span>
                           </div>
                           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
-                            {row.vehicleNumber || "—"}
+                            {row.vehicleNumber || "-"}
                           </p>
                         </td>
                         <td className="px-8 py-5 whitespace-nowrap">

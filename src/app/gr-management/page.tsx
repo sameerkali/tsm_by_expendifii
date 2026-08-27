@@ -4,7 +4,7 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Goods Receipt (GR) Management & 3-Copy Print — BiltyOne',
+  title: 'Goods Receipt (GR) Management & 3-Copy Print',
   description:
     'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. BiltyOne auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
   alternates: { canonical: 'https://biltyone.com/gr-management' },

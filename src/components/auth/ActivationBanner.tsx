@@ -23,7 +23,7 @@ export function ActivationBanner({ onClick }: ActivationBannerProps) {
               Account not activated
             </p>
             <p className="text-xs text-amber-600/80 dark:text-amber-400/60 mt-px">
-              Click to activate with a coupon code &rarr;
+              Click to activate with a coupon code
             </p>
           </div>
         </div>

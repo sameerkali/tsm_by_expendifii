@@ -52,7 +52,7 @@ export function CookiePolicyModal({ isOpen, onClose }: CookiePolicyModalProps) {
             1. What Are Cookies
           </h2>
           <p>
-            Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. BiltyOne uses only first-party cookies — we do not place third-party advertising or tracking cookies on your device.
+            Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. BiltyOne uses only first-party cookies; we do not place third-party advertising or tracking cookies on your device.
           </p>
         </div>
 
@@ -64,10 +64,10 @@ export function CookiePolicyModal({ isOpen, onClose }: CookiePolicyModalProps) {
           <p>We use two categories of cookies:</p>
           <ul className="space-y-2.5 pl-5 list-disc marker:text-sky-500">
             <li>
-              <strong>Necessary Cookies</strong> — Required for the platform to function. These enable secure sign-in, session management, and CSRF protection. They cannot be disabled.
+              <strong>Necessary Cookies:</strong> Required for the platform to function. These enable secure sign-in, session management, and CSRF protection. They cannot be disabled.
             </li>
             <li>
-              <strong>Analytics Cookies</strong> — Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve BiltyOne.
+              <strong>Analytics Cookies:</strong> Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve BiltyOne.
             </li>
           </ul>
         </div>

@@ -20,7 +20,7 @@ export function Input({ label, hint, required, error, className, ...props }: Rea
       {label && (
         <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
           {label}{required && <span className="text-sky-500">*</span>}
-          {hint && <span className="font-normal text-slate-400 italic">— {hint}</span>}
+          {hint && <span className="font-normal text-slate-400 italic">({hint})</span>}
         </label>
       )}
       <input {...props} required={required} className={cn(inputClass, error && 'border-red-400 focus:border-red-500 focus:ring-red-500/20', className)} />
@@ -36,7 +36,7 @@ export function Textarea({ label, hint, required, error, className, ...props }: 
       {label && (
         <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
           {label}{required && <span className="text-sky-500">*</span>}
-          {hint && <span className="font-normal text-slate-400 italic">— {hint}</span>}
+          {hint && <span className="font-normal text-slate-400 italic">({hint})</span>}
         </label>
       )}
       <textarea {...props} required={required} className={cn(inputClass, 'h-auto py-3 resize-none', error && 'border-red-400', className)} />
@@ -57,7 +57,7 @@ export function Select({ label, hint, required, options, value, onChange, classN
       {label && (
         <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
           {label}{required && <span className="text-sky-500">*</span>}
-          {hint && <span className="font-normal text-slate-400 italic">— {hint}</span>}
+          {hint && <span className="font-normal text-slate-400 italic">({hint})</span>}
         </label>
       )}
       <div className="relative">

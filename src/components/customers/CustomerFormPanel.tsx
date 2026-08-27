@@ -635,7 +635,7 @@ export function CustomerFormPanel({
                       onClick={handleEnterManually}
                       className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium"
                     >
-                      Fill manually instead →
+                      Fill manually instead
                     </button>
                   </div>
                 )}
@@ -829,7 +829,7 @@ function Field({
         {label}
         {required && <span className="text-sky-500">*</span>}
         {hint && (
-          <span className="text-slate-400 font-normal italic">— {hint}</span>
+          <span className="text-slate-400 font-normal italic">({hint})</span>
         )}
       </label>
       {children}

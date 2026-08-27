@@ -1106,7 +1106,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
                                       onClick={grHandleEnterManually}
                                       className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium"
                                     >
-                                      Fill manually instead →
+                                      Fill manually instead
                                     </button>
                                   </div>
                                 )}

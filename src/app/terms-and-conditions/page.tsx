@@ -3,7 +3,7 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions — BiltyOne',
+  title: 'Terms & Conditions',
   description: 'The terms governing your use of BiltyOne.',
   alternates: { canonical: 'https://biltyone.com/terms-and-conditions' },
 };
@@ -37,13 +37,13 @@ export default function TermsPage() {
             <p>You must provide accurate information when registering. You are responsible for keeping your credentials secure.</p>
 
             <h2>4. Acceptable Use</h2>
-            <p>You agree not to misuse the platform — including submitting false data, attempting unauthorised access, or using BiltyOne for unlawful purposes.</p>
+            <p>You agree not to misuse the platform, including submitting false data, attempting unauthorised access, or using BiltyOne for unlawful purposes.</p>
 
             <h2>5. Intellectual Property</h2>
             <p>All software, design, and content in BiltyOne belongs to BiltyOne. You are granted a licence to use the platform for your transport business only.</p>
 
             <h2>6. Pricing &amp; Billing</h2>
-            <p>BiltyOne is currently free. When paid plans are introduced, you will be notified at least 14 days in advance. Billing will be on a subscription basis — monthly or annual.</p>
+            <p>BiltyOne is currently free. When paid plans are introduced, you will be notified at least 14 days in advance. Billing will be on a subscription basis, either monthly or annual.</p>
 
             <h2>7. Availability</h2>
             <p>We aim to keep BiltyOne available at all times. Planned maintenance will be communicated in advance. We are not liable for brief unplanned downtime.</p>

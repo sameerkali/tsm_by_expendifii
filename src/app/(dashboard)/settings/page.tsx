@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { SettingsClient } from './SettingsClient';
 
 export const metadata: Metadata = {
-  title: 'Settings | TMS',
+  title: 'Settings',
   description: 'Manage your TMS system configuration and profile',
 };
 

@@ -3,12 +3,12 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy — BiltyOne',
+  title: 'Cookie Policy',
   description: 'How BiltyOne uses cookies for session management and analytics on our platform.',
   alternates: { canonical: 'https://biltyone.com/cookie-policy' },
 };
 
-const lastUpdated = 'June 2025';
+const lastUpdated = 'June 2026';
 
 export default function CookiePolicyPage() {
   return (
@@ -33,17 +33,17 @@ export default function CookiePolicyPage() {
 
             <h2>1. What Are Cookies</h2>
             <p>
-              Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. BiltyOne uses only first-party cookies — we do not place third-party advertising or tracking cookies on your device.
+              Cookies are small text files stored on your device when you visit a website. They allow the site to recognise your device and remember certain information across sessions. BiltyOne uses only first-party cookies; we do not place third-party advertising or tracking cookies on your device.
             </p>
 
             <h2>2. Cookies We Use</h2>
             <p>We use two categories of cookies:</p>
             <ul>
               <li>
-                <strong>Necessary Cookies</strong> — Required for the platform to function. These enable secure sign-in, session management, and CSRF protection. They cannot be disabled.
+                <strong>Necessary Cookies:</strong> Required for the platform to function. These enable secure sign-in, session management, and CSRF protection. They cannot be disabled.
               </li>
               <li>
-                <strong>Analytics Cookies</strong> — Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve BiltyOne.
+                <strong>Analytics Cookies:</strong> Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve BiltyOne.
               </li>
             </ul>
 

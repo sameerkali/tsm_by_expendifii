@@ -20,24 +20,24 @@ const MOCK_SLIDES: CarouselSlide[] = [
   {
     id: 'mock-1',
     image: '/landingImg01.webp',
-    title: 'Integrated Logistics Command',
-    description: 'Track real-time tonnage, analyze operational efficiency, and coordinate dispatch schedules from a unified digital workspace.',
+    title: 'Create a GR in under a minute',
+    description: 'Fill in the shipment details once and get all three copies (Driver, Consignor, Consignee) ready to print instantly.',
     order: 0,
     createdAt: '2026-06-05T15:44:14.703Z'
   },
   {
     id: 'mock-2',
     image: '/landingImg02.webp',
-    title: 'Automated Operations Hub',
-    description: 'Optimize workflow throughput, generate gate passes instantly, and sync trip records seamlessly with domestic terminals.',
+    title: 'Customers saved, not retyped',
+    description: 'Add your regular consigners and consignees once. BiltyOne fills in their details automatically on every new GR.',
     order: 1,
     createdAt: '2026-06-05T15:42:36.792Z'
   },
   {
     id: 'mock-3',
     image: '/landingImg03.webp',
-    title: 'Enterprise Analytics Suite',
-    description: 'Gain deeper insights into customer metrics, monitor MTD revenue growth, and identify bottleneck patterns with AI-driven charts.',
+    title: 'Your business, at a glance',
+    description: 'See trip volumes, active jobs, and billing status in one simple dashboard, built for transport owners, not accountants.',
     order: 2,
     createdAt: '2026-06-05T15:40:00.000Z'
   }
