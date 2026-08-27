@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
+import { ScrollImage } from '@/components/shared/ScrollImage';
 
 export const metadata: Metadata = {
   title: 'Bilty Transport Management System',
@@ -309,22 +309,19 @@ export default function HomePage() {
             </p>
 
             {/* Product preview */}
-            <div className="relative mt-14 sm:mt-20">
+            <ScrollImage
+              src="/dashboard_img_herosection_straight.webp"
+              alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
+              width={1536}
+              height={1024}
+              priority
+              containerClassName="mt-4 sm:mt-8"
+            >
               <div
                 aria-hidden="true"
                 className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400/25 dark:bg-sky-500/15 blur-[110px]"
               />
-              <div className="hero-float mx-auto max-w-5xl">
-                <Image
-                  src="/dashboard_img_herosection_straight.webp"
-                  alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
-                  width={1536}
-                  height={1024}
-                  priority
-                  className="h-auto w-full"
-                />
-              </div>
-            </div>
+            </ScrollImage>
           </div>
         </section>
 
