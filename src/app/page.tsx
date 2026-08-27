@@ -8,6 +8,7 @@ import { Card } from '@/components/landing/Card';
 import { ProcessSteps } from '@/components/landing/ProcessSteps';
 import { AnimatedBeamHero } from '@/components/landing/AnimatedBeamBackground';
 import { SHOW_HERO_BEAM } from '@/lib/feature-flags';
+import { cn } from '@/lib/utils/cn';
 
 export const metadata: Metadata = {
   title: 'Bilty Transport Management System',
@@ -242,7 +243,15 @@ export default function HomePage() {
         {/* ── HERO ────────────────────────────────── */}
         <section
           id="hero"
-          className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800"
+          className={cn(
+            'relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800',
+            // Pulled up over <main>'s pt-20 so the beam covers the strip behind
+            // the floating navbar too, instead of leaving main's own grid
+            // pattern visible there (a mismatched seam right under the navbar).
+            // The grid fallback doesn't need this: main's own grid already
+            // matches it seamlessly.
+            SHOW_HERO_BEAM && '-mt-20',
+          )}
           aria-label="Hero section"
         >
           {/* Background: animated beam by default, static grid when SHOW_HERO_BEAM is flipped off */}
@@ -256,8 +265,16 @@ export default function HomePage() {
           )}
           <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 via-[#F8FAFC]/40 dark:via-slate-950/40 to-[#F8FAFC] dark:to-slate-950" />
 
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
-            
+          <div
+            className={cn(
+              'relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20 sm:pb-28 lg:pb-36',
+              // Compensates for the section's -mt-20 above so the headline lands
+              // at the exact same spot it always has: pt-40/48/56 = the old
+              // py-20/28/36 plus the 80px main used to contribute via pt-20.
+              SHOW_HERO_BEAM ? 'pt-40 sm:pt-48 lg:pt-56' : 'pt-20 sm:pt-28 lg:pt-36',
+            )}
+          >
+
 
             {/* Headline */}
             <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-[1.12]">
