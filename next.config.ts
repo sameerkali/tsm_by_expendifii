@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         destination: "https://biltyone.com/:path*",
         permanent: true,
       },
+      {
+        source: "/why-tsm",
+        destination: "/why-biltypro",
+        permanent: true,
+      },
     ];
   },
   async headers() {

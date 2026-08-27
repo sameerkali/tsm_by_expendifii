@@ -20,7 +20,7 @@ interface PageSummary {
  * fallback for pages that don't have a hand-written rich variant below.
  */
 const PAGE_SUMMARIES: Record<string, PageSummary> = {
-  '/why-tsm': {
+  '/why-biltypro': {
     title: 'Why BiltyOne? Built for Indian Transporters',
     description:
       'See why transporters across NCR choose BiltyOne, a fast, modern GR management system built for how Indian transport businesses actually work.',
@@ -150,7 +150,7 @@ Transporters, fleet owners, and logistics dispatchers in India managing 1 to 50+
 
 - Sign up: ${SITE_URL}/register
 - Free demo (no signup): ${SITE_URL}/live-demo
-- Why BiltyOne: ${SITE_URL}/why-tsm
+- Why BiltyOne: ${SITE_URL}/why-biltypro
 - Features: ${SITE_URL}/features
 - Product tour: ${SITE_URL}/product
 - Contact: ${SITE_URL}/contact

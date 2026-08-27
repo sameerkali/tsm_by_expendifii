@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: number;
   }> = [
     { path: '/', changeFrequency: 'weekly', priority: 1.0 },
-    { path: '/why-tsm', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/why-biltypro', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/live-demo', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/about', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/contact', changeFrequency: 'monthly', priority: 0.8 },

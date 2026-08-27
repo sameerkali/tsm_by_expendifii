@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Why BiltyOne? Built for Indian Transporters',
   description:
     'See why transporters across NCR choose BiltyOne, a fast, modern GR management system built for how Indian transport businesses actually work.',
-  alternates: { canonical: 'https://biltyone.com/why-tsm' },
+  alternates: { canonical: 'https://biltyone.com/why-biltypro' },
 };
 
 const differentiators = [
@@ -93,7 +93,7 @@ export default function WhyTsmPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/register"
-                id="why-tsm-cta-primary"
+                id="why-biltypro-cta-primary"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-7 py-4 text-sm font-semibold text-white shadow-lg hover:bg-[#0369A1] dark:hover:bg-sky-500 transition-colors duration-200 cursor-pointer"
               >
                 Start for free
@@ -102,7 +102,7 @@ export default function WhyTsmPage() {
                 </svg>
               </Link>
               <LiveDemoLink
-                id="why-tsm-cta-demo"
+                id="why-biltypro-cta-demo"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-7 py-4 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-[#0369A1] dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
               >
                 Try live demo
@@ -235,9 +235,9 @@ export default function WhyTsmPage() {
         </section>
 
         {/* Final CTA */}
-        <section className="bg-[#0F172A] dark:bg-slate-900 py-20 sm:py-24 border-t border-slate-800" aria-labelledby="why-tsm-final-cta">
+        <section className="bg-[#0F172A] dark:bg-slate-900 py-20 sm:py-24 border-t border-slate-800" aria-labelledby="why-biltypro-final-cta">
           <div className="mx-auto max-w-3xl px-4 text-center">
-            <h2 id="why-tsm-final-cta" className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
+            <h2 id="why-biltypro-final-cta" className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
               Ready to see it for yourself?
             </h2>
             <p className="text-slate-400 text-lg mb-10 leading-relaxed">
@@ -245,7 +245,7 @@ export default function WhyTsmPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <LiveDemoLink
-                id="why-tsm-demo-cta"
+                id="why-biltypro-demo-cta"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-7 py-4 text-sm font-semibold text-white shadow-lg hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -255,7 +255,7 @@ export default function WhyTsmPage() {
               </LiveDemoLink>
               <Link
                 href="/register"
-                id="why-tsm-signup-cta"
+                id="why-biltypro-signup-cta"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-7 py-4 text-sm font-semibold text-slate-300 hover:text-white hover:border-slate-400 transition-colors duration-200 cursor-pointer"
               >
                 Create your account

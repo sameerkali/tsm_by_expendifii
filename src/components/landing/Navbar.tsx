@@ -51,7 +51,7 @@ export default function Navbar() {
 
           {[
             { label: 'Features', href: '/features' },
-            { label: 'Why Us', href: '/why-tsm' },
+            { label: 'Why Us', href: '/why-biltypro' },
           ].map((item) => (
             <Link key={item.href} href={item.href} onMouseEnter={handleEnter} className={linkClassName}>
               {item.label}

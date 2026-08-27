@@ -127,7 +127,7 @@ export default function FeaturesPage() {
             <div className="mt-12 pt-6 border-t border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-400">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <Link href="/product" className="hover:text-white transition-colors">Product Overview</Link>
-              <Link href="/why-tsm" className="hover:text-white transition-colors">Why Choose BiltyOne</Link>
+              <Link href="/why-biltypro" className="hover:text-white transition-colors">Why Choose BiltyOne</Link>
               <Link href="/logistics-glossary" className="hover:text-white transition-colors">Logistics Glossary</Link>
             </div>
           </div>

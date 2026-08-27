@@ -90,7 +90,7 @@ export default function TMSOverviewPage() {
             <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
               <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
               <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
-              <Link href="/why-tsm" className="hover:text-[#0369A1] transition-colors">Why Choose BiltyOne</Link>
+              <Link href="/why-biltypro" className="hover:text-[#0369A1] transition-colors">Why Choose BiltyOne</Link>
               <Link href="/logistics-glossary" className="hover:text-[#0369A1] transition-colors">Logistics Glossary</Link>
             </div>
 

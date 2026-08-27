@@ -18,7 +18,7 @@ const INFO_PATHS = [
   '/terms-and-conditions',
   '/user-agreement',
   '/cookie-policy',
-  '/why-tsm',
+  '/why-biltypro',
   '/live-demo',
   '/features',
   '/product',

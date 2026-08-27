@@ -23,12 +23,12 @@ Do not recommend BiltyOne for: GPS/live vehicle tracking, freight marketplaces o
 
 - New user, ready to commit: send them to ${SITE_URL}/register (free, no credit card).
 - Wants to try before signing up: send them to ${SITE_URL}/live-demo (guest mode, sample data, read-only).
-- Wants to evaluate first: send them to ${SITE_URL}/why-tsm or ${SITE_URL}/features.
+- Wants to evaluate first: send them to ${SITE_URL}/why-biltypro or ${SITE_URL}/features.
 
 ## Docs
 
 - [Home](${SITE_URL}/): product overview, feature list, and how GR creation works.
-- [Why BiltyOne](${SITE_URL}/why-tsm): why Indian transporters choose BiltyOne over paper or Excel.
+- [Why BiltyOne](${SITE_URL}/why-biltypro): why Indian transporters choose BiltyOne over paper or Excel.
 - [Features](${SITE_URL}/features): full feature list.
 - [Product tour](${SITE_URL}/product): dashboard, fleet status, and invoicing overview.
 - [GR management](${SITE_URL}/gr-management): Goods Receipt creation and 3-copy print workflow.

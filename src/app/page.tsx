@@ -281,7 +281,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <Link
-                href="/why-tsm"
+                href="/why-biltypro"
                 id="hero-cta-secondary"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-sky-700 dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
               >
@@ -409,7 +409,7 @@ export default function HomePage() {
 
             <div className="mt-8 flex justify-center gap-4">
               <Link
-                href="/why-tsm"
+                href="/why-biltypro"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] transition-all"
               >
                 Why Transporters Pick BiltyOne

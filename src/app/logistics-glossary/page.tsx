@@ -92,7 +92,7 @@ export default function GlossaryPage() {
               <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
               <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
               <Link href="/product" className="hover:text-[#0369A1] transition-colors">Product</Link>
-              <Link href="/why-tsm" className="hover:text-[#0369A1] transition-colors">Why Choose BiltyOne</Link>
+              <Link href="/why-biltypro" className="hover:text-[#0369A1] transition-colors">Why Choose BiltyOne</Link>
             </div>
           </div>
         </section>
