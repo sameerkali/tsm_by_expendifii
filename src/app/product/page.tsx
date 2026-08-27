@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
@@ -50,68 +51,14 @@ export default function ProductPage() {
                   biltyone.com/dashboard
                 </div>
               </div>
-              {/* Dashboard preview */}
-              <div className="p-4 sm:p-8 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 min-h-[300px]">
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                  {[
-                    { label: 'Active Jobs', value: '48', trend: '+12% this week', up: true },
-                    { label: 'Vehicles Live', value: '31', trend: '100% utilisation', up: true },
-                    { label: 'Invoices Due', value: '₹2.4L', trend: '-8% reduction', up: false },
-                    { label: 'On-time Rate', value: '94%', trend: '+3% improvement', up: true },
-                  ].map((stat) => (
-                    <div key={stat.label} className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-4 shadow-sm">
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
-                      <p className="text-2xl font-bold text-[#0F172A] dark:text-white">{stat.value}</p>
-                      <p className={`text-xs font-semibold mt-1 ${stat.up ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400'}`}>{stat.trend}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="md:col-span-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-5 py-4 shadow-sm">
-                    <p className="text-sm font-bold text-slate-800 dark:text-white mb-4">Live Transit Jobs</p>
-                    {[
-                      { id: 'JB-1042', route: 'Mumbai → Pune', status: 'In Transit', color: 'bg-blue-500', eta: '2 hrs left' },
-                      { id: 'JB-1041', route: 'Nashik → Nagpur', status: 'Delivered', color: 'bg-emerald-500', eta: 'Completed' },
-                      { id: 'JB-1040', route: 'Pune → Kolhapur', status: 'Pending Dispatch', color: 'bg-amber-400', eta: 'Today' },
-                    ].map((job) => (
-                      <div key={job.id} className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-slate-700 last:border-0">
-                        <div className="flex items-center gap-3">
-                          <span className={`h-2.5 w-2.5 rounded-full ${job.color}`} aria-hidden="true" />
-                          <div>
-                            <p className="text-xs font-bold text-slate-900 dark:text-white">{job.id}</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">{job.route}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{job.status}</span>
-                          <p className="text-[10px] text-slate-400 mt-0.5">{job.eta}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-4 shadow-sm flex flex-col justify-between">
-                    <div>
-                      <p className="text-sm font-bold text-slate-800 dark:text-white mb-4">Fleet Status Overview</p>
-                      {[
-                        { label: 'Active (On Road)', count: 31, color: 'bg-emerald-500' },
-                        { label: 'Idle (Yard)', count: 8, color: 'bg-amber-400' },
-                        { label: 'Service / Maintenance', count: 3, color: 'bg-red-400' },
-                      ].map((s) => (
-                        <div key={s.label} className="flex items-center justify-between py-2 border-b border-slate-50 dark:border-slate-750 last:border-0">
-                          <div className="flex items-center gap-2">
-                            <span className={`h-2 w-2 rounded-full ${s.color}`} aria-hidden="true" />
-                            <span className="text-xs text-slate-600 dark:text-slate-300">{s.label}</span>
-                          </div>
-                          <span className="text-xs font-bold text-slate-900 dark:text-white">{s.count}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-[10px] text-slate-400 mt-4 italic">Updated live every 60 seconds</p>
-                  </div>
-                </div>
-              </div>
+              <Image
+                src="/dashboard_img_herosection_straight.webp"
+                alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
+                width={1672}
+                height={941}
+                className="h-auto w-full"
+              />
             </div>
-            <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">Actual BiltyOne dashboard visual representation</p>
           </div>
         </section>
 
