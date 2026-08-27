@@ -34,10 +34,11 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value:
               "default-src 'self'; " +
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com/; " +
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com/ https://news.google.com; " +
               "style-src 'self' 'unsafe-inline'; " +
-              "img-src 'self' data: blob: https://res.cloudinary.com; " +
-              "connect-src 'self' https://va.vercel-scripts.com/ https://api.postalpincode.in https://api.cloudinary.com; " +
+              "img-src 'self' data: blob: https://res.cloudinary.com https://news.google.com https://www.gstatic.com; " +
+              "connect-src 'self' https://va.vercel-scripts.com/ https://api.postalpincode.in https://api.cloudinary.com https://news.google.com; " +
+              "frame-src https://news.google.com https://accounts.google.com; " +
               "font-src 'self'; " +
               "frame-ancestors 'none'; " +
               "base-uri 'self'; " +

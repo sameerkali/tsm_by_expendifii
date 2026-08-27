@@ -120,9 +120,15 @@ export default function Footer() {
           <p className="text-sm text-slate-500">
             &copy; {year} BiltyOne. All rights reserved.
           </p>
-          <p className="text-sm text-slate-500">
-            Built for transparency, trust &amp; easiness.
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <p className="text-sm text-slate-500">
+              Built for transparency, trust &amp; easiness.
+            </p>
+            {/* Google "Preferred Sources" button: lets readers mark BiltyOne
+                as a preferred source in Google Search. Rendered by the
+                publisher.js script loaded in layout.tsx. */}
+            <div {...{ 'google-add-preferred-source-btn': '', 'data-theme': 'dark' }} />
+          </div>
         </div>
       </div>
     </footer>

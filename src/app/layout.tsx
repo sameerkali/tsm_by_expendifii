@@ -129,6 +129,15 @@ export default function RootLayout({
             }catch(e){}})();`,
           }}
         />
+        {/* Google "Preferred Sources": lets readers mark biltyone.com as a
+            preferred source in Search/Top Stories. Non-critical, so it loads
+            during idle time rather than competing with page content. */}
+        <Script
+          id="google-preferred-sources"
+          src="https://news.google.com/swg/js/v1/publisher.js"
+          strategy="lazyOnload"
+          async
+        />
         <PreferencesProvider>
           <QueryProvider>
             <SmoothScroll />
