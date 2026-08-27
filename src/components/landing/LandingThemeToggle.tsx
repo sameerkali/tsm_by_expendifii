@@ -1,38 +1,41 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
-type Theme = 'system' | 'light' | 'dark';
+/**
+ * Only 'light' and 'dark' are ever written here — this toggle never exposes
+ * or stores a 'system' option. If nothing has been chosen yet (no bp-theme
+ * key, or a stale 'system' value from before this toggle existed), the OS
+ * preference decides the initial state, matching the anti-flash script in
+ * layout.tsx, but the moment the user flips the switch it becomes an
+ * explicit light/dark choice.
+ */
+function getInitialIsDark(): boolean {
+  const stored = localStorage.getItem('bp-theme');
+  if (stored === 'dark') return true;
+  if (stored === 'light') return false;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
 
-function applyTheme(theme: Theme) {
-  const root = document.documentElement;
-  if (theme === 'dark') {
-    root.classList.add('dark');
-  } else if (theme === 'light') {
-    root.classList.remove('dark');
-  } else {
-    // system
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) root.classList.add('dark');
-    else root.classList.remove('dark');
-  }
+function applyDark(isDark: boolean) {
+  document.documentElement.classList.toggle('dark', isDark);
 }
 
 export default function LandingThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('system');
+  const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = (localStorage.getItem('bp-theme') as Theme) || 'system';
-    setTheme(stored);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsDark(getInitialIsDark());
     setMounted(true);
   }, []);
 
-  const cycle = () => {
-    const next: Theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
-    setTheme(next);
-    localStorage.setItem('bp-theme', next);
-    applyTheme(next);
+  const handleChange = (checked: boolean) => {
+    setIsDark(checked);
+    localStorage.setItem('bp-theme', checked ? 'dark' : 'light');
+    applyDark(checked);
   };
 
   if (!mounted) {
@@ -41,33 +44,13 @@ export default function LandingThemeToggle() {
   }
 
   return (
-    <button
-      type="button"
-      onClick={cycle}
-      aria-label={`Switch theme, current: ${theme}`}
-      title={`Current: ${theme}. Click to cycle.`}
-      className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-[#0369A1] dark:hover:text-sky-400 transition-all duration-150 cursor-pointer"
-    >
-      {/* System icon */}
-      {theme === 'system' && (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.75" />
-          <path d="M8 21H16M12 17V21" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-        </svg>
-      )}
-      {/* Light (sun) icon */}
-      {theme === 'light' && (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.75" />
-          <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-        </svg>
-      )}
-      {/* Dark (moon) icon */}
-      {theme === 'dark' && (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
-        </svg>
-      )}
-    </button>
+    <DarkModeSwitch
+      checked={isDark}
+      onChange={handleChange}
+      size={20}
+      sunColor="#0369A1"
+      moonColor="#38bdf8"
+      aria-label="Toggle light or dark theme"
+    />
   );
 }
