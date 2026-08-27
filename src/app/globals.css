@@ -69,18 +69,17 @@ body {
 /* ─────────────────────────────────────────────────────────────────────────────
    SMOOTH THEME TRANSITIONS
    Applies a brief fade when toggling dark/light so it doesn't feel jarring.
+   Scoped to Tailwind's `base` layer (not left unlayered) so any element with
+   its own explicit Tailwind transition or duration utility class, which lives
+   in the higher-priority `utilities` layer, correctly overrides this default
+   instead of being permanently reset to 0s by it.
 ───────────────────────────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  transition-property: background-color, border-color, color;
-  transition-duration: 200ms;
-  transition-timing-function: ease;
-}
-
-/* Never animate transforms or opacity via this global rule */
-*:where([class*="animate-"]),
-*:where([class*="transition-"]) {
-  transition-property: initial;
-  transition-duration: initial;
+@layer base {
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
