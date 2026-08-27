@@ -5,6 +5,7 @@ import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 import { ScrollImage } from '@/components/shared/ScrollImage';
 import { Card } from '@/components/landing/Card';
+import { ProcessSteps } from '@/components/landing/ProcessSteps';
 
 export const metadata: Metadata = {
   title: 'Bilty Transport Management System',
@@ -169,6 +170,29 @@ const features = [
   },
 ];
 
+const processSteps = [
+  {
+    id: '1',
+    title: 'Create Your Account',
+    description: 'Sign up in under 60 seconds. No credit card required. Add your company name, GST, and basic details, and we guide you through it.',
+  },
+  {
+    id: '2',
+    title: 'Add Your Customers',
+    description: 'Enter your regular consigners and consignees once. BiltyOne remembers them so you never retype the same information. Manage your customer list from a clean dashboard.',
+  },
+  {
+    id: '3',
+    title: 'Create a GR in Minutes',
+    description: 'Select the customer, fill in shipment details (origin, destination, vehicle number, charges), and hit submit. BiltyOne generates all three copies (Driver, Consigner, Consignee) instantly.',
+  },
+  {
+    id: '4',
+    title: 'Print, Track & Analyse',
+    description: 'Print your GRs immediately or access them anytime from the dashboard. Search by name, date, or GR number. Get analytics on your trip volumes, active jobs, and billing status.',
+  },
+];
+
 const comparisonRows = [
   { label: 'Creating a GR', manual: 'Fill 20+ fields by hand, make 3 paper copies', tsm: 'Done in under a minute, 3 copies auto-generated' },
   { label: 'Storing records', manual: 'Paper files lost to rats, water, or fire', tsm: 'Permanent digital records, accessible anywhere' },
@@ -324,7 +348,7 @@ export default function HomePage() {
 
         {/* ── HOW BiltyOne WORKS IN 4 STEPS ────────────── */}
         <section id="how-tsm-works-steps" className="py-20 sm:py-28 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800" aria-labelledby="steps-heading">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Simple Process</p>
               <h2 id="steps-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
@@ -334,24 +358,7 @@ export default function HomePage() {
                 From paper chaos to digital control. Here is exactly how BiltyOne transforms your GR workflow.
               </p>
             </div>
-            <ol className="space-y-4">
-              {[
-                { step: '1', title: 'Create Your Account', desc: 'Sign up in under 60 seconds. No credit card required. Add your company name, GST, and basic details, and we guide you through it.' },
-                { step: '2', title: 'Add Your Customers', desc: 'Enter your regular consigners and consignees once. BiltyOne remembers them so you never retype the same information. Manage your customer list from a clean dashboard.' },
-                { step: '3', title: 'Create a GR in Minutes', desc: 'Select the customer, fill in shipment details (origin, destination, vehicle number, charges), and hit submit. BiltyOne generates all three copies (Driver, Consigner, Consignee) instantly.' },
-                { step: '4', title: 'Print, Track & Analyse', desc: 'Print your GRs immediately or access them anytime from the dashboard. Search by name, date, or GR number. Get analytics on your trip volumes, active jobs, and billing status.' },
-              ].map(function (s) {
-                return (
-                  <li key={s.step} className="flex items-start gap-5 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-sm hover:shadow-md transition-shadow duration-200">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0369A1] text-white text-lg font-bold">{s.step}</span>
-                    <div>
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-1">{s.title}</h3>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{s.desc}</p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
+            <ProcessSteps steps={processSteps} />
           </div>
         </section>
 
