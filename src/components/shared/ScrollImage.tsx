@@ -13,8 +13,6 @@ interface ScrollImageProps {
   height?: number;
   priority?: boolean;
   sizes?: string;
-  /** Optional decorative content (e.g. a glow) rendered behind the image, pinned in the same viewport-height layer. */
-  children?: React.ReactNode;
 }
 
 /**
@@ -22,8 +20,8 @@ interface ScrollImageProps {
  * section scrolls past. Reduced on small screens so the effect stays subtle
  * on phones instead of looking exaggerated.
  */
-const DESKTOP_RANGE = { rotateX: 18, translateY: 60, translateZ: -140, scale: 0.92 };
-const MOBILE_RANGE = { rotateX: 8, translateY: 28, translateZ: -60, scale: 0.95 };
+const DESKTOP_RANGE = { rotateX: 16, translateY: 36, translateZ: -90, scale: 0.94 };
+const MOBILE_RANGE = { rotateX: 7, translateY: 18, translateZ: -40, scale: 0.96 };
 
 function lerp(from: number, to: number, t: number) {
   return from + (to - from) * t;
@@ -34,19 +32,20 @@ export function ScrollImage({
   alt = '',
   className,
   containerClassName,
-  width = 1536,
-  height = 1024,
+  width = 1672,
+  height = 941,
   priority,
   sizes,
-  children,
 }: ScrollImageProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
+    const sticky = stickyRef.current;
     const imageEl = imageRef.current;
-    if (!section || !imageEl) return;
+    if (!section || !sticky || !imageEl) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) {
@@ -58,8 +57,19 @@ export function ScrollImage({
 
     const applyTransform = () => {
       ticking = false;
-      const rect = section.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, -rect.top / rect.height));
+      const sectionRect = section.getBoundingClientRect();
+      // Progress must reach 1 exactly when the sticky child un-pins (i.e. over
+      // the scrollable distance = section height minus the sticky child's own
+      // height), not over the full section height — otherwise the image keeps
+      // interpolating after it has already scrolled out of its pinned spot,
+      // and any extra section height beyond that shows as dead empty space.
+      const pinDistance = sectionRect.height - sticky.getBoundingClientRect().height;
+      const progress =
+        pinDistance > 0
+          ? Math.min(1, Math.max(0, -sectionRect.top / pinDistance))
+          : sectionRect.top <= 0
+            ? 1
+            : 0;
 
       const range = window.innerWidth < 640 ? MOBILE_RANGE : DESKTOP_RANGE;
       const rotateX = lerp(range.rotateX, 0, progress);
@@ -87,12 +97,12 @@ export function ScrollImage({
   }, []);
 
   return (
-    <div ref={sectionRef} className={cn('relative h-[140vh] sm:h-[160vh]', containerClassName)}>
+    <div ref={sectionRef} className={cn('relative pb-17.5 sm:pb-22.5', containerClassName)}>
       <div
-        className="sticky top-0 flex h-[100dvh] items-center justify-center overflow-hidden"
+        ref={stickyRef}
+        className="sticky top-16 flex items-center justify-center overflow-hidden"
         style={{ perspective: '1200px' }}
       >
-        {children}
         <div
           ref={imageRef}
           className="w-full max-w-5xl will-change-transform transform-gpu transform-3d"

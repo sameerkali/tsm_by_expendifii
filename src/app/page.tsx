@@ -312,16 +312,9 @@ export default function HomePage() {
             <ScrollImage
               src="/dashboard_img_herosection_straight.webp"
               alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
-              width={1536}
-              height={1024}
               priority
               containerClassName="mt-4 sm:mt-8"
-            >
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400/25 dark:bg-sky-500/15 blur-[110px]"
-              />
-            </ScrollImage>
+            />
           </div>
         </section>
 
