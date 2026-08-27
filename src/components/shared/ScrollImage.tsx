@@ -20,8 +20,8 @@ interface ScrollImageProps {
  * scrolls up through the viewport. Reduced on small screens so the effect
  * stays subtle on phones instead of looking exaggerated.
  */
-const DESKTOP_RANGE = { rotateX: 16, translateY: 36, translateZ: -90, scale: 0.94 };
-const MOBILE_RANGE = { rotateX: 7, translateY: 18, translateZ: -40, scale: 0.96 };
+const DESKTOP_RANGE = { rotateX: 32, translateY: 70, translateZ: -180, scale: 0.86 };
+const MOBILE_RANGE = { rotateX: 16, translateY: 34, translateZ: -80, scale: 0.9 };
 
 function lerp(from: number, to: number, t: number) {
   return from + (to - from) * t;
@@ -60,10 +60,10 @@ export function ScrollImage({
       // the viewport (this is the first moment it becomes visible).
       // Progress 1 = the image's top edge has reached the top of the
       // viewport, so the animation is fully settled exactly as it arrives.
-      const rawProgress = Math.min(1, Math.max(0, (window.innerHeight - top) / window.innerHeight));
-      // Ease out: move fast early, settle gently into place rather than
-      // travelling at a constant rate right up until it stops.
-      const progress = 1 - Math.pow(1 - rawProgress, 3);
+      // Linear, tied 1:1 to scroll: the motion stays visible right up until
+      // the image's top actually reaches the screen top, instead of an
+      // eased curve that visually finishes early and then sits idle.
+      const progress = Math.min(1, Math.max(0, (window.innerHeight - top) / window.innerHeight));
 
       const range = window.innerWidth < 640 ? MOBILE_RANGE : DESKTOP_RANGE;
       const rotateX = lerp(range.rotateX, 0, progress);
