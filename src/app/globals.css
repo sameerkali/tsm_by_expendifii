@@ -144,6 +144,39 @@ html.lenis, html.lenis body {
 
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   ANIMATED BEAM — hero background meteor effect
+   Adapted from https://animata.design/docs/background/animated-beam
+───────────────────────────────────────────────────────────────────────────── */
+@layer components {
+  @keyframes meteor {
+    0% {
+      transform: translateY(-20%) translateX(-50%);
+      opacity: 0;
+    }
+
+    12% {
+      opacity: var(--opacity, 1);
+    }
+
+    88% {
+      opacity: var(--opacity, 1);
+    }
+
+    100% {
+      transform: translateY(300%) translateX(-50%);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ab-beam {
+      animation: none !important;
+      opacity: 0 !important;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    GLOWING BORDER
 ───────────────────────────────────────────────────────────────────────────── */
 /* Static Purple Glow Border */

@@ -6,6 +6,8 @@ import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 import { ScrollImage } from '@/components/shared/ScrollImage';
 import { Card } from '@/components/landing/Card';
 import { ProcessSteps } from '@/components/landing/ProcessSteps';
+import { AnimatedBeamHero } from '@/components/landing/AnimatedBeamBackground';
+import { SHOW_HERO_BEAM } from '@/lib/feature-flags';
 
 export const metadata: Metadata = {
   title: 'Bilty Transport Management System',
@@ -243,11 +245,15 @@ export default function HomePage() {
           className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800"
           aria-label="Hero section"
         >
-          {/* Background grid */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-60"
-          />
+          {/* Background: animated beam by default, static grid when SHOW_HERO_BEAM is flipped off */}
+          {SHOW_HERO_BEAM ? (
+            <AnimatedBeamHero />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-60"
+            />
+          )}
           <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 via-[#F8FAFC]/40 dark:via-slate-950/40 to-[#F8FAFC] dark:to-slate-950" />
 
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
