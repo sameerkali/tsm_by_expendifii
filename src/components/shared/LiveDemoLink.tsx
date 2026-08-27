@@ -9,9 +9,10 @@ interface LiveDemoLinkProps {
   id?: string;
   className?: string;
   children: React.ReactNode;
+  onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export function LiveDemoLink({ id, className, children }: LiveDemoLinkProps) {
+export function LiveDemoLink({ id, className, children, onMouseEnter }: LiveDemoLinkProps) {
   const [showConfirm, setShowConfirm] = useState(false);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
@@ -23,7 +24,13 @@ export function LiveDemoLink({ id, className, children }: LiveDemoLinkProps) {
 
   return (
     <>
-      <button type="button" id={id} className={className} onClick={() => setShowConfirm(true)}>
+      <button
+        type="button"
+        id={id}
+        className={className}
+        onClick={() => setShowConfirm(true)}
+        onMouseEnter={onMouseEnter}
+      >
         {children}
       </button>
       {mounted &&

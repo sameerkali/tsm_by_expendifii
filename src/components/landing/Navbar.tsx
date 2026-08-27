@@ -1,8 +1,26 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 import LandingThemeToggle from '@/components/landing/LandingThemeToggle';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 
+interface HoverRect {
+  left: number;
+  width: number;
+}
+
 export default function Navbar() {
+  const [hovered, setHovered] = useState<HoverRect | null>(null);
+
+  const handleEnter = (e: React.MouseEvent<HTMLElement>) => {
+    const el = e.currentTarget;
+    setHovered({ left: el.offsetLeft, width: el.offsetWidth });
+  };
+
+  const linkClassName =
+    'relative z-10 px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-md transition-colors duration-150 cursor-pointer';
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -16,20 +34,31 @@ export default function Navbar() {
           </Link>
 
           {/* Nav links */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+          <nav
+            className="relative hidden md:flex items-center gap-1"
+            aria-label="Main navigation"
+            onMouseLeave={() => setHovered(null)}
+          >
+            {/* Sliding hover highlight */}
+            <span
+              aria-hidden="true"
+              className="absolute inset-y-1 left-0 rounded-md bg-slate-100 transition-all duration-300 ease-out dark:bg-slate-800"
+              style={{
+                width: hovered?.width ?? 0,
+                transform: `translateX(${hovered?.left ?? 0}px)`,
+                opacity: hovered ? 1 : 0,
+              }}
+            />
+
             {[
               { label: 'Features', href: '/features' },
               { label: 'Why Choose BiltyOne', href: '/why-tsm' },
             ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-150 cursor-pointer"
-              >
+              <Link key={item.href} href={item.href} onMouseEnter={handleEnter} className={linkClassName}>
                 {item.label}
               </Link>
             ))}
-            <LiveDemoLink className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-150 cursor-pointer">
+            <LiveDemoLink onMouseEnter={handleEnter} className={linkClassName}>
               Live Demo
             </LiveDemoLink>
             {[
@@ -37,11 +66,7 @@ export default function Navbar() {
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },
             ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-150 cursor-pointer"
-              >
+              <Link key={item.href} href={item.href} onMouseEnter={handleEnter} className={linkClassName}>
                 {item.label}
               </Link>
             ))}
