@@ -31,6 +31,10 @@ export function useSession() {
     retry: false,
     enabled: !isGuest,
     initialData: isGuest ? undefined : getStoredProfile,
+    // Stored profile must always trigger a background refetch on mount —
+    // otherwise localStorage (possibly stale after an activation elsewhere)
+    // renders as fresh for staleTime and the UI keeps showing "inactive".
+    initialDataUpdatedAt: 0,
   });
 
   // The profile API returns: { success: true, data: { ...userFields } }
