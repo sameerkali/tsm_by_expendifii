@@ -18,8 +18,9 @@ export default function Navbar() {
     setHovered({ left: el.offsetLeft, width: el.offsetWidth });
   };
 
+  // Tighter padding below xl so every label fits on one line at 1024px.
   const linkClassName =
-    'relative z-10 px-5 py-3 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-full transition-colors duration-150 cursor-pointer';
+    'relative z-10 px-3 xl:px-5 py-3 text-sm font-medium whitespace-nowrap text-slate-600 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white rounded-full transition-colors duration-150 cursor-pointer';
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4 sm:px-6 lg:px-8">
@@ -32,9 +33,11 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Nav links */}
+        {/* Nav links. From lg up only: between md and lg there isn't room for
+            them on one line (they used to wrap there), and every link is also
+            in the footer. FAQ and About join at xl. */}
         <nav
-          className="relative hidden md:flex items-center gap-1"
+          className="relative hidden lg:flex items-center gap-1"
           aria-label="Main navigation"
           onMouseLeave={() => setHovered(null)}
         >
@@ -52,6 +55,7 @@ export default function Navbar() {
           {[
             { label: 'Features', href: '/features' },
             { label: 'Why Us', href: '/why-biltypro' },
+            { label: 'Desktop App', href: '/desktop' },
           ].map((item) => (
             <Link key={item.href} href={item.href} onMouseEnter={handleEnter} className={linkClassName}>
               {item.label}
@@ -61,11 +65,11 @@ export default function Navbar() {
             Live Demo
           </LiveDemoLink>
           {[
-            { label: 'FAQ', href: '/faq' },
-            { label: 'About', href: '/about' },
-            { label: 'Contact', href: '/contact' },
+            { label: 'FAQ', href: '/faq', className: 'hidden xl:inline' },
+            { label: 'About', href: '/about', className: 'hidden xl:inline' },
+            { label: 'Contact', href: '/contact', className: '' },
           ].map((item) => (
-            <Link key={item.href} href={item.href} onMouseEnter={handleEnter} className={linkClassName}>
+            <Link key={item.href} href={item.href} onMouseEnter={handleEnter} className={`${linkClassName} ${item.className}`}>
               {item.label}
             </Link>
           ))}
@@ -76,13 +80,13 @@ export default function Navbar() {
           <LandingThemeToggle />
           <Link
             href="/login"
-            className="hidden sm:inline-flex text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white transition-colors duration-150 cursor-pointer"
+            className="hidden sm:inline-flex whitespace-nowrap text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white transition-colors duration-150 cursor-pointer"
           >
             Sign in
           </Link>
           <Link
             href="/register"
-            className="inline-flex items-center gap-1.5 rounded-full bg-[#0F172A] dark:bg-[#0369A1] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0369A1] dark:hover:bg-sky-500 transition-colors duration-200 cursor-pointer"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#0F172A] dark:bg-[#0369A1] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0369A1] dark:hover:bg-sky-500 transition-colors duration-200 cursor-pointer"
           >
             Get Started
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">

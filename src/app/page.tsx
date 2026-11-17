@@ -488,6 +488,32 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── DESKTOP APP TEASER ──────────────────── */}
+        {/* Plain link to /desktop: no client JS added to the homepage. */}
+        <section className="py-16 sm:py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="desktop-teaser-heading">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-6 rounded-2xl border border-sky-100 dark:border-sky-900/40 bg-sky-50 dark:bg-sky-950/30 px-6 py-8 sm:px-10 sm:py-10 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-2xl">
+                <h2 id="desktop-teaser-heading" className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+                  Prefer working offline?
+                </h2>
+                <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
+                  BiltyOne Desktop runs on your Windows PC and needs internet only once, to activate. Free download, free licence key.
+                </p>
+              </div>
+              <Link
+                href="/desktop"
+                className="inline-flex shrink-0 items-center gap-2 self-start md:self-auto rounded-xl border border-[#0369A1] dark:border-sky-400 px-6 py-3.5 text-sm font-semibold text-[#0369A1] dark:text-sky-400 hover:bg-[#0369A1] hover:text-white dark:hover:bg-sky-400 dark:hover:text-slate-950 transition-colors"
+              >
+                See the desktop app
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* ── PRICING PREVIEW ─────────────────────── */}
         <section className="py-20 bg-[#F8FAFC] dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">

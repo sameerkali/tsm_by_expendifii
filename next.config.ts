@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
         destination: "/why-biltypro",
         permanent: true,
       },
+      // BiltyOne Desktop's activation screen links to /support. There is no
+      // support page yet, so send people to Contact (temporary, so a real
+      // /support page can replace it later).
+      {
+        source: "/support",
+        destination: "/contact",
+        permanent: false,
+      },
     ];
   },
   async headers() {

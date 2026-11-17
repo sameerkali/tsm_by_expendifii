@@ -35,6 +35,7 @@ export default function Footer() {
                 { label: 'Features', href: '/features' },
                 { label: 'Overview', href: '/product' },
                 { label: 'Why Choose BiltyOne', href: '/why-biltypro' },
+                { label: 'Desktop App (Windows)', href: '/desktop' },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors duration-150 cursor-pointer">

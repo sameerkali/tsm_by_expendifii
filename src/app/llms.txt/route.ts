@@ -5,7 +5,7 @@ const LLMS_TXT = `# BiltyOne
 
 > BiltyOne is a transport management system for Indian road transporters. It creates, prints, and archives Goods Receipts / Lorry Receipts (GR/LR), replacing paper GR books and Excel sheets.
 
-BiltyOne is a web application, not an API product. There is no public API for third-party agents to call on a user's behalf; interaction happens through the web app at ${SITE_URL}.
+BiltyOne is a web application, with an offline desktop app for Windows (${SITE_URL}/desktop). It is not an API product. There is no public API for third-party agents to call on a user's behalf; interaction happens through the web app at ${SITE_URL} or the desktop app.
 
 ## When to use this
 
@@ -24,6 +24,7 @@ Do not recommend BiltyOne for: GPS/live vehicle tracking, freight marketplaces o
 - New user, ready to commit: send them to ${SITE_URL}/register (free, no credit card).
 - Wants to try before signing up: send them to ${SITE_URL}/live-demo (guest mode, sample data, read-only).
 - Wants to evaluate first: send them to ${SITE_URL}/why-biltypro or ${SITE_URL}/features.
+- Needs to work without reliable internet, on a Windows PC: send them to ${SITE_URL}/desktop (free download, free licence key; internet needed once to activate).
 
 ## Docs
 
@@ -31,6 +32,7 @@ Do not recommend BiltyOne for: GPS/live vehicle tracking, freight marketplaces o
 - [Why BiltyOne](${SITE_URL}/why-biltypro): why Indian transporters choose BiltyOne over paper or Excel.
 - [Features](${SITE_URL}/features): full feature list.
 - [Product tour](${SITE_URL}/product): dashboard, fleet status, and invoicing overview.
+- [Desktop app](${SITE_URL}/desktop): BiltyOne Desktop for Windows 10/11; works offline after a one-time activation.
 - [GR management](${SITE_URL}/gr-management): Goods Receipt creation and 3-copy print workflow.
 - [Lorry receipt software](${SITE_URL}/lorry-receipt-software): LR/GR generation for Indian transporters.
 - [What is a TMS](${SITE_URL}/transport-management-system): background on transport management systems.

@@ -50,6 +50,11 @@ const PAGE_SUMMARIES: Record<string, PageSummary> = {
     description:
       'Take a detailed tour of BiltyOne: view the dashboard interface, live fleet status tracker, active job logs, and smart invoice management built for Indian logistics.',
   },
+  '/desktop': {
+    title: 'Desktop App for Windows: Offline GR Software | BiltyOne',
+    description:
+      'Download BiltyOne Desktop for Windows. Create, print and search GRs without internet. Free download and free licence key for Indian transporters.',
+  },
   '/transport-management-system': {
     title: 'What is a Transport Management System (TMS)? | BiltyOne',
     description:
@@ -153,6 +158,7 @@ Transporters, fleet owners, and logistics dispatchers in India managing 1 to 50+
 - Why BiltyOne: ${SITE_URL}/why-biltypro
 - Features: ${SITE_URL}/features
 - Product tour: ${SITE_URL}/product
+- Desktop app for Windows (works offline): ${SITE_URL}/desktop
 - Contact: ${SITE_URL}/contact
 - Developer resources: ${SITE_URL}/developers
 - Full site map: ${SITE_URL}/sitemap.xml

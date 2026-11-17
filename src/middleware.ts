@@ -29,6 +29,7 @@ const INFO_PATHS = [
   '/gr-management',
   '/lorry-receipt-software',
   '/developers',
+  '/desktop', // also covers /desktop/licence-key
 ];
 
 // The authenticated app shell — the only paths where "no token" should mean
