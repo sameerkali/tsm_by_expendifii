@@ -14,9 +14,15 @@ const nextConfig: NextConfig = {
         destination: "https://biltyone.com/:path*",
         permanent: true,
       },
+      // Old product names. Both point straight at the final URL (no chains).
       {
         source: "/why-tsm",
-        destination: "/why-biltypro",
+        destination: "/why-biltyone",
+        permanent: true,
+      },
+      {
+        source: "/why-biltypro",
+        destination: "/why-biltyone",
         permanent: true,
       },
       // BiltyOne Desktop's activation screen links to /support. There is no

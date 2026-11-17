@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 import { Card } from '@/components/landing/Card';
 
-export const metadata: Metadata = {
-  title: 'Why BiltyOne? Built for Indian Transporters',
-  description:
-    'See why transporters across NCR choose BiltyOne, a fast, modern GR management system built for how Indian transport businesses actually work.',
-  alternates: { canonical: 'https://biltyone.com/why-biltypro' },
-};
+export const metadata: Metadata = buildPageMetadata('/why-biltyone');
 
 const differentiators = [
   {
@@ -48,9 +45,10 @@ const differentiators = [
 const vsComparison = [
   { label: 'Page load speed', tsm: 'Fast, modern tech stack', generic: 'Slow, PHP/WordPress' },
   { label: 'UI/UX quality', tsm: 'Clean, simple, modern', generic: 'Cluttered, outdated' },
-  { label: 'GR creation time', tsm: 'Under 1 minute', generic: '5–10 minutes' },
+  { label: 'GR creation time', tsm: 'About 2 minutes', generic: 'Often much longer' },
   { label: 'GR print (3 copies)', tsm: '✓ One click', generic: '✗ Manual setup' },
-  { label: 'Customisable GR layout', tsm: '✓ Yes', generic: '✗ Fixed template' },
+  { label: 'Customer statements', tsm: '✓ Built in', generic: '✗ Often separate' },
+  { label: 'Works offline', tsm: '✓ Windows desktop app', generic: '✗ Rarely' },
   { label: 'Customer management', tsm: '✓ Built in', generic: '✗ Often missing' },
   { label: 'Setup time', tsm: '2–24 hours', generic: 'Days to weeks' },
   { label: 'Mobile friendly', tsm: '✓ Yes', generic: '✗ Rarely' },
@@ -61,13 +59,14 @@ const vsComparison = [
 const proofPoints = [
   { value: '2–24H', label: 'From sign-up to your first printed GR' },
   { value: '3 Copies', label: 'Auto-generated per GR: Driver, Consigner, Consignee' },
-  { value: '20+ Fields', label: 'Supported per GR, all customisable' },
+  { value: '20+ Fields', label: 'Per GR, from parties and goods to insurance' },
   { value: '₹0', label: 'Cost right now: completely free to start' },
 ];
 
 export default function WhyTsmPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd('/why-biltyone', { aboutSoftware: true, speakable: ['#key-takeaways'] })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         {/* Hero */}
@@ -135,7 +134,7 @@ export default function WhyTsmPage() {
                   'No paper, no Excel, no hired data-entry staff. One platform handles your entire GR workflow.',
                   'Free to start right now. Up and running in 2–24 hours. Designed for Indian transporters of all sizes.',
                   'Your data is stored securely, so there are no more lost records from rain, rats, or fire.',
-                  'Customisable GR layout, batch management, analytics dashboard, and smart billing: everything a transporter needs.',
+                  'Automatic GR numbers and freight, customer statements, an analytics dashboard and an offline Windows app: everything a transporter needs.',
                 ].map(function (point) {
                   return (
                     <li key={point} className="flex items-start gap-3 text-sm sm:text-base text-slate-700 dark:text-slate-300">
@@ -174,33 +173,41 @@ export default function WhyTsmPage() {
             <div className="text-center mb-14">
               <p className="text-sm font-semibold uppercase tracking-widest text-[#0369A1] dark:text-sky-400 mb-3">Head to head</p>
               <h2 id="vs-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                BiltyOne vs Old Software in Market
+                BiltyOne vs older transport software
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
                 The existing transport software in India is outdated, built on old technology, with interfaces that feel like they&apos;re from 2008. Here&apos;s how BiltyOne compares.
               </p>
             </div>
 
+            {/* Semantic <table> so it can be read (and quoted) as a comparison table. */}
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-md">
-              <div className="grid grid-cols-3 bg-[#0F172A] dark:bg-slate-800 text-white text-sm font-semibold">
-                <div className="px-6 py-4 text-slate-300">Feature</div>
-                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20">BiltyOne</div>
-                <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-400">Old Market Software</div>
-              </div>
-              {vsComparison.map((row, i) => (
-                <div
-                  key={row.label}
-                  className={`grid grid-cols-3 border-b border-slate-100 dark:border-slate-800 last:border-0 ${i % 2 === 0 ? 'bg-white dark:bg-slate-950' : 'bg-slate-50/50 dark:bg-slate-900/50'}`}
-                >
-                  <div className="px-6 py-4 text-sm font-medium text-[#0F172A] dark:text-slate-200">{row.label}</div>
-                  <div className="px-6 py-4 text-sm font-semibold text-sky-600 dark:text-sky-400 border-l border-[#0369A1]/20 bg-[#0369A1]/4 dark:bg-sky-500/5">
-                    {row.tsm}
-                  </div>
-                  <div className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 border-l border-slate-100 dark:border-slate-800">
-                    {row.generic}
-                  </div>
-                </div>
-              ))}
+              <table className="w-full table-fixed border-collapse text-left text-sm">
+                <caption className="sr-only">BiltyOne compared with older transport software in India</caption>
+                <thead>
+                  <tr className="bg-[#0F172A] dark:bg-slate-800 text-white">
+                    <th scope="col" className="px-4 sm:px-6 py-4 font-semibold text-slate-300">Feature</th>
+                    <th scope="col" className="px-4 sm:px-6 py-4 font-semibold text-center border-l border-[#0369A1] bg-[#0369A1]/20">BiltyOne</th>
+                    <th scope="col" className="px-4 sm:px-6 py-4 font-semibold text-center border-l border-slate-700 text-slate-400">Older transport software</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vsComparison.map((row, i) => (
+                    <tr
+                      key={row.label}
+                      className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${i % 2 === 0 ? 'bg-white dark:bg-slate-950' : 'bg-slate-50/50 dark:bg-slate-900/50'}`}
+                    >
+                      <th scope="row" className="px-4 sm:px-6 py-4 font-medium text-[#0F172A] dark:text-slate-200">{row.label}</th>
+                      <td className="px-4 sm:px-6 py-4 font-semibold text-sky-600 dark:text-sky-400 border-l border-[#0369A1]/20 bg-[#0369A1]/4 dark:bg-sky-500/5">
+                        {row.tsm}
+                      </td>
+                      <td className="px-4 sm:px-6 py-4 text-slate-500 dark:text-slate-400 border-l border-slate-100 dark:border-slate-800">
+                        {row.generic}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
