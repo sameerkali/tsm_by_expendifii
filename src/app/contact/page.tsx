@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import apiClient from '@/lib/api/client';
 import { CONTACT } from '@/config/site';
 import { addressLines, phoneHref, phoneNumber, whatsappHref } from '@/lib/contact';
+import { CONTACT_FAQS, HELP_TOPICS } from './content';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -334,6 +335,38 @@ export default function ContactPage() {
                   </p>
                 </form>
               )}
+            </div>
+          </div>
+        </section>
+
+        {/* What we help with + FAQ (FAQPage JSON-LD is in layout.tsx, from the same list) */}
+        <section className="py-16 sm:py-20 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800" aria-labelledby="help-heading">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <h2 id="help-heading" className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              What we can help with
+            </h2>
+            <dl className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {HELP_TOPICS.map((t) => (
+                <div key={t.title} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-5">
+                  <dt className="text-sm font-semibold text-[#0F172A] dark:text-white">{t.title}</dt>
+                  <dd className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{t.body}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <h2 id="contact-faq-heading" className="mt-14 mb-6 text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              Contact: common questions
+            </h2>
+            <div className="divide-y divide-slate-200 dark:divide-slate-800 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+              {CONTACT_FAQS.map((f, i) => (
+                <details key={f.q} className="group px-5 sm:px-6" open={i === 0}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-semibold text-slate-900 dark:text-white [&::-webkit-details-marker]:hidden">
+                    <h3 className="text-base">{f.q}</h3>
+                    <span aria-hidden="true" className="text-slate-400 transition-transform group-open:rotate-45">+</span>
+                  </summary>
+                  <p className="pb-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{f.a}</p>
+                </details>
+              ))}
             </div>
           </div>
         </section>

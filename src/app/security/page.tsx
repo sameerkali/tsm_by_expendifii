@@ -4,6 +4,8 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
+import { FaqList } from '@/components/content/ContentPage';
+import { CONTACT } from '@/config/site';
 
 export const metadata: Metadata = buildPageMetadata('/security');
 
@@ -34,10 +36,84 @@ const practices = [
   },
 ];
 
+// Only protections that can be checked from outside (response headers) or
+// that CORE_APP_SPEC.md documents. Do not add claims the backend can't back.
+const safeguards = [
+  {
+    title: 'HTTPS on every page',
+    body: 'Every page and API request travels over HTTPS, and browsers are told to always use a secure connection to BiltyOne (HSTS), so nobody on the same Wi-Fi can read or change it.',
+  },
+  {
+    title: 'Sign-in kept away from scripts',
+    body: 'Your session lives in an httpOnly cookie, which scripts running on the page cannot read.',
+  },
+  {
+    title: 'Every request is checked',
+    body: 'The server checks your sign-in on every request and only returns GRs, customers and settings that belong to your company account.',
+  },
+  {
+    title: 'No look-alike pages',
+    body: 'BiltyOne cannot be loaded inside another website’s frame, and a Content Security Policy limits where the app can load code from.',
+  },
+];
+
+const exits = [
+  {
+    title: 'Back up any time',
+    body: 'Download every GR as one Excel workbook from Settings, even if your plan is not active.',
+  },
+  {
+    title: 'Deletions stay deleted',
+    body: 'A deleted GR disappears from lists, search, PDFs, statements and exports, and its number is never given to another GR.',
+  },
+  {
+    title: 'Close your account',
+    body: 'Request account deletion from Settings. Once approved, your account and all company data are permanently deleted.',
+  },
+  {
+    title: 'Offline app on your PC',
+    body: 'BiltyOne Desktop keeps records in a database on your own computer, saves automatic backups to a folder you choose, and sends a backup copy to BiltyOne once a week when online.',
+  },
+];
+
+// 40-60 word answers, distinct from questions marked up on other pages.
+const faqs = [
+  {
+    q: 'Does BiltyOne sell or share my transport data?',
+    a: 'No. Your GRs, customers and company details are used only to run BiltyOne for you. We do not sell them, share them with other transporters or use them for advertising. You can download everything as an Excel backup at any time, and our privacy policy explains exactly what we collect.',
+  },
+  {
+    q: 'How do I delete my BiltyOne account?',
+    a: 'Open Settings and choose Delete Account. Once the request is approved, your account and all company data are permanently deleted and cannot be recovered, so download an Excel backup first. While the request is pending you cannot create or edit records, but you can still print and export them.',
+  },
+  {
+    q: 'How do I report a security problem in BiltyOne?',
+    a: `Email ${CONTACT.email} with the subject line "Security Issue" and a short description of what you found and how to reproduce it. We take every report seriously and reply as quickly as possible. Please give us time to fix the problem before sharing it publicly.`,
+  },
+];
+
+function CheckList({ items }: { items: { title: string; body: string }[] }) {
+  return (
+    <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+      {items.map((it) => (
+        <li key={it.title} className="flex gap-3">
+          <svg className="mt-1 shrink-0 text-[#0369A1] dark:text-sky-400" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12.5L10 17.5L19 7" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <strong className="block font-semibold text-[#0F172A] dark:text-white">{it.title}</strong>
+            {it.body}
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function SecurityPage() {
   return (
     <>
-      <JsonLd data={pageJsonLd('/security', {})} />
+      <JsonLd data={pageJsonLd('/security', { faqs })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         {/* Hero */}
@@ -74,18 +150,45 @@ export default function SecurityPage() {
           </div>
         </section>
 
+        {/* Verifiable safeguards and data exit */}
+        <section className="py-20 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800" aria-labelledby="safeguards-heading">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 id="safeguards-heading" className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              What protects your account
+            </h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
+              These protections are switched on for every BiltyOne account. You don&apos;t need to set anything up.
+            </p>
+            <CheckList items={safeguards} />
+
+            <h2 id="exit-heading" className="mt-16 text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              Your data, your exit
+            </h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Software you can&apos;t leave is a risk too. BiltyOne makes it easy to take your records with you.
+            </p>
+            <CheckList items={exits} />
+          </div>
+        </section>
+
+        <section className="pb-20 bg-white dark:bg-slate-950" aria-label="Security questions">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <FaqList faqs={faqs} title="Security: common questions" />
+          </div>
+        </section>
+
         {/* Report a vulnerability */}
         <section className="py-16 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
           <div className="mx-auto max-w-2xl px-4 text-center">
             <h2 className="text-2xl font-bold text-[#0F172A] dark:text-white mb-3">Found a security issue?</h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              We take every report seriously. If you discover a vulnerability, please email us at <a href="mailto:work.sameerfaridi@gmail.com" className="text-[#0369A1] dark:text-sky-400 hover:underline">work.sameerfaridi@gmail.com</a> with the subject line &ldquo;Security Issue&rdquo; and we&apos;ll respond as quickly as possible.
+              We take every report seriously. If you discover a vulnerability, please email us at <a href={`mailto:${CONTACT.email}`} className="text-[#0369A1] dark:text-sky-400 hover:underline">{CONTACT.email}</a> with the subject line &ldquo;Security Issue&rdquo; and we&apos;ll respond as quickly as possible.
             </p>
             <a
-              href="mailto:work.sameerfaridi@gmail.com"
+              href={`mailto:${CONTACT.email}`}
               className="inline-flex items-center gap-2 rounded-xl bg-[#0F172A] dark:bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0369A1] dark:hover:bg-sky-600 transition-colors duration-200 cursor-pointer"
             >
-              work.sameerfaridi@gmail.com
+              {CONTACT.email}
             </a>
           </div>
         </section>

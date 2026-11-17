@@ -74,10 +74,18 @@ const faqs = [
   },
 ];
 
+// Questions shown here but marked up as FAQPage on another page. Google asks
+// for repeated FAQ content to be marked up once, so these stay visible on
+// /faq and are left out of this page's JSON-LD.
+const MARKED_UP_ELSEWHERE = new Set([
+  'Is BiltyOne a transport ERP?', // /transport-erp-software
+]);
+const faqSchema = faqs.filter((f) => !MARKED_UP_ELSEWHERE.has(f.q));
+
 export default function FAQPage() {
   return (
     <>
-      <JsonLd data={pageJsonLd('/faq', { faqs, speakable: ['#faq-heading'] })} />
+      <JsonLd data={pageJsonLd('/faq', { faqs: faqSchema, speakable: ['#faq-heading'] })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         <FAQSection faqs={faqs} headingLevel="h1" />

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { Card } from '@/components/landing/Card';
+import { FaqList } from '@/components/content/ContentPage';
+import { ADDRESS, CONTACT, FOUNDER, FOUNDING_YEAR } from '@/config/site';
 
 export const metadata: Metadata = buildPageMetadata('/about');
 
@@ -31,10 +33,39 @@ const team = [
   { name: 'Dev Sharma', role: 'Backend Engineer. Responsible for all APIs, data infrastructure, and platform reliability.', initials: 'DS' },
 ];
 
+// Fact sheet built from src/config/site.ts so it always matches the
+// Organization schema, footer and contact page.
+const facts: [string, string][] = [
+  ['What it is', 'Transport management software for Indian road transporters: GR/LR (bilty) creation and printing, customer records, freight statements and Excel backup'],
+  ['Founded', `${FOUNDING_YEAR}, by ${FOUNDER.name}`],
+  ['Based in', `${ADDRESS.streetAddress}, ${ADDRESS.addressLocality} ${ADDRESS.postalCode}, ${ADDRESS.countryName}`],
+  ['Team', `${team.length} people: product and engineering`],
+  ['Works on', 'Any web browser on phone or computer, plus BiltyOne Desktop for Windows 10/11, which works offline'],
+  ['Built for', 'Transporters with roughly 1 to 50 trucks, transport agents and booking offices'],
+  ['Price', 'Free for early transporters, no credit card needed'],
+  ['Support', `${CONTACT.languages.join(' and ')}, ${CONTACT.responseTime.toLowerCase()}`],
+];
+
+// 40-60 word answers, distinct from questions marked up on other pages.
+const faqs = [
+  {
+    q: 'Who makes BiltyOne?',
+    a: `BiltyOne is built by ${FOUNDER.name}, a software engineer from a Delhi transport family, with backend engineer Dev Sharma. The idea came from years of watching relatives fill paper GRs by hand: more than 20 fields and three copies for every trip. The first version went live in ${FOUNDING_YEAR}.`,
+  },
+  {
+    q: 'Where is BiltyOne based?',
+    a: `BiltyOne is based at ${ADDRESS.streetAddress}, ${ADDRESS.addressLocality} ${ADDRESS.postalCode}. We are onboarding transporters across Delhi NCR first, and the web app works for transporters anywhere in India. Support is in English and Hindi, and we reply ${CONTACT.responseTime.toLowerCase()}.`,
+  },
+  {
+    q: 'How can I suggest a feature for BiltyOne?',
+    a: 'Write to us from the contact page or on WhatsApp. Tell us how your office works today and what still happens on paper or in Excel. BiltyOne is early, and feedback from the first transporters using it decides what we build next, from printing details to new screens.',
+  },
+];
+
 export default function AboutPage() {
   return (
     <>
-      <JsonLd data={pageJsonLd('/about', { pageType: 'AboutPage', aboutSoftware: true })} />
+      <JsonLd data={pageJsonLd('/about', { pageType: 'AboutPage', aboutSoftware: true, faqs })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         {/* Hero */}
@@ -82,7 +113,7 @@ export default function AboutPage() {
                   Operational clarity for every transport business in India
                 </h2>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
-                  We believe every transporter (whether you run 5 vehicles or 500) deserves a system that&apos;s fast, honest, and actually built for your work. Not a spreadsheet. Not a paper file. Not software from 2008.
+                  We believe every transporter, whether you run one truck or fifty, deserves a system that&apos;s fast, honest, and actually built for your work. Not a spreadsheet. Not a paper file. Not software from 2008.
                 </p>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                   BiltyOne exists to give every transport business the same operational clarity that used to require a full admin team.
@@ -142,6 +173,24 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Fact sheet + FAQ */}
+        <section className="py-20 sm:py-24 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800" aria-labelledby="facts-heading">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <h2 id="facts-heading" className="text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+              BiltyOne at a glance
+            </h2>
+            <dl className="mt-8 divide-y divide-slate-200 dark:divide-slate-800 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+              {facts.map(([label, value]) => (
+                <div key={label} className="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 px-5 py-4">
+                  <dt className="text-sm font-semibold text-[#0F172A] dark:text-white">{label}</dt>
+                  <dd className="sm:col-span-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <FaqList faqs={faqs} title="About BiltyOne: common questions" />
           </div>
         </section>
 

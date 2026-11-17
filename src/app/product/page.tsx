@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { DataTable, FaqList } from '@/components/content/ContentPage';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
@@ -60,10 +61,50 @@ const screens = [
   },
 ];
 
+// The two documents BiltyOne prints. Matches the PDF layouts in
+// CORE_APP_SPEC.md section 11; update when the layouts change.
+const printouts = [
+  {
+    id: 'gr-print',
+    title: 'The GR, in three copies',
+    body: 'One PDF with three A5 landscape pages: the driver copy, consignor copy and consignee copy. Each page carries your logo, company name, GSTIN, PAN, phone and address, then the GR number, date and route; the consignor and consignee with their GSTINs; a goods table with packages, description, weight and freight; and a summary line with the invoice and e-way bill numbers, rate, billing type and total. Vehicle, driver, insurance and remarks print only when you have filled them in.',
+  },
+  {
+    id: 'statement-print',
+    title: 'The customer freight bill',
+    body: 'Page one is an A4 freight bill: your company details, the customer, a count of GRs by status, a table of every GR in the period, then the total amount, amount paid and balance due, with signature blocks for you and the customer. Every GR follows on its own A5 page, newest first, so the customer can check each load against the bill.',
+  },
+];
+
+// Day-to-day questions and the screen that answers each one.
+const lookups: [string, string][] = [
+  ['How is the business doing this month?', 'Dashboard: revenue, today’s GRs, active shipments and outstanding amounts'],
+  ['Where is this load?', 'GR tab: search by GR number, party, vehicle number or city, and read the status badge'],
+  ['What does this customer owe?', 'Printing tab: download their freight bill for any date range'],
+  ['What is this customer’s GSTIN or phone?', 'Customers tab: profile with tap-to-call and one-tap GSTIN copy'],
+  ['Is all our data backed up?', 'Settings: download every GR as one Excel workbook'],
+];
+
+// 40-60 word answers, distinct from questions marked up on other pages.
+const faqs = [
+  {
+    q: 'What is on the customer freight bill?',
+    a: 'Page one is an A4 freight bill with your company details, the customer, every GR in the date range in one table, the total amount, the amount paid and the balance due. Each GR then follows on its own A5 page, newest first, so your customer can check every load against the bill before paying.',
+  },
+  {
+    q: 'Can I try BiltyOne before signing up?',
+    a: 'Yes. The live demo opens BiltyOne in guest mode with sample data, with no signup and no credit card. Look through the GR list, customers, printing and dashboard to see how the screens work, then register when you want to use it with your own company details and logo.',
+  },
+  {
+    q: 'Which screen opens first after I sign in?',
+    a: 'The GR tab, because creating and finding GRs is most of the day’s work. It lists every GR, newest first, with search by GR number, consignor, consignee, vehicle number or city. The dashboard, customers, printing and settings are one click away in the sidebar.',
+  },
+];
+
 export default function ProductPage() {
   return (
     <>
-      <JsonLd data={pageJsonLd('/product', { aboutSoftware: true })} />
+      <JsonLd data={pageJsonLd('/product', { aboutSoftware: true, faqs })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         
@@ -134,6 +175,38 @@ export default function ProductPage() {
               Need to work without internet? <Link href="/desktop" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">BiltyOne Desktop</Link> brings GR creation, printing and search to Windows, offline. For the full list of capabilities, see{' '}
               <Link href="/features" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">features</Link>.
             </p>
+          </div>
+        </section>
+
+        {/* What BiltyOne prints */}
+        <section className="py-20 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800" aria-labelledby="printouts-heading">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <h2 id="printouts-heading" className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+              What BiltyOne prints
+            </h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Two documents leave a transport office every day: the GR that travels with the goods, and the bill that goes to the customer. Both come out of BiltyOne as PDFs that any office printer can handle.
+            </p>
+            {printouts.map((pr) => (
+              <section key={pr.id} id={pr.id} aria-labelledby={`${pr.id}-heading`} className="mt-8">
+                <h3 id={`${pr.id}-heading`} className="text-lg font-bold text-slate-900 dark:text-white">{pr.title}</h3>
+                <p className="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">{pr.body}</p>
+              </section>
+            ))}
+          </div>
+        </section>
+
+        {/* Which screen answers which question */}
+        <section className="py-20 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800" aria-labelledby="lookups-heading">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <h2 id="lookups-heading" className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Which screen answers which question
+            </h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
+              The questions a transport office hears every day, and where BiltyOne keeps the answer.
+            </p>
+            <DataTable caption="Common transport office questions and the BiltyOne screen that answers each" headers={['Question', 'Where to look']} rows={lookups} />
+            <FaqList faqs={faqs} title="Product tour: common questions" />
           </div>
         </section>
 
