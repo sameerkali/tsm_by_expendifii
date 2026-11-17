@@ -1,104 +1,239 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import Navbar from '@/components/landing/Navbar';
-import Footer from '@/components/landing/Footer';
-import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
+import { buildPageMetadata } from '@/lib/seo';
+import { A, AnswerBox, ContentPage, DataTable, H2, H3, OL, P, Strong, UL } from '@/components/content/ContentPage';
 
-export const metadata: Metadata = {
-  title: 'What is a Transport Management System (TMS)?',
-  description:
-    'Learn what a Transport Management System (TMS) is, how it functions in logistics, and how BiltyOne provides a simplified digital GR creator for Indian transporters.',
-  alternates: { canonical: 'https://biltyone.com/transport-management-system' },
-};
+export const metadata: Metadata = buildPageMetadata('/transport-management-system');
 
-export default function TMSOverviewPage() {
+// Primary keyword: "transport management system". Informational intent, so
+// this is a complete guide first and a product page second.
+
+const faqs = [
+  {
+    q: 'What does TMS stand for in transport?',
+    a: 'TMS stands for transport management system (also called transportation management system). It is software that records, tracks and bills the movement of goods. In Indian road transport, a TMS is mainly used to create GR/LR (bilty), keep customer records, track delivery status and produce freight bills.',
+  },
+  {
+    q: 'Is a transport management system only for large logistics companies?',
+    a: 'No. Enterprise TMS products are built for large shippers, but simpler transport management systems exist for small and mid-size transporters. A transporter with even one or two trucks benefits from automatic GR numbers, printed copies, saved customer details and a searchable record of every load.',
+  },
+  {
+    q: 'What is the difference between a TMS and a WMS?',
+    a: 'A TMS manages goods while they move: bookings, transport documents, vehicles, delivery and freight billing. A WMS (warehouse management system) manages goods while they are stored: receiving, storage locations, picking and stock levels. Transporters need a TMS; warehouses and distributors need a WMS, and large logistics firms use both.',
+  },
+  {
+    q: 'Does a transport management system include GPS tracking?',
+    a: 'Not always. Some transport management systems connect to GPS devices for live vehicle location; many, including BiltyOne, track each load by status (booked, in transit, delivered) instead. If you need live location, a GPS device or app can run alongside your TMS, which handles documents and billing.',
+  },
+  {
+    q: 'Can a TMS generate e-way bills?',
+    a: 'Some can, through integration with the GST e-way bill system. BiltyOne records the e-way bill number on each GR, so it prints on every copy and stays with the GR record; you generate the e-way bill itself on the official GST e-way bill portal.',
+  },
+];
+
+export default function TransportManagementSystemPage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-50"
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
-          <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0F172A] dark:text-white mb-6">
-              Understanding Transport Management Systems (TMS)
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              An educational overview of how digital TMS platforms help logistics companies plan, execute, and optimise the movement of physical goods.
-            </p>
-          </div>
-        </section>
+    <ContentPage
+      path="/transport-management-system"
+      eyebrow="Guide"
+      title="Transport Management System (TMS): A Practical Guide for India"
+      intro="A transport management system (TMS) is software that records, tracks and bills the movement of goods. This guide explains how a TMS works for Indian road transport, which features matter, how it compares with ERP and Excel, and how to choose one."
+      aboutSoftware
+      faqs={faqs}
+      toc={[
+        { id: 'what-is-a-tms', label: 'What is a transport management system?' },
+        { id: 'how-it-works', label: 'How a TMS works: the life of one load' },
+        { id: 'features', label: 'Core features of a transport management system' },
+        { id: 'types', label: 'Types of transport management systems' },
+        { id: 'why-india', label: 'Why Indian transporters need a TMS' },
+        { id: 'tms-vs-erp-vs-excel', label: 'TMS vs transport ERP vs Excel' },
+        { id: 'how-to-choose', label: 'How to choose a transport management system' },
+        { id: 'biltyone', label: 'Where BiltyOne fits' },
+      ]}
+      related={[
+        '/online-transport-management-software',
+        '/transport-management-system-for-small-business',
+        '/transport-erp-software',
+        '/guides/how-to-choose-transport-management-software',
+      ]}
+    >
+      <AnswerBox>
+        A <Strong>transport management system (TMS)</Strong> is software that helps a transport business record, track and
+        bill the movement of goods. For Indian road transporters, its core is the GR/LR (bilty): creating and printing it,
+        keeping customer details, following each load from booking to delivery, and billing customers for freight.
+      </AnswerBox>
 
-        {/* Content Article */}
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <article className="prose prose-slate dark:prose-invert max-w-none space-y-8">
-              
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  What is a Transport Management System?
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  A Transport Management System (TMS) is a specialized logistics software platform that uses technology to help businesses plan, execute, and optimize the inbound and outbound shipping of goods. By digitising the documentation, vehicle dispatch, billing, and route tracking processes, a TMS helps logistics operations remain compliant and efficient.
-                </p>
-              </div>
+      <H2 id="what-is-a-tms">What is a transport management system?</H2>
+      <P>
+        A transport management system is the software a transport business uses instead of paper registers and
+        spreadsheets to run its daily operations. It holds every booking, the transport document issued for it, the
+        vehicle and driver that carried it, its delivery status and the money owed for it, in one place that the whole
+        office can search.
+      </P>
+      <P>
+        The term covers two quite different kinds of product. Large manufacturers and retailers use a <em>shipper</em> TMS to
+        plan shipments and choose carriers. Transport companies, fleet owners and booking agents, the businesses that
+        actually move the goods, need a <em>transporter</em> TMS built around their own documents: in India that means the
+        GR, LR or bilty. This guide is about the second kind.
+      </P>
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Why Do Indian Transporters Need a TMS?
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base mb-4">
-                  Traditionally, Indian transport companies manage their daily operations using paper Books, hand-written Lorry Receipts (LR/GR), physical ledger cards, and manual phone call tracking. While this worked in previous decades, today&apos;s logistics market demands:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-                  <li><strong>Fast document turnarounds:</strong> Creating GRs, PODs, and invoices in minutes instead of hours.</li>
-                  <li><strong>Audit compliance:</strong> Having clean records of GSTINs, pincodes, and states for E-Way Bills.</li>
-                  <li><strong>Transparency:</strong> Sharing copies of receipts directly with consigners and drivers digitally.</li>
-                  <li><strong>Space savings:</strong> Replacing physical filing cabinets with secure, cloud-based data storage.</li>
-                </ul>
-              </div>
+      <H2 id="how-it-works">How a TMS works: the life of one load</H2>
+      <P>Follow a single consignment through a transport office and you see everything a TMS has to handle:</P>
+      <OL
+        items={[
+          <>
+            <Strong>Booking.</Strong> The customer (consignor) books a load: goods, weight or number of packages, from and to
+            city, and who will receive it (consignee). A TMS fills in a regular customer’s details automatically.
+          </>,
+          <>
+            <Strong>GR / LR issued.</Strong> The transporter issues a goods receipt (GR), also called a lorry receipt (LR) or
+            bilty. The TMS gives it the next GR number, calculates freight from the rate, and prints copies for the driver,
+            consignor and consignee.
+          </>,
+          <>
+            <Strong>Dispatch.</Strong> The vehicle number, driver details, invoice number and e-way bill number are recorded
+            against the GR, so everything about the trip sits in one record.
+          </>,
+          <>
+            <Strong>In transit and delivery.</Strong> The load’s status moves from booked to in transit to delivered, so
+            anyone in the office can answer “where is my maal?” without phoning the driver.
+          </>,
+          <>
+            <Strong>Billing.</Strong> Freight is collected on the spot (paid), at delivery (to pay) or billed later (to be
+            billed). A TMS turns the GRs for a customer and period into a freight bill or statement.
+          </>,
+          <>
+            <Strong>Payment and records.</Strong> Payment status is marked when money arrives, and every GR stays searchable
+            by number, party, vehicle or city for disputes, audits and repeat bookings.
+          </>,
+        ]}
+      />
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  How BiltyOne Fits In
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Most enterprise-grade TMS platforms are highly complex, require months of onboarding, and charge steep fees. <strong>BiltyOne</strong> takes a different path. We focus purely on what Indian transporters use most: fast Goods Receipt (GR) generation, 3-copy layouts matching standard layouts, and simple analytics. It is free to start, and takes just 2–24 hours to set up.
-                </p>
-              </div>
+      <H2 id="features">Core features of a transport management system</H2>
+      <P>These are the features that matter for a road transporter, in rough order of how often you will use them.</P>
+      <DataTable
+        caption="Core features of a transport management system and why they matter"
+        headers={['Feature', 'What it does', 'Why it matters']}
+        rows={[
+          ['GR / LR creation', 'Builds the consignment note with all parties, goods, route and charges', 'The document every load needs; replaces the carbon GR book'],
+          ['Automatic numbering', 'Gives each GR the next unique number', 'No duplicate or skipped numbers, no arguments later'],
+          ['Freight calculation', 'Rate × quantity per KM, box, kg, quintal or ton', 'Removes arithmetic mistakes on every GR'],
+          ['Customer master', 'Saves consignor details, GSTIN and default pricing', 'Regular customers are filled in with one click'],
+          ['Printing', 'Prints driver, consignor and consignee copies', 'Clean, readable copies with your letterhead'],
+          ['Status tracking', 'Booked, in transit, delivered', 'Answer customer calls without phoning drivers'],
+          ['Billing and statements', 'Freight bill for a customer and date range', 'Month-end billing in minutes, not days'],
+          ['Payment tracking', 'Paid or pending per GR', 'See who owes you money at a glance'],
+          ['Search and records', 'Find any GR by number, party, vehicle or city', 'Years of records, instantly'],
+          ['Import and export', 'Bring in Excel data; download full backups', 'Easy switch in, no lock-in out'],
+          ['Offline access', 'Keeps working without internet', 'Essential in yards and towns with weak connectivity'],
+        ]}
+      />
 
-            </article>
-            
-            <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Want to see a simplified TMS in action?</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Test the live demo - no sign-up or credit card required.</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <LiveDemoLink className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Launch Live Demo
-                </LiveDemoLink>
-                <Link href="/register" className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Sign Up Free
-                </Link>
-              </div>
-            </div>
+      <H2 id="types">Types of transport management systems</H2>
+      <H3>Shipper (enterprise) TMS</H3>
+      <P>
+        Built for manufacturers, retailers and 3PLs that send large volumes and hire many carriers. Focus: route and load
+        planning, carrier selection, rate negotiation and freight audit. Usually priced as an enterprise contract with a
+        long implementation.
+      </P>
+      <H3>Transporter TMS</H3>
+      <P>
+        Built for the transport company itself: fleet owners, transport agencies and booking offices. Focus: GR/LR
+        creation, customer accounts, delivery status and freight billing. Quick to set up and learn. BiltyOne is a
+        transporter TMS.
+      </P>
+      <H3>Transport ERP</H3>
+      <P>
+        An all-in-one suite that adds accounting, payroll, fleet maintenance, fuel, tyres and inventory to the TMS core.
+        Suits larger fleets with in-house accounts and workshop teams. See{' '}
+        <A href="/transport-erp-software">transport ERP software vs TMS</A>.
+      </P>
+      <H3>Fleet tracking (GPS) software</H3>
+      <P>
+        Shows where each vehicle is, using a GPS device or the driver’s phone. Useful, but it is not a TMS on its own: it
+        knows where the truck is, not what it is carrying, for whom, or who owes you money for it.
+      </P>
 
-            <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-              <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
-              <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
-              <Link href="/why-biltypro" className="hover:text-[#0369A1] transition-colors">Why Choose BiltyOne</Link>
-              <Link href="/logistics-glossary" className="hover:text-[#0369A1] transition-colors">Logistics Glossary</Link>
-            </div>
+      <H2 id="why-india">Why Indian transporters need a TMS</H2>
+      <P>Road transport in India runs on paperwork that a general business tool does not understand:</P>
+      <UL
+        items={[
+          <>
+            <Strong>The GR/LR is central.</Strong> It is the transporter’s receipt for the goods and the contract of carriage,
+            and under GST a goods transport agency is defined by issuing a consignment note. Every load needs one, usually in
+            three copies.
+          </>,
+          <>
+            <Strong>E-way bills reference it.</Strong> For most goods worth more than ₹50,000, an e-way bill must accompany
+            the movement, and its transport details include the transport document (GR/LR) number. Keeping both numbers on
+            one record saves time at checkposts and audits. Official rules:{' '}
+            <A href="https://ewaybillgst.gov.in">ewaybillgst.gov.in</A>.
+          </>,
+          <>
+            <Strong>Billing types are specific.</Strong> Paid, to pay and to be billed (TBB) each change who pays and when.
+            Spreadsheets rarely handle these cleanly.
+          </>,
+          <>
+            <Strong>Paper does not survive.</Strong> Carbon copies fade, books get wet in the monsoon, and finding a GR from
+            last year can take an afternoon.
+          </>,
+          <>
+            <Strong>Staff cost adds up.</Strong> Many offices pay someone mainly to write and file GRs. A TMS lets one person
+            do the work of several.
+          </>,
+        ]}
+      />
 
-          </div>
-        </section>
+      <H2 id="tms-vs-erp-vs-excel">TMS vs transport ERP vs Excel</H2>
+      <DataTable
+        caption="Paper or Excel compared with a transporter TMS and a transport ERP"
+        highlight={2}
+        headers={['', 'Paper book / Excel', 'Transporter TMS (e.g. BiltyOne)', 'Transport ERP']}
+        rows={[
+          ['Main job', 'Write and file GRs by hand', 'GRs, customers, status and freight billing', 'Operations plus accounts, HR, fleet and stock'],
+          ['Setup time', 'None', 'Hours to a day', 'Weeks to months'],
+          ['Training', 'None', 'About a day', 'Formal training for each module'],
+          ['GR numbers and freight', 'By hand', 'Automatic', 'Automatic'],
+          ['Customer bills', 'Typed separately', 'Built in', 'Built in'],
+          ['Accounting and payroll', 'Separate', 'Excel export to your accountant', 'Built in'],
+          ['Cost', 'Paper and staff time', 'Low or free', 'Licence, implementation and per-user fees'],
+          ['Best for', 'Very low volume', 'Small and mid-size transporters', 'Large fleets with in-house accounts'],
+        ]}
+      />
 
-      </main>
-      <Footer />
-    </>
+      <H2 id="how-to-choose">How to choose a transport management system</H2>
+      <P>Shortlist two or three options and check each one against this list, using your own GRs:</P>
+      <OL
+        items={[
+          'Does it print a GR/LR that looks right to your customers and drivers, with your logo, GSTIN and address?',
+          'Can you create a GR in under two minutes once a customer is saved?',
+          'Does it calculate freight the way you charge: per KM, box, kg, quintal or ton?',
+          'Can it produce a freight bill or statement for one customer over any date range?',
+          'Can you import your existing customer list and old GRs from Excel?',
+          'Can you export everything to Excel at any time, without asking the vendor?',
+          'Does it keep working when the internet is down?',
+          'Can your least technical staff member learn it in a day?',
+          'Is the total cost clear: licence, setup, per-user and renewal fees?',
+        ]}
+      />
+      <P>
+        Our longer checklist, with questions to ask vendors and a one-week trial plan, is in{' '}
+        <A href="/guides/how-to-choose-transport-management-software">how to choose transport management software in India</A>.
+      </P>
+
+      <H2 id="biltyone">Where BiltyOne fits</H2>
+      <P>
+        BiltyOne is a transporter TMS for Indian road transport. It covers the work every transport office does daily:
+        GR/LR creation with automatic numbers and freight, three-copy printing with your branding, a customer directory,
+        booking and payment status, customer freight statements, Excel import and backup, and an analytics dashboard. It
+        runs online in any browser, and{' '}
+        <A href="/desktop">BiltyOne Desktop</A> works offline on Windows.
+      </P>
+      <P>
+        It deliberately does not do GPS tracking, route planning or accounting. If you need those, run them alongside
+        BiltyOne or choose a full ERP. For most transporters with up to about 50 trucks, the focused tool is faster to
+        adopt and costs far less: BiltyOne is <A href="/faq">free for early transporters</A>. See every capability on the{' '}
+        <A href="/features">features page</A>.
+      </P>
+    </ContentPage>
   );
 }
