@@ -7,6 +7,7 @@ import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 import { Card } from '@/components/landing/Card';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { FaqList } from '@/components/content/ContentPage';
 
 export const metadata: Metadata = buildPageMetadata('/features');
 
@@ -131,10 +132,59 @@ const groups: { id: string; title: string; lead: string; items: { title: string;
   },
 ];
 
+// One load, start to finish: shows how the feature groups connect.
+const workflow: { title: string; body: string }[] = [
+  {
+    title: 'Add the customer once.',
+    body: 'Save a regular consignor with phone, GSTIN, address and a default rate. Or type a new consignor with their phone and GSTIN on the GR, and BiltyOne saves them as a customer when you save the GR.',
+  },
+  {
+    title: 'Create the GR.',
+    body: 'Pick the customer and their details, pricing type and rate fill in. Enter the goods and the weight or boxes; the GR number and freight are filled in for you.',
+  },
+  {
+    title: 'Print three copies.',
+    body: 'One PDF holds the driver, consignor and consignee copies, each with your logo, GSTIN and address.',
+  },
+  {
+    title: 'Update the status.',
+    body: 'Move the GR from Booked to In Transit to Delivered, so anyone in the office can answer a customer’s call.',
+  },
+  {
+    title: 'Bill at month end.',
+    body: 'In the Printing tab, pick the customer and a date range to download one PDF freight bill followed by every GR in that period.',
+  },
+  {
+    title: 'Keep a backup.',
+    body: 'Download every GR as an Excel workbook from Settings whenever you like.',
+  },
+];
+
+// 40-60 word answers. Distinct from the questions on /faq and the landing
+// pages: Google asks for each FAQ to be marked up on one page only.
+const faqs = [
+  {
+    q: 'Which freight units does BiltyOne support?',
+    a: 'Freight can be priced per KM, box, kg, quintal or ton. BiltyOne multiplies the rate by the quantity as you type and rounds to two decimals, so the freight on every GR matches the rate you agreed. For Per Box the quantity is the box count; for the other units it is the weight or distance you enter.',
+  },
+  {
+    q: 'Does BiltyOne fill in customer details automatically?',
+    a: 'Yes. Pick a saved customer on the GR form and their phone, GSTIN, address, pricing type and default rate fill in. A new consignor entered with a phone number and GSTIN is saved as a customer when you save the GR. Typing a 6-digit pincode fills the city and state from India Post data.',
+  },
+  {
+    q: 'Can I duplicate a GR for a repeat load?',
+    a: 'Yes. The copy icon makes a new GR with the next number, today’s date and the status reset to Booked. The parties, goods, rate and freight are copied, so a repeat load takes seconds. Check the invoice and e-way bill numbers before printing, because those are copied too.',
+  },
+  {
+    q: 'What does BiltyOne not do?',
+    a: 'BiltyOne does not do GPS vehicle tracking, route planning, e-way bill generation, accounting or payroll. It focuses on GRs, customers, freight statements and records, and exports everything to Excel for your accountant. If you use GPS or the e-way bill portal, keep using them and note their numbers on the GR.',
+  },
+];
+
 export default function FeaturesPage() {
   return (
     <>
-      <JsonLd data={pageJsonLd('/features', { aboutSoftware: true })} />
+      <JsonLd data={pageJsonLd('/features', { aboutSoftware: true, faqs })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-white dark:bg-slate-950" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         {/* Hero */}
@@ -211,6 +261,32 @@ export default function FeaturesPage() {
                 .
               </figcaption>
             </figure>
+          </div>
+        </section>
+
+        {/* One load through every feature */}
+        <section className="py-16 sm:py-20 bg-[#F8FAFC] dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800" aria-labelledby="workflow-heading">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <h2 id="workflow-heading" className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+              How the features work together on one load
+            </h2>
+            <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Most of these features are steps in one job: getting a load booked, moving and billed. Here is a single GR going through BiltyOne.
+            </p>
+            <ol className="mt-8 list-decimal space-y-4 pl-6 text-slate-600 dark:text-slate-400 leading-relaxed marker:font-bold marker:text-sky-700 dark:marker:text-sky-400">
+              {workflow.map((step) => (
+                <li key={step.title}>
+                  <strong className="font-semibold text-slate-900 dark:text-slate-100">{step.title}</strong> {step.body}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* FAQ (FAQPage JSON-LD comes from the same list) */}
+        <section className="pb-20 bg-white dark:bg-slate-950" aria-label="Features questions">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <FaqList faqs={faqs} title="Features: common questions" />
           </div>
         </section>
 

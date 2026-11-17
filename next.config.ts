@@ -84,7 +84,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  skipTrailingSlashRedirect: true,
+  // No skipTrailingSlashRedirect: it was only needed for the PostHog /ingest
+  // proxy, which is gone. Without it, /features/ 308-redirects to /features
+  // instead of serving a duplicate URL.
 };
 
 export default nextConfig;

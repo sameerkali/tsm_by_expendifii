@@ -22,6 +22,21 @@ export const OG_IMAGE = {
   alt: 'BiltyOne transport management software: GR list and dashboard',
 } as const;
 
+/**
+ * Social preview for a page. The homepage and noindexed pages keep the
+ * product screenshot; every other page gets its own 1200x630 title card,
+ * prerendered at build time by app/og/[...slug]/route.tsx.
+ */
+export function ogImageFor(page: PublicPage): { url: string; width: number; height: number; alt: string } {
+  if (page.path === '/' || page.noindex) return { ...OG_IMAGE };
+  return {
+    url: `/og${page.path}.png`,
+    width: 1200,
+    height: 630,
+    alt: `${page.title.replace(/\s*\|\s*BiltyOne$/, '')}: BiltyOne`,
+  };
+}
+
 interface MetadataOptions {
   /** Shorter/punchier title for social cards. Defaults to the page title. */
   ogTitle?: string;
@@ -43,6 +58,7 @@ export function buildPageMetadata(path: string, options: MetadataOptions = {}): 
   const ogTitle = options.ogTitle ?? page.title;
   const ogDescription = options.ogDescription ?? page.description;
   const isArticle = page.section === 'guide' || page.section === 'resource';
+  const image = ogImageFor(page);
 
   return {
     title: { absolute: page.title },
@@ -58,7 +74,7 @@ export function buildPageMetadata(path: string, options: MetadataOptions = {}): 
       description: ogDescription,
       siteName: SITE_NAME,
       locale: 'en_IN',
-      images: [OG_IMAGE],
+      images: [image],
       ...(isArticle
         ? {
             publishedTime: page.datePublished,
@@ -71,7 +87,7 @@ export function buildPageMetadata(path: string, options: MetadataOptions = {}): 
       card: 'summary_large_image',
       title: ogTitle,
       description: ogDescription,
-      images: [OG_IMAGE.url],
+      images: [image.url],
     },
   };
 }
@@ -98,7 +114,9 @@ export function organizationNode(): Node {
       '@type': 'ImageObject',
       url: absoluteUrl('/logo.png'),
     },
-    description: `${SITE_NAME} is ${SITE_TAGLINE.toLowerCase()}: GR/LR (bilty) creation, printing, customer billing and records.`,
+    // Lowercase only the first letter: "Transport ... for Indian transporters"
+    // becomes "transport ... for Indian transporters", keeping "Indian" capitalised.
+    description: `${SITE_NAME} is ${SITE_TAGLINE.charAt(0).toLowerCase()}${SITE_TAGLINE.slice(1)}: GR/LR (bilty) creation, printing, customer billing and records.`,
     foundingDate: FOUNDING_YEAR,
     founder: { '@id': IDS.founder },
     email: CONTACT.email,
@@ -262,6 +280,7 @@ export function pageJsonLd(path: string, options: PageGraphOptions = {}): Node {
   const page = getPage(path);
   const url = absoluteUrl(page.path);
   const crumbs = crumbsFor(page);
+  const imageUrl = absoluteUrl(ogImageFor(page).url);
 
   const webPage: Node = {
     '@type': options.pageType ?? 'WebPage',
@@ -275,7 +294,7 @@ export function pageJsonLd(path: string, options: PageGraphOptions = {}): Node {
     breadcrumb: { '@id': `${url}#breadcrumb` },
     datePublished: page.datePublished,
     dateModified: page.lastModified,
-    primaryImageOfPage: { '@type': 'ImageObject', url: absoluteUrl(OG_IMAGE.url) },
+    primaryImageOfPage: { '@type': 'ImageObject', url: imageUrl },
     ...(options.speakable ? { speakable: { '@type': 'SpeakableSpecification', cssSelector: options.speakable } } : {}),
     ...(options.aboutSoftware ? { about: { '@id': IDS.software } } : {}),
   };
@@ -297,7 +316,7 @@ export function pageJsonLd(path: string, options: PageGraphOptions = {}): Node {
       inLanguage: 'en-IN',
       author: { '@id': IDS.founder },
       publisher: { '@id': IDS.organization },
-      image: absoluteUrl(OG_IMAGE.url),
+      image: imageUrl,
     });
   }
 

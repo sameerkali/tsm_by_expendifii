@@ -37,6 +37,8 @@ const columns: { label: string; links: { label: string; href: string }[] }[] = [
       { label: 'Guides', href: '/guides' },
       { label: 'What is a Bilty?', href: '/guides/what-is-bilty' },
       { label: 'GR vs LR vs E-Way Bill', href: '/guides/gr-vs-lr-vs-eway-bill' },
+      { label: 'How to Choose a TMS', href: '/guides/how-to-choose-transport-management-software' },
+      { label: 'Paper GR Book to Software', href: '/guides/paper-gr-book-to-software' },
       { label: 'Logistics Glossary', href: '/logistics-glossary' },
       { label: 'Paper vs Excel vs Software', href: '/digital-transport-management' },
       { label: 'Transport Automation', href: '/transport-business-automation' },
