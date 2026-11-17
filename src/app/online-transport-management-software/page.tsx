@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/seo';
-import { A, AnswerBox, ContentPage, DataTable, H2, OL, P, Strong, UL } from '@/components/content/ContentPage';
+import { A, AnswerBox, ContentPage, DataTable, H2, OL, P, Screenshot, Strong, UL } from '@/components/content/ContentPage';
+import { SCREENSHOTS } from '@/config/screenshots';
 
 export const metadata: Metadata = buildPageMetadata('/online-transport-management-software');
 
@@ -36,8 +37,8 @@ export default function OnlineTransportManagementSoftwarePage() {
     <ContentPage
       path="/online-transport-management-software"
       eyebrow="Online transport software"
-      title="Online Transport Management Software, With an Offline App"
-      intro="BiltyOne is online transport management software for Indian transporters. Open it in any browser on a phone or computer to create, print and track GR/LR from anywhere, and use the BiltyOne Desktop application when your office has weak internet."
+      title="Online Transport Software That Also Works Offline"
+      intro="BiltyOne is online transport software for Indian transporters. Open it in any browser on a phone or computer to create, print and track GR/LR from anywhere, and switch to the BiltyOne Desktop application when your office has weak internet."
       aboutSoftware
       faqs={faqs}
       toc={[
@@ -48,14 +49,16 @@ export default function OnlineTransportManagementSoftwarePage() {
         { id: 'application', label: 'A transport management application for phone and PC' },
         { id: 'get-started', label: 'Get started in five minutes' },
       ]}
-      related={['/desktop', '/transport-management-system', '/transport-company-software', '/security']}
+      related={['/desktop', '/transport-company-software', '/pricing', '/security']}
     >
       <AnswerBox>
-        <Strong>Online transport management software</Strong> runs in a web browser instead of being installed on one
+        <Strong>Online transport software</Strong> (online transport management software) runs in a web browser instead of being installed on one
         computer. Your GRs, customers and bills are stored securely online, so the owner, the booking clerk and the
         accountant work from the same records on any device. BiltyOne works this way and also offers an offline Windows
         app.
       </AnswerBox>
+
+      <Screenshot shot={SCREENSHOTS.grList} priority />
 
       <H2 id="what-you-can-do">What you can do online with BiltyOne</H2>
       <UL
@@ -150,6 +153,7 @@ export default function OnlineTransportManagementSoftwarePage() {
         <A href="/desktop">BiltyOne Desktop</A>, installs on Windows 10 or 11 and keeps working with no internet after a
         one-time activation.
       </P>
+      <Screenshot shot={SCREENSHOTS.grListMobile} phone />
       <P>Choose the desktop application if:</P>
       <UL
         items={[

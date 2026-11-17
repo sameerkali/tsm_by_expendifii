@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { trackEvent } from "@/lib/analytics";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import authApi from "@/lib/api/auth.api";
@@ -69,6 +70,8 @@ export function useAuth() {
       toast.success(
         res.message || "Account created! Activate with your coupon code.",
       );
+      // GA4 recommended conversion event (no-op without consent).
+      trackEvent("sign_up", { method: "email" });
       window.location.href = "/gr";
     },
     onError: (error: unknown) => {

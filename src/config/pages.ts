@@ -10,11 +10,22 @@
  *
  * Keyword map (one primary search intent per URL, so pages don't compete):
  *   /                                              transport management software (+ in India, transport software)
- *   /transport-management-system                   transport management system
- *   /online-transport-management-software          online transport management software, transport management application
+ *   /lorry-receipt-software                        bilty software, LR software, lorry receipt software
+ *                                                  (the document: fields, format, freight, printing)
+ *   /gr-management                                 GR software, GR creation software
+ *                                                  (the GR's life: create, print, status, payment, statements)
+ *   /transport-management-system                   transport management system (TMS): EDUCATIONAL guide,
+ *                                                  not a product landing page (no SoftwareApplication schema)
  *   /transport-company-software                    transport company software, transport business software
- *   /transport-management-system-for-small-business transport management system for small business
+ *                                                  (the transport office: people, billing types, month-end)
+ *   /transport-management-system-for-small-business small transport business software (+ TMS for small business)
+ *   /online-transport-management-software          online transport software (+ online TMS, transport app)
  *   /transport-erp-software                        transport ERP software
+ *   /pricing                                       BiltyOne pricing, transport software price/cost
+ *
+ * Bilty, LR and GR are the same document, so /lorry-receipt-software and
+ * /gr-management overlap by nature. Keep them apart by angle (document vs
+ * life cycle), and link between them with their own keywords as anchor text.
  *
  * `title` is the complete <title> (rendered with title.absolute), so keep it
  * at 60 characters or fewer. Keep `description` at 160 characters or fewer.
@@ -59,12 +70,14 @@ export const PUBLIC_PAGES: PublicPage[] = [
   // ── Keyword landing pages ────────────────────────────────────────────
   {
     path: '/transport-management-system',
-    title: 'Transport Management System (TMS) for India | BiltyOne',
+    title: 'Transport Management System (TMS): A Guide for India',
     description:
       'What a transport management system (TMS) is, how it works for Indian road transporters, which features matter and how to choose one. Checklist and FAQ inside.',
-    label: 'Transport Management System',
+    label: 'TMS Guide',
     summary: 'Complete guide to transport management systems (TMS) for Indian road transport.',
-    section: 'solution',
+    // Educational guide, not a product page: 'resource' gives it og:type
+    // article and keeps it out of the product/solution groupings.
+    section: 'resource',
     datePublished: '2026-07-03',
     lastModified: '2026-11-17',
     changeFrequency: 'monthly',
@@ -72,11 +85,11 @@ export const PUBLIC_PAGES: PublicPage[] = [
   },
   {
     path: '/online-transport-management-software',
-    title: 'Online Transport Management Software & App | BiltyOne',
+    title: 'Online Transport Software for Phone & PC | BiltyOne',
     description:
-      'Run your transport business online. BiltyOne works in any browser on phone or PC, with an offline Windows app for weak internet. Free to start, no installation.',
+      'Online transport software for Indian transporters: create, print and track GR/LR in any browser on phone or PC, plus an offline Windows app. Free to start.',
     label: 'Online Transport Software',
-    summary: 'Online (browser-based) transport management software and the offline Windows application.',
+    summary: 'Online transport software that runs in any browser, plus the offline Windows application.',
     section: 'solution',
     datePublished: '2026-11-17',
     lastModified: '2026-11-17',
@@ -87,7 +100,7 @@ export const PUBLIC_PAGES: PublicPage[] = [
     path: '/transport-company-software',
     title: 'Transport Company & Business Software | BiltyOne',
     description:
-      'Software for transport companies in India: bookings and GRs, customer records, freight bills, payment and delivery status in one place. Free to start.',
+      'Software for the transport company office: booking desk, GR printing, Paid, To Pay and To Be Billed freight, and month-end customer bills in one system.',
     label: 'Transport Company Software',
     summary: 'Software for transport companies and transport businesses, organised by daily office workflow.',
     section: 'solution',
@@ -98,11 +111,11 @@ export const PUBLIC_PAGES: PublicPage[] = [
   },
   {
     path: '/transport-management-system-for-small-business',
-    title: 'Transport Management System for Small Business | BiltyOne',
+    title: 'Small Transport Business Software (1-20 Trucks) | BiltyOne',
     description:
-      'A simple, free transport management system for small transport businesses with 1 to 20 trucks. Create GRs, manage customers and bill freight, no extra staff.',
-    label: 'TMS for Small Business',
-    summary: 'Transport management system for small transport businesses and small fleets (1 to 20 trucks).',
+      'Simple, free software for small transport businesses with 1 to 20 trucks: create and print GRs, keep customer records and bill freight without extra staff.',
+    label: 'Small Transport Business Software',
+    summary: 'Small transport business software for fleets of 1 to 20 trucks.',
     section: 'solution',
     datePublished: '2026-11-17',
     lastModified: '2026-11-17',
@@ -178,11 +191,11 @@ export const PUBLIC_PAGES: PublicPage[] = [
   },
   {
     path: '/lorry-receipt-software',
-    title: 'Lorry Receipt & Bilty Software for India | BiltyOne',
+    title: 'Bilty Software, LR & Lorry Receipt Software | BiltyOne',
     description:
-      'Create lorry receipts (LR, GR, bilty) online in under 2 minutes: automatic GR numbers and freight, your logo and GSTIN on every copy, 3-copy print. Free.',
-    label: 'Lorry Receipt Software',
-    summary: 'LR/GR (bilty) creation and printing for Indian transporters.',
+      'Bilty and LR software for Indian transporters: create lorry receipts online in under 2 minutes, with automatic numbers and freight and 3-copy print. Free.',
+    label: 'Bilty & LR Software',
+    summary: 'Bilty software and LR (lorry receipt) software: create and print bilty/LR for Indian transporters.',
     section: 'product',
     datePublished: '2026-07-03',
     lastModified: '2026-11-17',
@@ -191,13 +204,26 @@ export const PUBLIC_PAGES: PublicPage[] = [
   },
   {
     path: '/gr-management',
-    title: 'Goods Receipt (GR) Management & 3-Copy Print | BiltyOne',
+    title: 'GR Creation Software & GR Management | BiltyOne',
     description:
-      'Manage every Goods Receipt (GR) from booking to delivery: status tracking, payment status, search, duplicate, 3-copy print and customer statements.',
-    label: 'GR Management',
-    summary: 'Goods Receipt life cycle: booking, status, payment, print and statements.',
+      'GR creation software for Indian transporters: create a goods receipt (GR) in under 2 minutes, print 3 copies, track status and payment, and bill customers.',
+    label: 'GR Software',
+    summary: 'GR creation software and the goods receipt life cycle: create, print, status, payment and statements.',
     section: 'product',
     datePublished: '2026-07-03',
+    lastModified: '2026-11-17',
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  },
+  {
+    path: '/pricing',
+    title: 'BiltyOne Pricing: Free Transport Software for India',
+    description:
+      'BiltyOne is free for early transporters: every feature, the web app and the Windows desktop app. No credit card. Compare BiltyOne with paper, Excel and ERP.',
+    label: 'Pricing',
+    summary: 'Pricing (free for early transporters), web vs desktop app, and BiltyOne vs paper, Excel and transport ERP.',
+    section: 'product',
+    datePublished: '2026-11-17',
     lastModified: '2026-11-17',
     changeFrequency: 'monthly',
     priority: 0.8,
@@ -385,7 +411,7 @@ export const PUBLIC_PAGES: PublicPage[] = [
     summary: 'Privacy policy.',
     section: 'legal',
     datePublished: '2026-05-30',
-    lastModified: '2026-08-27',
+    lastModified: '2026-11-17',
     changeFrequency: 'yearly',
     priority: 0.2,
   },
@@ -421,7 +447,7 @@ export const PUBLIC_PAGES: PublicPage[] = [
     summary: 'Cookie policy.',
     section: 'legal',
     datePublished: '2026-06-18',
-    lastModified: '2026-08-27',
+    lastModified: '2026-11-17',
     changeFrequency: 'yearly',
     priority: 0.2,
   },

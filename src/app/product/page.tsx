@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { DataTable, FaqList } from '@/components/content/ContentPage';
+import { SCREENSHOTS, type Screenshot } from '@/config/screenshots';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
@@ -12,9 +13,10 @@ export const metadata: Metadata = buildPageMetadata('/product');
 
 // Screen-by-screen tour. Matches the four tabs and dashboard described in
 // CORE_APP_SPEC.md; update when screens change.
-const screens = [
+const screens: { id: string; name: string; summary: string; points: string[]; shot?: Screenshot }[] = [
   {
     id: 'gr-tab',
+    shot: SCREENSHOTS.grList,
     name: 'GR tab',
     summary: 'Where every load starts. The landing screen after you sign in.',
     points: [
@@ -26,6 +28,7 @@ const screens = [
   },
   {
     id: 'customers-tab',
+    shot: SCREENSHOTS.customers,
     name: 'Customers tab',
     summary: 'Your directory of regular consignors.',
     points: [
@@ -36,6 +39,7 @@ const screens = [
   },
   {
     id: 'printing-tab',
+    shot: SCREENSHOTS.printing,
     name: 'Printing tab',
     summary: 'Month-end billing in a few clicks.',
     points: [
@@ -163,6 +167,19 @@ export default function ProductPage() {
                 <section key={sc.id} id={sc.id} aria-labelledby={`${sc.id}-heading`} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-6">
                   <h3 id={`${sc.id}-heading`} className="text-lg font-bold text-slate-900 dark:text-white">{sc.name}</h3>
                   <p className="mt-1 text-sm font-medium text-sky-700 dark:text-sky-400">{sc.summary}</p>
+                  {sc.shot && (
+                    <figure className="mt-4">
+                      <Image
+                        src={sc.shot.src}
+                        alt={sc.shot.alt}
+                        width={sc.shot.width}
+                        height={sc.shot.height}
+                        sizes="(max-width: 768px) 100vw, 480px"
+                        className="h-auto w-full rounded-lg border border-slate-200 dark:border-slate-700"
+                      />
+                      <figcaption className="mt-2 text-xs text-slate-500 dark:text-slate-400">Sample data.</figcaption>
+                    </figure>
+                  )}
                   <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400 marker:text-sky-600">
                     {sc.points.map((p) => (
                       <li key={p}>{p}</li>

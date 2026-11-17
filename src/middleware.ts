@@ -35,6 +35,7 @@ const INFO_PATHS = [
   '/transport-company-software',
   '/transport-erp-software',
   '/guides', // also covers /guides/*
+  '/pricing',
   // '/transport-management-system' above also covers
   // '/transport-management-system-for-small-business' (prefix match).
 ];

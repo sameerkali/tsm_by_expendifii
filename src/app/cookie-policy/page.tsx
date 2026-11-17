@@ -6,7 +6,7 @@ import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = buildPageMetadata('/cookie-policy');
 
-const lastUpdated = 'June 2026';
+const lastUpdated = 'November 2026';
 
 export default function CookiePolicyPage() {
   return (
@@ -42,7 +42,7 @@ export default function CookiePolicyPage() {
                 <strong>Necessary Cookies:</strong> Required for the platform to function. These enable secure sign-in, session management, and CSRF protection. They cannot be disabled.
               </li>
               <li>
-                <strong>Analytics Cookies:</strong> Help us understand how the platform is used (page visits, navigation patterns, errors). This data is anonymous and used solely to improve BiltyOne.
+                <strong>Analytics Cookies:</strong> Help us understand how our public website is used: which pages people visit and which buttons they click. We use Google Analytics for this, and only if you accept analytics cookies; it sets cookies named <code>_ga</code> and <code>_ga_*</code>. Google Analytics is not used inside the BiltyOne app, so your GRs and customer data are never sent to it. We also count page visits with Vercel Web Analytics, which does not use cookies.
               </li>
             </ul>
 

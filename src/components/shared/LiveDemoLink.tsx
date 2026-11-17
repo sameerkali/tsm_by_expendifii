@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import dynamic from 'next/dynamic';
+import { trackEvent } from '@/lib/analytics';
 import { useRouter } from 'next/navigation';
 
 // The confirm dialog (with its icon set and class-merging helper) is only
@@ -65,7 +66,10 @@ export function LiveDemoLink({ id, className, children, onMouseEnter }: LiveDemo
           <ConfirmDialog
             isOpen={showConfirm}
             onClose={() => setShowConfirm(false)}
-            onConfirm={() => router.push('/live-demo')}
+            onConfirm={() => {
+              trackEvent('live_demo_start', { page_path: window.location.pathname });
+              router.push('/live-demo');
+            }}
             title="Start the live demo?"
             message="You'll enter BiltyOne's dashboard with sample data. No account or signup needed."
             confirmLabel="Yes, take me in"

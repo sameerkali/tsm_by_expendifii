@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // next/image re-encodes every image; serve AVIF where the browser supports
+  // it (smallest files), WebP otherwise.
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   async redirects() {
     return [
       {
@@ -53,11 +58,13 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value:
               "default-src 'self'; " +
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com/ https://news.google.com; " +
+              // Google Analytics 4 (googletagmanager.com, *.google-analytics.com)
+              // and the YouTube product video (youtube-nocookie.com, i.ytimg.com).
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com/ https://news.google.com https://www.googletagmanager.com; " +
               "style-src 'self' 'unsafe-inline'; " +
-              "img-src 'self' data: blob: https://res.cloudinary.com https://news.google.com https://www.gstatic.com; " +
-              "connect-src 'self' https://va.vercel-scripts.com/ https://api.postalpincode.in https://api.cloudinary.com https://news.google.com; " +
-              "frame-src https://news.google.com https://accounts.google.com; " +
+              "img-src 'self' data: blob: https://res.cloudinary.com https://news.google.com https://www.gstatic.com https://*.google-analytics.com https://*.googletagmanager.com https://i.ytimg.com; " +
+              "connect-src 'self' https://va.vercel-scripts.com/ https://api.postalpincode.in https://api.cloudinary.com https://news.google.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; " +
+              "frame-src https://news.google.com https://accounts.google.com https://www.youtube-nocookie.com; " +
               "font-src 'self'; " +
               "frame-ancestors 'none'; " +
               "base-uri 'self'; " +

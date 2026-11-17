@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { CheckCircle2, Download, Loader2, X } from 'lucide-react';
 import { apiErrorMessage, desktopApi } from '@/lib/api/desktop.api';
+import { trackEvent } from '@/lib/analytics';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -103,6 +104,7 @@ export function DesktopDownloadDialog({ open, onClose }: DesktopDownloadDialogPr
     setPhase('sending');
     try {
       await desktopApi.requestDownloadLink(value);
+      trackEvent('desktop_download_request');
       setSentTo(value);
       setPhase('sent');
     } catch (err) {

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { notifyConsentChange } from '@/lib/analytics';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
@@ -108,6 +109,7 @@ export function CookieSettingsSection() {
     await new Promise((r) => setTimeout(r, 400));
     localStorage.setItem('cookie-consent', JSON.stringify(preferences));
     localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+    notifyConsentChange();
     setSaved({ ...preferences });
     setIsSaving(false);
     toast.success('Cookie preferences saved.');

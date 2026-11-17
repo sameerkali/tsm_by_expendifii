@@ -5,6 +5,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import { PreferencesProvider } from "@/providers/PreferencesProvider";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import "./globals.css";
 import SmoothScroll from "@/components/landing/SmoothScroll";
 import DevTools from "@/components/DevTools";
@@ -116,6 +117,7 @@ export default function RootLayout({
                 useSearchParams) declare their own. */}
             {children}
             <Analytics />
+            <GoogleAnalytics />
             {process.env.NODE_ENV === "development" && <DevTools />}
             <Toaster position="top-right" richColors closeButton />
             {/* <NetworkStatusBanner /> */}

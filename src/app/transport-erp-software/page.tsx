@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/seo';
-import { A, AnswerBox, ContentPage, DataTable, H2, H3, OL, P, Strong, UL } from '@/components/content/ContentPage';
+import { A, AnswerBox, ContentPage, DataTable, H2, H3, OL, P, Screenshot, Strong, UL } from '@/components/content/ContentPage';
+import { SCREENSHOTS } from '@/config/screenshots';
 
 export const metadata: Metadata = buildPageMetadata('/transport-erp-software');
 
@@ -155,6 +156,7 @@ export default function TransportErpSoftwarePage() {
       />
 
       <H2 id="biltyone">Where BiltyOne fits</H2>
+      <Screenshot shot={SCREENSHOTS.customers} />
       <H3>What BiltyOne covers</H3>
       <P>
         BiltyOne is the operations core of a transport business: GR/LR creation with automatic numbers and freight,

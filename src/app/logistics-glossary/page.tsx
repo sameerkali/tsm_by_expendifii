@@ -145,8 +145,9 @@ export default function LogisticsGlossaryPage() {
       title="Indian Logistics and Transport Glossary"
       intro="Plain-English definitions of the terms used every day in Indian road transport: bilty, GR, LR, consignor, consignee, to pay, TBB, e-way bill, POD, GTA and more."
       extraJsonLd={[definedTermSet]}
+      speakable={['#page-intro']}
       toc={terms.map((t) => ({ id: t.slug, label: t.term }))}
-      related={['/guides/what-is-bilty', '/guides/gr-vs-lr-vs-eway-bill', '/transport-management-system', '/guides']}
+      related={['/guides/what-is-bilty', '/lorry-receipt-software', '/gr-management', '/guides']}
     >
       {terms.map((t) => (
         // H2 drops its top margin as a first child, so the spacing lives on the section.
