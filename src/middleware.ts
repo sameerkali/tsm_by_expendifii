@@ -18,7 +18,7 @@ const INFO_PATHS = [
   '/terms-and-conditions',
   '/user-agreement',
   '/cookie-policy',
-  '/why-biltypro',
+  '/why-biltyone',
   '/live-demo',
   '/features',
   '/product',
@@ -30,6 +30,13 @@ const INFO_PATHS = [
   '/lorry-receipt-software',
   '/developers',
   '/desktop', // also covers /desktop/licence-key
+  '/faq',
+  '/online-transport-management-software',
+  '/transport-company-software',
+  '/transport-erp-software',
+  '/guides', // also covers /guides/*
+  // '/transport-management-system' above also covers
+  // '/transport-management-system-for-small-business' (prefix match).
 ];
 
 // The authenticated app shell — the only paths where "no token" should mean
