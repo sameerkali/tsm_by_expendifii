@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { FaqList } from '@/components/content/ContentPage';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
@@ -10,156 +13,66 @@ import { AnimatedBeamHero } from '@/components/landing/AnimatedBeamBackground';
 import { SHOW_HERO_BEAM } from '@/lib/feature-flags';
 import { cn } from '@/lib/utils/cn';
 
-export const metadata: Metadata = {
-  title: 'Bilty Transport Management System',
-  description:
-    'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters, with no paper and no spreadsheets.',
-  keywords: [
-    'transport management system',
-    'transport management software',
-    'GR software',
-    'lorry receipt software',
-    'logistics software India',
-    'fleet management system',
-    'BiltyOne',
-    'online GR generator',
-    'digital lorry receipt',
-    'NCR transport software',
-  ],
-  authors: [{ name: 'BiltyOne' }],
-  alternates: { canonical: 'https://biltyone.com' },
-  openGraph: {
-    title: 'BiltyOne: Transport OS',
-    description:
-      'Create, print, and manage lorry receipts in minutes. Built for Indian transporters.',
-    url: 'https://biltyone.com',
-    siteName: 'BiltyOne',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'BiltyOne Dashboard Preview',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title:
-      'BiltyOne: Transport Management System for Indian Logistics',
-    description:
-      'Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters, with no paper and no spreadsheets.',
-    images: ['/og-image.png'],
-  },
-};
+export const metadata: Metadata = buildPageMetadata('/', {
+  ogTitle: 'BiltyOne: Transport Management Software for India',
+  ogDescription: 'Create GR/LR (bilty) in under 2 minutes, print 3 copies, bill customers. Online or offline. Free to start.',
+});
 
-export const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebPage',
-      '@id': 'https://biltyone.com',
-      url: 'https://biltyone.com',
-      name: 'BiltyOne Transport Management System',
-      description:
-        'Stop creating GRs on paper. BiltyOne is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
-      inLanguage: 'en',
-      dateModified: '2026-06-29',
-      isPartOf: { '@id': 'https://biltyone.com/#website' },
-      breadcrumb: { '@id': 'https://biltyone.com/#breadcrumb' },
-      speakable: {
-        '@type': 'SpeakableSpecification',
-        cssSelector: ['#hero-summary', '#key-takeaways', '#how-it-works-summary'],
-      },
-      mainEntity: { '@id': 'https://biltyone.com/#softwareapplication' },
-    },
-    {
-      '@type': 'SoftwareApplication',
-      '@id': 'https://biltyone.com/#softwareapplication',
-      name: 'BiltyOne',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      description:
-        'Stop creating GRs on paper. BiltyOne is the fast, modern transport management system built for Indian transporters create, print, and manage lorry receipts in minutes.',
-      url: 'https://biltyone.com',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
-      dateModified: '2026-06-29',
-      author: { '@id': 'https://biltyone.com/#author' },
-    },
-    {
-      '@type': 'Organization',
-      '@id': 'https://biltyone.com/#organization',
-      name: 'BiltyOne',
-      alternateName: ['BiltyOne', 'BiltyOne TMS'],
-      url: 'https://biltyone.com',
-      logo: 'https://biltyone.com/logo.png',
-      founder: { '@type': 'Person', name: 'Sameer Faridi' },
-      contactPoint: {
-        '@type': 'ContactPoint',
-        contactType: 'customer support',
-        email: 'work.sameerfaridi@gmail.com',
-        url: 'https://biltyone.com/contact',
-        availableLanguage: ['English', 'Hindi'],
-      },
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: '338, 6A Mahipalpur',
-        addressLocality: 'New Delhi',
-        addressRegion: 'DL',
-        postalCode: '110037',
-        addressCountry: 'IN',
-      },
-    },
-    {
-      '@type': 'WebSite',
-      '@id': 'https://biltyone.com/#website',
-      name: 'BiltyOne',
-      url: 'https://biltyone.com',
-      publisher: { '@id': 'https://biltyone.com/#organization' },
-      inLanguage: 'en',
-    },
-    {
-      '@type': 'BreadcrumbList',
-      '@id': 'https://biltyone.com/#breadcrumb',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biltyone.com' },
-      ],
-    },
-    {
-      '@type': 'Person',
-      '@id': 'https://biltyone.com/#author',
-      name: 'Sameer Faridi',
-      jobTitle: 'Founder & CEO',
-      sameAs: 'https://www.linkedin.com/in/sameerfaridi',
-      description: 'Founder of BiltyOne, building transport management software for Indian logistics.',
-    },
-  ],
-};
+// Distinct from the /faq questions on purpose: Google asks for each FAQ to
+// be marked up on one page only. These target the head search terms.
+const homeFaqs = [
+  {
+    q: 'What is transport management software?',
+    a: 'Transport management software helps a transport business record, track and bill the movement of goods. For Indian road transporters that means creating GR/LR (bilty), printing copies for the driver, consignor and consignee, keeping customer records, tracking delivery and payment status, and sending freight bills. BiltyOne does all of this.',
+  },
+  {
+    q: 'What is the best transport management software in India?',
+    a: 'The best transport management software is the one that fits your operation. For most road transporters it should create and print GRs fast, keep customer records, calculate freight, produce customer bills, back up your data and be easy for staff to learn. BiltyOne was built for exactly that and is free to start.',
+  },
+  {
+    q: 'Is there a transport management system for small businesses?',
+    a: 'Yes. BiltyOne is built for small and mid-size transporters with roughly 1 to 50 trucks. It needs no training or setup fee, one person can run it, and it is free for early transporters. Larger transport ERP suites usually suit companies with big fleets, workshops and in-house accounting teams.',
+  },
+  {
+    q: 'Can I use transport management software online?',
+    a: 'Yes. BiltyOne is online transport management software: it runs in any browser on a phone or computer, with nothing to install, and your records are stored securely online. For offices with unreliable internet, BiltyOne Desktop is a free Windows app that works offline after a one-time activation.',
+  },
+  {
+    q: 'How is a TMS different from transport ERP software?',
+    a: 'A TMS (transport management system) handles day-to-day transport operations: bookings, GR/LR, delivery status and freight billing. A transport ERP adds accounting, payroll, fleet maintenance, fuel and inventory. Most small and mid-size transporters need the TMS part first; BiltyOne covers it and exports to Excel for your accountant.',
+  },
+  {
+    q: 'How much does transport software cost?',
+    a: 'Prices range from free tools to transport ERP suites with yearly licences, implementation fees and per-user charges. BiltyOne is currently free for early transporters, with no credit card needed. If paid plans are introduced, existing users get advance notice, and you can export all your data at any time.',
+  },
+];
 
-const brandName = 'BiltyOne';
+export const jsonLd = pageJsonLd('/', {
+  aboutSoftware: true,
+  faqs: homeFaqs,
+  speakable: ['#hero-summary', '#what-is-biltyone-answer', '#how-it-works-summary'],
+});
 
 const features = [
   {
     id: '01',
-    title: 'GR Creation in Seconds',
-    description: 'Create a complete lorry receipt with all required fields in under a minute. No paper, no pen, no mistakes.',
+    title: 'GR Creation in Under 2 Minutes',
+    description: 'Create a complete lorry receipt (bilty) with all required fields. GR numbers and freight are calculated for you. No paper, no pen, no arithmetic.',
   },
   {
     id: '02',
     title: 'Print-Ready GR (3 Copies)',
-    description: 'Generate all three copies Driver, Consigner, Consignee in one click. Print instantly. Always legible, always complete.',
+    description: 'Generate all three copies (Driver, Consignor, Consignee) in one click. Print instantly. Always legible, always complete.',
   },
   {
     id: '03',
-    title: 'Customisable GR Layout',
-    description: 'Show more fields or fewer your choice. Every transporter works differently. BiltyOne adapts to you, not the other way around.',
+    title: 'Your Branding on Every Copy',
+    description: 'Your company name, logo, GSTIN, PAN and address print on every GR automatically. Insurance, vehicle and driver sections appear only when you fill them in.',
   },
   {
     id: '04',
-    title: 'Batch GR Management',
-    description: 'Update, track, and organise multiple GRs at once. No more digging through piles of paper or scrolling through Excel rows.',
+    title: 'Customer Freight Statements',
+    description: 'Pick a customer and a date range to get a PDF freight bill with totals, amount paid and balance due, followed by every GR in that period.',
   },
   {
     id: '05',
@@ -169,7 +82,7 @@ const features = [
   {
     id: '06',
     title: 'Analytics Dashboard',
-    description: 'Get visibility into your trips, volumes, and operations in a simple dashboard designed for transport owners, not accountants.',
+    description: 'See revenue, GRs booked, shipments in transit and outstanding payments in a simple dashboard designed for transport owners, not accountants.',
   },
 ];
 
@@ -197,12 +110,39 @@ const processSteps = [
 ];
 
 const comparisonRows = [
-  { label: 'Creating a GR', manual: 'Fill 20+ fields by hand, make 3 paper copies', tsm: 'Done in under a minute, 3 copies auto-generated' },
-  { label: 'Storing records', manual: 'Paper files lost to rats, water, or fire', tsm: 'Permanent digital records, accessible anywhere' },
-  { label: 'Finding old GRs', manual: 'Search through stacks of paper', tsm: 'Search by name, date, or GR number instantly' },
-  { label: 'GR layout control', manual: 'Fixed printed format, no flexibility', tsm: 'Customise which fields appear on print' },
-  { label: 'Hiring staff', manual: 'Pay someone just to manage paper GRs', tsm: 'One person can handle everything in BiltyOne' },
-  { label: 'Using Excel', manual: 'Complex, slow, breaks easily', tsm: 'Not a solution BiltyOne is' },
+  { label: 'Creating a GR', manual: 'Fill 20+ fields by hand, write 3 copies', tsm: 'Under 2 minutes, 3 copies printed together' },
+  { label: 'GR numbers & freight', manual: 'Counted and calculated by hand', tsm: 'Automatic GR numbers and freight' },
+  { label: 'Storing records', manual: 'Paper lost to rats, rain or fire', tsm: 'Stored online, with a full Excel backup' },
+  { label: 'Finding old GRs', manual: 'Search through stacks of paper', tsm: 'Search by GR number, party, vehicle or city' },
+  { label: 'Billing customers', manual: 'Typed up separately at month end', tsm: 'Statement PDF for any date range' },
+  { label: 'Staff needed', manual: 'Someone just to manage paperwork', tsm: 'One person can run it all' },
+];
+
+const audiences = [
+  {
+    title: 'Transport companies',
+    body: 'Bookings, GRs, customer accounts, freight bills and delivery status for a busy transport office.',
+    href: '/transport-company-software',
+    cta: 'Transport company software',
+  },
+  {
+    title: 'Small transport businesses',
+    body: 'For owners with 1 to 20 trucks who want to stop writing GR books without hiring an office team.',
+    href: '/transport-management-system-for-small-business',
+    cta: 'TMS for small business',
+  },
+  {
+    title: 'Teams working on the move',
+    body: 'Online transport software that runs in any browser, on a phone at the yard or a PC in the office.',
+    href: '/online-transport-management-software',
+    cta: 'Online transport software',
+  },
+  {
+    title: 'Offices with weak internet',
+    body: 'BiltyOne Desktop for Windows creates, prints and searches GRs with no internet after activation.',
+    href: '/desktop',
+    cta: 'Desktop app',
+  },
 ];
 
 const testimonials = [
@@ -232,10 +172,7 @@ const testimonials = [
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <Navbar />
 
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
@@ -278,6 +215,10 @@ export default function HomePage() {
 
             {/* Headline */}
             <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-[1.12]">
+              {/* The search keyword leads the H1 as a kicker line; the tagline keeps its look. */}
+              <span className="mb-5 block text-sm sm:text-base font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400">
+                Transport Management Software for India
+              </span>{' '}
               Stop managing transport{' '}
               <span className="relative">
                 <span className="text-sky-700 dark:text-sky-400">manually.</span>
@@ -288,7 +229,7 @@ export default function HomePage() {
             </h1>
 
             <p id="hero-summary" className="mt-6 text-center text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              Replace manual paperwork, lost receipts, and slow Excel sheets with NCR&apos;s fastest digital GR generator. Auto-fill customer details, customize print layouts, and manage active jobs from one simple dashboard.
+              BiltyOne replaces paper GR books and slow Excel sheets for Indian transporters. Create a GR/LR (bilty) in under 2 minutes, print all 3 copies, auto-fill customer details and bill customers, online or offline.
             </p>
 
             {/* CTAs */}
@@ -304,7 +245,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <Link
-                href="/why-biltypro"
+                href="/why-biltyone"
                 id="hero-cta-secondary"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-sky-700 dark:hover:text-sky-400 transition-all duration-200 cursor-pointer"
               >
@@ -341,6 +282,49 @@ export default function HomePage() {
               alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
               containerClassName="mt-4 sm:mt-8"
             />
+          </div>
+        </section>
+
+        {/* ── WHAT IS BILTYONE (definition for snippets / AI answers) ── */}
+        <section id="what-is-biltyone" className="py-16 sm:py-20 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="what-is-heading">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 id="what-is-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              What is BiltyOne transport management software?
+            </h2>
+            <p id="what-is-biltyone-answer" className="mt-5 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+              BiltyOne is transport management software built for Indian road transporters. It creates and prints GR/LR
+              (bilty) in three copies, keeps your customer list, calculates freight, tracks each load from booking to
+              delivery, and produces customer freight statements. It runs online in any browser, works offline on
+              Windows, and is free for early transporters.
+            </p>
+            <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-slate-700 dark:text-slate-300">
+              {[
+                'GR / LR (bilty) in under 2 minutes',
+                'Automatic GR numbers and freight',
+                'Driver, consignor and consignee copies',
+                'Customer statements for any date range',
+                'Excel import and full Excel backup',
+                'Web app plus offline Windows app',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0 text-emerald-500" aria-hidden="true">
+                    <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 text-slate-600 dark:text-slate-400 leading-relaxed">
+              New to the term? Read our guide to{' '}
+              <Link href="/transport-management-system" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                transport management systems (TMS)
+              </Link>{' '}
+              or see{' '}
+              <Link href="/guides/what-is-bilty" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                what a bilty is
+              </Link>
+              .
+            </p>
           </div>
         </section>
 
@@ -400,55 +384,93 @@ export default function HomePage() {
                 Paper GRs cost you more than you think <br className="hidden sm:block" /> in time, money, and stress
               </h2>
               <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Here&apos;s what actually changes when you move to BiltyOne. Over 70% of Indian transporters still use paper-based systems for GR and LR management. BiltyOne is built to change that.
+                Here&apos;s what actually changes when a transport office moves from a paper GR book or Excel register to BiltyOne.
               </p>
             </div>
 
+            {/* A real <table> (not a div grid) so search engines can lift it as a table snippet. */}
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-md overflow-hidden">
-              <div className="grid grid-cols-3 bg-[#0F172A] dark:bg-slate-800 text-white text-sm font-semibold">
-                <div className="px-6 py-4 text-slate-300">Pain Point</div>
-                <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-300">Manual (Today)</div>
-                {/* SVG check, not a "✓" character: Plus Jakarta Sans has no
-                    U+2713 glyph, so the browser ran a system font-fallback
-                    search during the page's first layout, which roughly
-                    tripled its cost. */}
-                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20 text-white">
-                  With BiltyOne{' '}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block align-[-2px]" aria-hidden="true">
-                    <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              </div>
-              {comparisonRows.map((row, i) => (
-                <div
-                  key={row.label}
-                  className={`grid grid-cols-3 border-b border-slate-100 dark:border-slate-800 last:border-0 ${i % 2 === 0 ? 'bg-white dark:bg-slate-950' : 'bg-slate-50/50 dark:bg-slate-900/50'}`}
-                >
-                  <div className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-slate-200">{row.label}</div>
-                  <div className="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 border-l border-slate-100 dark:border-slate-800 flex items-center gap-2">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0 text-red-400" aria-hidden="true">
-                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
-                    {row.manual}
-                  </div>
-                  <div className="px-6 py-4 text-sm font-medium text-sky-700 dark:text-sky-400 border-l border-[#0369A1]/20 bg-[#0369A1]/5 dark:bg-sky-500/5 flex items-center gap-2">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0 text-emerald-500" aria-hidden="true">
-                      <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    {row.tsm}
-                  </div>
-                </div>
-              ))}
+              <table className="w-full table-fixed border-collapse text-left text-sm">
+                <caption className="sr-only">Paper GR book compared with BiltyOne transport management software</caption>
+                <thead>
+                  <tr className="bg-[#0F172A] dark:bg-slate-800 text-white font-semibold">
+                    <th scope="col" className="px-4 sm:px-6 py-4 text-slate-300 font-semibold">Task</th>
+                    <th scope="col" className="px-4 sm:px-6 py-4 text-center border-l border-slate-700 text-slate-300 font-semibold">Paper / Excel</th>
+                    {/* SVG check, not a "✓" character: Plus Jakarta Sans has no
+                        U+2713 glyph, so the browser ran a system font-fallback
+                        search during the page's first layout, which roughly
+                        tripled its cost. */}
+                    <th scope="col" className="px-4 sm:px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20 text-white font-semibold">
+                      With BiltyOne{' '}
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block align-[-2px]" aria-hidden="true">
+                        <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row, i) => (
+                    <tr
+                      key={row.label}
+                      className={`border-b border-slate-100 dark:border-slate-800 last:border-0 align-top ${i % 2 === 0 ? 'bg-white dark:bg-slate-950' : 'bg-slate-50/50 dark:bg-slate-900/50'}`}
+                    >
+                      <th scope="row" className="px-4 sm:px-6 py-4 font-medium text-slate-900 dark:text-slate-200">{row.label}</th>
+                      <td className="px-4 sm:px-6 py-4 text-slate-500 dark:text-slate-400 border-l border-slate-100 dark:border-slate-800">
+                        <span className="flex items-start gap-2">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0 text-red-400" aria-hidden="true">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                          </svg>
+                          {row.manual}
+                        </span>
+                      </td>
+                      <td className="px-4 sm:px-6 py-4 font-medium text-sky-700 dark:text-sky-400 border-l border-[#0369A1]/20 bg-[#0369A1]/5 dark:bg-sky-500/5">
+                        <span className="flex items-start gap-2">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="mt-0.5 shrink-0 text-emerald-500" aria-hidden="true">
+                            <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                          {row.tsm}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             <div className="mt-8 flex justify-center gap-4">
               <Link
-                href="/why-biltypro"
+                href="/why-biltyone"
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] transition-all"
               >
                 Why Transporters Pick BiltyOne
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* ── WHO IT'S FOR (links to the solution pages) ── */}
+        <section id="who-its-for" className="py-20 sm:py-28 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800" aria-labelledby="who-heading">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">Who it&apos;s for</p>
+              <h2 id="who-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+                Transport software for every kind of transporter
+              </h2>
+              <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                From a single-truck owner to a busy booking office, BiltyOne fits how Indian transport businesses already work.
+              </p>
+            </div>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {audiences.map((a) => (
+                <li key={a.href} className="flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-[#F8FAFC] dark:bg-slate-900 p-6">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{a.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{a.body}</p>
+                  <Link href={a.href} className="mt-4 text-sm font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                    {a.cta} &rarr;
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -478,7 +500,7 @@ export default function HomePage() {
                       {t.initials}
                     </div>
                     <div>
-                      <h3 className="text-xs font-bold text-slate-900 dark:text-white">{t.name}</h3>
+                      <p className="text-xs font-bold text-slate-900 dark:text-white">{t.name}</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{t.role}</p>
                     </div>
                   </div>
@@ -495,10 +517,14 @@ export default function HomePage() {
             <div className="flex flex-col gap-6 rounded-2xl border border-sky-100 dark:border-sky-900/40 bg-sky-50 dark:bg-sky-950/30 px-6 py-8 sm:px-10 sm:py-10 md:flex-row md:items-center md:justify-between">
               <div className="max-w-2xl">
                 <h2 id="desktop-teaser-heading" className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-                  Prefer working offline?
+                  Online, or offline on Windows
                 </h2>
                 <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
-                  BiltyOne Desktop runs on your Windows PC and needs internet only once, to activate. Free download, free licence key.
+                  Use BiltyOne online in any browser, or install BiltyOne Desktop on your Windows PC: it needs internet only once, to activate. Free download, free licence key.{' '}
+                  <Link href="/online-transport-management-software" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                    Compare online and desktop
+                  </Link>
+                  .
                 </p>
               </div>
               <Link
@@ -528,21 +554,17 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── FAQ TEASER ──────────────────────────── */}
-        <section className="py-16 bg-[#F8FAFC] dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800/80 text-center">
-          <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">
-              Still have questions?
-            </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mb-5">
-              Read answers to the questions transporters ask us most often.
+        {/* ── FAQ (keyword questions; FAQPage JSON-LD comes from homeFaqs) ── */}
+        <section className="py-20 sm:py-24 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800/80">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <FaqList faqs={homeFaqs} title="Transport management software: common questions" />
+            <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
+              More questions about pricing, data and setup?{' '}
+              <Link href="/faq" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                Read the full FAQ
+              </Link>
+              .
             </p>
-            <Link
-              href="/faq"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:border-[#0369A1] dark:hover:border-sky-500 hover:text-sky-700 dark:hover:text-sky-400 transition-all cursor-pointer"
-            >
-              Visit our FAQ page
-            </Link>
           </div>
         </section>
 

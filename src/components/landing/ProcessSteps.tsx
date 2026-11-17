@@ -10,9 +10,11 @@ interface ProcessStepsProps {
 
 export function ProcessSteps({ steps }: ProcessStepsProps) {
   return (
-    <div className="grid grid-cols-1 border-t border-l border-slate-200 md:grid-cols-2 lg:grid-cols-4 dark:border-white/10">
+    // An ordered list, so search engines can read the steps as a sequence
+    // (list snippets) and screen readers announce "step 1 of 4".
+    <ol className="grid list-none grid-cols-1 border-t border-l border-slate-200 md:grid-cols-2 lg:grid-cols-4 dark:border-white/10">
       {steps.map((step) => (
-        <div
+        <li
           key={step.id}
           className="group relative overflow-hidden border-r border-b border-slate-200 bg-transparent px-8 py-10 transition-colors duration-300 hover:bg-slate-900/[0.02] dark:border-white/10 dark:hover:bg-white/[0.02]"
         >
@@ -33,8 +35,8 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
             <h3 className="mb-4 text-xl font-semibold text-slate-900 dark:text-white">{step.title}</h3>
             <p className="leading-relaxed text-slate-600 dark:text-slate-400">{step.description}</p>
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }
