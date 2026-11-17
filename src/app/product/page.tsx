@@ -52,7 +52,7 @@ export default function ProductPage() {
                 </div>
               </div>
               <Image
-                src="/dashboard_img_herosection_straight.webp"
+                src="/dashboard_img_herosection_straight.avif"
                 alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
                 width={1672}
                 height={941}

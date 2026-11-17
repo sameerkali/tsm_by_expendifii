@@ -337,7 +337,7 @@ export default function HomePage() {
                 high-priority preload only competed with the fonts, CSS and
                 JS needed for first paint. */}
             <ScrollImage
-              src="/dashboard_img_herosection_straight.webp"
+              src="/dashboard_img_herosection_straight.avif"
               alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
               containerClassName="mt-4 sm:mt-8"
             />
