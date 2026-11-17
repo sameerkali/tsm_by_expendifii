@@ -11,10 +11,12 @@
  */
 
 /**
- * Canonical origin. Must match the host Vercel serves as primary.
- * Today Vercel 308-redirects biltyone.com -> www.biltyone.com, which conflicts
- * with this value; make biltyone.com the primary domain in Vercel (Project >
- * Settings > Domains) or set NEXT_PUBLIC_SITE_URL to the www origin.
+ * Canonical origin. Must match the host Vercel serves as Production.
+ * Vercel (Project > Settings > Domains, set 17 Nov 2026): biltyone.com serves
+ * Production; www.biltyone.com, tsm.expendifii.com and tsm-fr.vercel.app
+ * 308-redirect to it. If you ever change the primary domain, change this
+ * (or NEXT_PUBLIC_SITE_URL) in the same step, or every canonical tag, sitemap
+ * URL and schema @id will point at a redirect.
  */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://biltyone.com').replace(/\/$/, '');
 
