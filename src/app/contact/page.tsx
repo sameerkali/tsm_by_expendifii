@@ -6,6 +6,8 @@ import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { toast } from 'sonner';
 import apiClient from '@/lib/api/client';
+import { CONTACT } from '@/config/site';
+import { addressLines, phoneHref, phoneNumber, whatsappHref } from '@/lib/contact';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -108,12 +110,12 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-xl font-bold text-[#0F172A] dark:text-white mb-3">Get in touch</h2>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Use the form for general inquiries, demos, or partnership requests. For urgent support, log in to your account and use the in-app chat.
+                  Use the form for general inquiries, demos, or partnership requests. For urgent help, email us or message us on WhatsApp.
                 </p>
               </div>
 
               <div className="space-y-4">
-                {[
+                {([
                   {
                     icon: (
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -121,8 +123,46 @@ export default function ContactPage() {
                       </svg>
                     ),
                     label: 'Email',
-                    value: 'work.sameerfaridi@gmail.com',
-                    href: 'mailto:work.sameerfaridi@gmail.com',
+                    value: CONTACT.email,
+                    href: `mailto:${CONTACT.email}`,
+                  },
+                  ...(phoneNumber()
+                    ? [
+                        {
+                          icon: (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                              <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+                            </svg>
+                          ),
+                          label: 'Phone',
+                          value: phoneNumber() as string,
+                          href: phoneHref() ?? undefined,
+                        },
+                      ]
+                    : []),
+                  ...(whatsappHref()
+                    ? [
+                        {
+                          icon: (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                              <path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 8 19.5L3 21z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+                            </svg>
+                          ),
+                          label: 'WhatsApp',
+                          value: 'Chat on WhatsApp',
+                          href: whatsappHref() ?? undefined,
+                        },
+                      ]
+                    : []),
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
+                        <circle cx="12" cy="9.5" r="2.5" stroke="currentColor" strokeWidth="1.75" />
+                      </svg>
+                    ),
+                    label: 'Office',
+                    value: addressLines().join(', '),
                   },
                   {
                     icon: (
@@ -132,9 +172,9 @@ export default function ContactPage() {
                       </svg>
                     ),
                     label: 'Response time',
-                    value: 'Within 1 business day',
+                    value: `${CONTACT.responseTime}, in English or Hindi`,
                   },
-                ].map((item) => (
+                ] as { icon: React.ReactNode; label: string; value: string; href?: string }[]).map((item) => (
                   <div key={item.label} className="flex items-start gap-3">
                     <div className="shrink-0 flex h-9 w-9 items-center justify-center rounded-lg bg-[#F8FAFC] dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
                       {item.icon}
@@ -156,7 +196,7 @@ export default function ContactPage() {
               <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-[#F8FAFC] dark:bg-slate-900 p-5">
                 <p className="text-sm font-semibold text-[#0F172A] dark:text-white mb-2">Looking for support?</p>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-                  Existing customers can access priority support directly from within their BiltyOne dashboard.
+                  Already using BiltyOne? Include your company name and the GR number in your message so we can help faster.
                 </p>
                 <Link href="/login" className="text-sm font-semibold text-[#0369A1] dark:text-sky-400 hover:underline cursor-pointer">
                   Sign in to your account

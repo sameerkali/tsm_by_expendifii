@@ -1,83 +1,86 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import FAQSection from '@/components/landing/FAQSection';
+import { JsonLd } from '@/components/seo/JsonLd';
 
-export const metadata: Metadata = {
-  title: 'Frequently Asked Questions',
-  description:
-    'Answers to the most common questions about BiltyOne: setup time, pricing, data safety, customisation, and more for Indian transporters.',
-  alternates: { canonical: 'https://biltyone.com/faq' },
-};
+export const metadata: Metadata = buildPageMetadata('/faq');
 
+// Answers are 40-60 words and open with a direct answer: the length search
+// engines and voice assistants most often lift into featured snippets.
+// Every claim must match the product (see CORE_APP_SPEC.md). The FAQPage
+// JSON-LD below is generated from this same list.
 const faqs = [
   {
-    q: 'How quickly can we get started?',
-    a: 'Most transporters are up and running within 2 to 24 hours. We help you set up your account, add your customers, and print your first GR together.',
-  },
-  {
-    q: "We've been doing this on paper for years. Is it hard to switch?",
-    a: 'Not at all. BiltyOne was designed for transporters, not software people. If you can fill a paper GR, you can use BiltyOne. Most users are comfortable within a day.',
-  },
-  {
-    q: 'Can we customise what appears on the printed GR?',
-    a: 'Yes. You choose which fields appear on print. Every transport business is different BiltyOne works around your format, not a fixed template.',
-  },
-  {
-    q: 'What happens to our data if something goes wrong?',
-    a: 'Your data is stored securely on our servers not on paper, not on a single computer. It won\'t burn, won\'t get soaked, won\'t be eaten by rats. It\'s always there when you need it.',
+    q: 'What is BiltyOne?',
+    a: 'BiltyOne is transport management software for Indian road transporters. It creates and prints GR/LR (bilty) in three copies, keeps your customer list, calculates freight, tracks booking and payment status, and produces customer freight statements. It runs in any browser, and BiltyOne Desktop works offline on Windows.',
   },
   {
     q: 'Is BiltyOne free?',
-    a: 'Yes BiltyOne is completely free right now. We\'re onboarding our first transporters, gathering real feedback, and improving the product. After the free period, it will become a paid service but we\'ll always give you fair notice before anything changes.',
+    a: 'Yes. BiltyOne is free for early transporters while we onboard our first users and improve the product with their feedback. No credit card is needed to sign up. If paid plans are introduced later, existing users will get fair notice in advance, and you can export all your data at any time.',
   },
   {
-    q: 'Do you have a referral programme?',
-    a: 'Yes. Refer a fellow transporter and if they purchase a plan, both of you get 15 extra days free. No catch.',
+    q: 'How quickly can we get started?',
+    a: 'Most transporters are up and running within 2 to 24 hours. Signing up takes about a minute. Then upload your logo, add your regular customers, import old GRs from Excel if you want them, and create your first GR. We are happy to help you set up and print your first GR together.',
   },
   {
-    q: 'What is a Transport Management System (TMS)?',
-    a: 'A Transport Management System (TMS) is software that helps logistics companies plan, execute, and optimise the movement of goods. BiltyOne focuses specifically on GR creation, printing, and record-keeping for Indian transporters, with no complex modules you don\'t need.',
+    q: "We've been doing this on paper for years. Is it hard to switch?",
+    a: 'No. BiltyOne uses the same fields as a paper GR book, so if you can fill a paper GR, you can use BiltyOne. Most users are comfortable within a day. You can import old records from Excel and keep the paper book alongside for the first week while your staff gets used to it.',
   },
   {
-    q: 'Is BiltyOne suitable for small fleets with just 1-2 trucks?',
-    a: 'Absolutely. BiltyOne is designed for transporters of all sizes. Whether you own one truck or fifty, the GR creation, customer management, and analytics features work exactly the same. Small fleet owners actually benefit the most because BiltyOne eliminates the need to hire a dedicated person just for paperwork.',
+    q: 'What appears on the printed GR?',
+    a: 'Every copy carries your company name, logo, GSTIN, PAN, phone and address from your company profile, plus the GR number, date, route, consignor, consignee, goods and freight. Insurance, vehicle and driver, and remarks sections print only when you fill them in, so unused fields never clutter the page.',
   },
   {
-    q: 'What happens when the free period ends?',
-    a: 'We will notify you well in advance. Early adopters may get extended access or special pricing. No surprises.',
+    q: 'Can BiltyOne make customer bills or freight statements?',
+    a: 'Yes. In the Printing tab, pick a customer and a date range, and BiltyOne produces a PDF freight bill: a summary page with totals, amount paid and balance due, followed by every GR in that period. It uses the GRs you have already created, so there is nothing to retype.',
+  },
+  {
+    q: 'What happens to our data if something goes wrong?',
+    a: "Your GRs and customers are stored securely online, not on paper or on a single computer, so they can't be lost to rain, fire or a broken PC. You can also download a full Excel backup of all your GRs at any time from Settings. Our Security page explains how the data is protected.",
   },
   {
     q: 'Can I export my data if I leave?',
-    a: 'Yes. You can export all your GRs and customer data anytime. Your data belongs to you.',
+    a: 'Yes. Settings has a one-click Download Backup that saves all your GRs, with consignor and consignee details, as a single Excel workbook. Your data belongs to you: take it to another system, share it with your accountant or keep it as an archive. There is no lock-in and no fee for exporting.',
   },
   {
-    q: 'Do you offer on-premise deployment?',
-    a: 'Not currently. BiltyOne is cloud-based, which means you can access it from anywhere with an internet connection.',
+    q: 'Does BiltyOne work offline or on-premise?',
+    a: 'Yes, on Windows. BiltyOne Desktop is a free Windows 10/11 app that stores your data on your own computer and works without internet after a one-time activation. The regular web app is cloud-based and works in any browser on a phone or computer, from anywhere with an internet connection.',
+  },
+  {
+    q: 'Which devices does BiltyOne work on?',
+    a: 'The web app works in any modern browser, such as Chrome, Edge, Firefox or Safari, on Windows and Mac computers, Android phones and iPhones. Printing is easiest from a computer connected to your printer. BiltyOne Desktop runs on Windows 10 and 11 (64-bit) and does not need a browser.',
+  },
+  {
+    q: 'Is BiltyOne suitable for small fleets with just 1-2 trucks?',
+    a: 'Yes. Small transporters often benefit most, because BiltyOne removes the need for a separate person just for paperwork. GR creation, printing, customer records and statements work the same whether you run one truck or fifty, and it is free to start, so there is no cost risk in trying it.',
+  },
+  {
+    q: 'What is a transport management system (TMS)?',
+    a: "A transport management system (TMS) is software that helps transport businesses record, track and bill the movement of goods. For Indian road transporters, the core of a TMS is the GR/LR (bilty): booking, printing copies, tracking delivery and billing customers. BiltyOne focuses on exactly that, without modules you don't need.",
+  },
+  {
+    q: 'Is BiltyOne a transport ERP?',
+    a: 'No. A transport ERP also covers accounting, payroll, fleet maintenance and more. BiltyOne is a focused transport management system for GRs, customers, freight statements and records. Many small and mid-size transporters run operations in BiltyOne and give its Excel export to their accountant for the books.',
+  },
+  {
+    q: 'Does BiltyOne track vehicles by GPS?',
+    a: 'No. BiltyOne records each GR\'s status (Booked, In Transit or Delivered) along with its vehicle number and driver details, but it does not do live GPS tracking or route planning. If you need GPS, use a tracking device or app alongside BiltyOne, which handles your paperwork and billing.',
+  },
+  {
+    q: 'Do you have a referral programme?',
+    a: 'Yes. Refer a fellow transporter, and when they activate a plan on BiltyOne, both of you get 15 extra days added to your plan. It is our way of thanking the transporters who help BiltyOne grow by word of mouth, the way most good tools spread in this trade.',
   },
 ];
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  '@id': 'https://biltyone.com/faq#faq',
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
 
 export default function FAQPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={pageJsonLd('/faq', { faqs, speakable: ['#faq-heading'] })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        <FAQSection faqs={faqs} />
+        <FAQSection faqs={faqs} headingLevel="h1" />
       </main>
       <Footer />
     </>

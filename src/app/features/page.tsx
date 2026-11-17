@@ -1,47 +1,142 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 import { Card } from '@/components/landing/Card';
+import { JsonLd } from '@/components/seo/JsonLd';
 
-export const metadata: Metadata = {
-  title: 'Features | Modern Transport Management System',
-  description:
-    'Explore the powerful features of BiltyOne: fast digital GR creation, three-copy print layouts, permanent search archive, and analytics built for Indian transporters.',
-  alternates: { canonical: 'https://biltyone.com/features' },
-};
+export const metadata: Metadata = buildPageMetadata('/features');
 
-const featureDetails = [
+// Every feature listed here exists in the web app or BiltyOne Desktop today
+// (see CORE_APP_SPEC.md). Do not list roadmap items as features.
+const groups: { id: string; title: string; lead: string; items: { title: string; description: string }[] }[] = [
   {
-    id: '01',
-    title: 'Instant Digital GR Creation',
-    description: 'Create goods receipts and lorry receipts in under 2 minutes. Auto-fill recurring consignor and consignee details, and calculate freight rates dynamically.',
+    id: 'gr-creation',
+    title: 'GR / LR (bilty) creation',
+    lead: 'Everything a transporter writes on a GR, in one fast form.',
+    items: [
+      {
+        title: 'Complete GR form',
+        description:
+          'Booking date, route, consignor and consignee with GSTIN, goods, weight or boxes, declared value, vehicle and driver, invoice and e-way bill numbers, insurance and remarks.',
+      },
+      {
+        title: 'Automatic GR numbers',
+        description: 'Every GR gets the next number in your series. Numbers are never edited or reused, even after a deletion.',
+      },
+      {
+        title: 'Automatic freight',
+        description: 'Rate × quantity, calculated as you type, priced per KM, box, kg, quintal or ton.',
+      },
+      {
+        title: 'Duplicate for repeat loads',
+        description: 'Copy an existing GR to a new one with a fresh number, today’s date and status reset to Booked.',
+      },
+    ],
   },
   {
-    id: '02',
-    title: 'Customisable Lorry Receipt Print layouts',
-    description: 'Choose which fields to show on printouts. Support for standard three-copy layouts (Driver, Consignor, Consignee) that match your existing formats.',
+    id: 'printing-billing',
+    title: 'Printing and billing',
+    lead: 'Professional copies and customer bills without retyping anything.',
+    items: [
+      {
+        title: 'Three-copy print',
+        description: 'One PDF with driver, consignor and consignee copies on A5 landscape, for any office printer.',
+      },
+      {
+        title: 'Your letterhead on every copy',
+        description: 'Company name, logo, GSTIN, PAN, phone and address from your company profile. Optional sections print only when filled.',
+      },
+      {
+        title: 'Customer freight statements',
+        description: 'Pick a customer and date range for a PDF bill with totals, amount paid and balance due, plus every GR.',
+      },
+      {
+        title: 'Billing types and payment status',
+        description: 'Mark each GR Paid, To Pay or To Be Billed, and track whether its freight is Pending or Paid.',
+      },
+    ],
   },
   {
-    id: '03',
-    title: 'Permanent Search & Records Archive',
-    description: 'Every GR is stored securely on the cloud. Instantly search and retrieve historic shipments by GR number, date, consignor name, or vehicle number.',
+    id: 'customers',
+    title: 'Customers',
+    lead: 'Type a regular customer’s details once, never again.',
+    items: [
+      {
+        title: 'Customer directory',
+        description: 'Name, phone, email, GSTIN, address and default pricing for every consignor you work with.',
+      },
+      {
+        title: 'Auto-fill on every GR',
+        description: 'Pick a customer and their details and default rate fill in. A new consignor is saved automatically with the GR.',
+      },
+      {
+        title: 'Pincode lookup',
+        description: 'Type a 6-digit pincode and the city and state fill in from India Post data.',
+      },
+      {
+        title: 'Customer profiles',
+        description: 'Each customer’s phone (tap to call), email, GSTIN with one-tap copy, pricing unit, default rate and billing address.',
+      },
+    ],
   },
   {
-    id: '04',
-    title: 'Transporter Analytics Dashboard',
-    description: 'Get real-time visibility into active jobs, pending invoices, vehicle locations, and fleet on-time performance metrics in one simple screen.',
+    id: 'records',
+    title: 'Records, tracking and data',
+    lead: 'Every load stays findable, and your data stays yours.',
+    items: [
+      {
+        title: 'Status tracking',
+        description: 'Move each GR from Booked to In Transit to Delivered so anyone in the office can answer customer calls.',
+      },
+      {
+        title: 'Instant search',
+        description: 'Find a GR by the start of its number, consignor, consignee, vehicle number or city.',
+      },
+      {
+        title: 'Excel and CSV import',
+        description: 'Bring old GRs in from a spreadsheet using the template in Settings; consignors with a GSTIN become customers.',
+      },
+      {
+        title: 'One-click Excel backup',
+        description: 'Download every GR as an Excel workbook at any time. No lock-in, no export fee.',
+      },
+    ],
+  },
+  {
+    id: 'access',
+    title: 'Online, offline and at a glance',
+    lead: 'Use BiltyOne where you work, on the device you have.',
+    items: [
+      {
+        title: 'Web app on any device',
+        description: 'Runs in any modern browser on Windows, Mac, Android or iPhone. Nothing to install.',
+      },
+      {
+        title: 'BiltyOne Desktop (offline)',
+        description: 'Free Windows 10/11 app that creates, prints and searches GRs without internet after activation.',
+      },
+      {
+        title: 'Analytics dashboard',
+        description: 'Revenue, GRs booked, loads in transit and outstanding payments on one screen.',
+      },
+      {
+        title: 'Secure by default',
+        description: 'Encrypted in transit and at rest, with your data never sold or shared.',
+      },
+    ],
   },
 ];
 
 export default function FeaturesPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd('/features', { aboutSoftware: true })} />
       <Navbar />
-      <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        
+      <main id="main-content" className="pt-20 bg-white dark:bg-slate-950" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         {/* Hero */}
         <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">
           <div
@@ -50,47 +145,72 @@ export default function FeaturesPage() {
           />
           <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400">Features</p>
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0F172A] dark:text-white mb-6">
-              Everything you need to create, print, and manage <span className="text-[#0369A1] dark:text-sky-400">your GRs</span>
+              Transport management software features for <span className="text-[#0369A1] dark:text-sky-400">Indian transporters</span>
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              BiltyOne replaces manual paperwork, lost physical logs, and error-prone Excel sheets with one simple, modern system built for transporters.
+              Everything BiltyOne does today: create and print GR/LR (bilty), manage customers, track loads and payments, bill
+              customers and keep every record safe, online or offline.
             </p>
-          </div>
-        </section>
-
-        {/* Feature Grid */}
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featureDetails.map((feat) => (
-                <Card key={feat.id} id={feat.id} title={feat.title} description={feat.description} />
+            <nav aria-label="Feature groups" className="mt-8 flex flex-wrap justify-center gap-2">
+              {groups.map((g) => (
+                <a
+                  key={g.id}
+                  href={`#${g.id}`}
+                  className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-medium text-slate-700 hover:border-[#0369A1] hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                >
+                  {g.title}
+                </a>
               ))}
-            </div>
+            </nav>
           </div>
         </section>
 
-        {/* Dashboard Image */}
-        <section className="py-16 sm:py-20 bg-[#F8FAFC] dark:bg-slate-900 border-t border-b border-slate-200 dark:border-slate-800" aria-label="Product screenshot">
+        {groups.map((g, i) => (
+          <section
+            key={g.id}
+            id={g.id}
+            aria-labelledby={`${g.id}-heading`}
+            className={`scroll-mt-24 py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800 ${i % 2 ? 'bg-[#F8FAFC] dark:bg-slate-900' : 'bg-white dark:bg-slate-950'}`}
+          >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <h2 id={`${g.id}-heading`} className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+                {g.title}
+              </h2>
+              <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">{g.lead}</p>
+              <div className="mt-6 grid grid-cols-1 gap-x-8 md:grid-cols-2 lg:grid-cols-4">
+                {g.items.map((item, j) => (
+                  <Card key={item.title} id={String(i * 4 + j + 1).padStart(2, '0')} title={item.title} description={item.description} />
+                ))}
+              </div>
+            </div>
+          </section>
+        ))}
+
+        {/* Product screenshot */}
+        <section className="py-16 sm:py-20 bg-white dark:bg-slate-950" aria-labelledby="screenshot-heading">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 overflow-hidden shadow-xl">
+            <h2 id="screenshot-heading" className="sr-only">BiltyOne dashboard screenshot</h2>
+            <figure className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 overflow-hidden shadow-xl">
               <div className="p-4 sm:p-6">
                 <Image
-                  src="/landingImg01.webp"
-                  alt="BiltyOne dashboard showing GR management, active jobs, and fleet status overview for Indian transport businesses"
-                  width={1200}
-                  height={675}
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700"
+                  src="/dashboard_img_herosection_straight.avif"
+                  alt="BiltyOne dashboard with total revenue, today's GRs, active shipments, outstanding amount, a revenue chart and recent bookings"
+                  width={1672}
+                  height={941}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
+                  className="w-full h-auto rounded-xl border border-slate-200 dark:border-slate-700"
                 />
               </div>
-              <div className="px-6 pb-6">
-                <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
-                  BiltyOne transport management system dashboard
-                </p>
-              </div>
-            </div>
+              <figcaption className="px-6 pb-6 text-xs text-slate-500 dark:text-slate-400 text-center">
+                The BiltyOne dashboard (sample data). See every screen in the{' '}
+                <Link href="/product" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                  product tour
+                </Link>
+                .
+              </figcaption>
+            </figure>
           </div>
         </section>
 
@@ -101,7 +221,7 @@ export default function FeaturesPage() {
               Ready to leave the paper behind?
             </h2>
             <p className="text-lg text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-              Join transporters across NCR who are creating GRs in minutes not hours.
+              Create your first GR in minutes. Free for early transporters, no credit card needed.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -125,14 +245,13 @@ export default function FeaturesPage() {
               </LiveDemoLink>
             </div>
             <div className="mt-12 pt-6 border-t border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-400">
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
-              <Link href="/product" className="hover:text-white transition-colors">Product Overview</Link>
-              <Link href="/why-biltypro" className="hover:text-white transition-colors">Why Choose BiltyOne</Link>
-              <Link href="/logistics-glossary" className="hover:text-white transition-colors">Logistics Glossary</Link>
+              <Link href="/transport-management-system" className="hover:text-white transition-colors">Transport Management System</Link>
+              <Link href="/product" className="hover:text-white transition-colors">Product Tour</Link>
+              <Link href="/why-biltyone" className="hover:text-white transition-colors">Why BiltyOne</Link>
+              <Link href="/lorry-receipt-software" className="hover:text-white transition-colors">Lorry Receipt Software</Link>
             </div>
           </div>
         </section>
-
       </main>
       <Footer />
     </>

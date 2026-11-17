@@ -1,10 +1,9 @@
+import type { Metadata } from 'next';
 import { RegisterForm } from '@/components/auth/RegisterForm';
-import { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Register Company',
-  description: 'Create your company account for BiltyOne',
-};
+// noindex: a sign-up form has no content to rank; landing pages link here.
+export const metadata: Metadata = buildPageMetadata('/register');
 
 export default function RegisterPage() {
   return <RegisterForm />;

@@ -1,7 +1,7 @@
 {
   "name": "BiltyOne",
   "short_name": "BiltyOne",
-  "description": "Advanced Transport Management System for modern logistics and fleet tracking.",
+  "description": "Transport management software for Indian transporters: create, print and manage GR/LR (bilty), customers and freight bills.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

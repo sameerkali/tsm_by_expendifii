@@ -1,8 +1,5 @@
 import type { MetadataRoute } from 'next';
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-  'https://biltyone.com';
+import { SITE_URL } from '@/config/site';
 
 export default function robots(): MetadataRoute.Robots {
   return {

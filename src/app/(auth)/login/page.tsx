@@ -1,10 +1,9 @@
+import type { Metadata } from 'next';
 import { LoginForm } from '@/components/auth/LoginForm';
-import { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Sign In',
-  description: 'Access your transport management dashboard',
-};
+// noindex: sign-in is for existing users; the homepage is the page to rank.
+export const metadata: Metadata = buildPageMetadata('/login');
 
 export default function LoginPage() {
   return <LoginForm />;

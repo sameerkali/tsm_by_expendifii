@@ -1,44 +1,17 @@
 import type { MetadataRoute } from 'next';
+import { INDEXABLE_PAGES } from '@/config/pages';
+import { absoluteUrl } from '@/config/site';
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-  'https://biltyone.com';
-
+/**
+ * Built from the page registry (src/config/pages.ts). lastModified is each
+ * page's real content date, not the build time: a lastmod that changes on
+ * every deploy tells Google nothing, so it learns to ignore it.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
-  const routes: Array<{
-    path: string;
-    changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'];
-    priority: number;
-  }> = [
-    { path: '/', changeFrequency: 'weekly', priority: 1.0 },
-    { path: '/why-biltypro', changeFrequency: 'monthly', priority: 0.9 },
-    { path: '/live-demo', changeFrequency: 'monthly', priority: 0.9 },
-    { path: '/about', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/contact', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/features', changeFrequency: 'monthly', priority: 0.9 },
-    { path: '/product', changeFrequency: 'monthly', priority: 0.9 },
-    { path: '/desktop', changeFrequency: 'monthly', priority: 0.9 },
-    { path: '/faq', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/transport-management-system', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/logistics-glossary', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/digital-transport-management', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/transport-business-automation', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/gr-management', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/lorry-receipt-software', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/developers', changeFrequency: 'monthly', priority: 0.6 },
-    { path: '/security', changeFrequency: 'monthly', priority: 0.6 },
-    { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.3 },
-    { path: '/terms-and-conditions', changeFrequency: 'yearly', priority: 0.3 },
-    { path: '/user-agreement', changeFrequency: 'yearly', priority: 0.3 },
-    { path: '/cookie-policy', changeFrequency: 'yearly', priority: 0.3 },
-  ];
-
-  return routes.map(({ path, changeFrequency, priority }) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified,
-    changeFrequency,
-    priority,
+  return INDEXABLE_PAGES.map((page) => ({
+    url: absoluteUrl(page.path),
+    lastModified: new Date(`${page.lastModified}T00:00:00.000Z`),
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
   }));
 }

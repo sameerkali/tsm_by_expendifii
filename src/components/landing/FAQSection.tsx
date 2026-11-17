@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { ChevronDown, MessageCircle, HelpCircle } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 interface FAQ {
   q: string;
@@ -11,9 +10,12 @@ interface FAQ {
 
 interface FAQSectionProps {
   faqs: FAQ[];
+  /** 'h1' when this section is the whole page (/faq); 'h2' when embedded. */
+  headingLevel?: 'h1' | 'h2';
 }
 
-export default function FAQSection({ faqs }: FAQSectionProps) {
+export default function FAQSection({ faqs, headingLevel = 'h2' }: FAQSectionProps) {
+  const Heading = headingLevel;
   const [openIndex, setOpenIndex] = useState<number | null>(
     faqs.length > 0 ? faqs.length - 2 : null
   );
@@ -50,9 +52,9 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
             <HelpCircle className="w-4 h-4" />
             <span className="text-xs font-semibold uppercase tracking-wider">Frequently Asked Questions</span>
           </div>
-          <h2 id="faq-heading" className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-4">
-            Clear answers for <span className="text-[#0369A1] dark:text-sky-400">busy transporters.</span>
-          </h2>
+          <Heading id="faq-heading" className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-4">
+            {headingLevel === 'h1' ? 'BiltyOne FAQ: ' : ''}Clear answers for <span className="text-[#0369A1] dark:text-sky-400">busy transporters.</span>
+          </Heading>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
             Have questions about BiltyOne? Here are the detailed answers to help you digitise your transport operations.
           </p>

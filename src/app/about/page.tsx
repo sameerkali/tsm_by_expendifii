@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
 import Link from 'next/link';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { Card } from '@/components/landing/Card';
 
-export const metadata: Metadata = {
-  title: 'About',
-  description:
-    'BiltyOne was built by Sameer Faridi, a software engineer whose family are transporters. Learn the real story behind why we built this.',
-  alternates: { canonical: 'https://biltyone.com/about' },
-};
+export const metadata: Metadata = buildPageMetadata('/about');
 
 const values = [
   {
@@ -37,6 +34,7 @@ const team = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd('/about', { pageType: 'AboutPage', aboutSoftware: true })} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         {/* Hero */}

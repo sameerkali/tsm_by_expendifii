@@ -1,97 +1,108 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import Navbar from '@/components/landing/Navbar';
-import Footer from '@/components/landing/Footer';
-import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
+import { buildPageMetadata } from '@/lib/seo';
+import { A, AnswerBox, ContentPage, DataTable, H2, P, Strong, UL } from '@/components/content/ContentPage';
 
-export const metadata: Metadata = {
-  title: 'Transport Business Automation: Save Hours Daily',
-  description:
-    'Discover how transport business automation can eliminate manual errors, replace redundant data entry work, and scale fleet operations efficiently with BiltyOne.',
-  alternates: { canonical: 'https://biltyone.com/transport-business-automation' },
-};
+export const metadata: Metadata = buildPageMetadata('/transport-business-automation');
 
-export default function AutomationOverviewPage() {
+// Only tasks BiltyOne actually automates today are listed as automated.
+
+const faqs = [
+  {
+    q: 'What can be automated in a transport business?',
+    a: 'The repetitive office work: numbering GRs, calculating freight, filling in regular customers’ details, looking up city and state from a pincode, printing GR copies, building customer statements, and backing up records. These tasks eat hours every week and are where most paperwork mistakes happen.',
+  },
+  {
+    q: 'Will automation replace my office staff?',
+    a: 'It changes their work more than it replaces them. Instead of writing and copying GRs all day, one person can handle bookings, billing and customer calls. Growing transporters often use automation to take on more trucks without hiring more office staff, rather than to cut the team they have.',
+  },
+  {
+    q: 'How much does transport automation software cost?',
+    a: 'It ranges from free tools to large ERP projects. BiltyOne automates the core GR, customer and billing work and is currently free for early transporters, with no setup fee. Start there, measure the time saved for a month, and only then decide whether you need anything bigger.',
+  },
+];
+
+export default function TransportBusinessAutomationPage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-50"
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
-          <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0F172A] dark:text-white mb-6">
-              Transport Business Automation
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              How modern logistics tools eliminate paperwork, save on admin staffing costs, and let you scale operations without adding headcount.
-            </p>
-          </div>
-        </section>
+    <ContentPage
+      path="/transport-business-automation"
+      eyebrow="Automation"
+      title="Transport Business Automation: What to Automate First"
+      intro="Transport business automation means letting software do the repetitive office work: numbering GRs, calculating freight, filling in customer details, printing copies and building bills. Here is what you can automate today with BiltyOne, and what each task used to cost you."
+      faqs={faqs}
+      toc={[
+        { id: 'what-to-automate', label: 'Tasks you can automate today' },
+        { id: 'customer-memory', label: 'Stop retyping customers' },
+        { id: 'billing', label: 'Automate month-end billing' },
+        { id: 'records', label: 'Automate record-keeping' },
+        { id: 'not-automated', label: 'What still needs a person' },
+      ]}
+      related={['/digital-transport-management', '/features', '/transport-company-software', '/guides/paper-gr-book-to-software']}
+    >
+      <AnswerBox>
+        <Strong>Transport business automation</Strong> starts with the tasks you repeat for every load: GR numbering, freight
+        calculation, customer details, three-copy printing, customer statements and backups. Software like BiltyOne does
+        these automatically, so a GR that took around 15 minutes by hand takes about 2, and month-end billing takes minutes.
+      </AnswerBox>
 
-        {/* Content Section */}
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <article className="prose prose-slate dark:prose-invert max-w-none space-y-8">
-              
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Eliminating Redundant Data Entry
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  In a typical transport yard, dispatch staff spend several hours copying shipper addresses, GSTIN numbers, driver license details, and pricing structures from old spreadsheets or folders. By implementing smart automation, these details are saved directly inside a secure customer directory. Typing a single customer name auto-populates the entire GR form instantly, cutting creation time from 15 minutes to under 2 minutes.
-                </p>
-              </div>
+      <H2 id="what-to-automate">Tasks you can automate today</H2>
+      <DataTable
+        caption="Transport office tasks done by hand compared with automated in BiltyOne"
+        highlight={2}
+        headers={['Task', 'By hand', 'Automated in BiltyOne']}
+        rows={[
+          ['GR numbering', 'Track the last number; risk duplicates', 'Next number assigned, never reused'],
+          ['Freight', 'Rate × quantity on a calculator', 'Calculated as you type, per KM, box, kg, quintal or ton'],
+          ['Customer details', 'Write name, GSTIN and address every time', 'Pick from the list; details and rate fill in'],
+          ['New customers', 'Copy into a separate register', 'Saved automatically when the GR is saved'],
+          ['City and state', 'Look up or guess', 'Filled from the pincode (India Post data)'],
+          ['Three copies', 'Carbon paper', 'One PDF with all three copies'],
+          ['Repeat loads', 'Write the whole GR again', 'Duplicate the GR'],
+          ['Customer bills', 'Retype GRs into a bill', 'Statement PDF for any date range'],
+          ['Backups', 'None', 'Records stored online; Excel backup on demand'],
+        ]}
+      />
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Reducing Operations Costs
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Growing transport fleets often require hiring additional administrative staff just to keep up with physical GR filings and customer billing requests. BiltyOne automates the generation of lorry receipts and makes them digitally searchable in seconds. Transporters can double their active fleet without hiring more office staff, directly saving on operational overheads.
-                </p>
-              </div>
+      <H2 id="customer-memory">Stop retyping customers</H2>
+      <P>
+        In most transport offices, the same twenty or thirty customers account for most loads, yet their names, GSTINs,
+        addresses and rates are written out again on every GR. In BiltyOne each customer is saved once, with a default
+        pricing type and rate. Picking them fills the GR in, and typing a new consignor saves them for next time.
+      </P>
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Smart Digital Dispatch Tracking
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Instead of calling drivers every hour to check their status, automated systems display active jobs in transit, recent deliveries, and pending dispatches directly on a centralized dashboard. Transporters gain absolute operational clarity.
-                </p>
-              </div>
+      <H2 id="billing">Automate month-end billing</H2>
+      <P>
+        Billing account customers is usually the most painful job of the month. Because every GR in BiltyOne already holds
+        its freight, billing type and payment status, the Printing tab can build a statement for any customer and period in
+        one step: a summary with totals, amount paid and balance due, followed by every GR. See{' '}
+        <A href="/gr-management">GR management</A> for the details.
+      </P>
 
-            </article>
+      <H2 id="records">Automate record-keeping</H2>
+      <UL
+        items={[
+          <>
+            <Strong>Every GR is stored</Strong> the moment it is saved, with its status and payment history.
+          </>,
+          <>
+            <Strong>Search replaces filing:</Strong> find a GR by number, party, vehicle or city.
+          </>,
+          <>
+            <Strong>The dashboard</Strong> shows revenue, GRs booked, loads in transit and pending payments without a
+            single report being typed.
+          </>,
+          <>
+            <Strong>Backups</Strong> are one click: download every GR as an Excel workbook from Settings.
+          </>,
+        ]}
+      />
 
-            <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Automate your transport business today</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">BiltyOne is free to start. Setting up takes just 2–24 hours.</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Get Started Free
-                </Link>
-                <LiveDemoLink className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Try Live Demo
-                </LiveDemoLink>
-              </div>
-            </div>
-
-            <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-              <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
-              <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
-              <Link href="/digital-transport-management" className="hover:text-[#0369A1] transition-colors">Digital vs Paper</Link>
-            </div>
-
-          </div>
-        </section>
-
-      </main>
-      <Footer />
-    </>
+      <H2 id="not-automated">What still needs a person</H2>
+      <P>
+        Software cannot load a truck or negotiate a rate. In BiltyOne you still update a GR’s status when the driver
+        reports delivery and mark payments when money arrives; BiltyOne does not track vehicles by GPS or post entries to
+        your accounts. Those remain quick manual steps, or jobs for other tools. Everything around them, the writing,
+        copying, calculating and filing, is automated.
+      </P>
+    </ContentPage>
   );
 }
