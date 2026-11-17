@@ -11,6 +11,8 @@ import DevTools from "@/components/DevTools";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // import NetworkStatusBanner from "@/components/NetworkStatusBanner";
 import CookieConsentBanner from "@/components/cookie/CookieConsentBanner";
+import { SITE_URL } from "@/config/site";
+import { OG_IMAGE } from "@/lib/seo";
 
 // Only used by `font-mono` text inside the dashboard, so it isn't preloaded:
 // a preload would make every marketing page download it before first paint.
@@ -33,63 +35,36 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://biltyone.com"),
+  metadataBase: new URL(SITE_URL),
+  // Pages set their own absolute title via buildPageMetadata (lib/seo.ts).
   title: {
-    default: "BiltyOne",
+    default: "BiltyOne: Transport Management Software for India",
     template: "%s | BiltyOne",
   },
   description:
-    "Modern transport management for Indian logistics and fleet tracking.",
-  keywords: [
-    "transport management system",
-    "transport management software",
-    "GR software",
-    "lorry receipt software",
-    "logistics software India",
-    "fleet management system",
-    "BiltyOne",
-  ],
-  authors: [{ name: "BiltyOne", url: "https://biltyone.com/about" }],
+    "BiltyOne is transport management software for Indian transporters: create, print and manage GR/LR (bilty), customers and freight bills.",
+  applicationName: "BiltyOne",
+  authors: [{ name: "Sameer Faridi", url: `${SITE_URL}/about` }],
+  creator: "BiltyOne",
+  publisher: "BiltyOne",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/logo.png",
     shortcut: "/favicon-32.png",
     apple: "/apple-icon.png",
   },
-  robots: {
-    index: true,
-    follow: true,
-    "max-image-preview": "large",
-  },
-  alternates: {
-    canonical: "https://biltyone.com",
-    languages: {
-      en: "https://biltyone.com",
-    },
-  },
+  // No `alternates` here on purpose: a canonical in the root layout is
+  // inherited by every page that forgets its own, which pointed /contact,
+  // /login and others at the homepage. Each page sets its own canonical.
   openGraph: {
-    title: "BiltyOne: Transport OS",
-    description:
-      "Create, print, and manage lorry receipts in minutes. Built for Indian transporters.",
-    url: "https://biltyone.com",
     siteName: "BiltyOne",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "BiltyOne Dashboard Preview",
-      },
-    ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BiltyOne: Transport Management System for Indian Logistics",
-    description:
-      "Create, print, and manage lorry receipts in minutes. BiltyOne is the modern transport management system built for Indian transporters, with no paper and no spreadsheets.",
-    images: ["/og-image.png"],
+    images: [OG_IMAGE.url],
   },
   other: {
     "format-detection": "telephone=no",

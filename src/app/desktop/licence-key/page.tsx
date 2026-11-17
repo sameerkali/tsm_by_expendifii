@@ -1,17 +1,12 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowLeft, KeyRound, Mail, Wifi } from 'lucide-react';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { LicenceKeyRequestForm } from '@/components/desktop/LicenceKeyRequestForm';
 
-export const metadata: Metadata = {
-  title: 'Free Licence Key for BiltyOne Desktop',
-  description: 'Request a free licence key for BiltyOne Desktop for Windows. We email your key, usually within one business day.',
-  alternates: { canonical: 'https://biltyone.com/desktop/licence-key' },
-  // Reached from the download email; the /desktop page is the one to rank.
-  robots: { index: false, follow: true },
-};
+export const metadata: Metadata = buildPageMetadata('/desktop/licence-key');
 
 const next = [
   { icon: Mail, text: 'We email your licence key, usually within one business day.' },

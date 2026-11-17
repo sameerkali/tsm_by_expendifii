@@ -1,4 +1,8 @@
+import type { Metadata } from "next";
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata("/forgot-password");
 
 export default function ForgotPasswordPage() {
   return (

@@ -1,18 +1,17 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata, pageJsonLd } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 
-export const metadata: Metadata = {
-  title: 'Terms & Conditions',
-  description: 'The terms governing your use of BiltyOne.',
-  alternates: { canonical: 'https://biltyone.com/terms-and-conditions' },
-};
+export const metadata: Metadata = buildPageMetadata('/terms-and-conditions');
 
 const lastUpdated = 'May 2026';
 
 export default function TermsPage() {
   return (
     <>
+      <JsonLd data={pageJsonLd('/terms-and-conditions', {})} />
       <Navbar />
       <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-16 sm:py-20">

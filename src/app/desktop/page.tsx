@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { IDS, buildPageMetadata, pageJsonLd } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { absoluteUrl } from '@/config/site';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -24,38 +27,11 @@ import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
 import { DesktopDownloadButton } from '@/components/desktop/DesktopDownloadButton';
 
-const PAGE_URL = 'https://biltyone.com/desktop';
+const PAGE_URL = absoluteUrl('/desktop');
 const DESCRIPTION =
   'Download BiltyOne Desktop for Windows. Create, print and search GRs without internet. Free download and free licence key for Indian transporters.';
 
-export const metadata: Metadata = {
-  title: 'Desktop App for Windows: Offline GR Software',
-  description: DESCRIPTION,
-  keywords: [
-    'offline GR software',
-    'bilty software for Windows',
-    'lorry receipt software offline',
-    'transport software desktop',
-    'GR software without internet',
-    'BiltyOne Desktop',
-  ],
-  alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: 'BiltyOne Desktop for Windows',
-    description: 'Create, print and search GRs on your Windows PC, without internet. Free download.',
-    url: PAGE_URL,
-    siteName: 'BiltyOne',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'BiltyOne Desktop for Windows' }],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'BiltyOne Desktop for Windows',
-    description: 'Create, print and search GRs on your Windows PC, without internet. Free download.',
-    images: ['/og-image.png'],
-  },
-};
+export const metadata: Metadata = buildPageMetadata('/desktop');
 
 // Every claim below matches what BiltyOne Desktop (tsm_desktop) actually does.
 // Keep them in sync when the app changes.
@@ -138,38 +114,26 @@ const faqs = [
   },
 ];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
+// Shared graph (WebPage, BreadcrumbList, Organization, founder) plus the
+// desktop app itself and its FAQ.
+const jsonLd = pageJsonLd('/desktop', {
+  faqs,
+  extra: [
     {
       '@type': 'SoftwareApplication',
       '@id': `${PAGE_URL}#app`,
       name: 'BiltyOne Desktop',
       applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Windows 10, Windows 11',
+      applicationSubCategory: 'Transport management software',
+      operatingSystem: 'Windows 10, Windows 11 (64-bit)',
       description: DESCRIPTION,
       url: PAGE_URL,
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
-      publisher: { '@id': 'https://biltyone.com/#organization' },
-    },
-    {
-      '@type': 'FAQPage',
-      '@id': `${PAGE_URL}#faq`,
-      mainEntity: faqs.map((f) => ({
-        '@type': 'Question',
-        name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
-      })),
-    },
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biltyone.com' },
-        { '@type': 'ListItem', position: 2, name: 'Desktop App', item: PAGE_URL },
-      ],
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR', availability: 'https://schema.org/InStock' },
+      publisher: { '@id': IDS.organization },
+      isRelatedTo: { '@id': IDS.software },
     },
   ],
-};
+});
 
 const sectionHeading = 'text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white';
 const sectionLead = 'mt-4 max-w-[65ch] text-base leading-relaxed text-slate-600 dark:text-slate-400';
@@ -177,7 +141,7 @@ const sectionLead = 'mt-4 max-w-[65ch] text-base leading-relaxed text-slate-600 
 export default function DesktopPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <Navbar />
 
       <main id="main-content" className="bg-white pt-20 dark:bg-slate-950">
