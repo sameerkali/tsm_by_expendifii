@@ -1,6 +1,9 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
+import { cleanup, render, screen } from '@testing-library/react';
+
+// No vitest globals, so Testing Library cannot unmount between tests itself.
+afterEach(() => cleanup());
 import FAQSection from './FAQSection';
 
 const faqs = [
@@ -33,5 +36,14 @@ describe('FAQSection heading structure', () => {
       expect(button).toHaveAttribute('aria-expanded');
       expect(button).toHaveAttribute('aria-controls');
     });
+  });
+});
+
+describe('FAQSection as a standalone page', () => {
+  it('renders the section heading as the page h1 when headingLevel="h1"', () => {
+    render(<FAQSection faqs={faqs} headingLevel="h1" />);
+    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 2 })).toBeNull();
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(faqs.length);
   });
 });
