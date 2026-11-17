@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/seo';
-import { A, AnswerBox, ContentPage, DataTable, H2, H3, OL, P, Strong, UL } from '@/components/content/ContentPage';
+import { A, AnswerBox, ContentPage, DataTable, H2, H3, OL, P, Screenshot, Strong, UL } from '@/components/content/ContentPage';
+import { SCREENSHOTS } from '@/config/screenshots';
 
 export const metadata: Metadata = buildPageMetadata('/transport-company-software');
 
 // Keywords: "transport company software", "transport business software".
-// Organised by the real jobs in a transport office.
+// Organised by the real jobs in a transport office. Kept distinct from the
+// homepage (product overview): this page is about running the office, the
+// three freight billing types and month-end billing across many customers.
 
 const faqs = [
   {
@@ -43,7 +46,8 @@ export default function TransportCompanySoftwarePage() {
         { id: 'daily-work', label: 'Where software helps a transport company' },
         { id: 'people', label: 'Built around the people in your office' },
         { id: 'business-types', label: 'For every kind of transport business' },
-        { id: 'features', label: 'Features transport companies use most' },
+        { id: 'billing', label: 'Paid, To Pay and To Be Billed freight' },
+        { id: 'month-end', label: 'Month-end billing for many customers' },
         { id: 'switching', label: 'Moving your company to BiltyOne' },
         { id: 'not-included', label: 'What BiltyOne does not do' },
       ]}
@@ -87,6 +91,7 @@ export default function TransportCompanySoftwarePage() {
         <A href="/online-transport-management-software">online</A>, you can check any GR or customer from home or on the
         road, without phoning the office.
       </P>
+      <Screenshot shot={SCREENSHOTS.customers} />
       <H3>The booking clerk</H3>
       <P>
         Regular customers are saved once and chosen from a list. The GR number and freight are filled in automatically, the
@@ -130,26 +135,54 @@ export default function TransportCompanySoftwarePage() {
       />
       <P>
         Running a small operation? See our page on the{' '}
-        <A href="/transport-management-system-for-small-business">transport management system for small business</A>.
+        <A href="/transport-management-system-for-small-business">small transport business software</A>.
       </P>
 
-      <H2 id="features">Features transport companies use most</H2>
-      <UL
-        items={[
-          'GR / LR (bilty) creation with every field a transporter needs: parties with GSTIN, goods, weight or boxes, declared value, vehicle and driver, invoice and e-way bill numbers, insurance and remarks.',
-          'Automatic GR numbers and freight calculation per KM, box, kg, quintal or ton.',
-          'Three-copy print (driver, consignor, consignee) with your logo, GSTIN, PAN and address.',
-          'Customer directory with default pricing and pincode lookup.',
-          'Duplicate a GR for repeat loads.',
-          'Booking, in-transit and delivered status, and pending or paid payment status.',
-          'Customer freight statements for any date range.',
-          'Excel / CSV import and one-click Excel backup.',
-          'Analytics dashboard.',
-          'BiltyOne Desktop for offline work on Windows.',
+      <H2 id="billing">Paid, To Pay and To Be Billed freight</H2>
+      <P>
+        A transport company rarely collects all its freight the same way. Every BiltyOne GR carries one of the three billing
+        types used in Indian road transport, and the billing type prints as a badge on all three copies so the booking
+        office, the driver and the delivery end all know who pays.
+      </P>
+      <DataTable
+        caption="How BiltyOne handles the three freight billing types"
+        headers={['Billing type', 'Who pays the freight', 'When', 'What BiltyOne does']}
+        rows={[
+          ['Paid', 'Consignor', 'At booking', 'Prints a PAID badge on every copy'],
+          ['To Pay', 'Consignee', 'On delivery', 'Prints a TO PAY badge, so the delivery end knows to collect'],
+          [
+            'To Be Billed (TBB)',
+            'The customer, usually the consignor',
+            'Later, usually monthly',
+            'Prints a TO BE BILLED badge; the GR goes into that customer’s freight bill',
+          ],
         ]}
       />
       <P>
-        Full details are on the <A href="/features">features page</A> and the <A href="/product">product tour</A>.
+        Each GR also shows a payment status, Pending or Paid, on the GR list and on the customer’s freight bill. For what each
+        term means, see the <A href="/logistics-glossary">logistics glossary</A>.
+      </P>
+
+      <H2 id="month-end">Month-end billing for many customers</H2>
+      <P>
+        Contract customers on To Be Billed accounts expect one bill a month. In BiltyOne that bill is built from GRs you
+        already entered, so nothing is typed twice:
+      </P>
+      <OL
+        items={[
+          'Open the Printing tab and pick the customer.',
+          'Choose the start date and, if you want, an end date.',
+          <>
+            Download the freight bill: an A4 page with a table of every GR in the period, the total amount, amount paid and
+            balance due, your bank details and signature blocks, followed by each GR on its own A5 page.
+          </>,
+        ]}
+      />
+      <Screenshot shot={SCREENSHOTS.printing} />
+      <P>
+        Only GRs linked to that customer are included, so always pick the consignor from your customer list when you create
+        a GR. The full list of capabilities is on the <A href="/features">features page</A>, and each screen is shown in the{' '}
+        <A href="/product">product tour</A>.
       </P>
 
       <H2 id="switching">Moving your transport company to BiltyOne</H2>

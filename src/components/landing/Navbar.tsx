@@ -56,6 +56,7 @@ export default function Navbar() {
             { label: 'Features', href: '/features' },
             { label: 'Why Us', href: '/why-biltyone' },
             { label: 'Desktop App', href: '/desktop' },
+            { label: 'Pricing', href: '/pricing' },
           ].map((item) => (
             <Link key={item.href} href={item.href} onMouseEnter={handleEnter} className={linkClassName}>
               {item.label}

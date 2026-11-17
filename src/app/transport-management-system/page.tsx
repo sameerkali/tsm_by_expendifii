@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/seo';
-import { A, AnswerBox, ContentPage, DataTable, H2, H3, OL, P, Strong, UL } from '@/components/content/ContentPage';
+import { A, AnswerBox, ContentPage, DataTable, H2, H3, OL, P, Screenshot, Strong, UL } from '@/components/content/ContentPage';
+import { SCREENSHOTS } from '@/config/screenshots';
 
 export const metadata: Metadata = buildPageMetadata('/transport-management-system');
 
@@ -37,7 +38,8 @@ export default function TransportManagementSystemPage() {
       eyebrow="Guide"
       title="Transport Management System (TMS): A Practical Guide for India"
       intro="A transport management system (TMS) is software that records, tracks and bills the movement of goods. This guide explains how a TMS works for Indian road transport, which features matter, how it compares with ERP and Excel, and how to choose one."
-      aboutSoftware
+      // Educational guide: no SoftwareApplication node (no aboutSoftware),
+      // so it doesn't compete with the homepage as a product page.
       faqs={faqs}
       toc={[
         { id: 'what-is-a-tms', label: 'What is a transport management system?' },
@@ -50,10 +52,10 @@ export default function TransportManagementSystemPage() {
         { id: 'biltyone', label: 'Where BiltyOne fits' },
       ]}
       related={[
-        '/online-transport-management-software',
-        '/transport-management-system-for-small-business',
-        '/transport-erp-software',
         '/guides/how-to-choose-transport-management-software',
+        '/transport-erp-software',
+        '/digital-transport-management',
+        '/logistics-glossary',
       ]}
     >
       <AnswerBox>
@@ -221,6 +223,7 @@ export default function TransportManagementSystemPage() {
       </P>
 
       <H2 id="biltyone">Where BiltyOne fits</H2>
+      <Screenshot shot={SCREENSHOTS.grList} />
       <P>
         BiltyOne is a transporter TMS for Indian road transport. It covers the work every transport office does daily:
         GR/LR creation with automatic numbers and freight, three-copy printing with your branding, a customer directory,

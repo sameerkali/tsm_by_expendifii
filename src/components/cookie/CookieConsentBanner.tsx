@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notifyConsentChange } from '@/lib/analytics';
 
 interface CookiePreferences {
   necessary: boolean;
@@ -22,6 +23,7 @@ export default function CookieConsentBanner() {
 
   const saveAndClose = (prefs: CookiePreferences) => {
     localStorage.setItem('cookie-consent', JSON.stringify(prefs));
+    notifyConsentChange();
     setIsVisible(false);
   };
 

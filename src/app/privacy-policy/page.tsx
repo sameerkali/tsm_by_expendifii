@@ -6,7 +6,7 @@ import Footer from '@/components/landing/Footer';
 
 export const metadata: Metadata = buildPageMetadata('/privacy-policy');
 
-const lastUpdated = 'May 2026';
+const lastUpdated = 'November 2026';
 
 export default function PrivacyPolicyPage() {
   return (
@@ -52,6 +52,7 @@ export default function PrivacyPolicyPage() {
             <p>We do not sell, rent, or trade your data. Period. We share data only with:</p>
             <ul>
               <li><strong>Service providers:</strong> Hosting and infrastructure partners bound by confidentiality.</li>
+              <li><strong>Analytics:</strong> If you accept analytics cookies, Google Analytics receives information about how you use our public website, such as pages visited, buttons clicked, device type and approximate location. It is not used inside the BiltyOne app and never receives your GR records, customer details or anything you enter there.</li>
               <li><strong>Legal authorities:</strong> Only when required by Indian law or a valid court order.</li>
             </ul>
 
@@ -70,7 +71,7 @@ export default function PrivacyPolicyPage() {
 
             <h2>8. Cookies</h2>
             <p>
-              We use only necessary cookies for session management. No advertising or third-party tracking cookies.
+              We use necessary cookies for sign-in and session management. If you accept analytics cookies, we also use Google Analytics cookies on our public website to learn which pages are useful. We do not use advertising cookies, and you can change your choice at any time from the cookie banner or in Settings. Details are in our Cookie Policy.
             </p>
 
             <h2>9. Changes to This Policy</h2>

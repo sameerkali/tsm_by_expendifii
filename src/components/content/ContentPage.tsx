@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import type { Screenshot as ScreenshotData } from '@/config/screenshots';
 import Navbar from '@/components/landing/Navbar';
 import Footer from '@/components/landing/Footer';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
@@ -37,6 +39,11 @@ interface ContentPageProps {
   extraJsonLd?: Record<string, unknown>[];
   /** Index/listing pages: CollectionPage, no Article node. */
   collection?: boolean;
+  /**
+   * Speakable CSS selectors. Every id listed must exist on the page: drop
+   * '#key-takeaways' on pages that don't render an <AnswerBox>.
+   */
+  speakable?: string[];
 }
 
 export function ContentPage({
@@ -53,6 +60,7 @@ export function ContentPage({
   aboutSoftware = false,
   extraJsonLd,
   collection = false,
+  speakable = ['#page-intro', '#key-takeaways'],
 }: ContentPageProps) {
   const page = getPage(path);
   const crumbs = crumbsFor(page);
@@ -65,7 +73,7 @@ export function ContentPage({
           pageType: collection ? 'CollectionPage' : 'WebPage',
           faqs,
           aboutSoftware,
-          speakable: ['#page-intro', '#key-takeaways'],
+          speakable,
           extra: extraJsonLd,
         })}
       />
@@ -256,6 +264,28 @@ export function AnswerBox({ id = 'key-takeaways', title = 'Short answer', childr
       <p className="mb-2 text-sm font-bold tracking-wide text-[#0369A1] uppercase dark:text-sky-400">{title}</p>
       <div className="leading-relaxed">{children}</div>
     </div>
+  );
+}
+
+/** A real product screenshot (see src/config/screenshots.ts) with a visible caption. */
+export function Screenshot({ shot, priority = false, phone = false }: { shot: ScreenshotData; priority?: boolean; phone?: boolean }) {
+  return (
+    <figure className={`my-10 ${phone ? 'mx-auto max-w-[280px]' : ''}`}>
+      <div className={`overflow-hidden border border-slate-200 bg-white shadow-lg dark:border-slate-700 ${phone ? 'rounded-[2rem]' : 'rounded-2xl'}`}>
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          width={shot.width}
+          height={shot.height}
+          sizes={phone ? '280px' : '(max-width: 896px) 100vw, 832px'}
+          priority={priority}
+          className="h-auto w-full"
+        />
+      </div>
+      <figcaption className="mt-3 text-center text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+        {shot.caption} <span className="whitespace-nowrap">Sample data.</span>
+      </figcaption>
+    </figure>
   );
 }
 

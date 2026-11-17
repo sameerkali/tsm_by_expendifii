@@ -9,6 +9,7 @@ import apiClient from '@/lib/api/client';
 import { CONTACT } from '@/config/site';
 import { addressLines, phoneHref, phoneNumber, whatsappHref } from '@/lib/contact';
 import { CONTACT_FAQS, HELP_TOPICS } from './content';
+import { trackEvent } from '@/lib/analytics';
 
 export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -69,6 +70,8 @@ export default function ContactPage() {
         companyName: form.company.trim() || undefined,
         message: form.message.trim() || undefined,
       });
+      // GA4 recommended lead event; never send the form contents.
+      trackEvent('generate_lead', { form: 'contact' });
       setStatus('success');
     } catch (err: unknown) {
       console.error(err);

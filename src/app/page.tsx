@@ -548,9 +548,14 @@ export default function HomePage() {
             <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto leading-relaxed mb-6 text-sm sm:text-base">
               Early transporters get full access to GR creation, customer directories and dashboards for ₹0. No credit card, no hidden contracts, and you can export all your data at any time.
             </p>
-            <Link href="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sky-600 transition-colors">
-              Claim Free Access Now
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#0369A1] px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sky-600 transition-colors">
+                Claim Free Access Now
+              </Link>
+              <Link href="/pricing" className="text-sm font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                See pricing and comparisons
+              </Link>
+            </div>
           </div>
         </section>
 

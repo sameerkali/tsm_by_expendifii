@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/seo';
-import { A, AnswerBox, ContentPage, DataTable, H2, OL, P, Strong, UL } from '@/components/content/ContentPage';
+import { A, AnswerBox, ContentPage, DataTable, H2, OL, P, Screenshot, Strong, UL } from '@/components/content/ContentPage';
+import { SCREENSHOTS } from '@/config/screenshots';
+import { ProductVideo } from '@/components/content/ProductVideo';
 
 export const metadata: Metadata = buildPageMetadata('/gr-management');
 
@@ -9,8 +11,8 @@ export const metadata: Metadata = buildPageMetadata('/gr-management');
 
 const faqs = [
   {
-    q: 'What is GR management?',
-    a: 'GR management is everything that happens to a goods receipt after it is created: printing its copies, following the load from booking to delivery, recording payment, finding it again later, and billing it to the customer. In BiltyOne all of this happens on the GR record itself, so nothing gets lost between books and spreadsheets.',
+    q: 'What is GR creation software?',
+    a: 'GR creation software makes goods receipts on a computer or phone instead of a paper GR book. In BiltyOne you pick the consignor, enter the route, goods and rate, and save: the GR number and freight fill in. The same GR record then carries its printing, status, payment and billing, so nothing is retyped.',
   },
   {
     q: 'Can I edit a GR after printing it?',
@@ -30,9 +32,9 @@ export default function GrManagementPage() {
   return (
     <ContentPage
       path="/gr-management"
-      eyebrow="GR management"
-      title="Goods Receipt (GR) Management: From Booking to Payment"
-      intro="BiltyOne manages every goods receipt (GR) through its whole life: three-copy printing, booking to delivery status, payment status, instant search, duplicates for repeat loads, and customer statements. One record per load, from the day it is booked to the day it is paid."
+      eyebrow="GR software"
+      title="GR Creation Software: Every GR From Booking to Payment"
+      intro="BiltyOne is GR software for Indian transporters. GR creation takes under two minutes, with automatic numbering and freight, and the same record then carries three-copy printing, booking to delivery status, payment status, instant search and customer statements. One record per load, from booking to payment."
       aboutSoftware
       faqs={faqs}
       toc={[
@@ -46,10 +48,12 @@ export default function GrManagementPage() {
       related={['/lorry-receipt-software', '/guides/what-is-bilty', '/transport-company-software', '/features']}
     >
       <AnswerBox>
-        <Strong>GR management</Strong> in BiltyOne means one record per load: create the GR with automatic numbering and
-        freight, print driver, consignor and consignee copies, move it from booked to in transit to delivered, mark it paid,
-        and include it in the customer’s statement. Every step is searchable later.
+        <Strong>GR creation software</Strong> like BiltyOne gives you one record per load: create the GR with automatic
+        numbering and freight, print driver, consignor and consignee copies, move it from booked to in transit to delivered,
+        mark it paid, and include it in the customer’s statement. Every step is searchable later.
       </AnswerBox>
+
+      <Screenshot shot={SCREENSHOTS.grList} priority />
 
       <H2 id="life-cycle">The GR life cycle in BiltyOne</H2>
       <OL
@@ -91,12 +95,15 @@ export default function GrManagementPage() {
         explained in the <A href="/guides/what-is-bilty">bilty guide</A>.
       </P>
 
+      <ProductVideo />
+
       <H2 id="printing">Three-copy printing</H2>
       <P>
         The print button creates a PDF with three identical A5 landscape pages labelled driver copy, consignor copy and
         consignee copy. The header carries your company name, logo, GSTIN, PAN, phone and address; the body shows the GR
         number, date, route, parties, goods, freight, billing and status. Insurance, vehicle and driver, GST and ship-to
-        boxes appear only when filled in.
+        boxes appear only when filled in. Every field on the printed copy is listed on the{' '}
+        <A href="/lorry-receipt-software">bilty and LR software</A> page.
       </P>
 
       <H2 id="search">Find any GR in seconds</H2>
