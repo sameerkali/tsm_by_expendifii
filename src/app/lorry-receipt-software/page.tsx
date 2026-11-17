@@ -1,97 +1,166 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import Navbar from '@/components/landing/Navbar';
-import Footer from '@/components/landing/Footer';
-import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
+import { buildPageMetadata } from '@/lib/seo';
+import { A, AnswerBox, ContentPage, DataTable, H2, OL, P, Strong, UL } from '@/components/content/ContentPage';
 
-export const metadata: Metadata = {
-  title: 'Lorry Receipt (LR) Software for Indian Transporters',
-  description:
-    'Generate clean, professional, and compliant Lorry Receipts (LR/GR) digitally. Free software for Indian transport owners to customise layouts and print 3 copies.',
-  alternates: { canonical: 'https://biltyone.com/lorry-receipt-software' },
-};
+export const metadata: Metadata = buildPageMetadata('/lorry-receipt-software');
+
+// Every field and check below matches the GR form and PDF layout in
+// CORE_APP_SPEC.md (sections 3.3, 7.6, 11.1, 13.1).
+
+const faqs = [
+  {
+    q: 'What is lorry receipt software?',
+    a: 'Lorry receipt software creates, prints and stores LRs (also called GRs or bilty) on a computer or phone instead of a carbon book. Good LR software numbers each receipt automatically, calculates freight, fills in regular customers, prints all copies with your letterhead and keeps every LR searchable for years.',
+  },
+  {
+    q: 'Is BiltyOne lorry receipt software free?',
+    a: 'Yes. BiltyOne is free for early transporters, including unlimited LR creation and printing, customer records and statements. No credit card is needed to sign up. If paid plans are introduced later, existing users will get fair notice, and you can export all your GRs to Excel at any time.',
+  },
+  {
+    q: 'Can I print lorry receipts on my existing printer?',
+    a: 'Yes. BiltyOne produces each lorry receipt as a PDF with three A5 landscape pages, labelled driver copy, consignor copy and consignee copy. Print it on any normal office printer, or save the PDF to share or print later. No special stationery or pre-printed forms are needed.',
+  },
+  {
+    q: 'Can I create a lorry receipt without internet?',
+    a: 'Yes, with BiltyOne Desktop for Windows. After a one-time online activation it creates, prints and searches lorry receipts with no internet connection. The regular BiltyOne web app needs internet but works on any device with a browser, including phones.',
+  },
+];
 
 export default function LorryReceiptSoftwarePage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-50"
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
-          <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0F172A] dark:text-white mb-6">
-              Lorry Receipt Software Built for India
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              Create, print, and track clean Lorry Receipts (LR) instantly. Designed to help transport businesses eliminate paper ledger books.
-            </p>
-          </div>
-        </section>
+    <ContentPage
+      path="/lorry-receipt-software"
+      eyebrow="Lorry receipt software"
+      title="Lorry Receipt (LR) and Bilty Software for Indian Transporters"
+      intro="BiltyOne lorry receipt software creates a complete LR (GR, bilty) in under two minutes, numbers it and calculates the freight for you, and prints the driver, consignor and consignee copies with your company details. Free for early transporters, online or offline."
+      aboutSoftware
+      faqs={faqs}
+      toc={[
+        { id: 'what-it-does', label: 'What BiltyOne does for your lorry receipts' },
+        { id: 'fields', label: 'Every field on a BiltyOne lorry receipt' },
+        { id: 'how-to', label: 'How to create a lorry receipt' },
+        { id: 'freight', label: 'Freight calculation' },
+        { id: 'checks', label: 'Checks that prevent mistakes' },
+        { id: 'vs-paper', label: 'LR software vs a paper LR book' },
+      ]}
+      related={['/guides/what-is-bilty', '/gr-management', '/guides/gr-vs-lr-vs-eway-bill', '/desktop']}
+    >
+      <AnswerBox>
+        <Strong>Lorry receipt software</Strong> replaces the carbon LR book. In BiltyOne you pick a saved customer, enter the
+        route, goods and rate, and save: the LR number and freight are filled in, and one click prints driver, consignor and
+        consignee copies with your logo, GSTIN, PAN and address. Every LR stays searchable.
+      </AnswerBox>
 
-        {/* Content Section */}
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <article className="prose prose-slate dark:prose-invert max-w-none space-y-8">
-              
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Why Use Lorry Receipt Software?
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Managing lorry receipts (LR/GR) on physical paper carbon books is slow, prone to spelling errors, and highly vulnerable to damage or misplacement. BiltyOne Lorry Receipt Software provides a clean, single-screen creator to build LRs instantly.
-                </p>
-              </div>
+      <H2 id="what-it-does">What BiltyOne does for your lorry receipts</H2>
+      <UL
+        items={[
+          <>
+            <Strong>Automatic LR numbers.</Strong> Each new LR gets the next number in your series. Numbers are never reused,
+            even after a deletion, so your records stay audit-friendly.
+          </>,
+          <>
+            <Strong>Automatic freight.</Strong> Rate × quantity, priced per KM, box, kg, quintal or ton.
+          </>,
+          <>
+            <Strong>Customer auto-fill.</Strong> Choose a saved consignor and their details and default pricing fill in. A
+            new consignor is saved automatically when you save the LR.
+          </>,
+          <>
+            <Strong>Three-copy print.</Strong> One PDF with driver, consignor and consignee copies on A5 landscape.
+          </>,
+          <>
+            <Strong>Your letterhead.</Strong> Company name, logo, GSTIN, PAN, phone and address on every copy, from your
+            company profile.
+          </>,
+          <>
+            <Strong>Duplicate for repeat loads.</Strong> Copy an existing LR to a new one with a fresh number and today’s
+            date.
+          </>,
+          <>
+            <Strong>Search.</Strong> Find any LR by its number, consignor, consignee, vehicle number or city.
+          </>,
+          <>
+            <Strong>Statements.</Strong> Turn a customer’s LRs for any period into a freight bill PDF.
+          </>,
+        ]}
+      />
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Compliant Lorry Receipts (LR)
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base mb-4">
-                  Under GST guidelines, lorry receipts must accurately state the consignor&apos;s and consignee&apos;s GSTIN numbers, correct state codes, and proper pincodes for inter-state transit verification. Our software automatically checks GSTIN format and matches pincodes with states to ensure compliance.
-                </p>
-              </div>
+      <H2 id="fields">Every field on a BiltyOne lorry receipt</H2>
+      <DataTable
+        caption="Fields on a BiltyOne lorry receipt, grouped by section"
+        headers={['Section', 'Fields']}
+        rows={[
+          ['Header', 'Your company name, logo, GSTIN, PAN, phone and address; LR number, date, from and to city'],
+          ['Parties', 'Consignor and consignee with GSTIN; ship-to address; door delivery'],
+          ['Goods', 'Description, number of packages, weight, declared value'],
+          ['Charges', 'Pricing type, rate, freight, billing type (paid / to pay / to be billed), payment status, GST paid by'],
+          ['Trip', 'Vehicle number, driver name, driver mobile, licence or ID number, status'],
+          ['Documents', 'Invoice number, e-way bill number'],
+          ['Insurance', 'Company, policy number, date, amount and risk'],
+          ['Other', 'Remarks; copy label (driver, consignor or consignee)'],
+        ]}
+      />
+      <P>
+        Optional sections such as insurance, vehicle and driver, and remarks only print when you fill them in, so a simple LR
+        stays clean. For what each field means, see <A href="/guides/what-is-bilty">what is a bilty</A>.
+      </P>
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Custom Terms & Conditions
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Configure specific carriage conditions, default weight structures, custom headers, and logo tags. Once saved, BiltyOne stores these preferences to auto-generate every subsequent lorry receipt exactly the way you want.
-                </p>
-              </div>
+      <H2 id="how-to">How to create a lorry receipt in BiltyOne</H2>
+      <OL
+        items={[
+          <>
+            <A href="/register">Sign up free</A> with your company details; they print on every copy.
+          </>,
+          'Open the GR tab and start a new GR (LR).',
+          'Choose the consignor from your customers, or type a new one.',
+          'Enter the consignee, from and to city, goods, and weight or number of boxes.',
+          'Pick the pricing type and rate; the freight is calculated as you type.',
+          'Add vehicle, driver, invoice and e-way bill numbers if you have them, then save and print.',
+        ]}
+      />
 
-            </article>
+      <H2 id="freight">Freight calculation</H2>
+      <P>BiltyOne calculates freight as rate × quantity, rounded to two decimals, using the pricing type you choose:</P>
+      <DataTable
+        caption="BiltyOne freight pricing types"
+        headers={['Pricing type', 'Typical use', 'Quantity used']}
+        rows={[
+          ['Per KM', 'Full-truck trips priced by distance', 'Distance'],
+          ['Per box', 'Parcel and part-load bookings', 'Number of boxes'],
+          ['Per kg', 'Light or mixed goods', 'Weight in kg'],
+          ['Per quintal', 'Grain, produce and bulk goods', 'Quintals'],
+          ['Per ton', 'Heavy full loads', 'Tons'],
+        ]}
+      />
 
-            <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Start printing Lorry Receipts digitally</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Free for early transporters. No training required.</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Get Started Free
-                </Link>
-                <LiveDemoLink className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Launch Live Demo
-                </LiveDemoLink>
-              </div>
-            </div>
+      <H2 id="checks">Checks that prevent mistakes</H2>
+      <UL
+        items={[
+          'GSTIN fields are checked for the correct GSTIN format before you can save.',
+          'Driver mobile numbers must have 10 digits; vehicle numbers are kept in capitals.',
+          'From and to city are required, and freight must be above zero.',
+          'When adding a customer, a 6-digit pincode fills in the city and state from India Post data.',
+        ]}
+      />
 
-            <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-              <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
-              <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
-              <Link href="/gr-management" className="hover:text-[#0369A1] transition-colors">GR Management</Link>
-            </div>
-
-          </div>
-        </section>
-
-      </main>
-      <Footer />
-    </>
+      <H2 id="vs-paper">LR software vs a paper LR book</H2>
+      <DataTable
+        caption="BiltyOne lorry receipt software compared with a paper LR book"
+        highlight={2}
+        headers={['', 'Paper LR book', 'BiltyOne']}
+        rows={[
+          ['Time per LR', 'Around 15 minutes', 'About 2 minutes'],
+          ['Copies', 'Carbon, often faint', 'Three clean printed copies'],
+          ['Numbering', 'By hand', 'Automatic, never reused'],
+          ['Freight', 'Calculated by hand', 'Automatic'],
+          ['Finding an old LR', 'Search the books', 'Instant search'],
+          ['Billing customers', 'Retype every LR', 'Statement PDF'],
+          ['Risk of loss', 'Rain, fire, misplacement', 'Stored online, with Excel backup'],
+        ]}
+      />
+      <P>
+        Working where the internet drops? <A href="/desktop">BiltyOne Desktop</A> creates and prints LRs offline on Windows.
+      </P>
+    </ContentPage>
   );
 }

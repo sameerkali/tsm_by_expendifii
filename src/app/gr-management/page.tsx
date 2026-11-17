@@ -1,101 +1,137 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import Navbar from '@/components/landing/Navbar';
-import Footer from '@/components/landing/Footer';
+import { buildPageMetadata } from '@/lib/seo';
+import { A, AnswerBox, ContentPage, DataTable, H2, OL, P, Strong, UL } from '@/components/content/ContentPage';
 
-export const metadata: Metadata = {
-  title: 'Goods Receipt (GR) Management & 3-Copy Print',
-  description:
-    'Manage your Goods Receipt (GR) and Lorry Receipt (LR) workflows digitally. BiltyOne auto-generates 3 print copies (Consigner, Consignee, Driver) in under 2 minutes.',
-  alternates: { canonical: 'https://biltyone.com/gr-management' },
-};
+export const metadata: Metadata = buildPageMetadata('/gr-management');
 
-export default function GRManagementPage() {
+// Behaviour described here matches CORE_APP_SPEC.md sections 7 and 9
+// (status, duplicate, delete, numbering, statements).
+
+const faqs = [
+  {
+    q: 'What is GR management?',
+    a: 'GR management is everything that happens to a goods receipt after it is created: printing its copies, following the load from booking to delivery, recording payment, finding it again later, and billing it to the customer. In BiltyOne all of this happens on the GR record itself, so nothing gets lost between books and spreadsheets.',
+  },
+  {
+    q: 'Can I edit a GR after printing it?',
+    a: 'Yes. Open the GR to change its details, status or billing, then print it again. The GR number itself cannot be changed, which keeps your series reliable. Your company details are read at print time, so a reprint always shows your current letterhead.',
+  },
+  {
+    q: 'What happens when I delete a GR?',
+    a: 'A deleted GR disappears from your lists, search, statements and Excel export, and its number is never given to another GR. That keeps your numbering honest: a gap in the series always means a deliberate deletion, not a mistake. Deletion asks for confirmation and cannot be undone.',
+  },
+  {
+    q: 'How do I bill a customer for many GRs at once?',
+    a: 'Open the Printing tab, choose the customer and a date range, and download the statement. You get a freight bill page with totals, amount paid and balance due, followed by every GR in that range. It includes GRs linked to that customer, so always pick the consignor from your customer list.',
+  },
+];
+
+export default function GrManagementPage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-50"
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
-          <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0F172A] dark:text-white mb-6">
-              Digital Goods Receipt (GR) Management
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              Create, customize, print, and track Goods Receipts and Lorry Receipts natively from a single, cloud-hosted platform.
-            </p>
-          </div>
-        </section>
+    <ContentPage
+      path="/gr-management"
+      eyebrow="GR management"
+      title="Goods Receipt (GR) Management: From Booking to Payment"
+      intro="BiltyOne manages every goods receipt (GR) through its whole life: three-copy printing, booking to delivery status, payment status, instant search, duplicates for repeat loads, and customer statements. One record per load, from the day it is booked to the day it is paid."
+      aboutSoftware
+      faqs={faqs}
+      toc={[
+        { id: 'life-cycle', label: 'The GR life cycle in BiltyOne' },
+        { id: 'statuses', label: 'Statuses at a glance' },
+        { id: 'printing', label: 'Three-copy printing' },
+        { id: 'search', label: 'Find any GR in seconds' },
+        { id: 'numbering', label: 'Duplicates, edits, deletions and numbering' },
+        { id: 'statements', label: 'Customer statements' },
+      ]}
+      related={['/lorry-receipt-software', '/guides/what-is-bilty', '/transport-company-software', '/features']}
+    >
+      <AnswerBox>
+        <Strong>GR management</Strong> in BiltyOne means one record per load: create the GR with automatic numbering and
+        freight, print driver, consignor and consignee copies, move it from booked to in transit to delivered, mark it paid,
+        and include it in the customer’s statement. Every step is searchable later.
+      </AnswerBox>
 
-        {/* Content Section */}
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <article className="prose prose-slate dark:prose-invert max-w-none space-y-8">
-              
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  The Life Cycle of a Goods Receipt (GR)
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base mb-4">
-                  In logistics, the Goods Receipt is the source of truth for the entire shipping agreement. It outlines exactly what was loaded, where it is going, who is shipping it, and the terms of transport. Managing it digitally ensures:
-                </p>
-                <ol className="list-decimal pl-6 space-y-2 text-sm sm:text-base text-slate-600 dark:text-slate-400">
-                  <li><strong>Instant Generation:</strong> Populate driver, vehicle, and cargo weights into templates in seconds.</li>
-                  <li><strong>Three-Copy Generation:</strong> Automatically output Driver, Consignor, and Consignee copies instantly.</li>
-                  <li><strong>Payment Releases:</strong> A clean digital copy helps resolve shipping disputes faster and releases payments.</li>
-                </ol>
-              </div>
+      <H2 id="life-cycle">The GR life cycle in BiltyOne</H2>
+      <OL
+        items={[
+          <>
+            <Strong>Create.</Strong> Pick the consignor, enter route, goods and rate. The GR number and freight fill in.
+          </>,
+          <>
+            <Strong>Print.</Strong> Three A5 copies (driver, consignor, consignee) in one PDF.
+          </>,
+          <>
+            <Strong>Dispatch.</Strong> Record the vehicle, driver, invoice and e-way bill numbers.
+          </>,
+          <>
+            <Strong>Track.</Strong> Update the status from Booked to In Transit to Delivered.
+          </>,
+          <>
+            <Strong>Get paid.</Strong> Mark the payment Paid when the freight arrives.
+          </>,
+          <>
+            <Strong>Bill and archive.</Strong> Include it in the customer’s statement; it stays searchable for good.
+          </>,
+        ]}
+      />
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Customizable Lorry Receipt Layouts
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Every transport agency operates differently. BiltyOne does not lock you into a rigid template. You can configure which inputs are mandatory, add custom headers, toggle tax columns, and set default terms and conditions for your printed receipts.
-                </p>
-              </div>
+      <H2 id="statuses">Statuses at a glance</H2>
+      <DataTable
+        caption="GR status, payment status and billing type in BiltyOne"
+        headers={['Field', 'Values', 'What it tells you']}
+        rows={[
+          ['Status', 'Booked, In Transit, Delivered', 'Where the load is'],
+          ['Payment status', 'Pending, Paid', 'Whether the freight has been received'],
+          ['Billing type', 'Paid, To Pay, To Be Billed', 'Who pays the freight, and when'],
+          ['GST paid by', 'Consignor, Consignee, Transporter', 'Who is liable for GST on the freight'],
+        ]}
+      />
+      <P>
+        The dashboard rolls these up so you can see loads in transit and pending payments at a glance. Billing types are
+        explained in the <A href="/guides/what-is-bilty">bilty guide</A>.
+      </P>
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  Permanent Search Archive
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base">
-                  Never dig through rows of dusty folders to find an old shipment record. BiltyOne securely backs up every transaction. Filter and query historical receipts instantly by GR Number, Date Range, Shipped Destination, or Shipped Vehicle.
-                </p>
-              </div>
+      <H2 id="printing">Three-copy printing</H2>
+      <P>
+        The print button creates a PDF with three identical A5 landscape pages labelled driver copy, consignor copy and
+        consignee copy. The header carries your company name, logo, GSTIN, PAN, phone and address; the body shows the GR
+        number, date, route, parties, goods, freight, billing and status. Insurance, vehicle and driver, GST and ship-to
+        boxes appear only when filled in.
+      </P>
 
-            </article>
+      <H2 id="search">Find any GR in seconds</H2>
+      <P>
+        Type the start of a GR number, consignor name, consignee name, vehicle number or city into the search box. Exact
+        matches are shown first, then the newest GRs. No more cupboards full of old books.
+      </P>
 
-            <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Ready to modernise your GR workflow?</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Start using BiltyOne completely free today.</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Get Started Free
-                </Link>
-                <Link href="/lorry-receipt-software" className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Lorry Receipt Software
-                </Link>
-              </div>
-            </div>
+      <H2 id="numbering">Duplicates, edits, deletions and numbering</H2>
+      <UL
+        items={[
+          <>
+            <Strong>Duplicate</Strong> a GR for a repeat load: it copies the details, gives a new GR number, sets the status
+            to Booked and the date to today. Check the invoice and e-way bill numbers, which are copied too.
+          </>,
+          <>
+            <Strong>Edit</Strong> any detail except the GR number, which is fixed once issued.
+          </>,
+          <>
+            <Strong>Delete</Strong> with confirmation. The GR leaves all lists, statements and exports, and its number is
+            never reused, so every gap in your series is explainable.
+          </>,
+        ]}
+      />
 
-            <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-              <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
-              <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
-              <Link href="/logistics-glossary" className="hover:text-[#0369A1] transition-colors">Logistics Glossary</Link>
-            </div>
-
-          </div>
-        </section>
-
-      </main>
-      <Footer />
-    </>
+      <H2 id="statements">Customer statements</H2>
+      <P>
+        In the Printing tab, choose a customer and a date range. BiltyOne builds a PDF freight bill: an A4 summary with the
+        GR count, booked, in-transit and delivered totals, subtotal, amount paid and balance due, your bank details, and
+        signature blocks, followed by one page per GR. Month-end billing takes minutes instead of a day.
+      </P>
+      <P>
+        See all of this with sample data in the <A href="/live-demo">live demo</A>, or read about{' '}
+        <A href="/lorry-receipt-software">creating lorry receipts</A>.
+      </P>
+    </ContentPage>
   );
 }

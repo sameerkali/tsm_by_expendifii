@@ -1,111 +1,128 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import Navbar from '@/components/landing/Navbar';
-import Footer from '@/components/landing/Footer';
+import { buildPageMetadata } from '@/lib/seo';
+import { A, AnswerBox, ContentPage, DataTable, H2, H3, P, Strong, UL } from '@/components/content/ContentPage';
 
-export const metadata: Metadata = {
-  title: 'Digital Transport Management vs Paper & Excel',
-  description:
-    'Compare traditional paper GR books and Excel sheets against digital transport management. Learn how BiltyOne automates lorry receipts securely.',
-  alternates: { canonical: 'https://biltyone.com/digital-transport-management' },
-};
+export const metadata: Metadata = buildPageMetadata('/digital-transport-management');
 
-export default function ComparisonPage() {
+const faqs = [
+  {
+    q: 'Is Excel good enough for managing GRs?',
+    a: 'For a handful of GRs a month, Excel can work. As volume grows it breaks down: there is no automatic GR numbering, customer details are retyped, formulas get overwritten, printing three copies is fiddly, and one corrupted or lost file can wipe out months of records. Transport software solves these by design.',
+  },
+  {
+    q: 'What is digital transport management?',
+    a: 'Digital transport management means running a transport business on software instead of paper books and spreadsheets: creating GR/LR on screen, printing copies, keeping customers and loads in one searchable system, and producing bills from data already entered. It is the day-to-day use of a transport management system (TMS).',
+  },
+  {
+    q: 'Is it safe to keep transport records online instead of on paper?',
+    a: 'Generally safer. Paper can be lost to rain, fire, pests or misplacement, and a single office PC can fail. Good online software encrypts data, keeps it on managed servers and lets you download your own backup at any time. With BiltyOne you can export all your GRs to Excel whenever you want.',
+  },
+];
+
+export default function DigitalTransportManagementPage() {
   return (
-    <>
-      <Navbar />
-      <main id="main-content" className="pt-20 bg-[#F8FAFC] dark:bg-slate-950 [background-image:linear-gradient(to_right,rgba(226,232,240,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(226,232,240,0.5)_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,rgba(30,41,59,0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgba(30,41,59,0.5)_1px,transparent_1px)] [background-size:48px_48px]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-        
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 py-20 sm:py-28">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] [background-size:48px_48px] opacity-50"
-          />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/0 dark:from-slate-950/0 to-[#F8FAFC] dark:to-slate-950" />
-          <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#0F172A] dark:text-white mb-6">
-              Paper vs Excel vs Digital Transport Management
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              An honest comparison of the three most common ways Indian transporters manage lorry receipts and transit records.
-            </p>
-          </div>
-        </section>
+    <ContentPage
+      path="/digital-transport-management"
+      eyebrow="Comparison"
+      title="Paper vs Excel vs Digital Transport Management"
+      intro="Indian transporters run their GRs in one of three ways: a paper GR book, an Excel sheet, or transport management software. This page compares all three on speed, mistakes, record safety, search and billing, so you can see what each one really costs."
+      faqs={faqs}
+      toc={[
+        { id: 'comparison', label: 'Side-by-side comparison' },
+        { id: 'paper', label: 'Paper GR books' },
+        { id: 'excel', label: 'Excel sheets' },
+        { id: 'software', label: 'Transport management software' },
+        { id: 'which', label: 'Which is right for you?' },
+      ]}
+      related={['/guides/paper-gr-book-to-software', '/transport-management-system', '/transport-business-automation', '/why-biltyone']}
+    >
+      <AnswerBox>
+        <Strong>Paper GR books</Strong> are cheap to start but slow, error-prone and easily lost. <Strong>Excel</Strong> is
+        searchable but still manual and fragile. <Strong>Transport management software</Strong> numbers GRs, calculates
+        freight, fills in customers, prints three copies and builds bills automatically, and keeps records safe. For most
+        transporters, software saves the most time and money.
+      </AnswerBox>
 
-        {/* Content Article */}
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <article className="prose prose-slate dark:prose-invert max-w-none space-y-12">
-              
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  1. The Traditional Way: Paper GR Books
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base mb-4">
-                  For decades, transporters have relied on carbon-copy paper books to fill Goods Receipts. Each shipment requires writing down identical information three times (for the Driver, Consignor, and Consignee).
-                </p>
-                <div className="bg-red-50 dark:bg-red-950/20 border-l-4 border-red-500 p-4 rounded-r-xl">
-                  <p className="text-xs sm:text-sm text-red-800 dark:text-red-300">
-                    <strong>The Risks:</strong> Paper records can easily be lost to fire, water, or rats. They require expensive physical storage space and are impossible to search through. Misplacing a single copy can delay customer payments for weeks.
-                  </p>
-                </div>
-              </div>
+      <H2 id="comparison">Side-by-side comparison</H2>
+      <DataTable
+        caption="Paper GR book, Excel and transport management software compared"
+        highlight={3}
+        headers={['', 'Paper GR book', 'Excel sheet', 'Transport software (BiltyOne)']}
+        rows={[
+          ['Time per GR', 'Around 15 minutes', 'Less than paper, still all typed', 'About 2 minutes'],
+          ['GR numbering', 'By hand', 'By hand or fragile formulas', 'Automatic, never reused'],
+          ['Freight calculation', 'By hand', 'Formulas that can break', 'Automatic'],
+          ['Customer details', 'Written every time', 'Copied and pasted', 'Saved once, auto-filled'],
+          ['Three copies', 'Carbon paper', 'Print the sheet three times', 'One click'],
+          ['Search', 'Flip through books', 'Ctrl+F in one file', 'By GR number, party, vehicle or city'],
+          ['Customer bills', 'Typed separately', 'Built manually', 'Statement PDF for any period'],
+          ['If disaster strikes', 'Records gone', 'File may be lost or corrupted', 'Stored online, plus Excel backup'],
+          ['Cost', 'Books and staff time', 'Licence and staff time', 'Free for early transporters'],
+        ]}
+      />
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  2. The Intermediate Step: Excel Sheets
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base mb-4">
-                  Moving records to Excel or Google Sheets solves the storage problem. You can type details and print receipts, but it brings its own set of bottlenecks.
-                </p>
-                <div className="bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 p-4 rounded-r-xl">
-                  <p className="text-xs sm:text-sm text-amber-800 dark:text-amber-300">
-                    <strong>The Bottlenecks:</strong> Excel requires constant manual data entry. There is no automated customer registry, meaning you have to type GSTINs and addresses repeatedly. It is prone to typos, and there is no live overview of transit jobs.
-                  </p>
-                </div>
-              </div>
+      <H2 id="paper">Paper GR books</H2>
+      <P>
+        The carbon GR book has served Indian transport for decades. It needs no electricity and no training. But every load
+        means writing the same details three times, freight is worked out by hand, and the book itself is the only record.
+      </P>
+      <H3>Where it hurts</H3>
+      <UL
+        items={[
+          'Records lost to rain, fire, pests or misplacement, often exactly when a dispute comes up.',
+          'Faint carbon copies that drivers and customers cannot read.',
+          'Hours spent at month end copying GRs into bills.',
+          'Shelves of books that are almost impossible to search.',
+        ]}
+      />
 
-              <div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  3. The Modern Solution: Digital Transport Management (BiltyOne)
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm sm:text-base mb-4">
-                  BiltyOne combines the speed of digital tools with the familiarity of transport layouts. It replaces manual paperwork with a 2-minute digital workflow.
-                </p>
-                <div className="bg-emerald-50 dark:bg-emerald-950/20 border-l-4 border-emerald-500 p-4 rounded-r-xl">
-                  <p className="text-xs sm:text-sm text-emerald-800 dark:text-emerald-300 font-medium">
-                    <strong>The Benefits:</strong> Auto-fills recurring consignor information, auto-calculates totals, prints 3 copies with one click, stores records permanently on secure servers, and displays active transit summaries in real-time.
-                  </p>
-                </div>
-              </div>
+      <H2 id="excel">Excel sheets</H2>
+      <P>
+        Moving to Excel or Google Sheets solves storage and gives you a basic search. Many transporters stop here. The work,
+        though, is still manual, and the file is only as safe as the computer it sits on.
+      </P>
+      <H3>Where it hurts</H3>
+      <UL
+        items={[
+          'No real GR numbering: duplicates and gaps creep in.',
+          'GSTINs and addresses retyped or pasted for every load.',
+          'One wrong edit can overwrite a formula or a whole column.',
+          'Printing a proper three-copy GR with your letterhead is awkward.',
+          'No live view of loads in transit or payments pending.',
+        ]}
+      />
 
-            </article>
-            
-            <div className="mt-16 p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Ready to transition your transport business?</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">BiltyOne is free to start and takes 2–24 hours to set up.</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/register" className="px-5 py-2.5 rounded-lg bg-[#0369A1] hover:bg-sky-600 text-white text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Create Free Account
-                </Link>
-                <Link href="/why-biltypro" className="px-5 py-2.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-[#0369A1] text-sm font-semibold transition-colors duration-150 cursor-pointer">
-                  Why Choose BiltyOne
-                </Link>
-              </div>
-            </div>
+      <H2 id="software">Transport management software</H2>
+      <P>
+        A <A href="/transport-management-system">transport management system</A> is built around the GR. In BiltyOne, you
+        pick a saved customer and enter the route, goods and rate; the GR number and freight are filled in, three copies
+        print in one click, and the GR stays searchable. Status, payment and billing type live on the same record, and
+        statements are built from GRs already entered.
+      </P>
+      <UL
+        items={[
+          <>
+            <Strong>Faster:</Strong> about two minutes per GR once customers are saved.
+          </>,
+          <>
+            <Strong>Fewer mistakes:</Strong> automatic numbers and freight, checked GSTINs.
+          </>,
+          <>
+            <Strong>Safer:</Strong> stored online, with a full Excel backup whenever you want.
+          </>,
+          <>
+            <Strong>Flexible:</Strong> online in any browser, or <A href="/desktop">offline on Windows</A>.
+          </>,
+        ]}
+      />
 
-            <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-              <Link href="/" className="hover:text-[#0369A1] transition-colors">Home</Link>
-              <Link href="/features" className="hover:text-[#0369A1] transition-colors">Features</Link>
-              <Link href="/logistics-glossary" className="hover:text-[#0369A1] transition-colors">Logistics Glossary</Link>
-            </div>
-
-          </div>
-        </section>
-
-      </main>
-      <Footer />
-    </>
+      <H2 id="which">Which is right for you?</H2>
+      <P>
+        If you make only a few GRs a month and never bill on account, paper may still be enough. If you already use Excel,
+        you have done the hard part of going digital, and moving to software is a small step that removes most of the
+        remaining manual work. Our <A href="/guides/paper-gr-book-to-software">one-week switching plan</A> shows how to do it
+        without stopping work.
+      </P>
+    </ContentPage>
   );
 }
