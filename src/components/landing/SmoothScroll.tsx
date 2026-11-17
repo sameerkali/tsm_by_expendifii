@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import Lenis from 'lenis';
+import type Lenis from 'lenis';
 
 export default function SmoothScroll() {
   const pathname = usePathname();
@@ -24,29 +24,41 @@ export default function SmoothScroll() {
       return;
     }
 
-    // Initialize Lenis with modern momentum defaults
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // standard cubic easing
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
+    let cancelled = false;
+    let lenis: Lenis | undefined;
+    let rafId: number | undefined;
+
+    // Lenis is loaded on demand rather than statically imported so it stays
+    // out of the JS that has to download and run before first paint.
+    import('lenis').then(({ default: LenisCtor }) => {
+      // Route changed (or component unmounted) while the chunk was loading.
+      if (cancelled) return;
+
+      // Initialize Lenis with modern momentum defaults
+      const instance = new LenisCtor({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // standard cubic easing
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.2,
+      });
+      lenis = instance;
+
+      // Request Animation Frame loop
+      function raf(time: number) {
+        instance.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
     });
 
-    // Request Animation Frame loop
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-
-    rafId = requestAnimationFrame(raf);
-
     return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
+      cancelled = true;
+      if (rafId !== undefined) cancelAnimationFrame(rafId);
+      lenis?.destroy();
     };
   }, [pathname]);
 

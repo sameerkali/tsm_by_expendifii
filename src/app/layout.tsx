@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import { Suspense } from "react";
+import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import QueryProvider from "@/providers/QueryProvider";
 import { PreferencesProvider } from "@/providers/PreferencesProvider";
@@ -8,19 +7,18 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import SmoothScroll from "@/components/landing/SmoothScroll";
-import { Agentation } from "agentation";
+import DevTools from "@/components/DevTools";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // import NetworkStatusBanner from "@/components/NetworkStatusBanner";
 import CookieConsentBanner from "@/components/cookie/CookieConsentBanner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
+// Only used by `font-mono` text inside the dashboard, so it isn't preloaded:
+// a preload would make every marketing page download it before first paint.
+// Pages that do render monospace text still fetch it on demand.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  preload: false,
 });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -106,7 +104,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable} h-full antialiased`}
+      className={`${geistMono.variable} ${plusJakartaSans.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body
@@ -129,21 +127,21 @@ export default function RootLayout({
             }catch(e){}})();`,
           }}
         />
-        {/* Google "Preferred Sources": lets readers mark biltyone.com as a
-            preferred source in Search/Top Stories. Non-critical, so it loads
-            during idle time rather than competing with page content. */}
-        <Script
-          id="google-preferred-sources"
-          src="https://news.google.com/swg/js/v1/publisher.js"
-          strategy="lazyOnload"
-          async
-        />
+        {/* Google "Preferred Sources" publisher.js is loaded by
+            <GooglePreferredSourceButton /> in the footer, only when that
+            button is about to scroll into view. */}
         <PreferencesProvider>
           <QueryProvider>
             <SmoothScroll />
-            <Suspense fallback={null}>{children}</Suspense>
+            {/* No <Suspense> around children here: on a large static page
+                React streams a wrapped tree as a hidden, out-of-order
+                boundary, so nothing paints until the entire HTML has parsed
+                and React's reveal script runs (which React 19.2 can delay by
+                up to 300ms). Pages that need a boundary (e.g. for
+                useSearchParams) declare their own. */}
+            {children}
             <Analytics />
-            {process.env.NODE_ENV === "development" && <Agentation />}
+            {process.env.NODE_ENV === "development" && <DevTools />}
             <Toaster position="top-right" richColors closeButton />
             {/* <NetworkStatusBanner /> */}
             <CookieConsentBanner />

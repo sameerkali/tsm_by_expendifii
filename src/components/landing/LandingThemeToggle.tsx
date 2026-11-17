@@ -1,7 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import dynamic from 'next/dynamic';
+
+// Same footprint as the pre-mount placeholder below, so swapping between
+// them never shifts the navbar.
+const Placeholder = () => <div className="h-8 w-8" aria-hidden="true" />;
+
+// react-toggle-dark-mode bundles react-spring (~47 KB unminified). The switch
+// only renders client-side after mount anyway (see `mounted` below), so it
+// is split out of the initial bundle instead of delaying first paint.
+const DarkModeSwitch = dynamic(
+  () => import('react-toggle-dark-mode').then((m) => m.DarkModeSwitch),
+  { ssr: false, loading: Placeholder },
+);
 
 /**
  * Only 'light' and 'dark' are ever written here — this toggle never exposes
@@ -40,7 +52,7 @@ export default function LandingThemeToggle() {
 
   if (!mounted) {
     // Placeholder to prevent layout shift
-    return <div className="h-8 w-8" aria-hidden="true" />;
+    return <Placeholder />;
   }
 
   return (

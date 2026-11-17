@@ -19,14 +19,15 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
           {/* Animated top accent line: draws left-to-right on hover */}
           <div className="absolute top-0 left-0 h-[2px] w-0 bg-sky-500 transition-all duration-400 ease-out group-hover:w-full" />
 
-          {/* Background number watermark */}
+          {/* Background number watermark, drawn via ::before so the
+              deliberately faint digits aren't evaluated as low-contrast text
+              (same technique and rationale as the watermark in Card.tsx). */}
           <span
             aria-hidden="true"
+            data-watermark={step.id}
             style={{ fontFamily: 'var(--font-plus-jakarta-sans), "Plus Jakarta Sans", sans-serif' }}
-            className="absolute -right-2 -bottom-5 z-0 text-8xl leading-none font-bold text-slate-900/[0.03] transition-all duration-400 ease-out select-none group-hover:-translate-y-2 group-hover:scale-105 group-hover:text-slate-900/[0.05] sm:text-9xl dark:text-white/[0.02] dark:group-hover:text-white/[0.04]"
-          >
-            {step.id}
-          </span>
+            className="absolute -right-2 -bottom-5 z-0 text-8xl leading-none font-bold text-slate-900/[0.03] transition-all duration-400 ease-out select-none group-hover:-translate-y-2 group-hover:scale-105 group-hover:text-slate-900/[0.05] before:content-[attr(data-watermark)] sm:text-9xl dark:text-white/[0.02] dark:group-hover:text-white/[0.04]"
+          />
 
           <div className="relative z-10">
             <h3 className="mb-4 text-xl font-semibold text-slate-900 dark:text-white">{step.title}</h3>

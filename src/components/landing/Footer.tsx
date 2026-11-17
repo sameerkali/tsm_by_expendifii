@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { LiveDemoLink } from '@/components/shared/LiveDemoLink';
+import { GooglePreferredSourceButton } from '@/components/landing/GooglePreferredSourceButton';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -117,17 +118,16 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8">
-          <p className="text-sm text-slate-500">
+          {/* slate-400, not slate-500: slate-500 on the #0F172A footer is
+              only 3.7:1, below the WCAG AA 4.5:1 minimum for body text. */}
+          <p className="text-sm text-slate-400">
             &copy; {year} BiltyOne. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-400">
               Built for transparency, trust &amp; easiness.
             </p>
-            {/* Google "Preferred Sources" button: lets readers mark BiltyOne
-                as a preferred source in Google Search. Rendered by the
-                publisher.js script loaded in layout.tsx. */}
-            <div {...{ 'google-add-preferred-source-btn': '', 'data-theme': 'dark' }} />
+            <GooglePreferredSourceButton />
           </div>
         </div>
       </div>

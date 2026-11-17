@@ -2,7 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils/cn';
+
+// Plain class join rather than cn(): this sits in the homepage hero, and cn()
+// would pull tailwind-merge (~8 KB gzipped) into the JS that loads before
+// first paint. Callers only append non-conflicting classes (e.g. margins).
+const join = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ');
 
 interface ScrollImageProps {
   src: string;
@@ -35,7 +39,10 @@ export function ScrollImage({
   width = 1672,
   height = 941,
   priority,
-  sizes,
+  // Matches the wrapper below (`w-full max-w-5xl`, i.e. at most 1024px).
+  // Without it the browser assumes 100vw and picks from a 1x/2x srcset, so
+  // phones were downloading the 3840px rendition for a ~380px-wide image.
+  sizes = '(max-width: 1024px) 100vw, 1024px',
 }: ScrollImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -91,7 +98,7 @@ export function ScrollImage({
   }, []);
 
   return (
-    <div ref={containerRef} className={cn('relative', containerClassName)}>
+    <div ref={containerRef} className={join('relative', containerClassName)}>
       <div className="flex items-center justify-center overflow-hidden" style={{ perspective: '1200px' }}>
         <div
           ref={imageRef}
@@ -107,7 +114,7 @@ export function ScrollImage({
             height={height}
             priority={priority}
             sizes={sizes}
-            className={cn('h-auto w-full', className)}
+            className={join('h-auto w-full', className)}
           />
         </div>
       </div>

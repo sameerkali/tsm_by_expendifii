@@ -332,11 +332,13 @@ export default function HomePage() {
               </LiveDemoLink>
             </p>
 
-            {/* Product preview */}
+            {/* Product preview. Not preloaded: it isn't the LCP element (the
+                hero text is) and sits below the fold on phones, so a
+                high-priority preload only competed with the fonts, CSS and
+                JS needed for first paint. */}
             <ScrollImage
               src="/dashboard_img_herosection_straight.webp"
               alt="BiltyOne dashboard showing revenue overview, active shipments, and recent GRs"
-              priority
               containerClassName="mt-4 sm:mt-8"
             />
           </div>
@@ -406,7 +408,16 @@ export default function HomePage() {
               <div className="grid grid-cols-3 bg-[#0F172A] dark:bg-slate-800 text-white text-sm font-semibold">
                 <div className="px-6 py-4 text-slate-300">Pain Point</div>
                 <div className="px-6 py-4 text-center border-l border-slate-700 text-slate-300">Manual (Today)</div>
-                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20 text-white">With BiltyOne ✓</div>
+                {/* SVG check, not a "✓" character: Plus Jakarta Sans has no
+                    U+2713 glyph, so the browser ran a system font-fallback
+                    search during the page's first layout, which roughly
+                    tripled its cost. */}
+                <div className="px-6 py-4 text-center border-l border-[#0369A1] bg-[#0369A1]/20 text-white">
+                  With BiltyOne{' '}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block align-[-2px]" aria-hidden="true">
+                    <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
               </div>
               {comparisonRows.map((row, i) => (
                 <div
