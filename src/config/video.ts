@@ -3,7 +3,7 @@
  *
  * Leave PRODUCT_VIDEO as null until the video is on YouTube. The video block
  * (and its VideoObject schema) renders only when this is set, on
- * /lorry-receipt-software and /gr-management. Shot list and script:
+ * /gr-software and /bilty-software. Shot list and script:
  * docs/video-and-case-study-kit.md
  *
  * Example:
