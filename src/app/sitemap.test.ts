@@ -16,6 +16,7 @@ describe('sitemap.xml', () => {
       '/online-transport-management-software',
       '/transport-company-software',
       '/transport-software-small-business',
+      '/transport-management-software-india',
       '/transport-billing-software',
       '/gr-software',
       '/lr-software',

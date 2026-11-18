@@ -55,7 +55,7 @@ export interface PublicPage {
 export const PUBLIC_PAGES: PublicPage[] = [
   {
     path: '/',
-    title: 'Transport Management Software for India | BiltyOne',
+    title: 'Transport Management Software, Free to Start | BiltyOne',
     description:
       'Free transport management software for Indian transporters. Create GR/LR (bilty) in under 2 minutes, print 3 copies, bill customers and work online or offline.',
     label: 'Home',
@@ -80,6 +80,19 @@ export const PUBLIC_PAGES: PublicPage[] = [
     section: 'resource',
     datePublished: '2026-07-03',
     lastModified: '2026-11-17',
+    changeFrequency: 'monthly',
+    priority: 0.9,
+  },
+  {
+    path: '/transport-management-software-india',
+    title: 'Transport Management Software for India | BiltyOne',
+    description:
+      'Transport management software made for Indian road transport: GR, LR and bilty in 3 copies, GSTIN and e-way bill numbers, To Pay and TBB billing, rupee pricing.',
+    label: 'Transport Software for India',
+    summary: 'What Indian road transport needs from software (GST, e-way bills, bilty, To Pay) and how BiltyOne handles it.',
+    section: 'solution',
+    datePublished: '2026-11-18',
+    lastModified: '2026-11-18',
     changeFrequency: 'monthly',
     priority: 0.9,
   },

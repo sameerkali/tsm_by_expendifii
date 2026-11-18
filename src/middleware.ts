@@ -38,6 +38,7 @@ const INFO_PATHS = [
   '/pricing',
   '/transport-billing-software',
   '/transport-software-small-business',
+  '/transport-management-software-india',
   '/gr-software',
   '/lr-software',
   '/bilty-software',

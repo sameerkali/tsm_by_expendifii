@@ -28,6 +28,7 @@ const columns: { label: string; links: { label: string; href: string }[] }[] = [
   {
     label: 'Solutions',
     links: [
+      { label: 'Transport Software for India', href: '/transport-management-software-india' },
       { label: 'Online Transport Software', href: '/online-transport-management-software' },
       { label: 'Transport Company Software', href: '/transport-company-software' },
       { label: 'Transport Billing Software', href: '/transport-billing-software' },
