@@ -9,24 +9,29 @@
  * Edge-runtime safe: plain data only (middleware imports agent-content).
  *
  * Keyword map (one primary search intent per URL, so pages don't compete):
- *   /                                              transport management software (+ in India, transport software)
- *   /lorry-receipt-software                        bilty software, LR software, lorry receipt software
- *                                                  (the document: fields, format, freight, printing)
- *   /gr-management                                 GR software, GR creation software
- *                                                  (the GR's life: create, print, status, payment, statements)
+ *   /                                              transport management software (generic; brand overview)
+ *   /transport-management-software-india           transport management software India (Indian GST, e-way
+ *                                                  bill, bilty and pricing needs)
+ *   /gr-software                                   GR software, GR creation software (creating a GR)
+ *   /gr-management                                 GR management (after creation: status, search, edits, billing)
+ *   /lr-software                                   LR software (busy booking counters, parcels, finding LRs)
+ *   /bilty-software                                bilty software (Hindi-belt transporters leaving the bilty book)
+ *   /lorry-receipt-software                        lorry receipt software (the LR document: format, fields, print)
  *   /transport-management-system                   transport management system (TMS): EDUCATIONAL guide,
  *                                                  not a product landing page (no SoftwareApplication schema)
  *   /transport-company-software                    transport company software, transport business software
- *                                                  (the transport office: people, billing types, month-end)
- *   /transport-management-system-for-small-business small transport business software (+ TMS for small business)
+ *                                                  (the transport office and the people in it)
+ *   /transport-billing-software                    transport billing software (freight bills, billing types,
+ *                                                  payment status); /transport-company-software links here
+ *   /transport-software-small-business             transport software for small business (1-20 trucks)
  *   /online-transport-management-software          online transport software (+ online TMS, transport app)
  *   /transport-erp-software                        transport ERP software
  *   /pricing                                       BiltyOne pricing, transport software price/cost
  *
- * Bilty, LR and GR are the same document, so /lorry-receipt-software and
- * /gr-management overlap by nature. Keep them apart by angle (document vs
- * life cycle), and link between them with their own keywords as anchor text.
- *
+ * GR, LR, bilty and lorry receipt are four names for ONE document. Their
+ * pages must stay apart by angle (above), never by repeating the same copy,
+ * and link to each other with their own keywords as anchor text.
+
  * `title` is the complete <title> (rendered with title.absolute), so keep it
  * at 60 characters or fewer. Keep `description` at 160 characters or fewer.
  * Bump `lastModified` (YYYY-MM-DD) whenever a page's content changes
