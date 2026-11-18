@@ -110,12 +110,12 @@ export const PUBLIC_PAGES: PublicPage[] = [
     priority: 0.9,
   },
   {
-    path: '/transport-management-system-for-small-business',
-    title: 'Small Transport Business Software (1-20 Trucks) | BiltyOne',
+    path: '/transport-software-small-business',
+    title: 'Transport Software for Small Business | BiltyOne',
     description:
-      'Simple, free software for small transport businesses with 1 to 20 trucks: create and print GRs, keep customer records and bill freight without extra staff.',
-    label: 'Small Transport Business Software',
-    summary: 'Small transport business software for fleets of 1 to 20 trucks.',
+      'Transport software for small businesses with 1 to 20 trucks: create and print GRs, keep customer records and bill freight without extra staff. Free to start.',
+    label: 'Transport Software for Small Business',
+    summary: 'Transport software for small businesses and small fleets of 1 to 20 trucks.',
     section: 'solution',
     datePublished: '2026-11-17',
     lastModified: '2026-11-17',

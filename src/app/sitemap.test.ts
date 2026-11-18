@@ -15,7 +15,7 @@ describe('sitemap.xml', () => {
       '/transport-management-system',
       '/online-transport-management-software',
       '/transport-company-software',
-      '/transport-management-system-for-small-business',
+      '/transport-software-small-business',
       '/transport-billing-software',
       '/transport-erp-software',
     ]) {
@@ -27,6 +27,10 @@ describe('sitemap.xml', () => {
     for (const path of ['/login', '/register', '/forgot-password', '/live-demo', '/desktop/licence-key']) {
       expect(urls).not.toContain(`https://biltyone.com${path}`);
     }
+  });
+
+  it('leaves out the moved small-business URL (it redirects)', () => {
+    expect(urls).not.toContain('https://biltyone.com/transport-management-system-for-small-business');
   });
 
   it('uses the new /why-biltyone URL, not the old BiltyPro slug', () => {

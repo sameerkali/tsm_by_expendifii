@@ -37,8 +37,7 @@ const INFO_PATHS = [
   '/guides', // also covers /guides/*
   '/pricing',
   '/transport-billing-software',
-  // '/transport-management-system' above also covers
-  // '/transport-management-system-for-small-business' (prefix match).
+  '/transport-software-small-business',
 ];
 
 // The authenticated app shell — the only paths where "no token" should mean

@@ -39,7 +39,7 @@ const categories: {
     products: [
       { path: '/features', anchor: 'BiltyOne features' },
       { path: '/pricing', anchor: 'Pricing and comparisons' },
-      { path: '/transport-management-system-for-small-business', anchor: 'Small transport business software' },
+      { path: '/transport-software-small-business', anchor: 'Transport software for small business' },
     ],
   },
   {

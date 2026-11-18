@@ -128,7 +128,7 @@ const audiences = [
   {
     title: 'Small transport businesses',
     body: 'For owners with 1 to 20 trucks who want to stop writing GR books without hiring an office team.',
-    href: '/transport-management-system-for-small-business',
+    href: '/transport-software-small-business',
     cta: 'TMS for small business',
   },
   {

@@ -28,7 +28,7 @@ const columns: { label: string; links: { label: string; href: string }[] }[] = [
       { label: 'Online Transport Software', href: '/online-transport-management-software' },
       { label: 'Transport Company Software', href: '/transport-company-software' },
       { label: 'Transport Billing Software', href: '/transport-billing-software' },
-      { label: 'Small Transport Business Software', href: '/transport-management-system-for-small-business' },
+      { label: 'Transport Software for Small Business', href: '/transport-software-small-business' },
       { label: 'Transport ERP vs TMS', href: '/transport-erp-software' },
     ],
   },

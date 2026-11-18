@@ -52,7 +52,7 @@ export default function TransportCompanySoftwarePage() {
       ]}
       related={[
         '/transport-billing-software',
-        '/transport-management-system-for-small-business',
+        '/transport-software-small-business',
         '/transport-erp-software',
         '/features',
         '/guides/paper-gr-book-to-software',
@@ -135,7 +135,7 @@ export default function TransportCompanySoftwarePage() {
       />
       <P>
         Running a small operation? See our page on the{' '}
-        <A href="/transport-management-system-for-small-business">small transport business software</A>.
+        <A href="/transport-software-small-business">transport software for small business</A>.
       </P>
 
       <H2 id="billing">Billing your customers</H2>

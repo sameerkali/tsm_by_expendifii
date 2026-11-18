@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
         destination: "/why-biltyone",
         permanent: true,
       },
+      // Small-business page moved to the keyword URL on 18 Nov 2026.
+      {
+        source: "/transport-management-system-for-small-business",
+        destination: "/transport-software-small-business",
+        permanent: true,
+      },
       // BiltyOne Desktop's activation screen links to /support. There is no
       // support page yet, so send people to Contact (temporary, so a real
       // /support page can replace it later).
