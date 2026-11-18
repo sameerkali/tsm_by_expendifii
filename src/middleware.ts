@@ -73,7 +73,8 @@ export async function middleware(request: NextRequest) {
     pathname === '/llms.txt' ||
     pathname === '/favicon.ico' ||
     pathname === '/manifest.webmanifest' ||
-    (pathname.startsWith('/google') && pathname.endsWith('.html'))
+    (pathname.startsWith('/google') && pathname.endsWith('.html')) ||
+    pathname === '/BingSiteAuth.xml'
   ) {
     return NextResponse.next();
   }
@@ -168,9 +169,10 @@ export const config = {
      * - llms.txt
      * - manifest.webmanifest
      * - google verification html files (e.g. googlec380e86b30f31d8b.html)
+     * - Bing Webmaster Tools verification file (BingSiteAuth.xml)
      * - static image files (webp, png, jpg, jpeg, svg, gif)
      * - markdown files (auth.md, etc.)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|robots\\.txt|sitemap\\.xml|llms\\.txt|manifest\\.webmanifest|ingest|google.*\\.html|.*\\.(?:webp|png|jpg|jpeg|svg|gif|md)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|robots\\.txt|sitemap\\.xml|llms\\.txt|manifest\\.webmanifest|ingest|google.*\\.html|BingSiteAuth\\.xml|.*\\.(?:webp|png|jpg|jpeg|svg|gif|md)$).*)',
   ],
 };
