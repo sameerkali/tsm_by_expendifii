@@ -74,7 +74,7 @@ export default function TransportBusinessAutomationPage() {
         Billing account customers is usually the most painful job of the month. Because every GR in BiltyOne already holds
         its freight, billing type and payment status, the Printing tab can build a statement for any customer and period in
         one step: a summary with totals, amount paid and balance due, followed by every GR. See{' '}
-        <A href="/gr-management">GR management</A> for the details.
+        <A href="/transport-billing-software">transport billing software</A> for the details.
       </P>
 
       <H2 id="records">Automate record-keeping</H2>
