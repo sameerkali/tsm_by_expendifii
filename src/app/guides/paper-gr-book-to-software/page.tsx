@@ -41,7 +41,7 @@ export default function PaperToSoftwareGuidePage() {
         { id: 'staff', label: 'Getting staff on board' },
         { id: 'after', label: 'What changes after the switch' },
       ]}
-      related={['/digital-transport-management', '/transport-management-system-for-small-business', '/guides/how-to-choose-transport-management-software', '/transport-business-automation']}
+      related={['/digital-transport-management', '/transport-software-small-business', '/guides/how-to-choose-transport-management-software', '/transport-business-automation']}
     >
       <AnswerBox>
         To move from a <Strong>paper GR book to software</Strong>: set up your company profile and logo, add or import your

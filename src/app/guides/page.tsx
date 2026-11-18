@@ -22,8 +22,9 @@ const categories: {
     intro: 'What the documents on every load are called, what they prove, and which fields they need.',
     articles: ['/guides/what-is-bilty', '/guides/gr-vs-lr-vs-eway-bill', '/logistics-glossary'],
     products: [
-      { path: '/lorry-receipt-software', anchor: 'Bilty and LR software' },
-      { path: '/gr-management', anchor: 'GR creation software' },
+      { path: '/bilty-software', anchor: 'Bilty software' },
+      { path: '/lr-software', anchor: 'LR software' },
+      { path: '/gr-software', anchor: 'GR creation software' },
     ],
   },
   {
@@ -39,7 +40,8 @@ const categories: {
     products: [
       { path: '/features', anchor: 'BiltyOne features' },
       { path: '/pricing', anchor: 'Pricing and comparisons' },
-      { path: '/transport-management-system-for-small-business', anchor: 'Small transport business software' },
+      { path: '/transport-management-software-india', anchor: 'Transport management software for India' },
+      { path: '/transport-software-small-business', anchor: 'Transport software for small business' },
     ],
   },
   {
@@ -48,6 +50,7 @@ const categories: {
     intro: 'Moving off the paper GR book, and the office work software can take off your hands.',
     articles: ['/guides/paper-gr-book-to-software', '/transport-business-automation'],
     products: [
+      { path: '/transport-billing-software', anchor: 'Transport billing software' },
       { path: '/product', anchor: 'Product tour' },
       { path: '/online-transport-management-software', anchor: 'Online transport software' },
       { path: '/desktop', anchor: 'Offline desktop app' },

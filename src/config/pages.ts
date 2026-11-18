@@ -9,24 +9,29 @@
  * Edge-runtime safe: plain data only (middleware imports agent-content).
  *
  * Keyword map (one primary search intent per URL, so pages don't compete):
- *   /                                              transport management software (+ in India, transport software)
- *   /lorry-receipt-software                        bilty software, LR software, lorry receipt software
- *                                                  (the document: fields, format, freight, printing)
- *   /gr-management                                 GR software, GR creation software
- *                                                  (the GR's life: create, print, status, payment, statements)
+ *   /                                              transport management software (generic; brand overview)
+ *   /transport-management-software-india           transport management software India (Indian GST, e-way
+ *                                                  bill, bilty and pricing needs)
+ *   /gr-software                                   GR software, GR creation software (creating a GR)
+ *   /gr-management                                 GR management (after creation: status, search, edits, billing)
+ *   /lr-software                                   LR software (busy booking counters, parcels, finding LRs)
+ *   /bilty-software                                bilty software (Hindi-belt transporters leaving the bilty book)
+ *   /lorry-receipt-software                        lorry receipt software (the LR document: format, fields, print)
  *   /transport-management-system                   transport management system (TMS): EDUCATIONAL guide,
  *                                                  not a product landing page (no SoftwareApplication schema)
  *   /transport-company-software                    transport company software, transport business software
- *                                                  (the transport office: people, billing types, month-end)
- *   /transport-management-system-for-small-business small transport business software (+ TMS for small business)
+ *                                                  (the transport office and the people in it)
+ *   /transport-billing-software                    transport billing software (freight bills, billing types,
+ *                                                  payment status); /transport-company-software links here
+ *   /transport-software-small-business             transport software for small business (1-20 trucks)
  *   /online-transport-management-software          online transport software (+ online TMS, transport app)
  *   /transport-erp-software                        transport ERP software
  *   /pricing                                       BiltyOne pricing, transport software price/cost
  *
- * Bilty, LR and GR are the same document, so /lorry-receipt-software and
- * /gr-management overlap by nature. Keep them apart by angle (document vs
- * life cycle), and link between them with their own keywords as anchor text.
- *
+ * GR, LR, bilty and lorry receipt are four names for ONE document. Their
+ * pages must stay apart by angle (above), never by repeating the same copy,
+ * and link to each other with their own keywords as anchor text.
+
  * `title` is the complete <title> (rendered with title.absolute), so keep it
  * at 60 characters or fewer. Keep `description` at 160 characters or fewer.
  * Bump `lastModified` (YYYY-MM-DD) whenever a page's content changes
@@ -55,7 +60,7 @@ export interface PublicPage {
 export const PUBLIC_PAGES: PublicPage[] = [
   {
     path: '/',
-    title: 'Transport Management Software for India | BiltyOne',
+    title: 'Transport Management Software, Free to Start | BiltyOne',
     description:
       'Free transport management software for Indian transporters. Create GR/LR (bilty) in under 2 minutes, print 3 copies, bill customers and work online or offline.',
     label: 'Home',
@@ -80,6 +85,19 @@ export const PUBLIC_PAGES: PublicPage[] = [
     section: 'resource',
     datePublished: '2026-07-03',
     lastModified: '2026-11-17',
+    changeFrequency: 'monthly',
+    priority: 0.9,
+  },
+  {
+    path: '/transport-management-software-india',
+    title: 'Transport Management Software for India | BiltyOne',
+    description:
+      'Transport management software made for Indian road transport: GR, LR and bilty in 3 copies, GSTIN and e-way bill numbers, To Pay and TBB billing, rupee pricing.',
+    label: 'Transport Software for India',
+    summary: 'What Indian road transport needs from software (GST, e-way bills, bilty, To Pay) and how BiltyOne handles it.',
+    section: 'solution',
+    datePublished: '2026-11-18',
+    lastModified: '2026-11-18',
     changeFrequency: 'monthly',
     priority: 0.9,
   },
@@ -110,15 +128,28 @@ export const PUBLIC_PAGES: PublicPage[] = [
     priority: 0.9,
   },
   {
-    path: '/transport-management-system-for-small-business',
-    title: 'Small Transport Business Software (1-20 Trucks) | BiltyOne',
+    path: '/transport-software-small-business',
+    title: 'Transport Software for Small Business | BiltyOne',
     description:
-      'Simple, free software for small transport businesses with 1 to 20 trucks: create and print GRs, keep customer records and bill freight without extra staff.',
-    label: 'Small Transport Business Software',
-    summary: 'Small transport business software for fleets of 1 to 20 trucks.',
+      'Transport software for small businesses with 1 to 20 trucks: create and print GRs, keep customer records and bill freight without extra staff. Free to start.',
+    label: 'Transport Software for Small Business',
+    summary: 'Transport software for small businesses and small fleets of 1 to 20 trucks.',
     section: 'solution',
     datePublished: '2026-11-17',
     lastModified: '2026-11-17',
+    changeFrequency: 'monthly',
+    priority: 0.9,
+  },
+  {
+    path: '/transport-billing-software',
+    title: 'Transport Billing Software for Freight Bills | BiltyOne',
+    description:
+      'Transport billing software for Indian transporters: freight calculated on every GR, Paid, To Pay and To Be Billed tracking, and one-click freight bills.',
+    label: 'Transport Billing Software',
+    summary: 'Freight billing for transporters: freight calculation, billing types, payment status and customer freight bills.',
+    section: 'solution',
+    datePublished: '2026-11-18',
+    lastModified: '2026-11-18',
     changeFrequency: 'monthly',
     priority: 0.9,
   },
@@ -191,11 +222,11 @@ export const PUBLIC_PAGES: PublicPage[] = [
   },
   {
     path: '/lorry-receipt-software',
-    title: 'Bilty Software, LR & Lorry Receipt Software | BiltyOne',
+    title: 'Lorry Receipt Software: LR Format, Fields & Print | BiltyOne',
     description:
-      'Bilty and LR software for Indian transporters: create lorry receipts online in under 2 minutes, with automatic numbers and freight and 3-copy print. Free.',
-    label: 'Bilty & LR Software',
-    summary: 'Bilty software and LR (lorry receipt) software: create and print bilty/LR for Indian transporters.',
+      'Lorry receipt software for Indian transporters: every field on a BiltyOne LR, freight pricing, checks before saving and 3-copy printing on any office printer.',
+    label: 'Lorry Receipt Software',
+    summary: 'The lorry receipt (LR) document in BiltyOne: every field, freight pricing, checks and 3-copy printing.',
     section: 'product',
     datePublished: '2026-07-03',
     lastModified: '2026-11-17',
@@ -204,14 +235,53 @@ export const PUBLIC_PAGES: PublicPage[] = [
   },
   {
     path: '/gr-management',
-    title: 'GR Creation Software & GR Management | BiltyOne',
+    title: 'GR Management: Track, Search & Bill Every GR | BiltyOne',
     description:
-      'GR creation software for Indian transporters: create a goods receipt (GR) in under 2 minutes, print 3 copies, track status and payment, and bill customers.',
-    label: 'GR Software',
-    summary: 'GR creation software and the goods receipt life cycle: create, print, status, payment and statements.',
+      'Manage every goods receipt (GR) after it is created: booking to delivery status, payment status, search, duplicates, edits, deletions and customer statements.',
+    label: 'GR Management',
+    summary: 'The goods receipt life cycle after creation: status, payment, search, edits and statements.',
     section: 'product',
     datePublished: '2026-07-03',
     lastModified: '2026-11-17',
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  },
+  {
+    path: '/gr-software',
+    title: 'GR Software: GR Creation Software for Transporters',
+    description:
+      'GR creation software for Indian transporters: make a goods receipt in under 2 minutes with automatic GR numbers, customer auto-fill and freight as you type.',
+    label: 'GR Software',
+    summary: 'GR software for creating goods receipts fast: auto-fill, automatic numbers and freight, three-copy print.',
+    section: 'product',
+    datePublished: '2026-11-18',
+    lastModified: '2026-11-18',
+    changeFrequency: 'monthly',
+    priority: 0.9,
+  },
+  {
+    path: '/lr-software',
+    title: 'LR Software for Booking Offices & Parcel Desks | BiltyOne',
+    description:
+      'LR software for busy booking counters: book LRs fast with saved senders and per-box pricing, find any LR by city or vehicle, and print copies on any printer.',
+    label: 'LR Software',
+    summary: 'LR software for booking offices and parcel desks: fast LR booking, per-box pricing and instant LR search.',
+    section: 'product',
+    datePublished: '2026-11-18',
+    lastModified: '2026-11-18',
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  },
+  {
+    path: '/bilty-software',
+    title: 'Bilty Software: Make Bilty Online in 2 Minutes | BiltyOne',
+    description:
+      'Bilty software for transporters leaving the bilty book: make a bilty on phone or PC in about 2 minutes, print 3 copies, work offline on Windows. Hindi support.',
+    label: 'Bilty Software',
+    summary: 'Bilty software for transporters replacing the handwritten bilty book, on phone or PC, with Hindi support.',
+    section: 'product',
+    datePublished: '2026-11-18',
+    lastModified: '2026-11-18',
     changeFrequency: 'monthly',
     priority: 0.8,
   },

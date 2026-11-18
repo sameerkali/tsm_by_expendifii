@@ -7,8 +7,8 @@ export const metadata: Metadata = buildPageMetadata('/transport-company-software
 
 // Keywords: "transport company software", "transport business software".
 // Organised by the real jobs in a transport office. Kept distinct from the
-// homepage (product overview): this page is about running the office, the
-// three freight billing types and month-end billing across many customers.
+// homepage (product overview): this page is about running the office and the
+// people in it. Billing in depth lives on /transport-billing-software.
 
 const faqs = [
   {
@@ -46,13 +46,13 @@ export default function TransportCompanySoftwarePage() {
         { id: 'daily-work', label: 'Where software helps a transport company' },
         { id: 'people', label: 'Built around the people in your office' },
         { id: 'business-types', label: 'For every kind of transport business' },
-        { id: 'billing', label: 'Paid, To Pay and To Be Billed freight' },
-        { id: 'month-end', label: 'Month-end billing for many customers' },
+        { id: 'billing', label: 'Billing your customers' },
         { id: 'switching', label: 'Moving your company to BiltyOne' },
         { id: 'not-included', label: 'What BiltyOne does not do' },
       ]}
       related={[
-        '/transport-management-system-for-small-business',
+        '/transport-billing-software',
+        '/transport-software-small-business',
         '/transport-erp-software',
         '/features',
         '/guides/paper-gr-book-to-software',
@@ -135,54 +135,21 @@ export default function TransportCompanySoftwarePage() {
       />
       <P>
         Running a small operation? See our page on the{' '}
-        <A href="/transport-management-system-for-small-business">small transport business software</A>.
+        <A href="/transport-software-small-business">transport software for small business</A>.
       </P>
 
-      <H2 id="billing">Paid, To Pay and To Be Billed freight</H2>
+      <H2 id="billing">Billing your customers</H2>
       <P>
-        A transport company rarely collects all its freight the same way. Every BiltyOne GR carries one of the three billing
-        types used in Indian road transport, and the billing type prints as a badge on all three copies so the booking
-        office, the driver and the delivery end all know who pays.
+        A transport company rarely collects all its freight the same way, so every GR records who pays: Paid at booking, To
+        Pay on delivery, or To Be Billed to an account customer later. At month end, the Printing tab turns each account
+        customer’s GRs into one freight bill with the total, amount paid and balance due, built from GRs your office already
+        entered.
       </P>
-      <DataTable
-        caption="How BiltyOne handles the three freight billing types"
-        headers={['Billing type', 'Who pays the freight', 'When', 'What BiltyOne does']}
-        rows={[
-          ['Paid', 'Consignor', 'At booking', 'Prints a PAID badge on every copy'],
-          ['To Pay', 'Consignee', 'On delivery', 'Prints a TO PAY badge, so the delivery end knows to collect'],
-          [
-            'To Be Billed (TBB)',
-            'The customer, usually the consignor',
-            'Later, usually monthly',
-            'Prints a TO BE BILLED badge; the GR goes into that customer’s freight bill',
-          ],
-        ]}
-      />
-      <P>
-        Each GR also shows a payment status, Pending or Paid, on the GR list and on the customer’s freight bill. For what each
-        term means, see the <A href="/logistics-glossary">logistics glossary</A>.
-      </P>
-
-      <H2 id="month-end">Month-end billing for many customers</H2>
-      <P>
-        Contract customers on To Be Billed accounts expect one bill a month. In BiltyOne that bill is built from GRs you
-        already entered, so nothing is typed twice:
-      </P>
-      <OL
-        items={[
-          'Open the Printing tab and pick the customer.',
-          'Choose the start date and, if you want, an end date.',
-          <>
-            Download the freight bill: an A4 page with a table of every GR in the period, the total amount, amount paid and
-            balance due, your bank details and signature blocks, followed by each GR on its own A5 page.
-          </>,
-        ]}
-      />
       <Screenshot shot={SCREENSHOTS.printing} />
       <P>
-        Only GRs linked to that customer are included, so always pick the consignor from your customer list when you create
-        a GR. The full list of capabilities is on the <A href="/features">features page</A>, and each screen is shown in the{' '}
-        <A href="/product">product tour</A>.
+        How freight is calculated, what each billing type prints, and everything on the freight bill are covered on the{' '}
+        <A href="/transport-billing-software">transport billing software</A> page. The full list of capabilities is on the{' '}
+        <A href="/features">features page</A>.
       </P>
 
       <H2 id="switching">Moving your transport company to BiltyOne</H2>

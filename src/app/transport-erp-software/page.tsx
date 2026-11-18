@@ -47,7 +47,7 @@ export default function TransportErpSoftwarePage() {
       ]}
       related={[
         '/transport-management-system',
-        '/transport-management-system-for-small-business',
+        '/transport-software-small-business',
         '/transport-company-software',
         '/guides/how-to-choose-transport-management-software',
       ]}
@@ -138,7 +138,7 @@ export default function TransportErpSoftwarePage() {
       />
       <P>
         Many transporters start here and add more later. See the{' '}
-        <A href="/transport-management-system-for-small-business">transport management system for small business</A> page
+        <A href="/transport-software-small-business">transport software for small business</A> page
         for what a lean setup looks like.
       </P>
 

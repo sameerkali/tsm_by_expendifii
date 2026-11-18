@@ -6,7 +6,7 @@ Two things the website needs that only real recordings and real customers can pr
 
 ## 1. Product video: creating and printing a GR
 
-**Goal:** one short, real video that shows a GR being created and printed. It appears on `/lorry-receipt-software` and `/gr-management` with `VideoObject` schema, which makes it eligible for video results in Google and gives BiltyOne a YouTube channel (a useful brand profile for `SOCIAL_PROFILES`).
+**Goal:** one short, real video that shows a GR being created and printed. It appears on `/gr-software` and `/bilty-software` with `VideoObject` schema, which makes it eligible for video results in Google and gives BiltyOne a YouTube channel (a useful brand profile for `SOCIAL_PROFILES`).
 
 **Length:** 60 to 120 seconds. **Format:** 1920x1080 screen recording plus a phone shot of the printer. **Voice:** Hindi or Hinglish, the way you'd explain it to a transporter.
 

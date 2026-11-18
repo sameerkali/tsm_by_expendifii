@@ -14,20 +14,18 @@ import { SHOW_HERO_BEAM } from '@/lib/feature-flags';
 import { cn } from '@/lib/utils/cn';
 
 export const metadata: Metadata = buildPageMetadata('/', {
-  ogTitle: 'BiltyOne: Transport Management Software for India',
+  ogTitle: 'BiltyOne: Transport Management Software',
   ogDescription: 'Create GR/LR (bilty) in under 2 minutes, print 3 copies, bill customers. Online or offline. Free to start.',
 });
 
 // Distinct from the /faq questions on purpose: Google asks for each FAQ to
 // be marked up on one page only. These target the head search terms.
+// "Best transport management software in India" lives on
+// /transport-management-software-india, which owns the India keyword.
 const homeFaqs = [
   {
     q: 'What is transport management software?',
     a: 'Transport management software helps a transport business record, track and bill the movement of goods. For Indian road transporters that means creating GR/LR (bilty), printing copies for the driver, consignor and consignee, keeping customer records, tracking delivery and payment status, and sending freight bills. BiltyOne does all of this.',
-  },
-  {
-    q: 'What is the best transport management software in India?',
-    a: 'The best transport management software is the one that fits your operation. For most road transporters it should create and print GRs fast, keep customer records, calculate freight, produce customer bills, back up your data and be easy for staff to learn. BiltyOne was built for exactly that and is free to start.',
   },
   {
     q: 'Is there a transport management system for small businesses?',
@@ -128,7 +126,7 @@ const audiences = [
   {
     title: 'Small transport businesses',
     body: 'For owners with 1 to 20 trucks who want to stop writing GR books without hiring an office team.',
-    href: '/transport-management-system-for-small-business',
+    href: '/transport-software-small-business',
     cta: 'TMS for small business',
   },
   {
@@ -217,7 +215,7 @@ export default function HomePage() {
             <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-[1.12]">
               {/* The search keyword leads the H1 as a kicker line; the tagline keeps its look. */}
               <span className="mb-5 block text-sm sm:text-base font-semibold uppercase tracking-widest text-sky-700 dark:text-sky-400">
-                Transport Management Software for India
+                Transport Management Software
               </span>{' '}
               Stop managing transport{' '}
               <span className="relative">
@@ -296,6 +294,13 @@ export default function HomePage() {
               (bilty) in three copies, keeps your customer list, calculates freight, tracks each load from booking to
               delivery, and produces customer freight statements. It runs online in any browser, works offline on
               Windows, and is free for early transporters.
+            </p>
+            <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Built for how Indian road transport works, with GSTIN, e-way bill numbers and To Pay bilty on every GR. See{' '}
+              <Link href="/transport-management-software-india" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">
+                transport management software for India
+              </Link>
+              .
             </p>
             <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-slate-700 dark:text-slate-300">
               {[

@@ -39,7 +39,7 @@ export default function HowToChooseTmsPage() {
         { id: 'scorecard', label: 'Comparison scorecard' },
         { id: 'trial', label: 'A one-week trial plan' },
       ]}
-      related={['/transport-management-system', '/transport-erp-software', '/transport-management-system-for-small-business', '/features']}
+      related={['/transport-management-system', '/transport-erp-software', '/transport-software-small-business', '/features']}
     >
       <AnswerBox>
         To choose <Strong>transport management software in India</Strong>, list the jobs you do daily (GRs, customers,

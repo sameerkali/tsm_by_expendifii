@@ -3,7 +3,7 @@ import { buildPageMetadata } from '@/lib/seo';
 import { A, AnswerBox, Callout, ContentPage, DataTable, H2, H3, OL, P, Screenshot, Strong, UL } from '@/components/content/ContentPage';
 import { SCREENSHOTS } from '@/config/screenshots';
 
-export const metadata: Metadata = buildPageMetadata('/transport-management-system-for-small-business');
+export const metadata: Metadata = buildPageMetadata('/transport-software-small-business');
 
 // Keyword: "transport management system for small business".
 
@@ -33,10 +33,10 @@ const faqs = [
 export default function SmallBusinessTmsPage() {
   return (
     <ContentPage
-      path="/transport-management-system-for-small-business"
+      path="/transport-software-small-business"
       eyebrow="For small transport businesses"
-      title="Small Transport Business Software for 1 to 20 Trucks"
-      intro="BiltyOne is small transport business software for owners with 1 to 20 trucks: a simple transport management system that creates and prints GRs, keeps customer records, calculates freight and bills customers, without hiring office staff or paying for software you will never use."
+      title="Transport Software for Small Businesses with 1 to 20 Trucks"
+      intro="BiltyOne is transport software for small businesses with 1 to 20 trucks: a simple transport management system that creates and prints GRs, keeps customer records, calculates freight and bills customers, without hiring office staff or paying for software you will never use."
       aboutSoftware
       faqs={faqs}
       toc={[
@@ -54,7 +54,7 @@ export default function SmallBusinessTmsPage() {
       ]}
     >
       <AnswerBox>
-        <Strong>Small transport business software</Strong>, or a transport management system for a small business, should do a few things very well: print a
+        <Strong>Transport software for a small business</Strong>, or a transport management system for a small fleet, should do a few things very well: print a
         correct GR/LR in minutes, remember your customers, calculate freight, show who has paid, and keep every record
         safe. It should cost little or nothing and be easy enough for one person to run. That is what BiltyOne is built for.
       </AnswerBox>
