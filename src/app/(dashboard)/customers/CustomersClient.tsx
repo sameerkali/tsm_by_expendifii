@@ -113,8 +113,8 @@ export function CustomersClient() {
                 {isLoading ? (
                   <tr>
                     <td colSpan={5} className="px-8 py-20 text-center">
-                      <div className="flex flex-col items-center justify-center text-slate-400 gap-3">
-                        <Loader2 className="w-8 h-8 animate-spin text-sky-500" />
+                      <div role="status" className="flex flex-col items-center justify-center text-slate-400 gap-3">
+                        <Loader2 className="w-8 h-8 animate-spin text-sky-500" aria-hidden="true" />
                         <span className="text-sm font-medium">Loading customers...</span>
                       </div>
                     </td>

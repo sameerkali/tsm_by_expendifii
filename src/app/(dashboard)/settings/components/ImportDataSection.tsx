@@ -5,7 +5,6 @@ import { Upload, Download, CheckCircle, AlertTriangle, FileText, Loader2, Refres
 import { Button } from '@/components/ui';
 import { toast } from 'sonner';
 import apiClient from '@/lib/api/client';
-import * as XLSX from 'xlsx';
 import { isGuestModeClient, DEMO_READ_ONLY_MESSAGE } from '@/lib/demo/guest';
 
 interface ImportResult {
@@ -86,33 +85,23 @@ export function ImportDataSection() {
 
       // If it is a CSV file, convert it to XLSX format containing the "All GR Records" sheet
       if (file.name.endsWith('.csv')) {
-        const reader = new FileReader();
-        const csvBlob = await new Promise<Blob>((resolve, reject) => {
-          reader.onload = (e) => {
-            try {
-              const data = e.target?.result;
-              const workbook = XLSX.read(data, { type: 'binary' });
-              const sheetName = workbook.SheetNames[0];
-              if (!sheetName) throw new Error('No sheets found in the uploaded file.');
-              const sheet = workbook.Sheets[sheetName];
-              if (!sheet) throw new Error('Sheet could not be parsed.');
+        // The spreadsheet library is large and only needed here, so it is
+        // loaded on demand instead of with the Settings page.
+        const XLSX = await import('xlsx');
+        const data = await file.arrayBuffer();
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        if (!sheetName) throw new Error('No sheets found in the uploaded file.');
+        const sheet = workbook.Sheets[sheetName];
+        if (!sheet) throw new Error('Sheet could not be parsed.');
 
-              const newWorkbook = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(newWorkbook, sheet, 'All GR Records');
+        const newWorkbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(newWorkbook, sheet, 'All GR Records');
 
-              const out = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'array' });
-              const xlsxBlob = new Blob([out], {
-                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-              });
-              resolve(xlsxBlob);
-            } catch (err) {
-              reject(err);
-            }
-          };
-          reader.onerror = (err) => reject(err);
-          reader.readAsBinaryString(file);
+        const out = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'array' });
+        fileToUpload = new Blob([out], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
-        fileToUpload = csvBlob;
       }
 
       const formData = new FormData();
@@ -195,23 +184,13 @@ export function ImportDataSection() {
 
           {/* Drag & Drop Area */}
           <div className="lg:col-span-2 space-y-4">
-            <div
+            {/* A <label> around the file input: clicking anywhere opens the
+                picker, and the input itself (visually hidden, still
+                focusable) gives keyboard users Tab + Enter/Space for free. */}
+            <label
               onDragEnter={handleDrag}
               onDragOver={handleDrag}
               onDragLeave={handleDrag}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  if (isGuestModeClient()) {
-                    toast.error(DEMO_READ_ONLY_MESSAGE);
-                    return;
-                  }
-                  fileInputRef.current?.click();
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label="Upload CSV or XLSX file"
               onDrop={(e) => {
                 if (isGuestModeClient()) {
                   e.preventDefault();
@@ -220,14 +199,13 @@ export function ImportDataSection() {
                 }
                 handleDrop(e);
               }}
-              onClick={() => {
+              onClick={(e) => {
                 if (isGuestModeClient()) {
+                  e.preventDefault();
                   toast.error(DEMO_READ_ONLY_MESSAGE);
-                  return;
                 }
-                fileInputRef.current?.click();
               }}
-              className={`border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center gap-3 transition-colors cursor-pointer group min-h-[160px] ${
+              className={`border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center gap-3 transition-colors cursor-pointer group min-h-[160px] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-sky-500/40 ${
                 dragActive
                   ? 'border-sky-500 bg-sky-50/20 dark:bg-sky-500/5'
                   : 'border-slate-200 dark:border-slate-700 hover:border-sky-500 dark:hover:border-sky-500'
@@ -237,26 +215,35 @@ export function ImportDataSection() {
                 ref={fileInputRef}
                 type="file"
                 accept=".csv, .xlsx"
-                className="hidden"
+                className="sr-only"
+                aria-label="Upload CSV or XLSX file"
+                onClick={(e) => {
+                  // Keyboard activation reaches the input directly, not the label.
+                  if (isGuestModeClient()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toast.error(DEMO_READ_ONLY_MESSAGE);
+                  }
+                }}
                 onChange={handleFileChange}
               />
-              <div className="h-12 w-12 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-400 group-hover:text-sky-500 transition-colors">
-                {isUploading ? <Loader2 className="animate-spin text-sky-500" size={24} /> : <Upload size={24} />}
-              </div>
-              <div className="text-center space-y-1">
+              <span className="h-12 w-12 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-400 group-hover:text-sky-500 transition-colors">
+                {isUploading ? <Loader2 className="animate-spin text-sky-500" size={24} aria-hidden="true" /> : <Upload size={24} aria-hidden="true" />}
+              </span>
+              <span className="block text-center space-y-1">
                 {file ? (
-                  <p className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 justify-center">
-                    <FileText size={16} className="text-sky-500" />
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1.5 justify-center">
+                    <FileText size={16} className="text-sky-500" aria-hidden="true" />
                     {file.name}
-                  </p>
+                  </span>
                 ) : (
-                  <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
+                  <span className="block text-sm font-bold text-slate-700 dark:text-slate-300">
                     Drag and drop file here, or <span className="text-sky-600 dark:text-sky-400">browse</span>
-                  </p>
+                  </span>
                 )}
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Supports CSV or XLSX up to 5MB</p>
-              </div>
-            </div>
+                <span className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider">Supports CSV or XLSX up to 5MB</span>
+              </span>
+            </label>
 
             {/* Action Buttons */}
             {file && (

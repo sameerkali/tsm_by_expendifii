@@ -11,12 +11,17 @@
    CSS CUSTOM PROPERTIES
    Colors are set here so they respond to both the .dark class AND body styles.
 ───────────────────────────────────────────────────────────────────────────── */
+/* color-scheme tells the browser which palette to use for the parts it draws
+   itself (scrollbars, date pickers, checkboxes, <select> menus, autofill),
+   so they follow the .dark class that the theme toggle sets on <html>. */
 :root {
+  color-scheme: light;
   --background: #ffffff;
   --foreground: #0f172a;
 }
 
 .dark {
+  color-scheme: dark;
   /* Matches the dark:bg-slate-950 used at the top of every page's hero
      section, so the sliver of body background revealed above/around the
      floating navbar doesn't show up as a mismatched, uncovered seam. */
@@ -38,28 +43,118 @@ body {
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CUSTOM SCROLLBAR
+   Standard properties first (every current browser, including Firefox). The
+   ::-webkit-scrollbar rules are only a fallback for older Safari: browsers
+   that support scrollbar-color ignore them anyway.
 ───────────────────────────────────────────────────────────────────────────── */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
+.dark .custom-scrollbar {
+  scrollbar-color: #334155 transparent;
+}
+
+@supports not (scrollbar-color: auto) {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #334155;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   MODAL DIALOGS (native <dialog>, see hooks/useModalDialog.ts)
+   Stops scrolling inside a dialog or on its backdrop from reaching the page
+   behind, without touching overflow on <html>/<body> (which shifts the
+   layout and loses the scroll position). The backdrop needs overflow set to
+   become a scroll container, or overscroll-behavior doesn't apply to it.
+───────────────────────────────────────────────────────────────────────────── */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Slide-in side panels (GR form, customer form). */
+.side-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  height: 100dvh;
+  max-height: none;
+  translate: 100% 0;
+}
+
+.side-panel[open] {
+  translate: 0 0;
+}
+
+.side-panel::backdrop {
+  background-color: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(1px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .side-panel {
+    /* allow-discrete keeps the panel displayed (and in the top layer) while
+       it slides out after close(). */
+    transition:
+      translate 500ms ease-in-out,
+      display 500ms allow-discrete,
+      overlay 500ms allow-discrete;
+  }
+
+  @starting-style {
+    .side-panel[open] {
+      translate: 100% 0;
+    }
+  }
+}
+
+/* Top-layer host for toasts (components/shared/ToastLayer.tsx). Zero-size and
+   transparent: the toaster positions itself against the viewport. */
+.toast-layer {
+  inset: auto;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
   background: transparent;
+  overflow: visible;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+/* ─────────────────────────────────────────────────────────────────────────────
+   SPINNERS
+   Slow down rather than stop, so the busy state still shows.
+───────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin {
+    animation-duration: 3s;
+  }
 }
 
-.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #334155;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    TEXT SELECTION
@@ -203,11 +298,75 @@ html.lenis, html.lenis body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   SCROLL IMAGE — product screenshot tilts up and settles as it scrolls in
+   (components/shared/ScrollImage.tsx). A scroll-driven animation where
+   supported; the component's JS does the same thing elsewhere. Linear, from
+   the image's top edge entering at the bottom of the viewport
+   (entry-crossing 0%) to it reaching the top (exit-crossing 0%). Keep the
+   start pose in sync with DESKTOP_RANGE / MOBILE_RANGE in the component.
+───────────────────────────────────────────────────────────────────────────── */
+@keyframes scroll-image-settle {
+  from {
+    transform: rotateX(var(--scroll-image-rx)) translateY(var(--scroll-image-ty))
+      translateZ(var(--scroll-image-tz)) scale(var(--scroll-image-s));
+  }
+  to {
+    transform: rotateX(0deg) translateY(0px) translateZ(0px) scale(1);
+  }
+}
+
+@supports ((animation-timeline: view()) and (animation-range: entry)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-image {
+      view-timeline: --scroll-image block;
+    }
+
+    .scroll-image-shot {
+      --scroll-image-rx: 32deg;
+      --scroll-image-ty: 70px;
+      --scroll-image-tz: -180px;
+      --scroll-image-s: 0.86;
+      animation: scroll-image-settle linear both;
+      animation-timeline: --scroll-image;
+      animation-range: entry-crossing 0% exit-crossing 0%;
+    }
+
+    @media (width < 640px) {
+      .scroll-image-shot {
+        --scroll-image-rx: 16deg;
+        --scroll-image-ty: 34px;
+        --scroll-image-tz: -80px;
+        --scroll-image-s: 0.9;
+      }
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DASHBOARD CAROUSEL — autoplay countdown (app/(dashboard)/dashboard/
+   DashboardClient.tsx). Its animationend advances the slide, so this
+   duration is the autoplay interval. scaleX runs on the compositor.
+───────────────────────────────────────────────────────────────────────────── */
+@keyframes carousel-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.carousel-progress {
+  transform-origin: left;
+  animation: carousel-progress 10s linear both;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    DESKTOP DOWNLOAD DIALOG — fade the backdrop, lift the panel in.
    Only when the visitor hasn't asked for reduced motion.
 ───────────────────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
-  .desktop-dialog-backdrop {
+  .desktop-dialog-panel::backdrop {
     animation: desktop-dialog-fade 200ms ease-out both;
   }
   .desktop-dialog-panel {

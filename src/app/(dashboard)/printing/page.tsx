@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { Search, Loader2, User as UserIcon, Phone, Mail, X, Download, Info } from 'lucide-react';
 import { toast } from 'sonner';
 import { getApiErrorMessage } from '@/lib/api/errors';
@@ -8,6 +8,7 @@ import { useCustomers, useDownloadCustomerGrPdf } from '@/hooks/useCustomers';
 import { useDebounce } from '@/hooks/useDebounce';
 import { Pagination, usePageSizePreference, type PageSizeOption } from '@/components/shared/Pagination';
 import type { Customer } from '@/types/customer';
+import { useModalDialog } from '@/hooks/useModalDialog';
 
 function PrintModal({ 
   customer, 
@@ -25,6 +26,13 @@ function PrintModal({
   );
   
   const downloadMutation = useDownloadCustomerGrPdf();
+  // Mounted only while a customer is selected; closes on Esc or a backdrop
+  // click, except while the PDF is being prepared.
+  const dismiss = downloadMutation.isPending ? 'none' : 'any';
+  const dialogRef = useModalDialog(!!customer, onClose, dismiss);
+  const titleId = useId();
+  const fromId = useId();
+  const toId = useId();
   if (!customer) return null;
 
   const handleDownload = (e: React.FormEvent) => {
@@ -46,77 +54,81 @@ function PrintModal({
   };
 
   return (
-    <>
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40 transition-opacity" onClick={onClose} />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[380px] bg-white dark:bg-slate-950 z-50 rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] overflow-hidden border border-slate-100 dark:border-slate-800">
+    <dialog
+      ref={dialogRef}
+      closedby={dismiss}
+      aria-labelledby={titleId}
+      className="m-auto w-[calc(100%-2rem)] max-w-[380px] p-0 bg-white dark:bg-slate-950 text-inherit rounded-2xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] overflow-hidden border border-slate-100 dark:border-slate-800 backdrop:bg-black/40 backdrop:backdrop-blur-[1px]"
+    >
+      {/* Header Section */}
+      <div className="flex items-center justify-between px-6 pt-6 pb-4">
+        <h2 id={titleId} className="text-lg font-bold text-slate-900 dark:text-white">Export GR Report</h2>
+        <button type="button" onClick={onClose} aria-label="Close" className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors text-slate-400 hover:text-slate-650 dark:hover:text-slate-350 cursor-pointer">
+          <X size={16} />
+        </button>
+      </div>
+      
+      {/* Customer Information (Minimal) */}
+      <div className="px-6 py-3 border-y border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+        <p className="text-sm font-semibold text-slate-800 dark:text-slate-205">{customer.name}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{customer.phone}</p>
+      </div>
+      
+      <form onSubmit={handleDownload} className="p-6 space-y-5">
         
-        {/* Header Section */}
-        <div className="flex items-center justify-between px-6 pt-6 pb-4">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Export GR Report</h2>
-          <button onClick={onClose} className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors text-slate-400 hover:text-slate-650 dark:hover:text-slate-350 cursor-pointer">
-            <X size={16} />
-          </button>
-        </div>
-        
-        {/* Customer Information (Minimal) */}
-        <div className="px-6 py-3 border-y border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-205">{customer.name}</p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{customer.phone}</p>
-        </div>
-        
-        <form onSubmit={handleDownload} className="p-6 space-y-5">
-          
-          {/* Date Selection */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Date Selection</span>
-              
-              {/* Info Tooltip */}
-              <div className="relative group cursor-help flex items-center">
-                <Info size={14} className="text-slate-400 hover:text-sky-500 transition-colors" />
-                <div className="absolute bottom-full right-0 mb-2 w-64 p-2.5 bg-slate-900 dark:bg-slate-800 text-white text-[11px] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-left leading-normal font-normal pointer-events-none">
-                  Dates cannot exceed today. If you leave the end date empty, it will include all records up to the present.
-                  <div className="absolute top-full right-1.5 border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Start Date</label>
-                <input 
-                  type="date" 
-                  required 
-                  max={today}
-                  value={fromDate}
-                  onChange={e => setFromDate(e.target.value)}
-                  className="w-full h-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 text-xs font-semibold outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-slate-950 transition-all text-slate-700 dark:text-slate-200"
-                />
-              </div>
-              <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">End Date <span className="opacity-60 lowercase">(opt)</span></label>
-                <input 
-                  type="date" 
-                  max={today}
-                  value={toDate}
-                  onChange={e => setToDate(e.target.value)}
-                  className="w-full h-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 text-xs font-semibold outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-slate-950 transition-all text-slate-700 dark:text-slate-200"
-                />
+        {/* Date Selection */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Date Selection</span>
+            
+            {/* Info Tooltip */}
+            <div className="relative group cursor-help flex items-center">
+              <Info size={14} className="text-slate-400 hover:text-sky-500 transition-colors" />
+              <div className="absolute bottom-full right-0 mb-2 w-64 p-2.5 bg-slate-900 dark:bg-slate-800 text-white text-[11px] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-left leading-normal font-normal pointer-events-none">
+                Dates cannot exceed today. If you leave the end date empty, it will include all records up to the present.
+                <div className="absolute top-full right-1.5 border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
               </div>
             </div>
           </div>
 
-          <button 
-            type="submit" 
-            disabled={downloadMutation.isPending || !fromDate}
-            className="w-full h-11 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-bold text-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2 mt-2 cursor-pointer shadow-sm"
-          >
-            {downloadMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
-            {downloadMutation.isPending ? 'Processing...' : 'Download Statement'}
-          </button>
-        </form>
-      </div>
-    </>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <label htmlFor={fromId} className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Start Date</label>
+              <input
+                id={fromId}
+                type="date"
+                required 
+                max={today}
+                value={fromDate}
+                onChange={e => setFromDate(e.target.value)}
+                className="w-full h-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 text-xs font-semibold outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-slate-950 transition-all text-slate-700 dark:text-slate-200"
+              />
+            </div>
+            <div className="space-y-1">
+              <label htmlFor={toId} className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">End Date <span className="opacity-60 lowercase">(opt)</span></label>
+              <input
+                id={toId}
+                type="date"
+                min={fromDate || undefined}
+                max={today}
+                value={toDate}
+                onChange={e => setToDate(e.target.value)}
+                className="w-full h-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 text-xs font-semibold outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-slate-950 transition-all text-slate-700 dark:text-slate-200"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button 
+          type="submit" 
+          disabled={downloadMutation.isPending || !fromDate}
+          className="w-full h-11 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-bold text-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2 mt-2 cursor-pointer shadow-sm"
+        >
+          {downloadMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+          {downloadMutation.isPending ? 'Processing...' : 'Download Statement'}
+        </button>
+      </form>
+    </dialog>
   );
 }
 
@@ -195,8 +207,8 @@ export default function PrintingPage() {
                 {isLoading ? (
                   <tr>
                     <td colSpan={4} className="px-8 py-20 text-center">
-                      <div className="flex flex-col items-center justify-center text-slate-400 gap-3">
-                        <Loader2 className="w-8 h-8 animate-spin text-sky-500" />
+                      <div role="status" className="flex flex-col items-center justify-center text-slate-400 gap-3">
+                        <Loader2 className="w-8 h-8 animate-spin text-sky-500" aria-hidden="true" />
                         <span className="text-sm font-medium">Loading customers...</span>
                       </div>
                     </td>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useModalDialog } from '@/hooks/useModalDialog';
 import {
   Check, X, AlertTriangle, Info, ChevronDown, Search, Loader2,
   Eye, EyeOff, Upload, CheckSquare, Square,
@@ -14,33 +14,53 @@ export const inputClass =
   'w-full h-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500/20 transition-all';
 
 /** Text Input */
-export function Input({ label, hint, required, error, className, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label?: string; hint?: string; required?: boolean; error?: string }) {
+export function Input({ label, hint, required, error, className, id, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label?: string; hint?: string; required?: boolean; error?: string }) {
+  const generatedId = React.useId();
+  const inputId = id ?? generatedId;
+  const errorId = `${inputId}-error`;
   return (
     <div className="space-y-1.5">
       {label && (
-        <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
+        <label htmlFor={inputId} className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
           {label}{required && <span className="text-sky-500">*</span>}
           {hint && <span className="font-normal text-slate-400 italic">({hint})</span>}
         </label>
       )}
-      <input {...props} required={required} className={cn(inputClass, error && 'border-red-400 focus:border-red-500 focus:ring-red-500/20', className)} />
-      {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
+      <input
+        {...props}
+        id={inputId}
+        required={required}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : props['aria-describedby']}
+        className={cn(inputClass, error && 'border-red-400 focus:border-red-500 focus:ring-red-500/20', className)}
+      />
+      {error && <p id={errorId} className="text-xs text-red-500 font-medium">{error}</p>}
     </div>
   );
 }
 
 /** Textarea */
-export function Textarea({ label, hint, required, error, className, ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label?: string; hint?: string; required?: boolean; error?: string }) {
+export function Textarea({ label, hint, required, error, className, id, ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label?: string; hint?: string; required?: boolean; error?: string }) {
+  const generatedId = React.useId();
+  const textareaId = id ?? generatedId;
+  const errorId = `${textareaId}-error`;
   return (
     <div className="space-y-1.5">
       {label && (
-        <label className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
+        <label htmlFor={textareaId} className="flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 tracking-tight">
           {label}{required && <span className="text-sky-500">*</span>}
           {hint && <span className="font-normal text-slate-400 italic">({hint})</span>}
         </label>
       )}
-      <textarea {...props} required={required} className={cn(inputClass, 'h-auto py-3 resize-none', error && 'border-red-400', className)} />
-      {error && <p className="text-xs text-red-500 font-medium">{error}</p>}
+      <textarea
+        {...props}
+        id={textareaId}
+        required={required}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? errorId : props['aria-describedby']}
+        className={cn(inputClass, 'h-auto py-3 resize-none', error && 'border-red-400', className)}
+      />
+      {error && <p id={errorId} className="text-xs text-red-500 font-medium">{error}</p>}
     </div>
   );
 }
@@ -184,9 +204,14 @@ export function CardBody({ children, className }: { children: React.ReactNode; c
   return <div className={cn('p-8', className)}>{children}</div>;
 }
 
-/** Spinner */
-export function Spinner({ size = 24, className }: { size?: number; className?: string }) {
-  return <Loader size={size} className={cn('animate-spin text-sky-500', className)} />;
+/** Spinner. Announced to screen readers as "{label}" via role="status". */
+export function Spinner({ size = 24, className, label = 'Loading' }: { size?: number; className?: string; label?: string }) {
+  return (
+    <span role="status" className="inline-flex">
+      <Loader size={size} className={cn('animate-spin text-sky-500', className)} aria-hidden="true" />
+      <span className="sr-only">{label}</span>
+    </span>
+  );
 }
 
 /** Skeleton Loader */
@@ -260,29 +285,29 @@ export function FileUpload({ label, accept, hint }: { label?: string; accept?: s
 
 /** Modal / Dialog */
 export function Modal({ isOpen, onClose, title, children, footer }: { isOpen: boolean; onClose: () => void; title: string; children: React.ReactNode; footer?: React.ReactNode }) {
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
+  const dialogRef = useModalDialog(isOpen, onClose);
+  const titleId = React.useId();
 
-  if (!isOpen || !mounted) return null;
-
-  return createPortal(
-    <>
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-[100]" onClick={onClose} />
-      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex items-center justify-between px-8 py-6 border-b border-slate-100 dark:border-slate-800">
-          <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">{title}</h2>
-          <button onClick={onClose} className="h-8 w-8 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-400">
-            <X size={16} />
-          </button>
-        </div>
-        <div className="p-8">{children}</div>
-        {footer && <div className="px-8 py-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">{footer}</div>}
-      </div>
-    </>,
-    document.body
+  return (
+    <dialog
+      ref={dialogRef}
+      closedby="any"
+      aria-labelledby={titleId}
+      className="m-auto w-[calc(100%-2rem)] max-w-lg p-0 open:flex flex-col overflow-hidden bg-white dark:bg-slate-900 text-inherit rounded-[2rem] shadow-2xl backdrop:bg-black/40 backdrop:backdrop-blur-[1px]"
+    >
+      {isOpen && (
+        <>
+          <div className="flex items-center justify-between px-8 py-6 border-b border-slate-100 dark:border-slate-800">
+            <h2 id={titleId} className="text-lg font-black tracking-tight text-slate-900 dark:text-white uppercase italic">{title}</h2>
+            <button type="button" onClick={onClose} aria-label="Close" className="h-8 w-8 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-slate-400">
+              <X size={16} />
+            </button>
+          </div>
+          <div className="p-8">{children}</div>
+          {footer && <div className="px-8 py-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">{footer}</div>}
+        </>
+      )}
+    </dialog>
   );
 }
 

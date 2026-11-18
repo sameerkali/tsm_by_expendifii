@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
 import {
   X,
   Loader2,
@@ -47,6 +47,8 @@ import {
   grInsuranceAmountSchema,
 } from "@/lib/validation/schemas";
 import { usePincodeAutofill } from "@/hooks/usePincodeAutofill";
+import { useModalDialog } from "@/hooks/useModalDialog";
+import { useDismissOnOutside } from "@/hooks/useDismissOnOutside";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -261,6 +263,9 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     {},
   );
 
+  const dialogRef = useModalDialog(isOpen, onClose);
+  const titleId = useId();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -363,19 +368,12 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     setForm((prev) => ({ ...prev, freightAmount: (rate * qty).toFixed(2) }));
   }, [form.rate, form.weight, form.boxCount, form.pricingType]);
 
-  // Close dropdown on outside click
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
+  // Close the consignor dropdown on outside click, Esc, or Tab away.
+  useDismissOnOutside(
+    dropdownRef,
+    isDropdownOpen && !customerId && !isEditing,
+    () => setIsDropdownOpen(false),
+  );
 
   const validateField = (
     field: keyof FormState,
@@ -724,20 +722,11 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
     }
   }, [isNewCustomer]);
 
-  // Locality combobox outside-click
-  React.useEffect(() => {
-    function handleOutside(e: MouseEvent) {
-      if (
-        grLocalityRef.current &&
-        !grLocalityRef.current.contains(e.target as Node)
-      ) {
-        setGrLocalityOpen(false);
-        setGrLocalityQuery("");
-      }
-    }
-    document.addEventListener("mousedown", handleOutside);
-    return () => document.removeEventListener("mousedown", handleOutside);
-  }, []);
+  // Locality combobox: close on outside click, Esc, or Tab away.
+  useDismissOnOutside(grLocalityRef, grLocalityOpen, () => {
+    setGrLocalityOpen(false);
+    setGrLocalityQuery("");
+  });
 
   const grHandleEnterManually = () => {
     grClearAutofill();
@@ -751,33 +740,30 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
   // ───────────────────────────────────────────────────────────────────────────────
 
   return (
-    <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40"
-          onClick={onClose}
-        />
-      )}
-
-      <div
-        className={cn(
-          "fixed top-0 right-0 h-full bg-white dark:bg-slate-950 z-50 shadow-2xl flex flex-col transition-transform duration-500 ease-in-out",
-          "w-full md:w-[85vw] lg:w-[80vw] max-w-6xl",
-          isOpen ? "translate-x-0" : "translate-x-full",
-        )}
-      >
+    // Modal side panel on the native <dialog>: when closed it is fully out of
+    // the tab order and the accessibility tree; when open the page behind is
+    // inert and Esc or a backdrop click closes it. Slide animation: .side-panel
+    // in globals.css.
+    <dialog
+      ref={dialogRef}
+      closedby="any"
+      aria-labelledby={titleId}
+      className="side-panel w-full md:w-[85vw] lg:w-[80vw] max-w-6xl p-0 bg-white dark:bg-slate-950 text-inherit shadow-2xl open:flex flex-col overflow-hidden"
+    >
         {/* Header */}
         <div className="h-20 flex items-center justify-between px-10 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div>
             <p className="text-[10px] font-black tracking-[0.3em] text-sky-600 dark:text-sky-400 uppercase italic">
               {isEditing ? "EDIT RECORD" : "NEW RECORD"}
             </p>
-            <h2 className="text-xl font-black tracking-tighter text-slate-900 dark:text-white">
+            <h2 id={titleId} className="text-xl font-black tracking-tighter text-slate-900 dark:text-white">
               {isEditing ? editData?.grNumber : "Create Goods Receipt"}
             </h2>
           </div>
           <button
+            type="button"
             onClick={onClose}
+            aria-label="Close"
             className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
           >
             <X size={18} />
@@ -1915,8 +1901,7 @@ export function GRFormPanel({ isOpen, onClose, editData }: GRFormPanelProps) {
             {isSaving ? "Saving..." : isEditing ? "Save Changes" : "Create GR"}
           </button>
         </div>
-      </div>
-    </>
+    </dialog>
   );
 }
 

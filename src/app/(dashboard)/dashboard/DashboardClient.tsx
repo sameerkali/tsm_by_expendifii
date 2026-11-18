@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
   ChevronLeft,
@@ -15,6 +15,7 @@ import { dashboardApi } from '@/lib/api/dashboard.api';
 import { AnalyticsDashboard } from '@/components/dashboard/AnalyticsDashboard';
 import { isGuestModeClient } from '@/lib/demo/guest';
 import { getDemoDashboardResponse } from '@/lib/demo/data';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 const MOCK_SLIDES: CarouselSlide[] = [
   {
@@ -69,52 +70,30 @@ export function DashboardClient() {
 
   // Active slide index and autoplay states
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
+  // null until the user presses Play/Pause. Until then autoplay is on,
+  // except for visitors who asked their OS for reduced motion (they can
+  // still start it with the Play button).
+  const [playChoice, setPlayChoice] = useState<boolean | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const isPlaying = playChoice ?? !prefersReducedMotion;
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % slides.length);
-    setProgress(0);
   }, [slides.length]);
 
   const prevSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
-    setProgress(0);
   }, [slides.length]);
 
-  // Autoplay effects
-  useEffect(() => {
-    if (!isPlaying) {
-      if (autoplayTimerRef.current) clearInterval(autoplayTimerRef.current);
-      if (progressTimerRef.current) clearInterval(progressTimerRef.current);
-      return;
-    }
-
-    const intervalTime = 10000;
-    const updateRate = 100;
-    const startedAt = Date.now();
-
-    progressTimerRef.current = setInterval(() => {
-      const elapsed = Date.now() - startedAt;
-      setProgress(Math.min((elapsed / intervalTime) * 100, 100));
-    }, updateRate);
-
-    autoplayTimerRef.current = setInterval(() => {
-      nextSlide();
-    }, intervalTime);
-
-    return () => {
-      if (autoplayTimerRef.current) clearInterval(autoplayTimerRef.current);
-      if (progressTimerRef.current) clearInterval(progressTimerRef.current);
-    };
-  }, [isPlaying, nextSlide]);
+  // Autoplay has no timers: the progress bar at the bottom is a 10s CSS
+  // animation (.carousel-progress in globals.css) and its `animationend`
+  // moves to the next slide. Re-keying the bar on every slide change (or
+  // resume) restarts the countdown.
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 gap-4">
-        <Loader2 className="h-10 w-10 animate-spin text-sky-500" />
+      <div role="status" className="flex flex-col items-center justify-center py-20 gap-4">
+        <Loader2 className="h-10 w-10 animate-spin text-sky-500" aria-hidden="true" />
         <p className="text-sm font-semibold text-slate-500">Loading command center...</p>
       </div>
     );
@@ -153,7 +132,7 @@ export function DashboardClient() {
             <div className="flex items-center -space-x-px">
               {/* Play/Pause Toggle */}
               <button
-                onClick={() => setIsPlaying(!isPlaying)}
+                onClick={() => setPlayChoice(!isPlaying)}
                 className="flex h-11 w-11 items-center justify-center rounded-l-xl rounded-r-none bg-slate-900/60 hover:bg-slate-900 border border-slate-800 text-white transition-colors cursor-pointer active:scale-95"
                 title={isPlaying ? 'Pause Autoplay' : 'Start Autoplay'}
               >
@@ -184,10 +163,7 @@ export function DashboardClient() {
               {slides.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => {
-                    setCurrentIndex(idx);
-                    setProgress(0);
-                  }}
+                  onClick={() => setCurrentIndex(idx)}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentIndex ? 'w-6 bg-sky-600 dark:bg-sky-400' : 'w-2 bg-slate-700/40 hover:bg-slate-500'
                     }`}
                   title={`Go to slide ${idx + 1}`}
@@ -199,13 +175,13 @@ export function DashboardClient() {
 
         {/* Bottom Autoplay Timer Progress Bar */}
         <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-slate-900">
-          <div
-            className="h-full bg-sky-600 dark:bg-sky-400 transition-all ease-linear"
-            style={{
-              width: `${isPlaying ? progress : 0}%`,
-              transitionDuration: isPlaying ? '50ms' : '0ms'
-            }}
-          />
+          {isPlaying && (
+            <div
+              key={currentIndex}
+              className="carousel-progress h-full bg-sky-600 dark:bg-sky-400"
+              onAnimationEnd={nextSlide}
+            />
+          )}
         </div>
       </div>
 

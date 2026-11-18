@@ -22,7 +22,7 @@ export default function AuthLayout({
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden bg-white dark:bg-slate-950 flex font-sans selection:bg-sky-500/30 selection:text-sky-500">
+    <div className="h-dvh overflow-hidden bg-white dark:bg-slate-950 flex font-sans selection:bg-sky-500/30 selection:text-sky-500">
       {/* Auth Content Area - Left Side (60%) */}
       <main className="w-full lg:w-3/5 h-full overflow-y-auto bg-white dark:bg-slate-950 relative z-20">
         {/* Back to home button */}

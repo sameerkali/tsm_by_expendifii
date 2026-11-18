@@ -89,5 +89,13 @@ export function GoogleAnalytics() {
   }, [consented]);
 
   if (!GA_MEASUREMENT_ID || !consented) return null;
-  return <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />;
+  // fetchPriority="low": analytics isn't needed for the page itself, so it
+  // shouldn't compete with images, fonts and app code for bandwidth.
+  return (
+    <Script
+      src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+      strategy="afterInteractive"
+      fetchPriority="low"
+    />
+  );
 }

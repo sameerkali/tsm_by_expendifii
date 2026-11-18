@@ -42,7 +42,10 @@ export function Sidebar({
       "border-r border-slate-200 dark:border-slate-800",
       "transition-all duration-300 ease-in-out",
       "lg:relative",
-      isMobileOpen ? "translate-x-0 w-72" : "-translate-x-full w-72",
+      // Closed on mobile: also invisible, so its links leave the tab order and
+      // the accessibility tree. visibility is part of `transition-all`, so it
+      // only flips to hidden after the slide-out finishes.
+      isMobileOpen ? "translate-x-0 w-72" : "-translate-x-full w-72 max-lg:invisible",
       isDesktopExpanded ? "lg:translate-x-0 lg:w-72" : "lg:translate-x-0 lg:w-20",
     )}>
       {/* Logo */}

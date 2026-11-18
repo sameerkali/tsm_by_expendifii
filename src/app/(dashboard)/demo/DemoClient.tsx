@@ -27,8 +27,8 @@ export function DemoClient() {
 
       <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] p-10 shadow-2xl shadow-slate-200/50 dark:shadow-none">
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center text-slate-400 gap-3 py-10">
-            <Loader2 className="w-8 h-8 animate-spin text-sky-500" />
+          <div role="status" className="flex flex-col items-center justify-center text-slate-400 gap-3 py-10">
+            <Loader2 className="w-8 h-8 animate-spin text-sky-500" aria-hidden="true" />
             <span className="text-sm font-medium">Loading message from backend...</span>
           </div>
         ) : isError ? (

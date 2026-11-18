@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
   // next/image re-encodes every image; serve AVIF where the browser supports
   // it (smallest files), WebP otherwise.
@@ -66,7 +68,13 @@ const nextConfig: NextConfig = {
               "default-src 'self'; " +
               // Google Analytics 4 (googletagmanager.com, *.google-analytics.com)
               // and the YouTube product video (youtube-nocookie.com, i.ytimg.com).
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com/ https://news.google.com https://www.googletagmanager.com; " +
+              // 'unsafe-eval' only in development: `next dev` needs eval for
+              // fast refresh and error overlays; production bundles don't.
+              // 'unsafe-inline' stays for Next's inline scripts until the CSP
+              // moves to per-request nonces, which would make every page
+              // dynamically rendered (no static/ISR pages).
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com/ https://news.google.com https://www.googletagmanager.com; ` +
+              "object-src 'none'; " +
               "style-src 'self' 'unsafe-inline'; " +
               "img-src 'self' data: blob: https://res.cloudinary.com https://news.google.com https://www.gstatic.com https://*.google-analytics.com https://*.googletagmanager.com https://i.ytimg.com; " +
               "connect-src 'self' https://va.vercel-scripts.com/ https://api.postalpincode.in https://api.cloudinary.com https://news.google.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; " +

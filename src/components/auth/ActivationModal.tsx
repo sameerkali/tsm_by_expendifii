@@ -39,7 +39,7 @@ export function ActivationModal({ isOpen, onClose }: ActivationModalProps) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="md">
+    <Modal isOpen={isOpen} onClose={onClose} size="md" ariaLabel="Activate your account">
       <div className="space-y-6">
         <div className="flex items-start gap-4">
           <span className="h-11 w-11 shrink-0 rounded-xl bg-sky-50 dark:bg-sky-950/50 flex items-center justify-center ring-1 ring-sky-200/50 dark:ring-sky-800/30">

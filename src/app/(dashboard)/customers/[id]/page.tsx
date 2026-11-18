@@ -65,8 +65,15 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
     }
   };
 
-  const handleCopyGstin = (gstin: string) => {
-    navigator.clipboard.writeText(gstin);
+  const handleCopyGstin = async (gstin: string) => {
+    // writeText() rejects if the browser blocks clipboard access, so only
+    // report success once it has actually been copied.
+    try {
+      await navigator.clipboard.writeText(gstin);
+    } catch {
+      toast.error("Couldn't copy the GSTIN. Please select and copy it manually.");
+      return;
+    }
     setCopiedGstin(true);
     toast.success('GSTIN copied to clipboard');
     setTimeout(() => setCopiedGstin(false), 2000);
@@ -74,8 +81,8 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center h-96 gap-4">
-        <Loader2 className="w-10 h-10 animate-spin text-sky-500" />
+      <div role="status" className="flex flex-col items-center justify-center h-96 gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-sky-500" aria-hidden="true" />
         <span className="text-sm font-bold text-slate-400 uppercase tracking-widest animate-pulse">Loading Customer...</span>
       </div>
     );
