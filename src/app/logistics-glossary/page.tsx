@@ -12,19 +12,19 @@ const terms: { term: string; slug: string; def: string; link?: { href: string; l
     term: 'Bilty',
     slug: 'bilty',
     def: 'A bilty is the everyday Hindi trade word for the consignment note a road transporter issues when it accepts goods. It is the same document as a GR or LR, usually printed in three copies for the driver, consignor and consignee.',
-    link: { href: '/guides/what-is-bilty', label: 'Bilty guide' },
+    link: { href: '/bilty-software', label: 'Bilty software' },
   },
   {
     term: 'GR (Goods Receipt)',
     slug: 'gr',
     def: 'A GR, or goods receipt, is the transporter’s receipt for goods accepted for carriage and the contract of carriage. It records the consignor, consignee, goods, route, freight and who pays it. GR is the usual term in north India.',
-    link: { href: '/gr-management', label: 'GR management' },
+    link: { href: '/gr-software', label: 'GR software' },
   },
   {
     term: 'LR (Lorry Receipt)',
     slug: 'lr',
     def: 'An LR, or lorry receipt, is the same document as a GR, under the name more common outside north India. It lists freight, consignor, consignee, goods and vehicle details, and is usually made in driver, consignor and consignee copies.',
-    link: { href: '/lorry-receipt-software', label: 'Lorry receipt software' },
+    link: { href: '/lr-software', label: 'LR software' },
   },
   {
     term: 'Consignment note',

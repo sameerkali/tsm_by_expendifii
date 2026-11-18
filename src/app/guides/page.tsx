@@ -22,8 +22,9 @@ const categories: {
     intro: 'What the documents on every load are called, what they prove, and which fields they need.',
     articles: ['/guides/what-is-bilty', '/guides/gr-vs-lr-vs-eway-bill', '/logistics-glossary'],
     products: [
-      { path: '/lorry-receipt-software', anchor: 'Bilty and LR software' },
-      { path: '/gr-management', anchor: 'GR creation software' },
+      { path: '/bilty-software', anchor: 'Bilty software' },
+      { path: '/lr-software', anchor: 'LR software' },
+      { path: '/gr-software', anchor: 'GR creation software' },
     ],
   },
   {

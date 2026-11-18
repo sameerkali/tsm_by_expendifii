@@ -38,6 +38,9 @@ const INFO_PATHS = [
   '/pricing',
   '/transport-billing-software',
   '/transport-software-small-business',
+  '/gr-software',
+  '/lr-software',
+  '/bilty-software',
 ];
 
 // The authenticated app shell — the only paths where "no token" should mean

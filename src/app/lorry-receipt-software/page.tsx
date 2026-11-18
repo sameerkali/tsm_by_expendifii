@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/seo';
 import { A, AnswerBox, ContentPage, DataTable, H2, OL, P, Screenshot, Strong, UL } from '@/components/content/ContentPage';
 import { SCREENSHOTS } from '@/config/screenshots';
-import { ProductVideo } from '@/components/content/ProductVideo';
 
 export const metadata: Metadata = buildPageMetadata('/lorry-receipt-software');
 
@@ -11,8 +10,8 @@ export const metadata: Metadata = buildPageMetadata('/lorry-receipt-software');
 
 const faqs = [
   {
-    q: 'What is bilty software?',
-    a: 'Bilty software, also called LR or lorry receipt software, creates, prints and stores bilties on a computer or phone instead of a carbon book. Good bilty software numbers each LR automatically, calculates freight, fills in regular customers, prints all copies with your letterhead and keeps every record searchable for years.',
+    q: 'What is lorry receipt software?',
+    a: 'Lorry receipt software creates, prints and stores LRs (also called GRs or bilty) on a computer or phone instead of a carbon book. Good LR software numbers each receipt automatically, calculates freight, fills in regular customers, prints all copies with your letterhead and keeps every LR searchable for years.',
   },
   {
     q: 'Is BiltyOne lorry receipt software free?',
@@ -32,9 +31,9 @@ export default function LorryReceiptSoftwarePage() {
   return (
     <ContentPage
       path="/lorry-receipt-software"
-      eyebrow="Bilty & LR software"
-      title="Bilty Software and LR (Lorry Receipt) Software for Transporters"
-      intro="BiltyOne is bilty software and LR software for Indian transporters. It creates a complete lorry receipt in under two minutes, numbers it, calculates the freight and prints the driver, consignor and consignee copies with your company details. Free for early transporters, online or offline."
+      eyebrow="Lorry receipt software"
+      title="Lorry Receipt Software: Every LR Field, Printed in 3 Copies"
+      intro="BiltyOne lorry receipt software creates a complete LR with every field a transporter needs, calculates the freight by KM, box, kg, quintal or ton, checks the details before saving, and prints the driver, consignor and consignee copies with your company details."
       aboutSoftware
       faqs={faqs}
       toc={[
@@ -45,12 +44,12 @@ export default function LorryReceiptSoftwarePage() {
         { id: 'checks', label: 'Checks that prevent mistakes' },
         { id: 'vs-paper', label: 'LR software vs a paper LR book' },
       ]}
-      related={['/guides/what-is-bilty', '/gr-management', '/guides/gr-vs-lr-vs-eway-bill', '/desktop']}
+      related={['/lr-software', '/bilty-software', '/gr-software', '/guides/gr-vs-lr-vs-eway-bill']}
     >
       <AnswerBox>
-        <Strong>Bilty software</Strong> (LR or lorry receipt software) replaces the carbon LR book. In BiltyOne you pick a
-        saved customer, enter the route, goods and rate, and save: the LR number and freight are filled in, and one click
-        prints driver, consignor and consignee copies with your logo, GSTIN, PAN and address. Every LR stays searchable.
+        <Strong>Lorry receipt software</Strong> replaces the carbon LR book. In BiltyOne you pick a saved customer, enter the
+        route, goods and rate, and save: the LR number and freight are filled in, and one click prints driver, consignor and
+        consignee copies with your logo, GSTIN, PAN and address. Every LR stays searchable.
       </AnswerBox>
 
       <Screenshot shot={SCREENSHOTS.grCreateForm} priority />
@@ -109,8 +108,9 @@ export default function LorryReceiptSoftwarePage() {
         stays clean. For what each field means, see <A href="/guides/what-is-bilty">what is a bilty</A>.
       </P>
       <P>
-        Once the LR is saved, BiltyOne keeps working on it: status from booking to delivery, payment, search and the
-        customer’s month-end bill. That side is covered on the <A href="/gr-management">GR creation software</A> page.
+        Issuing many LRs a day at a booking counter? See <A href="/lr-software">LR software</A> for booking offices. Still
+        writing a bilty book? See <A href="/bilty-software">bilty software</A>. After the LR is saved, status, payment,
+        search and billing are covered under <A href="/gr-management">GR management</A>.
       </P>
 
       <H2 id="how-to">How to create a lorry receipt in BiltyOne</H2>
@@ -126,7 +126,6 @@ export default function LorryReceiptSoftwarePage() {
           'Add vehicle, driver, invoice and e-way bill numbers if you have them, then save and print.',
         ]}
       />
-      <ProductVideo />
 
       <H2 id="freight">Freight calculation</H2>
       <P>BiltyOne calculates freight as rate × quantity, rounded to two decimals, using the pricing type you choose:</P>
