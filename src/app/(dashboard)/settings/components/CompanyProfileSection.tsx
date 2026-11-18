@@ -86,13 +86,19 @@ export function CompanyProfileSection({
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [copied, setCopied] = useState(false);
 
-  const handleCopyCode = () => {
-    if (user?.referralCode) {
-      navigator.clipboard.writeText(user.referralCode);
-      setCopied(true);
-      toast.success('Referral code copied!');
-      setTimeout(() => setCopied(false), 2000);
+  const handleCopyCode = async () => {
+    if (!user?.referralCode) return;
+    // writeText() rejects if the browser blocks clipboard access, so only
+    // report success once it has actually been copied.
+    try {
+      await navigator.clipboard.writeText(user.referralCode);
+    } catch {
+      toast.error("Couldn't copy the referral code. Please select and copy it manually.");
+      return;
     }
+    setCopied(true);
+    toast.success('Referral code copied!');
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const startEditing = () => {
@@ -219,7 +225,7 @@ export function CompanyProfileSection({
                 ⚠️ Account Deletion Pending
               </p>
               <p className="text-xs font-medium leading-relaxed opacity-90">
-                Your request to permanently delete this account was submitted on {new Date(deletionRequest.createdAt || deletionRequest.requestedAt || '').toLocaleDateString()}. Admin review is in progress. All records will be wiped upon approval.
+                Your request to permanently delete this account was submitted on {new Date(deletionRequest.createdAt || deletionRequest.requestedAt || '').toLocaleDateString('en-IN')}. Admin review is in progress. All records will be wiped upon approval.
               </p>
               {deletionRequest.reason && (
                 <div className="text-[10px] font-black uppercase tracking-widest mt-2 flex items-center gap-1.5 opacity-80">

@@ -12,6 +12,7 @@ import DevTools from "@/components/DevTools";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 // import NetworkStatusBanner from "@/components/NetworkStatusBanner";
 import CookieConsentBanner from "@/components/cookie/CookieConsentBanner";
+import { ToastLayer } from "@/components/shared/ToastLayer";
 import { SITE_URL } from "@/config/site";
 import { OG_IMAGE } from "@/lib/seo";
 
@@ -98,8 +99,8 @@ export default function RootLayout({
               if(dark){document.documentElement.classList.add('dark');}
               else{document.documentElement.classList.remove('dark');}
               var s=localStorage.getItem('bp-font-size')||'md';
-              var sizes={sm:'14px',md:'16px',lg:'18px',xl:'20px'};
-              document.documentElement.style.fontSize=sizes[s]||'16px';
+              var sizes={sm:'87.5%',lg:'112.5%',xl:'125%'};
+              document.documentElement.style.fontSize=sizes[s]||'';
             }catch(e){}})();`,
           }}
         />
@@ -119,7 +120,9 @@ export default function RootLayout({
             <Analytics />
             <GoogleAnalytics />
             {process.env.NODE_ENV === "development" && <DevTools />}
-            <Toaster position="top-right" richColors closeButton />
+            <ToastLayer>
+              <Toaster position="top-right" richColors closeButton />
+            </ToastLayer>
             {/* <NetworkStatusBanner /> */}
             <CookieConsentBanner />
           </QueryProvider>

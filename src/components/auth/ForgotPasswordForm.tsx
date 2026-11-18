@@ -165,7 +165,11 @@ export default function ForgotPasswordForm() {
             <input
               id="email"
               type="email"
+              autoComplete="username"
+              spellCheck={false}
               required
+              aria-invalid={errors.email ? true : undefined}
+              aria-describedby={errors.email ? 'email-error' : undefined}
               value={email}
               onChange={e => {
                 setEmail(e.target.value);
@@ -179,7 +183,7 @@ export default function ForgotPasswordForm() {
               )}
             />
             {errors.email && (
-              <p className="text-xs text-red-500 font-medium mt-1">{errors.email}</p>
+              <p id="email-error" className="text-xs text-red-500 font-medium mt-1">{errors.email}</p>
             )}
           </div>
           <button
@@ -207,6 +211,8 @@ export default function ForgotPasswordForm() {
               autoComplete="one-time-code"
               maxLength={6}
               required
+              aria-invalid={errors.otp ? true : undefined}
+              aria-describedby={errors.otp ? 'otp-error' : undefined}
               disabled={loading}
               value={otp}
               onChange={handleOtpChange}
@@ -219,7 +225,7 @@ export default function ForgotPasswordForm() {
               )}
             />
             {errors.otp && (
-              <p className="text-xs text-red-500 font-medium mt-1">{errors.otp}</p>
+              <p id="otp-error" className="text-xs text-red-500 font-medium mt-1">{errors.otp}</p>
             )}
           </div>
 
@@ -232,7 +238,10 @@ export default function ForgotPasswordForm() {
                 ref={passwordInputRef}
                 id="newPassword"
                 type={showPassword ? 'text' : 'password'}
+                autoComplete="new-password"
                 required
+                aria-invalid={errors.newPassword ? true : undefined}
+                aria-describedby={errors.newPassword ? 'newPassword-error' : undefined}
                 disabled={loading}
                 value={newPassword}
                 onChange={e => {
@@ -249,13 +258,14 @@ export default function ForgotPasswordForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors cursor-pointer"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
             {errors.newPassword && (
-              <p className="text-xs text-red-500 font-medium mt-1">{errors.newPassword}</p>
+              <p id="newPassword-error" className="text-xs text-red-500 font-medium mt-1">{errors.newPassword}</p>
             )}
           </div>
 
@@ -267,7 +277,10 @@ export default function ForgotPasswordForm() {
               <input
                 id="confirmPassword"
                 type={showConfirmPassword ? 'text' : 'password'}
+                autoComplete="new-password"
                 required
+                aria-invalid={errors.confirmPassword ? true : undefined}
+                aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}
                 disabled={loading}
                 value={confirmPassword}
                 onChange={e => {
@@ -284,13 +297,14 @@ export default function ForgotPasswordForm() {
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors cursor-pointer"
               >
                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
             {errors.confirmPassword && (
-              <p className="text-xs text-red-500 font-medium mt-1">{errors.confirmPassword}</p>
+              <p id="confirmPassword-error" className="text-xs text-red-500 font-medium mt-1">{errors.confirmPassword}</p>
             )}
           </div>
 

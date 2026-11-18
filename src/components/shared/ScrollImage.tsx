@@ -58,6 +58,11 @@ export function ScrollImage({
       return;
     }
 
+    // Browsers with scroll-driven animations run the effect in CSS instead
+    // (.scroll-image in globals.css), off the main thread. The JS below is
+    // the fallback for the rest.
+    if (CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) return;
+
     let ticking = false;
 
     const applyTransform = () => {
@@ -98,11 +103,11 @@ export function ScrollImage({
   }, []);
 
   return (
-    <div ref={containerRef} className={join('relative', containerClassName)}>
+    <div ref={containerRef} className={join('scroll-image relative', containerClassName)}>
       <div className="flex items-center justify-center overflow-hidden" style={{ perspective: '1200px' }}>
         <div
           ref={imageRef}
-          className="w-full max-w-5xl will-change-transform transform-gpu transform-3d"
+          className="scroll-image-shot w-full max-w-5xl will-change-transform transform-gpu transform-3d"
           style={{
             transform: `rotateX(${DESKTOP_RANGE.rotateX}deg) translateY(${DESKTOP_RANGE.translateY}px) translateZ(${DESKTOP_RANGE.translateZ}px) scale(${DESKTOP_RANGE.scale})`,
           }}

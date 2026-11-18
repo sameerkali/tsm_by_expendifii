@@ -23,6 +23,12 @@ type SubscriptionUser = {
   coupons?: Coupon[];
 } | null;
 
+const DATE_RANGE_FORMAT = new Intl.DateTimeFormat('en-IN', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+
 interface SubscriptionSectionProps {
   user: SubscriptionUser;
   isLoadingProfile: boolean;
@@ -54,19 +60,14 @@ export function SubscriptionSection({ user, isLoadingProfile, getDaysLeft }: Sub
 
   const activeAndScheduledCoupons = getActiveAndScheduledCoupons();
 
+  // e.g. "5 Jan – 4 Feb 2026", or "20 Dec 2025 – 19 Jan 2026" across years.
+  // formatRange() drops the parts both dates share and uses the locale's own
+  // range format, in the same en-IN style as the rest of the app.
   const formatDateRange = (startDateStr: string, endDateStr: string) => {
     const start = new Date(startDateStr);
     const end = new Date(endDateStr);
-    
-    const startMonth = start.toLocaleDateString('en-US', { month: 'short' });
-    const startDay = start.toLocaleDateString('en-US', { day: 'numeric' });
-    
-    const endMonth = end.toLocaleDateString('en-US', { month: 'short' });
-    const endDay = end.toLocaleDateString('en-US', { day: 'numeric' });
-    
-    const endYear = end.toLocaleDateString('en-US', { year: 'numeric' });
-    
-    return `${startMonth} ${startDay} to ${endMonth} ${endDay}, ${endYear}`;
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return '';
+    return DATE_RANGE_FORMAT.formatRange(start, end);
   };
 
   return (

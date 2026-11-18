@@ -20,7 +20,11 @@ export default function SmoothScroll() {
     ];
     const shouldBypass = bypassRoutes.some((route) => pathname.startsWith(route));
 
-    if (shouldBypass) {
+    // Smooth (momentum) scrolling is motion: skip it for visitors who have
+    // asked their OS for reduced motion. They get the browser's native scroll.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (shouldBypass || prefersReducedMotion) {
       return;
     }
 
@@ -43,6 +47,8 @@ export default function SmoothScroll() {
         smoothWheel: true,
         wheelMultiplier: 1.0,
         touchMultiplier: 1.2,
+        // Let modal dialogs (and their backdrops) scroll natively.
+        prevent: (node) => node.closest('dialog') !== null,
       });
       lenis = instance;
 

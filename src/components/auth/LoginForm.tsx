@@ -4,13 +4,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, type LoginInput } from "@/lib/validations/auth.schema";
 import { useAuth } from "@/hooks/useAuth";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { enterGuestMode } from "@/lib/demo/guest";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const emailId = useId();
+  const passwordId = useId();
 
   const { login, isLoggingIn } = useAuth();
 
@@ -53,9 +55,17 @@ export function LoginForm() {
               <Mail size={18} />
             </div>
 
+            <label htmlFor={emailId} className="sr-only">
+              Email address
+            </label>
             <input
               {...register("email")}
+              id={emailId}
               type="email"
+              autoComplete="username"
+              spellCheck={false}
+              aria-invalid={errors.email ? true : undefined}
+              aria-describedby={errors.email ? `${emailId}-error` : undefined}
               placeholder="Email address"
               maxLength={254}
               className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 px-10 py-4 outline-none focus:border-sky-500 dark:focus:border-sky-500 transition-colors peer placeholder:text-slate-400 dark:placeholder:text-slate-600 rounded-t-xl"
@@ -63,7 +73,7 @@ export function LoginForm() {
             />
 
             {errors.email && (
-              <p className="mt-1 text-xs text-red-500">
+              <p id={`${emailId}-error`} className="mt-1 text-xs text-red-500">
                 {errors.email.message}
               </p>
             )}
@@ -74,9 +84,18 @@ export function LoginForm() {
               <Lock size={18} />
             </div>
 
+            <label htmlFor={passwordId} className="sr-only">
+              Password
+            </label>
             <input
               {...register("password")}
+              id={passwordId}
               type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
+              aria-invalid={errors.password ? true : undefined}
+              aria-describedby={
+                errors.password ? `${passwordId}-error` : undefined
+              }
               placeholder="Password"
               maxLength={30}
               className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
@@ -85,13 +104,17 @@ export function LoginForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
 
             {errors.password && (
-              <p className="mt-1 text-xs text-red-500">
+              <p
+                id={`${passwordId}-error`}
+                className="mt-1 text-xs text-red-500"
+              >
                 {errors.password.message}
               </p>
             )}

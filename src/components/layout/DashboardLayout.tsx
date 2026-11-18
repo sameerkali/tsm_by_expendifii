@@ -104,8 +104,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   if (!hydrated || isLoading || !isAuthenticated) {
     return (
       <>
-        <div className="h-screen w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
-          <Spinner />
+        <div className="h-dvh w-full flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 space-y-6">
+          <Spinner label="Loading your dashboard" />
         </div>
         <DeactivatedAccountModal />
       </>
@@ -114,7 +114,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-sky-500/30 overflow-hidden">
+      {/* h-dvh, not h-screen (100vh): on phones 100vh is taller than the
+          visible area while the address bar shows, and with overflow-hidden
+          the bottom of the app would sit under the browser toolbar. */}
+      <div className="flex h-dvh bg-slate-50 dark:bg-slate-950 font-sans selection:bg-sky-500/30 overflow-hidden">
       {/* ── Mobile Backdrop ── */}
       {isMobileOpen && (
         <div

@@ -17,8 +17,8 @@ export default function LiveDemoPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8FAFC] dark:bg-slate-950">
-      <div className="flex flex-col items-center gap-4">
+    <div className="min-h-dvh flex flex-col items-center justify-center bg-[#F8FAFC] dark:bg-slate-950">
+      <div role="status" className="flex flex-col items-center gap-4">
         {/* Animated spinner */}
         <svg
           className="animate-spin h-10 w-10 text-[#0369A1]"

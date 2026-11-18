@@ -8,7 +8,7 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-6 font-sans selection:bg-sky-500/30">
+    <div className="min-h-dvh bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-6 font-sans selection:bg-sky-500/30">
       <div className="max-w-md w-full text-center space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
         {/* Error Code & Icon */}
         <div className="relative inline-block">

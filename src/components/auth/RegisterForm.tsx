@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useId } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterInput } from '@/lib/validations/auth.schema';
 import { useAuth } from '@/hooks/useAuth';
 import { usePincodeAutofill } from '@/hooks/usePincodeAutofill';
+import { useDismissOnOutside } from '@/hooks/useDismissOnOutside';
 import banks from '@/data/banks.json';
 import {
   User, Mail, Lock, Phone, Building, Loader2, ArrowRight, Eye, EyeOff,
@@ -35,16 +36,11 @@ function Combobox({ options, value, onChange, disabled, placeholder, icon: Icon 
     ? options.filter((o) => o.toLowerCase().includes(query.toLowerCase()))
     : options;
 
-  useEffect(() => {
-    function handleOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-        setQuery('');
-      }
-    }
-    document.addEventListener('mousedown', handleOutside);
-    return () => document.removeEventListener('mousedown', handleOutside);
-  }, []);
+  // Close on outside click, Esc, or Tab away.
+  useDismissOnOutside(containerRef, open, () => {
+    setOpen(false);
+    setQuery('');
+  });
 
   const handleSelect = (name: string) => {
     onChange(name);
@@ -453,6 +449,14 @@ function AddressBlock({ register, errors, setValue, watch }: AddressBlockProps) 
 
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const uid = useId();
+  // Links an input to its error message, so screen readers announce which
+  // field failed and why (aria-invalid + aria-describedby).
+  const errorId = (field: string) => `${uid}-${field}-error`;
+  const describe = (field: string, hasError: boolean) => ({
+    'aria-invalid': hasError ? true : undefined,
+    'aria-describedby': hasError ? errorId(field) : undefined,
+  });
   const [agreed, setAgreed] = useState(false);
   const [agreedError, setAgreedError] = useState(false);
   const { register: registerUser, isRegistering } = useAuth();
@@ -538,14 +542,18 @@ export function RegisterForm() {
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <User size={18} />
               </div>
+              <label htmlFor={`${uid}-name`} className="sr-only">Full name</label>
               <input
                 {...register('name')}
+                id={`${uid}-name`}
+                autoComplete="name"
+                {...describe('name', !!errors.name)}
                 placeholder="Full Name"
                 maxLength={60}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.name && (
-                <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>
+                <p id={errorId('name')} className="text-xs text-red-500 mt-1">{errors.name.message}</p>
               )}
             </div>
 
@@ -553,15 +561,20 @@ export function RegisterForm() {
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Mail size={18} />
               </div>
+              <label htmlFor={`${uid}-email`} className="sr-only">Email</label>
               <input
                 {...register('email')}
+                id={`${uid}-email`}
                 type="email"
+                autoComplete="username"
+                spellCheck={false}
+                {...describe('email', !!errors.email)}
                 placeholder="Email"
                 maxLength={254}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.email && (
-                <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
+                <p id={errorId('email')} className="text-xs text-red-500 mt-1">{errors.email.message}</p>
               )}
             </div>
 
@@ -569,8 +582,14 @@ export function RegisterForm() {
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Phone size={18} />
               </div>
+              <label htmlFor={`${uid}-phone`} className="sr-only">Phone number</label>
               <input
                 {...register('phone')}
+                id={`${uid}-phone`}
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel-national"
+                {...describe('phone', !!errors.phone)}
                 placeholder="Phone Number (10 digits)"
                 maxLength={10}
                 onInput={(e) => {
@@ -579,7 +598,7 @@ export function RegisterForm() {
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.phone && (
-                <p className="text-xs text-red-500 mt-1">{errors.phone.message}</p>
+                <p id={errorId('phone')} className="text-xs text-red-500 mt-1">{errors.phone.message}</p>
               )}
             </div>
 
@@ -587,9 +606,13 @@ export function RegisterForm() {
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Lock size={18} />
               </div>
+              <label htmlFor={`${uid}-password`} className="sr-only">Create password</label>
               <input
                 {...register('password')}
+                id={`${uid}-password`}
                 type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                {...describe('password', !!errors.password)}
                 placeholder="Create Password (6-30 chars)"
                 maxLength={30}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-12 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
@@ -597,12 +620,13 @@ export function RegisterForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
               {errors.password && (
-                <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>
+                <p id={errorId('password')} className="text-xs text-red-500 mt-1">{errors.password.message}</p>
               )}
             </div>
 
@@ -710,15 +734,20 @@ export function RegisterForm() {
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
                 <Mail size={18} />
               </div>
+              <label htmlFor={`${uid}-company-email`} className="sr-only">Company email</label>
               <input
                 {...register('company.email')}
+                id={`${uid}-company-email`}
                 type="email"
+                autoComplete="email"
+                spellCheck={false}
+                {...describe('company-email', !!errors.company?.email)}
                 placeholder="Company Email"
                 maxLength={254}
                 className="w-full bg-slate-50 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800 py-3 pl-10 pr-4 outline-none focus:border-sky-500 transition-all text-slate-900 dark:text-white placeholder:text-slate-400"
               />
               {errors.company?.email && (
-                <p className="text-xs text-red-500 mt-1">{errors.company.email.message}</p>
+                <p id={errorId('company-email')} className="text-xs text-red-500 mt-1">{errors.company.email.message}</p>
               )}
             </div>
           </div>

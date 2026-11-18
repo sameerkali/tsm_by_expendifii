@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 
 // No vitest globals, so Testing Library cannot unmount between tests itself.
 afterEach(() => cleanup());
@@ -36,6 +36,27 @@ describe('FAQSection heading structure', () => {
       expect(button).toHaveAttribute('aria-expanded');
       expect(button).toHaveAttribute('aria-controls');
     });
+  });
+});
+
+describe('FAQSection collapsed answers', () => {
+  const answer = (container: HTMLElement, index: number) =>
+    container.querySelector(`[data-faq-answer="${index}"]`) as HTMLElement;
+
+  it('hides collapsed answers with hidden="until-found" (out of tab order, still findable)', () => {
+    const { container } = render(<FAQSection faqs={faqs} />);
+    // The second-to-last answer starts open.
+    expect(answer(container, 1)).not.toHaveAttribute('hidden');
+    expect(answer(container, 0)).toHaveAttribute('hidden', 'until-found');
+    expect(answer(container, 2)).toHaveAttribute('hidden', 'until-found');
+  });
+
+  it('opens the answer that find-in-page matched (beforematch)', () => {
+    const { container } = render(<FAQSection faqs={faqs} />);
+    fireEvent(answer(container, 0), new Event('beforematch', { bubbles: true }));
+    const button = screen.getByRole('button', { name: 'First question?' });
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(answer(container, 0)).not.toHaveAttribute('hidden');
   });
 });
 

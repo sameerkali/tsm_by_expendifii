@@ -1,7 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+
+/** Matches the collapse transition (duration-300) on each answer. */
+const COLLAPSE_MS = 300;
 
 interface FAQ {
   q: string;
@@ -20,23 +23,54 @@ export default function FAQSection({ faqs, headingLevel = 'h2' }: FAQSectionProp
     faqs.length > 0 ? faqs.length - 2 : null
   );
 
+  const sectionRef = useRef<HTMLElement>(null);
+
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleFAQ(index);
-    }
-  };
+  // Collapsed answers get hidden="until-found": out of the tab order and the
+  // accessibility tree, yet Ctrl+F still finds them, and the browser opens
+  // the match (see beforematch below). React renders `hidden` only as a
+  // boolean, so the value is set here. Opening is immediate; closing waits
+  // for the collapse transition so the answer doesn't vanish mid-animation.
+  const hasCollapsedOnce = useRef(false);
+  useLayoutEffect(() => {
+    const answers = sectionRef.current?.querySelectorAll<HTMLElement>('[data-faq-answer]') ?? [];
+    const animate = hasCollapsedOnce.current;
+    hasCollapsedOnce.current = true;
+    const timers: number[] = [];
+    answers.forEach((answer) => {
+      if (Number(answer.dataset.faqAnswer) === openIndex) {
+        answer.removeAttribute('hidden');
+      } else if (!answer.hasAttribute('hidden')) {
+        const hide = () => answer.setAttribute('hidden', 'until-found');
+        if (animate) timers.push(window.setTimeout(hide, COLLAPSE_MS));
+        else hide();
+      }
+    });
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [openIndex, faqs]);
+
+  // Find-in-page matched text inside a collapsed answer: open that one.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const handleBeforeMatch = (event: Event) => {
+      const answer = (event.target as HTMLElement).closest<HTMLElement>('[data-faq-answer]');
+      if (answer) setOpenIndex(Number(answer.dataset.faqAnswer));
+    };
+    section.addEventListener('beforematch', handleBeforeMatch);
+    return () => section.removeEventListener('beforematch', handleBeforeMatch);
+  }, []);
 
   const leftFaqs = faqs.filter((_, i) => i % 2 === 0);
   const rightFaqs = faqs.filter((_, i) => i % 2 !== 0);
 
   return (
-    <section 
-      id="faq" 
+    <section
+      ref={sectionRef}
+      id="faq"
       className="py-24 sm:py-32 bg-[#F8FAFC] dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800/80 relative overflow-hidden" 
       aria-labelledby="faq-heading"
     >
@@ -80,7 +114,6 @@ export default function FAQSection({ faqs, headingLevel = 'h2' }: FAQSectionProp
                     <button
                       type="button"
                       onClick={() => toggleFAQ(originalIndex)}
-                      onKeyDown={(e) => handleKeyDown(e, originalIndex)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${originalIndex}`}
                       id={`faq-question-${originalIndex}`}
@@ -110,7 +143,7 @@ export default function FAQSection({ faqs, headingLevel = 'h2' }: FAQSectionProp
                       isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
                     }`}
                   >
-                    <div className="overflow-hidden">
+                    <div data-faq-answer={originalIndex} className="overflow-hidden">
                       <div className={`px-6 pb-6 pt-2 sm:px-8 sm:pb-7 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-900/50 transform transition-transform duration-300 ease-out ${
                         isOpen ? 'translate-y-0' : '-translate-y-2'
                       }`}>
@@ -141,7 +174,6 @@ export default function FAQSection({ faqs, headingLevel = 'h2' }: FAQSectionProp
                     <button
                       type="button"
                       onClick={() => toggleFAQ(originalIndex)}
-                      onKeyDown={(e) => handleKeyDown(e, originalIndex)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${originalIndex}`}
                       id={`faq-question-${originalIndex}`}
@@ -171,7 +203,7 @@ export default function FAQSection({ faqs, headingLevel = 'h2' }: FAQSectionProp
                       isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
                     }`}
                   >
-                    <div className="overflow-hidden">
+                    <div data-faq-answer={originalIndex} className="overflow-hidden">
                       <div className={`px-6 pb-6 pt-2 sm:px-8 sm:pb-7 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-900/50 transform transition-transform duration-300 ease-out ${
                         isOpen ? 'translate-y-0' : '-translate-y-2'
                       }`}>

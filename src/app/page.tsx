@@ -179,7 +179,10 @@ export default function HomePage() {
         <section
           id="hero"
           className={cn(
-            'relative overflow-hidden bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800',
+            // overflow: clip (where supported) clips like overflow: hidden but
+            // isn't a scroll container, so the ScrollImage's scroll-driven
+            // animation tracks the page scroll instead of this section.
+            'relative overflow-hidden supports-[overflow:clip]:overflow-clip bg-[#F8FAFC] dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800',
             // Pulled up over <main>'s pt-20 so the beam covers the strip behind
             // the floating navbar too, instead of leaving main's own grid
             // pattern visible there (a mismatched seam right under the navbar).

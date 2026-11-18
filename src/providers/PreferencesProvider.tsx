@@ -5,11 +5,17 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 export type Theme = 'light' | 'dark' | 'system';
 export type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 
+/**
+ * Root font size per setting, as a percentage of the user's own default
+ * (browser or OS text size), so their setting still applies on top. 'md'
+ * sets nothing and leaves their default alone. Keep in sync with the
+ * pre-paint script in app/layout.tsx.
+ */
 export const FONT_SIZE_MAP: Record<FontSize, string> = {
-  sm: '14px',
-  md: '16px',
-  lg: '18px',
-  xl: '20px',
+  sm: '87.5%',
+  md: '',
+  lg: '112.5%',
+  xl: '125%',
 };
 
 const ALLOWED_THEMES: Theme[] = ['light', 'dark', 'system'];
@@ -55,7 +61,7 @@ function applyDarkClass(resolved: 'light' | 'dark') {
   }
 }
 
-/** Apply font size to <html> */
+/** Apply font size to <html> ('' removes the override) */
 function applyFontSize(size: FontSize) {
   document.documentElement.style.fontSize = FONT_SIZE_MAP[size];
 }
