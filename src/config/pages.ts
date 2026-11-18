@@ -123,6 +123,19 @@ export const PUBLIC_PAGES: PublicPage[] = [
     priority: 0.9,
   },
   {
+    path: '/transport-billing-software',
+    title: 'Transport Billing Software for Freight Bills | BiltyOne',
+    description:
+      'Transport billing software for Indian transporters: freight calculated on every GR, Paid, To Pay and To Be Billed tracking, and one-click freight bills.',
+    label: 'Transport Billing Software',
+    summary: 'Freight billing for transporters: freight calculation, billing types, payment status and customer freight bills.',
+    section: 'solution',
+    datePublished: '2026-11-18',
+    lastModified: '2026-11-18',
+    changeFrequency: 'monthly',
+    priority: 0.9,
+  },
+  {
     path: '/transport-erp-software',
     title: 'Transport ERP Software vs TMS for Indian Transporters',
     description:

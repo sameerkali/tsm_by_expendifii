@@ -48,6 +48,7 @@ const categories: {
     intro: 'Moving off the paper GR book, and the office work software can take off your hands.',
     articles: ['/guides/paper-gr-book-to-software', '/transport-business-automation'],
     products: [
+      { path: '/transport-billing-software', anchor: 'Transport billing software' },
       { path: '/product', anchor: 'Product tour' },
       { path: '/online-transport-management-software', anchor: 'Online transport software' },
       { path: '/desktop', anchor: 'Offline desktop app' },

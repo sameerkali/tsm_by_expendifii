@@ -43,6 +43,13 @@ export const SCREENSHOTS = {
     alt: 'BiltyOne Printing tab listing customers with a Print GRs button to download a freight bill for a date range',
     caption: 'The Printing tab: pick a customer and a date range to download their freight bill with every GR attached.',
   },
+  freightBillExport: {
+    src: '/screenshots/freight-bill-export.avif',
+    width: 1920,
+    height: 1200,
+    alt: 'BiltyOne Export GR Report dialog for customer Sharma Traders with a start date, an optional end date and a Download Statement button',
+    caption: 'Billing a customer: pick the date range and download one freight bill covering every GR in it.',
+  },
   grListMobile: {
     src: '/screenshots/gr-list-mobile.avif',
     width: 739,

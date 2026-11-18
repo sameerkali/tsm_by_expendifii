@@ -16,6 +16,7 @@ describe('sitemap.xml', () => {
       '/online-transport-management-software',
       '/transport-company-software',
       '/transport-management-system-for-small-business',
+      '/transport-billing-software',
       '/transport-erp-software',
     ]) {
       expect(urls).toContain(`https://biltyone.com${path}`);
