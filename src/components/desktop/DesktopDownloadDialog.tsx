@@ -6,8 +6,11 @@ import { useModalDialog } from '@/hooks/useModalDialog';
 import { CheckCircle2, Download, Loader2, X } from 'lucide-react';
 import { apiErrorMessage, desktopApi } from '@/lib/api/desktop.api';
 import { trackEvent } from '@/lib/analytics';
+import { isDisposableEmail } from '@/lib/validation/disposable-email';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const DISPOSABLE_EMAIL_ERROR = "Temporary email addresses aren't allowed. Please use your official email address.";
 
 interface DesktopDownloadDialogProps {
   open: boolean;
@@ -57,6 +60,11 @@ export function DesktopDownloadDialog({ open, onClose }: DesktopDownloadDialogPr
     }
     if (!EMAIL_RE.test(value)) {
       setError('Enter a valid email address, like name@company.com.');
+      inputRef.current?.focus();
+      return;
+    }
+    if (isDisposableEmail(value)) {
+      setError(DISPOSABLE_EMAIL_ERROR);
       inputRef.current?.focus();
       return;
     }
@@ -183,6 +191,12 @@ export function DesktopDownloadDialog({ open, onClose }: DesktopDownloadDialogPr
                   {error && (
                     <p id={errorId} role="alert" className="text-sm font-medium text-red-700 dark:text-red-400">
                       {error}
+                      {error === DISPOSABLE_EMAIL_ERROR && (
+                        <span className="mt-1.5 block font-normal text-slate-600 dark:text-slate-400">
+                          And please don&apos;t take us for another vibe-coded platform. BiltyOne is real software
+                          built by a real team, so your trial key deserves a real inbox.
+                        </span>
+                      )}
                     </p>
                   )}
                 </div>
