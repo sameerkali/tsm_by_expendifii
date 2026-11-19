@@ -29,7 +29,7 @@ import { DesktopDownloadButton } from '@/components/desktop/DesktopDownloadButto
 
 const PAGE_URL = absoluteUrl('/desktop');
 const DESCRIPTION =
-  'Download BiltyOne Desktop for Windows. Create, print and search GRs without internet. Free download and free licence key for Indian transporters.';
+  'Download BiltyOne Desktop for Windows. Create, print and search GRs without internet. Free download with a 7-day trial key for Indian transporters.';
 
 export const metadata: Metadata = buildPageMetadata('/desktop');
 
@@ -40,7 +40,7 @@ const steps = [
   {
     icon: Download,
     title: 'Download',
-    body: 'Enter your email and we send you the download link straight away.',
+    body: 'Enter your email and we send you the download link and a free 7-day trial key straight away.',
   },
   {
     icon: FolderArchive,
@@ -49,8 +49,8 @@ const steps = [
   },
   {
     icon: KeyRound,
-    title: 'Get your free key',
-    body: 'Use the link in the email to ask for a licence key. It is free, and we usually reply within one business day.',
+    title: 'Find your trial key',
+    body: 'Your free 7-day trial key is in the same email. The 7 days start when you activate it, not when it is sent.',
   },
   {
     icon: Power,
@@ -69,20 +69,20 @@ const comparison = [
   },
   { label: 'Sign in', web: 'From anywhere, with your account', desktop: 'No account. The app is tied to that one computer' },
   { label: 'Dashboard and analytics', web: 'Included', desktop: 'Not included' },
-  { label: 'Price', web: 'Free for early transporters', desktop: 'Free download and free licence key' },
+  { label: 'Price', web: 'Free for early transporters', desktop: 'Free download and 7-day trial. Contact us for a full key' },
 ];
 
 const requirements = [
   { icon: Monitor, text: 'Windows 10 or Windows 11, 64-bit' },
   { icon: Wifi, text: 'Internet once, to activate your key' },
   { icon: UserCheck, text: 'No administrator rights. It installs for your Windows user' },
-  { icon: KeyRound, text: 'A free licence key, sent to you by email' },
+  { icon: KeyRound, text: 'A licence key. A free 7-day trial key comes with the download email' },
 ];
 
 const faqs = [
   {
     q: 'Is BiltyOne Desktop free?',
-    a: 'Yes. The download is free and the licence key is free. Ask for your key with the link in the download email, or from the licence key page.',
+    a: 'The download is free, and the download email includes a free 7-day trial key. The 7 days start when you activate it. To keep using BiltyOne after the trial, contact us for a full licence key.',
   },
   {
     q: 'Do I need internet to use it?',
@@ -394,16 +394,16 @@ export default function DesktopPage() {
 
             <div className="flex flex-col justify-center rounded-2xl border border-sky-100 bg-linear-to-br from-sky-50 to-white p-8 sm:p-10 dark:border-sky-900/40 dark:from-sky-950/40 dark:to-slate-900">
               <ShieldCheck size={28} strokeWidth={1.75} className="text-[#0369A1] dark:text-sky-400" aria-hidden="true" />
-              <h3 className="mt-5 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Licence keys are free</h3>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Try it free for 7 days</h3>
               <p className="mt-3 leading-relaxed text-slate-600 dark:text-slate-400">
-                The first time you open BiltyOne Desktop, it asks for a licence key. Ask for one and we email it to you,
-                usually within one business day. One key works on one computer.
+                The download email includes a free 7-day trial key. The 7 days start when you activate it in the app.
+                For a full licence key after the trial, contact us. One key works on one computer.
               </p>
               <Link
-                href="/desktop/licence-key"
+                href="/contact"
                 className="mt-7 inline-flex items-center gap-2 self-start rounded-xl border border-[#0369A1] px-5 py-3 text-sm font-semibold text-[#0369A1] transition-colors hover:bg-[#0369A1] hover:text-white active:translate-y-px dark:border-sky-400 dark:text-sky-400 dark:hover:bg-sky-400 dark:hover:text-slate-950"
               >
-                Request a free key
+                Contact us for a full key
                 <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
               </Link>
             </div>

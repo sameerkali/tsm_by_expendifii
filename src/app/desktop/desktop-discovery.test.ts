@@ -3,14 +3,11 @@ import sitemap from '../sitemap';
 import { GET as llmsTxt } from '../llms.txt/route';
 import { getMarkdownForPath, MARKDOWN_NEGOTIATED_PATHS, SITE_URL } from '@/lib/agent-content';
 
-// The /desktop page should be findable by search engines and AI agents,
-// while the licence-key page (reached from the download email) stays out of
-// the sitemap.
+// The /desktop page should be findable by search engines and AI agents.
 describe('BiltyOne Desktop page discovery', () => {
-  it('is in the sitemap; the licence-key page is not', () => {
+  it('is in the sitemap', () => {
     const urls = sitemap().map((r) => r.url);
     expect(urls).toContain('https://biltyone.com/desktop');
-    expect(urls).not.toContain('https://biltyone.com/desktop/licence-key');
   });
 
   it('has a markdown rendition for agents', () => {

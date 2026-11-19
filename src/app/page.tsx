@@ -528,7 +528,7 @@ export default function HomePage() {
                   Online, or offline on Windows
                 </h2>
                 <p className="mt-3 text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Use BiltyOne online in any browser, or install BiltyOne Desktop on your Windows PC: it needs internet only once, to activate. Free download, free licence key.{' '}
+                  Use BiltyOne online in any browser, or install BiltyOne Desktop on your Windows PC: it needs internet only once, to activate. Free download with a 7-day trial.{' '}
                   <Link href="/online-transport-management-software" className="font-semibold text-sky-700 dark:text-sky-400 hover:underline">
                     Compare online and desktop
                   </Link>

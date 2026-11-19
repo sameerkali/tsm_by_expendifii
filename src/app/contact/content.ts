@@ -17,7 +17,7 @@ export const HELP_TOPICS: { title: string; body: string }[] = [
   },
   {
     title: 'BiltyOne Desktop',
-    body: 'Moving your licence key to a new computer, or restoring records from your latest weekly backup copy.',
+    body: 'A full licence key after your trial, moving your key to a new computer, or restoring records from your latest weekly backup copy.',
   },
   {
     title: 'Partnerships',

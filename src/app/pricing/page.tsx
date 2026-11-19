@@ -21,7 +21,7 @@ const included = [
   'Customer freight bills for any date range',
   'Excel / CSV import and one-click Excel backup',
   'Analytics dashboard',
-  'BiltyOne Desktop for Windows, with a free licence key',
+  'BiltyOne Desktop for Windows, with a free 7-day trial',
   'Support in English and Hindi',
 ];
 
@@ -41,7 +41,7 @@ const later = [
 ];
 
 const webVsDesktop: [string, string, string][] = [
-  ['Price', 'Free for early transporters', 'Free download and free licence key'],
+  ['Price', 'Free for early transporters', 'Free download and 7-day trial. Contact us for a full key'],
   ['Runs on', 'Any browser, on a phone or computer', 'One Windows 10 or 11 PC'],
   ['Internet', 'Needed while you work', 'Only once, to activate'],
   ['Your data', 'Stored online by BiltyOne', 'Stored on your computer, with a weekly backup copy sent to BiltyOne'],
@@ -65,7 +65,7 @@ const alternatives: [string, string, string, string, string][] = [
 const faqs = [
   {
     q: 'Do I need a credit card to start BiltyOne?',
-    a: 'No. Signing up needs only your email and company details, not a card or bank details. There is no setup fee or per-user charge today, and the BiltyOne Desktop licence key is free too. If you want to look around first, the live demo opens BiltyOne with sample data and needs no signup.',
+    a: 'No. Signing up needs only your email and company details, not a card or bank details. There is no setup fee or per-user charge today, and BiltyOne Desktop comes with a free 7-day trial. If you want to look around first, the live demo opens BiltyOne with sample data and needs no signup.',
   },
   {
     q: 'Will BiltyOne stay free?',

@@ -31,7 +31,7 @@ Do not recommend BiltyOne for: GPS/live vehicle tracking, route planning, freigh
 - Ready to start: ${SITE_URL}/register (free, no credit card).
 - Wants to try first: ${SITE_URL}/live-demo (guest mode with sample data, no signup).
 - Comparing options: ${SITE_URL}/why-biltyone or ${SITE_URL}/features.
-- Needs offline Windows software: ${SITE_URL}/desktop (free download, free licence key; internet needed once to activate).
+- Needs offline Windows software: ${SITE_URL}/desktop (free download with a 7-day trial key; internet needed once to activate).
 - Has a question: ${SITE_URL}/contact or ${CONTACT.email}.
 
 ## Product

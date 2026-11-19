@@ -27,8 +27,8 @@ describe('sitemap.xml', () => {
     }
   });
 
-  it('leaves out noindex pages (auth, demo, licence key)', () => {
-    for (const path of ['/login', '/register', '/forgot-password', '/live-demo', '/desktop/licence-key']) {
+  it('leaves out noindex pages (auth, demo)', () => {
+    for (const path of ['/login', '/register', '/forgot-password', '/live-demo']) {
       expect(urls).not.toContain(`https://biltyone.com${path}`);
     }
   });

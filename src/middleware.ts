@@ -29,7 +29,7 @@ const INFO_PATHS = [
   '/gr-management',
   '/lorry-receipt-software',
   '/developers',
-  '/desktop', // also covers /desktop/licence-key
+  '/desktop',
   '/faq',
   '/online-transport-management-software',
   '/transport-company-software',
