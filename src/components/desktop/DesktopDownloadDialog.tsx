@@ -18,8 +18,8 @@ type Phase = 'form' | 'sending' | 'sent';
 
 /**
  * "Email me the download link" dialog for BiltyOne Desktop. The backend
- * emails the installer link the admin set in the panel, plus a link to
- * request a free licence key.
+ * emails the installer link the admin set in the panel, plus a free 7-day
+ * trial key.
  */
 export function DesktopDownloadDialog({ open, onClose }: DesktopDownloadDialogProps) {
   const [email, setEmail] = useState('');
@@ -117,7 +117,7 @@ export function DesktopDownloadDialog({ open, onClose }: DesktopDownloadDialogPr
                 arrives within a minute. If you don&apos;t see it, check your Spam or Promotions folder.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                The email also has a link to get your free licence key.
+                The email also has your free 7-day trial key.
               </p>
               <div className="mt-7 flex flex-col gap-2">
                 <button
@@ -147,7 +147,7 @@ export function DesktopDownloadDialog({ open, onClose }: DesktopDownloadDialogPr
                 Get BiltyOne for Windows
               </h2>
               <p id={descId} className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                Enter your email and we&apos;ll send you the download link, plus a link to get your free licence key.
+                Enter your email and we&apos;ll send you the download link and a free 7-day trial key.
               </p>
 
               <form onSubmit={handleSubmit} noValidate className="mt-6">

@@ -108,7 +108,7 @@ export default function OnlineTransportManagementSoftwarePage() {
           ['Backups', 'Online, plus Excel download', 'Backup file, auto-backups and Excel', 'None'],
           ['Updates', 'Automatic', 'Installed by you', 'Not applicable'],
           ['Dashboard', 'Included', 'Not included', 'No'],
-          ['Cost', 'Free for early transporters', 'Free download and licence key', 'Books, carbon and staff time'],
+          ['Cost', 'Free for early transporters', 'Free download, 7-day trial', 'Books, carbon and staff time'],
         ]}
       />
 

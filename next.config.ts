@@ -38,6 +38,13 @@ const nextConfig: NextConfig = {
         destination: "/transport-software-small-business",
         permanent: true,
       },
+      // The licence key request page is gone: the download email now carries
+      // a trial key. Older emails still link here.
+      {
+        source: "/desktop/licence-key",
+        destination: "/desktop",
+        permanent: true,
+      },
       // BiltyOne Desktop's activation screen links to /support. There is no
       // support page yet, so send people to Contact (temporary, so a real
       // /support page can replace it later).
