@@ -1,0 +1,16 @@
+# Historical findings verified as non-exploitable. Do not add live secrets here —
+# rotate the credential and remove it from the code instead.
+#
+# Jetro MCP "JET_JWT" (Firebase ID token, project jetro-cdaef) committed 2026-05-30
+# in .mcp.json / .cursor/mcp.json / .jetro/mcp-config.json and removed from the
+# tree in b1f0f60 / 5694d7f. Firebase ID tokens live 1h: both expired 2026-05-30
+# (exp 1780132097, 1780140492). No refresh token was committed.
+ce8b60f04a3b2e8242e0e47926cadba5fadffc15:.cursor/mcp.json:jwt:12
+ce8b60f04a3b2e8242e0e47926cadba5fadffc15:.jetro/mcp-config.json:jwt:11
+ce8b60f04a3b2e8242e0e47926cadba5fadffc15:.mcp.json:jwt:12
+ed950f0c56cb09cfde108e20c4a844db7410d58f:.cursor/mcp.json:jwt:12
+ed950f0c56cb09cfde108e20c4a844db7410d58f:.jetro/mcp-config.json:jwt:11
+ed950f0c56cb09cfde108e20c4a844db7410d58f:.mcp.json:jwt:12
+ff1ffabac2ab8a80279fbec4335613c68d7a9c78:.cursor/mcp.json:jwt:12
+ff1ffabac2ab8a80279fbec4335613c68d7a9c78:.jetro/mcp-config.json:jwt:11
+ff1ffabac2ab8a80279fbec4335613c68d7a9c78:.mcp.json:jwt:12

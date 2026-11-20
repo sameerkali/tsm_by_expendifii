@@ -1,0 +1,21 @@
+# gitleaks config — https://github.com/gitleaks/gitleaks
+# Uses the full default ruleset; only adds path allowlists for generated,
+# gitignored output so `gitleaks dir .` stays signal-only locally.
+title = "tsm_frontend gitleaks config"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated / vendored output (gitignored, never committed)"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)\.next/''',
+  '''(^|/)out/''',
+  '''(^|/)build/''',
+  '''(^|/)coverage/''',
+  '''(^|/)\.playwright-cli/''',
+  '''(^|/)\.unlighthouse/''',
+  '''\.tsbuildinfo$''',
+  '''(^|/)package-lock\.json$''',
+]
