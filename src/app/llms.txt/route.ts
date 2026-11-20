@@ -59,6 +59,8 @@ ${link('company')}
 ${link('legal')}
 `;
 
+export const dynamic = 'force-static';
+
 export function GET() {
   return new NextResponse(LLMS_TXT, {
     status: 200,

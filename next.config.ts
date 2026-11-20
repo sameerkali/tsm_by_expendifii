@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   // it (smallest files), WebP otherwise.
   images: {
     formats: ["image/avif", "image/webp"],
+    // 31 days. Next has no image-cache invalidation: rename a file when you replace it.
+    minimumCacheTTL: 2678400,
+    // Default minus 2048 and 3840: every extra width is another slow first encode.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   },
   async redirects() {
     return [

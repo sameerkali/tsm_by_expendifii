@@ -66,6 +66,7 @@ async function handleProxy(request: NextRequest, pathSegments?: string[]) {
       headers,
       body,
       redirect: 'manual',
+      signal: AbortSignal.timeout(30_000), // matches the axios client timeout
     });
 
     const responseHeaders = new Headers();
@@ -88,7 +89,6 @@ async function handleProxy(request: NextRequest, pathSegments?: string[]) {
     // Handle Set-Cookie modifications directly on responseHeaders
     // to bypass NextJS NextResponse cookie serialization bugs
     const setCookie = backendResponse.headers.get('set-cookie');
-    console.log(`[Proxy] Response from backend for ${method} ${path}. Set-Cookie:`, setCookie);
 
     if (setCookie) {
       const cookiesToSet = typeof (backendResponse.headers as any).getSetCookie === 'function'
@@ -136,24 +136,18 @@ async function handleProxy(request: NextRequest, pathSegments?: string[]) {
           }
         });
 
-        const modifiedCookie = cookieParts.join('; ');
-        console.log(`[Proxy] Appending modified Set-Cookie: ${name}=${value?.slice(0, 15)}...`);
-        responseHeaders.append('set-cookie', modifiedCookie);
+        responseHeaders.append('set-cookie', cookieParts.join('; '));
       });
     } else {
       responseHeaders.delete('set-cookie');
     }
 
-    const data = await backendResponse.arrayBuffer();
-
-    const response = new NextResponse(data, {
+    // Stream, don't buffer: faster for large bodies (PDFs), and a null body keeps 204/304 valid.
+    return new NextResponse(backendResponse.body, {
       status: backendResponse.status,
       statusText: backendResponse.statusText,
       headers: responseHeaders,
     });
-
-    console.log(`[Proxy] Completed ${method} ${path}. Status: ${backendResponse.status}`);
-    return response;
   } catch (error: any) {
     console.error(`[Proxy Error] Failed to proxy ${method} to ${targetUrl.toString()}:`, error);
     return NextResponse.json(
