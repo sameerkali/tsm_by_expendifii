@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "perf:report": "unlighthouse-ci --build-static --reporter jsonExpanded",
-    "perf:live": "unlighthouse"
+    "perf:live": "unlighthouse",
+    "secrets:scan": "gitleaks git --redact -v --no-banner ."
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
